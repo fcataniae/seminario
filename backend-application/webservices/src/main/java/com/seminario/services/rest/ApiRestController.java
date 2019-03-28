@@ -2,6 +2,7 @@ package com.seminario.services.rest;
 
 
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 /**
  * User: fcatania
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/service")
+@CrossOrigin
+@Scope("session")
 public class ApiRestController {
 
     private ApiRestController(){};
@@ -20,4 +23,8 @@ public class ApiRestController {
         return "Prueba";
     }
 
+    @GetMapping("/authenticate")
+    public String authentucate(){
+        return "";
+    }
 }

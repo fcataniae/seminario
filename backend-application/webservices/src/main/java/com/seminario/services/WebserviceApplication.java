@@ -1,10 +1,12 @@
 package com.seminario.services;
 
 import com.seminario.backend.BackendApplication;
+import com.seminario.services.security.WebSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.WebApplicationInitializer;
 
@@ -15,7 +17,8 @@ import org.springframework.web.WebApplicationInitializer;
  */
 @SpringBootApplication
 @Import({BackendApplication.class})
-public class WebserviceApplication  extends SpringBootServletInitializer implements WebApplicationInitializer {
+@ComponentScan({"com.seminario.services"})
+public class WebserviceApplication  extends SpringBootServletInitializer {
 
     public static void main(String[] args){
         SpringApplication.run(WebserviceApplication.class, args);
