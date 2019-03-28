@@ -1,20 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginCmpComponent } from './login-cmp/login-cmp.component';
+import { LoginComponent } from './login/login.component';
+
+
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginCmpComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
