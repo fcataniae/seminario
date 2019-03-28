@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd85e71-f274-4935-848d-d4d951ee5f8f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/dto/DTOUser.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/frontend-application/src/img/walm.jpg" afterPath="$PROJECT_DIR$/frontend-application/src/assets/img/walm.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/services/IdentityManager.class" afterPath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/services/IdentityManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/rest/ApiRestController.class" afterPath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/rest/ApiRestController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/CustomAuthenticationProvider.class" afterPath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/CustomAuthenticationProvider.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/WebSecurityConfig.class" afterPath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/WebSecurityConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/services/IdentityManager.java" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/services/IdentityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java" afterPath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/CustomAuthenticationProvider.java" afterPath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/CustomAuthenticationProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/WebSecurityConfig.java" afterPath="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/WebSecurityConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/app/app.component.html" afterPath="$PROJECT_DIR$/frontend-application/src/app/app.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.spec.ts" afterPath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.spec.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" afterPath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/environments/environment.prod.ts" afterPath="$PROJECT_DIR$/frontend-application/src/environments/environment.prod.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/environments/environment.ts" afterPath="$PROJECT_DIR$/frontend-application/src/environments/environment.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/index.html" afterPath="$PROJECT_DIR$/frontend-application/src/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/styles.css" afterPath="$PROJECT_DIR$/frontend-application/src/styles.css" />
     </list>
     <ignored path="seminario.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.service.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.service.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+            <state relative-caret-position="187">
+              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -135,11 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiRestController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApiRestController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+            <state relative-caret-position="357">
+              <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
               <folding />
             </state>
           </provider>
@@ -191,12 +174,12 @@
         <option value="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/CustomAuthenticationProvider.java" />
         <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/services/IdentityManager.java" />
         <option value="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/RestAuthenticationEntryPoint.java" />
-        <option value="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app.component.html" />
         <option value="$PROJECT_DIR$/frontend-application/src/styles.css" />
         <option value="$PROJECT_DIR$/frontend-application/src/index.html" />
         <option value="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
       </list>
     </option>
   </component>
@@ -1280,16 +1263,16 @@
       <workItem from="1553779281119" duration="1287000" />
       <workItem from="1553782006114" duration="592000" />
       <workItem from="1553788240850" duration="4193000" />
-      <workItem from="1553794499065" duration="7465000" />
+      <workItem from="1553794499065" duration="7852000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17292000" />
+    <option name="totallyTimeSpent" value="17679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1299,9 +1282,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1196347" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43445286" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43445286" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32827735" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33152762" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1679,7 +1662,7 @@
         <state relative-caret-position="-995">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1736,16 +1719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/WebSecurityConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1778,9 +1751,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        <state relative-caret-position="357">
+          <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

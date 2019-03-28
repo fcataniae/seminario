@@ -13,7 +13,9 @@ export class LoginService {
 
   login(username:string, password:string): Observable<User> {
     console.log(username + '   ' + password);
-
-    return this._http.get<User>( environment.serviceUrl + 'login' );
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization", "Basic " + btoa(username+':'+password));
+    headers = headers.append("Content-Type", "application/json");
+    return this._http.get<User>( environment.serviceUrl + 'login' , {headers: headers});
   }
 }
