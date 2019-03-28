@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-
+import { User }  from './../model/user.model';
+import { HttpHeaders } from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class LoginService {
 
-  constructor(private http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
-  login(username:string, password:string): Observable<string> {
+  login(username:string, password:string): Observable<User> {
     console.log(username + '   ' + password);
-    return this.http.get<string>('https://api.github.com/users/fcataniae');
-    // return this.http.post('https://reqres.in/api/login', {
-    //   email: username,
-    //   password: password,
-    // });
+
+    return this._http.get<User>( environment.serviceUrl + 'login' );
   }
 }

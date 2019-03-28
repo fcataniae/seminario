@@ -40,7 +40,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if( identityManager.authenticateUser(name, password)) {
             auth = new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
 
-
         } else {
             throw new AuthenticationServiceException("Datos Incorrectos");
         }

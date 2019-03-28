@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  logUrl: 'restservice/api/logs',
+  serviceUrl: location.protocol + '//' + location.host + '/service/',
 };

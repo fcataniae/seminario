@@ -2,6 +2,7 @@ package com.seminario.services.rest;
 
 
 
+import com.seminario.backend.dto.DTOUser;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 /**
@@ -18,13 +19,11 @@ public class ApiRestController {
 
     private ApiRestController(){};
 
-    @GetMapping("/getprueba")
-    public String getPrueba(){
-        return "Prueba";
+    @GetMapping("/login")
+    public DTOUser getPrueba(){
+        DTOUser user = new DTOUser("Franco","Catania","cataniafrane@gmail.com","137854");
+        return user;
     }
 
-    @GetMapping("/authenticate")
-    public String authentucate(){
-        return "";
-    }
+
 }

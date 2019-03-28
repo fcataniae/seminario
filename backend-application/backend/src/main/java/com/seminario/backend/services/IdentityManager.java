@@ -1,6 +1,5 @@
 package com.seminario.backend.services;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +13,7 @@ public class IdentityManager {
 
 
     public boolean authenticateUser(String name, String password) {
-        System.out.println("name"+name);
+        System.out.println("name "+name + " pass " + password);
         return name.equals("fcatania") && password.equals("pass");
     }
 }
