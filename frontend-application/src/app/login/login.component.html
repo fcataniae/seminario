@@ -1,9 +1,9 @@
 <div class="container">
-  <h1>Iniciar sesión</h1>
+  <h3>Iniciar sesión</h3>
 
-  <form class="form-inline">
-    <input type="text" class="form-control center" #username name="username" placeholder="Usuario">
-    <input type="password" class="form-control center" #password name="password" placeholder="Contraseña">
-    <button type="submit" class="btn btn-info center" (click)="logIn(username.value, password.value, $event)" id="login-button">Login</button>
+  <form class="form">
+    <input type="text" class="form-control " #username name="username" placeholder="Usuario">
+    <input type="password" class="form-control " #password name="password" placeholder="Contraseña">
+    <button type="submit" class="btn btn-info " (click)="logIn(username.value, password.value, $event)" id="login-button">Login</button>
   </form>
 </div>
