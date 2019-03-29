@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4bd85e71-f274-4935-848d-d4d951ee5f8f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" afterPath="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
-    </list>
+    <list default="true" id="4bd85e71-f274-4935-848d-d4d951ee5f8f" name="Default" comment="" />
     <ignored path="seminario.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -1263,12 +1261,12 @@
       <workItem from="1553779281119" duration="1287000" />
       <workItem from="1553782006114" duration="592000" />
       <workItem from="1553788240850" duration="4193000" />
-      <workItem from="1553794499065" duration="7852000" />
+      <workItem from="1553794499065" duration="7977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17679000" />
+    <option name="totallyTimeSpent" value="17804000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
