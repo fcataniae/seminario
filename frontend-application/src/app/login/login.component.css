@@ -5,9 +5,13 @@ input, button, h3 {
   margin: 10px ;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  min-width: 250px;
+  width: 30%;
   padding: 10px;
 
+}
+form{
+  padding-top: 5%;
 }
 input, button {
   display: block;

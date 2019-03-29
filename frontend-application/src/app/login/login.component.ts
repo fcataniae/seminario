@@ -10,6 +10,7 @@ import { User } from './../model/user.model';
 })
 export class LoginComponent implements OnInit {
 
+  isLoggedIn: Boolean = null;
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
@@ -22,11 +23,12 @@ export class LoginComponent implements OnInit {
 
         res => {
          console.log(res);
+         this.isLoggedIn = true;
 
         },
         error => {
           console.error(error);
-
+          this.isLoggedIn = false;
         }
 
       //  () => this.navigate()
