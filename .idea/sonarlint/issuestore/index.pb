@@ -63,3 +63,7 @@ Z
 *frontend-application/src/app/app.module.ts,c\5\c53b5c980b57c63d4a58fdb93869da48c402eb04
 f
 6frontend-application/src/app/services/login.service.ts,7\6\76c2c7c3c41bc889baadee23840d216c1df4e567
+e
+5frontend-application/src/app/services/user.service.ts,9\0\90b62c61d539c819cabeb3ef1185ba2cbc56a53e
+j
+:frontend-application/src/app/services/user.service.spec.ts,c\a\ca23925f32edbc9baba876bb40560f8caf3368f9

@@ -24,7 +24,9 @@ export class UserService {
   	return JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  isUserLogged(): Boolean{
-    return this.isUserLoggedIn;
+  setLogOut() {
+    this.usserLogged = null;
+    this.isUserLoggedIn = false;
+    localStorage.setItem('currentUser', JSON.stringify(this.usserLogged));
   }
 }
