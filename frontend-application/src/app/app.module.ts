@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 
 
 import { LoginService } from './services/login.service';
+import { UserService } from './services/user.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 
@@ -26,7 +27,8 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule
   ],
   providers: [
-    LoginService
+    LoginService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
