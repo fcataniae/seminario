@@ -1,5 +1,6 @@
 package com.seminario.backend.services;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class IdentityManager {
 
-
+    Logger log = Logger.getLogger("wsSeminario");
 
     public boolean authenticateUser(String name, String password) {
         System.out.println("name "+name + " pass " + password);

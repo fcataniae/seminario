@@ -24,6 +24,9 @@ public class ApiRestController {
         DTOUser user = new DTOUser("Franco","Catania","cataniafrane@gmail.com","137854");
         return user;
     }
-
+    @GetMapping("/prueba")
+    public String prueba(){
+        return "la prueba funciona!";
+    }
 
 }

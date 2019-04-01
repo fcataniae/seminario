@@ -16,17 +16,17 @@ export class UserService {
   setUserLoggedIn(user:User) {
     this.isUserLoggedIn = true;
     this.usserLogged = user;
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
 
   }
 
   getUserLoggedIn(): User {
-  	return JSON.parse(localStorage.getItem('currentUser'));
+  	return JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   setLogOut() {
     this.usserLogged = null;
     this.isUserLoggedIn = false;
-    localStorage.setItem('currentUser', JSON.stringify(this.usserLogged));
+    sessionStorage.setItem('currentUser', JSON.stringify(this.usserLogged));
   }
 }

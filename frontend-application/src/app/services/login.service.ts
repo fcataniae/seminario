@@ -14,8 +14,14 @@ export class LoginService {
   login(username:string, password:string): Observable<User> {
     console.log(username + '   ' + password);
     let headers = new HttpHeaders();
-    headers = headers.append("Authorization", "Basic " + btoa(username+':'+password));
-    headers = headers.append("Content-Type", "application/json");
-    return this._http.get<User>( environment.serviceUrl + 'login' , {headers: headers});
+
+    sessionStorage.setItem('Auth','Basic ' + btoa(username+':'+password))
+
+    return this._http.get<User>( environment.serviceUrl + 'login' , );
+  }
+
+  prueba(): Observable<string>{
+    return this._http.get<string>(environment.serviceUrl + 'prueba');
+
   }
 }

@@ -67,3 +67,13 @@ e
 5frontend-application/src/app/services/user.service.ts,9\0\90b62c61d539c819cabeb3ef1185ba2cbc56a53e
 j
 :frontend-application/src/app/services/user.service.spec.ts,c\a\ca23925f32edbc9baba876bb40560f8caf3368f9
+j
+:frontend-application/src/app/login/login.component.spec.ts,9\c\9c167a9041239a05ba0d792a20e55b1563cf627f
+c
+3frontend-application/src/app/home/home.component.ts,b\4\b4b118eca439235aace89ac6915c7f7f15ae528c
+e
+5frontend-application/src/app/home/home.component.html,b\0\b027c5f65aedd59c59c6cd9469584e769df7f286
+D
+logs/wsSeminario.log,1\7\176cc49e796e14396b5dedf3de6a3e87444cd8f2
+d
+4frontend-application/src/app/home/home.component.css,8\0\80ee701d6093db70516e5ef77a5357b5cdd09f61

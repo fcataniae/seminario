@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
+import {LoginService} from "../services/login.service";
 
 
 @Component({
@@ -10,10 +11,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router,
+  constructor(private loginService: LoginService,
+              private router: Router,
               private userService: UserService) { }
 
   ngOnInit() {
+    this.loginService.prueba().subscribe( r => console.log(r), error => console.log(error));
     console.log("object ");
     console.log( this.userService.getUserLoggedIn());
     if(this.userService.getUserLoggedIn() === null){
