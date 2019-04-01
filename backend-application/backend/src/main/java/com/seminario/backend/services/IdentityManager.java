@@ -1,5 +1,7 @@
 package com.seminario.backend.services;
 
+import com.seminario.backend.model.Usuario;
+import com.seminario.backend.repository.UsuarioRepository;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class IdentityManager {
 
-    Logger log = Logger.getLogger("wsSeminario");
+
+    private UsuarioRepository usuarioRepository;
+
+    public IdentityManager(UsuarioRepository usuarioRepository){
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public boolean authenticateUser(String name, String password) {
-        System.out.println("name "+name + " pass " + password);
-        return name.equals("fcatania") && password.equals("pass");
+
+        boolean auth = false;
+        Usuario user = usuarioRepository.findByNombreUsuario(name);
+
+        if(user != null){
+            auth = user.getPassword().equalsIgnoreCase(password); //desencriptar
+        }
+
+
+        return auth;
     }
 }

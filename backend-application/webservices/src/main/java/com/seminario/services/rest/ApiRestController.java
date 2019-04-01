@@ -19,9 +19,12 @@ public class ApiRestController {
 
     private ApiRestController(){};
 
-    @GetMapping("/login")
-    public DTOUser getPrueba(){
+    @PostMapping("/login")
+    public DTOUser login(@RequestHeader("Authorization") String auth){
+
+        System.out.println(auth);
         DTOUser user = new DTOUser("Franco","Catania","cataniafrane@gmail.com","137854");
+
         return user;
     }
     @GetMapping("/prueba")

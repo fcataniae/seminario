@@ -18,7 +18,7 @@ public class Usuario {
     private Long id;
 
     @Column
-    private String nombre_usuario;
+    private String nombreUsuario;
 
     @Column
     private String password;
@@ -30,7 +30,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
-                ", nombre_usuario='" + nombre_usuario + '\'' +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -43,12 +43,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNombre_usuario() {
-        return nombre_usuario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getPassword() {
