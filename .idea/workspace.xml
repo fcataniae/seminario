@@ -2,100 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bd85e71-f274-4935-848d-d4d951ee5f8f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/backend.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/application.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/BackendApplication.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/EclipseLinkConfiguration.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/JNDIAdapterConfig$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/JNDIAdapterConfig$JndiPropertyHolder.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/JNDIAdapterConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/JNDIAdapterConfigDev.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/dto/DTOUser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/classes/com/seminario/backend/services/IdentityManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/maven-archiver/pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application-classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application.war.original" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/WebserviceApplication.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/rest/ApiRestController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/security/CorsFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/security/CustomAuthenticationProvider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/security/RequestAwareAuthenticationSuccessHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/security/RestAuthenticationEntryPoint.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/com/seminario/services/security/WebSecurityConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/classes/log4j.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/aopalliance-1.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/aspectjweaver-1.8.13.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/backend-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/classmate-1.3.4.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/commonj.sdo-2.1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/eclipselink-2.6.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/hibernate-validator-5.3.6.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jackson-annotations-2.8.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jackson-core-2.8.10.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jackson-databind-2.8.10.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/javax.json-1.0.4.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/javax.persistence-2.1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/javax.transaction-api-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jboss-logging-3.3.1.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jcl-over-slf4j-1.7.25.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/jul-to-slf4j-1.7.25.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/log4j-1.2.12.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/log4j-over-slf4j-1.7.25.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/logback-classic-1.1.11.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/logback-core-1.1.11.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/mysql-connector-java-5.1.45.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/ojdbc6-11.2.0.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/slf4j-api-1.7.25.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/snakeyaml-1.17.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-aop-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-aspects-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-beans-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-autoconfigure-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-aop-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-data-jpa-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-jdbc-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-logging-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-security-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-tomcat-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-boot-starter-web-1.5.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-context-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-core-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-data-commons-1.13.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-data-jpa-1.11.10.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-expression-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-jdbc-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-orm-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-security-config-3.2.0.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-security-core-4.2.4.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-security-web-4.2.3.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-tx-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-web-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/spring-webmvc-4.3.14.RELEASE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-annotations-api-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-embed-core-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-embed-el-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-embed-websocket-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-jdbc-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/tomcat-juli-8.5.27.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/backend-application/WEB-INF/lib/validation-api-1.1.0.Final.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/WebserviceApplication.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/rest/ApiRestController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/CorsFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/CustomAuthenticationProvider.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/RequestAwareAuthenticationSuccessHandler.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/RestAuthenticationEntryPoint.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/com/seminario/services/security/WebSecurityConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/classes/log4j.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/maven-archiver/pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend-application/webservices/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-application/backend/pom.xml" afterPath="$PROJECT_DIR$/backend-application/backend/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PermisoRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PersonaRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/RolRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/UsuarioRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="seminario.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -119,100 +30,172 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="login.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.service.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app-routing.module.spec.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.spec.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#56#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.module.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#58#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="environment.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/environments/environment.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApiRestController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApiRestController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="340">
+              <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
               <folding>
                 <element signature="e#619#620#0" expanded="true" />
                 <element signature="e#663#664#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Persona.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Persona.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#943#944#0" expanded="true" />
+                <element signature="e#968#969#0" expanded="true" />
+                <element signature="e#1002#1003#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+                <element signature="e#1063#1064#0" expanded="true" />
+                <element signature="e#1092#1093#0" expanded="true" />
+                <element signature="e#1136#1137#0" expanded="true" />
+                <element signature="e#1172#1173#0" expanded="true" />
+                <element signature="e#1207#1208#0" expanded="true" />
+                <element signature="e#1238#1239#0" expanded="true" />
+                <element signature="e#1286#1287#0" expanded="true" />
+                <element signature="e#1326#1327#0" expanded="true" />
+                <element signature="e#1367#1368#0" expanded="true" />
+                <element signature="e#1406#1407#0" expanded="true" />
+                <element signature="e#1468#1469#0" expanded="true" />
+                <element signature="e#1524#1525#0" expanded="true" />
+                <element signature="e#1556#1557#0" expanded="true" />
+                <element signature="e#1584#1585#0" expanded="true" />
+                <element signature="e#1626#1627#0" expanded="true" />
+                <element signature="e#1660#1661#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Usuario.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Usuario.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="422">
+              <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#688#689#0" expanded="true" />
+                <element signature="e#713#714#0" expanded="true" />
+                <element signature="e#747#748#0" expanded="true" />
+                <element signature="e#775#776#0" expanded="true" />
+                <element signature="e#816#817#0" expanded="true" />
+                <element signature="e#853#854#0" expanded="true" />
+                <element signature="e#913#914#0" expanded="true" />
+                <element signature="e#965#966#0" expanded="true" />
+                <element signature="e#1000#1001#0" expanded="true" />
+                <element signature="e#1031#1032#0" expanded="true" />
+                <element signature="e#1079#1080#0" expanded="true" />
+                <element signature="e#1119#1120#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Permiso.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Permiso.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+              <folding>
+                <element signature="e#759#760#0" expanded="true" />
+                <element signature="e#793#794#0" expanded="true" />
+                <element signature="e#821#822#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#927#928#0" expanded="true" />
+                <element signature="e#963#964#0" expanded="true" />
+                <element signature="e#995#996#0" expanded="true" />
+                <element signature="e#1022#1023#0" expanded="true" />
+                <element signature="e#1063#1064#0" expanded="true" />
+                <element signature="e#1095#1096#0" expanded="true" />
+                <element signature="e#1128#1129#0" expanded="true" />
+                <element signature="e#1156#1157#0" expanded="true" />
+                <element signature="e#1199#1200#0" expanded="true" />
+                <element signature="e#1233#1234#0" expanded="true" />
+                <element signature="e#1267#1268#0" expanded="true" />
+                <element signature="e#1296#1297#0" expanded="true" />
+                <element signature="e#1341#1342#0" expanded="true" />
+                <element signature="e#1377#1378#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rol.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Rol.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#673#674#0" expanded="true" />
+                <element signature="e#698#699#0" expanded="true" />
+                <element signature="e#732#733#0" expanded="true" />
+                <element signature="e#760#761#0" expanded="true" />
+                <element signature="e#793#794#0" expanded="true" />
+                <element signature="e#822#823#0" expanded="true" />
+                <element signature="e#866#867#0" expanded="true" />
+                <element signature="e#902#903#0" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#974#975#0" expanded="true" />
+                <element signature="e#1028#1029#0" expanded="true" />
+                <element signature="e#1074#1075#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonaRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PersonaRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsuarioRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/UsuarioRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RolRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/RolRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PermisoRepository.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PermisoRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -233,6 +216,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -279,6 +263,14 @@
         <option value="$PROJECT_DIR$/frontend-application/src/index.html" />
         <option value="$PROJECT_DIR$/frontend-application/src/environments/environment.ts" />
         <option value="$PROJECT_DIR$/backend-application/backend/pom.xml" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Persona.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Usuario.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Permiso.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Rol.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PersonaRepository.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/UsuarioRepository.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/RolRepository.java" />
+        <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PermisoRepository.java" />
       </list>
     </option>
   </component>
@@ -338,9 +330,9 @@
     <handled-path value="$PROJECT_DIR$/frontend-application/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="443" />
+    <option name="x" value="330" />
     <option name="y" value="8" />
-    <option name="width" value="1477" />
+    <option name="width" value="1590" />
     <option name="height" value="1039" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -592,6 +584,164 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend-application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend-application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend-application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend-application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="repository" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seminario" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend-application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1093,16 +1243,16 @@
       <workItem from="1553870978308" duration="366000" />
       <workItem from="1553875081704" duration="176000" />
       <workItem from="1553878311782" duration="1713000" />
-      <workItem from="1554118382191" duration="1608000" />
+      <workItem from="1554118382191" duration="2762000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23023000" />
+    <option name="totallyTimeSpent" value="24177000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="443" y="8" width="1477" height="1039" extended-state="0" />
-    <editor active="false" />
+    <frame x="330" y="8" width="1590" height="1039" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1111,14 +1261,14 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119266056" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11045752" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35099337" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24944812" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27704194" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20860927" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20818631" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19281046" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -1162,60 +1312,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/favicon.ico">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/BackendApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1494,6 +1590,9 @@
           <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
+            <marker date="1554119759779" expanded="true" signature="721:1098" ph="{...}" />
+            <marker date="1554119759779" expanded="true" signature="930:1067" ph="[...]" />
+            <marker date="1554119759779" expanded="true" signature="1123:1126" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1550,11 +1649,153 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        <state relative-caret-position="340">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
           <folding>
             <element signature="e#619#620#0" expanded="true" />
             <element signature="e#663#664#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Persona.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#943#944#0" expanded="true" />
+            <element signature="e#968#969#0" expanded="true" />
+            <element signature="e#1002#1003#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
+            <element signature="e#1063#1064#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1136#1137#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1207#1208#0" expanded="true" />
+            <element signature="e#1238#1239#0" expanded="true" />
+            <element signature="e#1286#1287#0" expanded="true" />
+            <element signature="e#1326#1327#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+            <element signature="e#1406#1407#0" expanded="true" />
+            <element signature="e#1468#1469#0" expanded="true" />
+            <element signature="e#1524#1525#0" expanded="true" />
+            <element signature="e#1556#1557#0" expanded="true" />
+            <element signature="e#1584#1585#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+            <element signature="e#1660#1661#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Usuario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#688#689#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+            <element signature="e#747#748#0" expanded="true" />
+            <element signature="e#775#776#0" expanded="true" />
+            <element signature="e#816#817#0" expanded="true" />
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+            <element signature="e#965#966#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1031#1032#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+            <element signature="e#1119#1120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Permiso.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+          <folding>
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#793#794#0" expanded="true" />
+            <element signature="e#821#822#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#927#928#0" expanded="true" />
+            <element signature="e#963#964#0" expanded="true" />
+            <element signature="e#995#996#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+            <element signature="e#1063#1064#0" expanded="true" />
+            <element signature="e#1095#1096#0" expanded="true" />
+            <element signature="e#1128#1129#0" expanded="true" />
+            <element signature="e#1156#1157#0" expanded="true" />
+            <element signature="e#1199#1200#0" expanded="true" />
+            <element signature="e#1233#1234#0" expanded="true" />
+            <element signature="e#1267#1268#0" expanded="true" />
+            <element signature="e#1296#1297#0" expanded="true" />
+            <element signature="e#1341#1342#0" expanded="true" />
+            <element signature="e#1377#1378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Rol.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+            <element signature="e#793#794#0" expanded="true" />
+            <element signature="e#822#823#0" expanded="true" />
+            <element signature="e#866#867#0" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#1028#1029#0" expanded="true" />
+            <element signature="e#1074#1075#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PersonaRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/UsuarioRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="70" selection-start-line="10" selection-start-column="70" selection-end-line="10" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/RolRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/repository/PermisoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
