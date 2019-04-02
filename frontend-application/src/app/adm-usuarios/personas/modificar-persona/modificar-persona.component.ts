@@ -19,4 +19,11 @@ export class ModificarPersonaComponent implements OnInit {
     this.persona = new Persona();
   }
 
+  buscarPersona(){
+
+  }
+
+  onSubmit(){
+
+  }
 }

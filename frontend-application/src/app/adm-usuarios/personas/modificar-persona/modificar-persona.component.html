@@ -1,7 +1,8 @@
 <div class="container">
   <h3>Modificacion de persona</h3>
 
-  <form #buscarpersona="ngForm"
+  <form *ngIf="!personaCargada"
+        #buscarpersona="ngForm"
         (ngSubmit)="buscarPersona()"
         class="form">
     <div>
