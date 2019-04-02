@@ -6,15 +6,18 @@ import { User } from './../model/user.model'
 })
 export class UserService {
 
-  private isUserLoggedIn;
-  public usserLogged: User;
+  private userLoggedIn;
+  private usserLogged: User;
 
   constructor() {
-  	this.isUserLoggedIn = false;
+  	this.userLoggedIn = false;
   }
 
+  isUserLoggedIn(){
+    return this.userLoggedIn;
+  }
   setUserLoggedIn(user:User) {
-    this.isUserLoggedIn = true;
+    this.userLoggedIn = true;
     this.usserLogged = user;
     sessionStorage.setItem('currentUser', JSON.stringify(user));
 
@@ -26,7 +29,7 @@ export class UserService {
 
   setLogOut() {
     this.usserLogged = null;
-    this.isUserLoggedIn = false;
+    this.userLoggedIn = false;
     sessionStorage.setItem('currentUser', JSON.stringify(this.usserLogged));
   }
 }

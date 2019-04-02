@@ -10,10 +10,10 @@ import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-perso
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full'}
-  { path: 'home/gestion/personas', component: GestionPersonasComponent}
-  { path: 'home/gestion/personas/alta', component: AltaPersonaComponent}
-  { path: 'home/gestion/personas/baja', component: EliminarPersonaComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'home/gestion/personas', component: GestionPersonasComponent},
+  { path: 'home/gestion/personas/alta', component: AltaPersonaComponent},
+  { path: 'home/gestion/personas/baja', component: EliminarPersonaComponent},
   { path: 'home/gestion/personas/modi', component: ModificarPersonaComponent}
 ];
 @NgModule({

@@ -1,0 +1,16 @@
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+
+input, label, select {
+  margin: 10px ;
+  margin-right: auto;
+  padding: 10px;
+  display: block;
+  width: 70%;
+ }

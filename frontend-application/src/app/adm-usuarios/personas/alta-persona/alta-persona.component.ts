@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Persona } from './../../../model/persona.model';
 
 @Component({
   selector: 'app-alta-persona',
@@ -9,7 +10,14 @@ export class AltaPersonaComponent implements OnInit {
 
   constructor() { }
 
+  persona: Persona = new Persona();
+
   ngOnInit() {
+  }
+
+  onSubmit(){
+    console.log("asdasd");
+  console.log(this.persona);
   }
 
 }

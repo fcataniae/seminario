@@ -1,28 +1,17 @@
 
 
 
-input, button, h3 {
+input {
   margin: 10px ;
   margin-left: auto;
   margin-right: auto;
   min-width: 250px;
   width: 30%;
   padding: 10px;
+  display: block;
 
 }
+
 form{
   padding-top: 5%;
-}
-input, button {
-  display: block;
-}
-
-.btn-wlm{
-  border: none;
-  background-color: #0055ba;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 4px;
 }

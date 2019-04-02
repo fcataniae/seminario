@@ -19,11 +19,35 @@ header{
 }
 
 
-.font-title{
-  font-family: Myriad Pro;
-  color: #333;
+.btn-wlm{
+  border: none;
+  background-color: #0055ba;
+  color: white;
   text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 4px;
 }
+/* Formularios */
+
+
+input:disabled {
+  background: #ccc;
+}
+
+.sm-width{
+  min-width: 74px;
+  width: 17%;
+}
+.md-width{
+  min-width: 150px;
+  width: 30%;
+}
+.lg-width{
+  min-width: 240px;
+  width: 70%;
+}
+
 
 
 /* Estilo para todas las pantallas con opciones y link a otra pantalla*/
@@ -75,3 +99,16 @@ li a:hover span:after {
   opacity: 1;
   right: 0;
 }
+
+
+h3 {
+  margin: 10px ;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  width: 30%;
+  padding: 10px;
+  text-align: center;
+  font-family: "Myriad Pro"
+  }
+

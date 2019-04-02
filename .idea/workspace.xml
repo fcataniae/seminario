@@ -3,10 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4bd85e71-f274-4935-848d-d4d951ee5f8f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-application/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/login/login.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend-application/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend-application/src/styles.css" afterDir="false" />
     </list>
     <ignored path="seminario.iws" />
@@ -30,74 +34,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.module.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.module.ts">
+      <file leaf-file-name="alta-persona.component.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="17">
+              <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-routing.module.spec.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.spec.ts">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="home.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.html">
+      <file leaf-file-name="alta-persona.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="6" selection-end-line="17" />
+            <state relative-caret-position="306">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-routing.module.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.ts">
+      <file leaf-file-name="alta-persona.component.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
+            <state relative-caret-position="238">
+              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="28" column="70" selection-start-line="28" selection-start-column="70" selection-end-line="28" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gestion-personas.component.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/gestion-personas/gestion-personas.component.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="gestion-personas.component.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/gestion-personas/gestion-personas.component.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.component.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.css">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="app.component.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.css">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -130,7 +91,6 @@
         <option value="$PROJECT_DIR$/frontend-application/src/app/app.component.html" />
         <option value="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.spec.ts" />
-        <option value="$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/services/AuthInterceptor.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app-routing.module.spec.ts" />
@@ -148,20 +108,25 @@
         <option value="$PROJECT_DIR$/backend-application/backend/pom.xml" />
         <option value="$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/JNDIAdapterConfigDev.java" />
         <option value="$PROJECT_DIR$/backend-application/backend/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts" />
-        <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.html" />
-        <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.css" />
         <option value="$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/rest/ApiRestController.java" />
         <option value="$PROJECT_DIR$/backend-application/webservices/pom.xml" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/home/home.component.html" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/home/home.component.css" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app.component.css" />
-        <option value="$PROJECT_DIR$/frontend-application/src/styles.css" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/gestion-personas/gestion-personas.component.html" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app.module.ts" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/gestion-personas/gestion-personas.component.html" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.html" />
         <option value="$PROJECT_DIR$/frontend-application/src/app/app-routing.module.ts" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/model/persona.model.ts" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.ts" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/login/login.component.css" />
+        <option value="$PROJECT_DIR$/frontend-application/src/styles.css" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.css" />
+        <option value="$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.html" />
       </list>
     </option>
   </component>
@@ -188,7 +153,8 @@
     <handled-path value="$PROJECT_DIR$/frontend-application/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="504" />
+    <option name="x" value="-281" />
+    <option name="y" value="80" />
     <option name="width" value="1378" />
     <option name="height" value="780" />
   </component>
@@ -253,7 +219,7 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="adm-usuarios" type="462c0819:PsiDirectoryNode" />
               <item name="personas" type="462c0819:PsiDirectoryNode" />
-              <item name="gestion-personas" type="462c0819:PsiDirectoryNode" />
+              <item name="alta-persona" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="seminario" type="b2602c69:ProjectViewProjectNode" />
@@ -262,6 +228,22 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="seminario" type="b2602c69:ProjectViewProjectNode" />
+              <item name="seminario" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend-application" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="seminario" type="b2602c69:ProjectViewProjectNode" />
+              <item name="seminario" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend-application" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -684,24 +666,24 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette" order="7" />
       <window_info anchor="bottom" id="TODO" order="7" />
-      <window_info id="Palette&#9;" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info id="Palette&#9;" order="7" />
+      <window_info id="Image Layers" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" visible="true" weight="0.19399707" />
+      <window_info anchor="right" id="Maven Projects" order="6" visible="true" weight="0.19399707" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3289183" />
       <window_info anchor="bottom" id="Run" order="6" weight="0.34976152" />
-      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.3052464" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.38314787" />
+      <window_info id="Capture Tool" order="4" />
       <window_info anchor="right" id="Designer" order="3" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21522693" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934355" />
       <window_info anchor="bottom" id="Spring" order="11" weight="0.24944812" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -710,12 +692,12 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32932165" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="right" id="Bean Validation" order="4" />
-      <window_info id="Web" order="3" side_tool="true" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Java Enterprise" order="8" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32932165" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Database" order="5" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -744,18 +726,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.ts" />
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.spec.ts" />
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/user.service.spec.ts" />
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.spec.ts" />
-    <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logs/wsSeminario.log" />
     <entry file="file://$PROJECT_DIR$/backend-application/webservices/src/main/java/com/seminario/services/security/CorsFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -794,7 +764,6 @@
     <entry file="file://$PROJECT_DIR$/frontend-application/src/environments/environment.prod.ts" />
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/auth.interceptor.ts" />
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/login.service.ts" />
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts" />
     <entry file="file://$PROJECT_DIR$/frontend-application/src/index.html" />
     <entry file="file://$PROJECT_DIR$/frontend-application/src/environments/environment.ts" />
     <entry file="file://$PROJECT_DIR$/backend-application/backend/src/main/java/com/seminario/backend/model/Persona.java">
@@ -908,13 +877,6 @@
     <entry file="file://$PROJECT_DIR$/backend-application/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend-application/webservices/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
@@ -939,49 +901,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.component.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="28" column="70" selection-start-line="28" selection-start-column="70" selection-end-line="28" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/gestion-personas/gestion-personas.component.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.html">
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/services/user.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="6" selection-end-line="17" />
+        <state relative-caret-position="255">
+          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.spec.ts">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app.module.ts">
       <provider selected="true" editor-type-id="text-editor">
@@ -989,12 +926,6 @@
           <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.spec.ts">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.css">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/gestion-personas/gestion-personas.component.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -1005,8 +936,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend-application/src/app/app-routing.module.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
+        <state relative-caret-position="213">
+          <caret line="21" column="2" lean-forward="true" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="55" lean-forward="true" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/model/user.model.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/model/persona.model.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.spec.ts">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/home/home.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/login/login.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend-application/src/app/adm-usuarios/personas/alta-persona/alta-persona.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
         </state>
       </provider>
     </entry>

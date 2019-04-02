@@ -1,9 +1,9 @@
 <div class="container">
-  <h3 class="font-title">Iniciar sesión</h3>
+  <h3>Iniciar sesión</h3>
 
   <form class="form">
-    <input type="text" class="form-control " #username name="username" placeholder="Usuario">
-    <input type="password" class="form-control " #password name="password" placeholder="Contraseña">
+    <input type="text" class="form-control " #username name="username" placeholder="Usuario"/>
+    <input type="password" class="form-control " #password name="password" placeholder="Contraseña"/>
     <input type="submit" class="btn btn-wlm" (click)="logIn(username.value, password.value, $event)" id="login-button" value="Login" />
     <div *ngIf="isLoggedIn === false" class="alert alert-warning">Usuario o contraseña incorrectos.</div>
   </form>

@@ -16,10 +16,7 @@ export class HomeComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
-    this.loginService.prueba().subscribe( r => console.log(r), error => console.log(error));
-    console.log("object ");
-    console.log( this.userService.getUserLoggedIn());
-    if(this.userService.getUserLoggedIn() !== null){
+    if(this.userService.isUserLoggedIn()){
         this.router.navigate(['/']);
     }
   }

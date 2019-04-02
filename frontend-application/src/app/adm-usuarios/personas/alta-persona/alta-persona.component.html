@@ -1,3 +1,61 @@
-<p>
-  alta-persona works!
-</p>
+<div class="container">
+  <h3>Alta de persona</h3>
+
+  <form class="form" #altapersona="ngForm" (ngSubmit)="onSubmit()">
+      <label for="nombre">Nombre </label>
+      <input type="text"
+             name="nombre"
+             placeholder="nombre"
+             id="nombre"
+             class="form-control "
+             [(ngModel)]="persona.nombre"
+             #nombre="ngModel"
+             required/>
+      <label for="apellido">Apellido </label>
+      <input type="text"
+             name="apellido"
+             placeholder="Apellido"
+             id="apellido"
+             class="form-control "
+             [(ngModel)]="persona.apellido"
+             #nombre="ngModel"
+             required/>
+      <label for="tipodoc">Tipo </label>
+      <select id="tipodoc"
+              class="form-control"
+              name="tipodoc"
+              [(ngModel)]="persona.tipoDoc"
+              #nombre="ngModel"
+              required>
+        <option>D.N.I</option>
+        <option>CUIT</option>
+        <option>CUIL</option>
+        <option>L.E</option>
+      </select>
+      <label for="nrodoc">Numero </label>
+      <input type="number"
+             name="documento"
+             placeholder="documento"
+             id="nrodoc"
+             class="form-control "
+             [(ngModel)]="persona.nroDoc"
+             #nombre="ngModel"
+             min="1" pattern="^[0-9]+"
+             required/>
+      <label for="mail">Correo electronico </label>
+      <input type="email"
+             name="email"
+             placeholder="correo electronico"
+             id="mail"
+             class="form-control "
+             [(ngModel)]="persona.email"
+             #nombre="ngModel"
+             pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+             required/>
+      <input class="btn-wlm"
+             type="submit"
+             [disabled]="!altapersona.valid"
+             value="Continuar"/>
+
+  </form>
+</div>
