@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './../services/user.service';
+import { SessionService } from './../services/session.service';
 import { Router } from '@angular/router';
-import {LoginService} from "../services/login.service";
+import { LoginService } from "../services/login.service";
 
 
 @Component({
@@ -13,17 +13,17 @@ export class HomeComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private router: Router,
-              private userService: UserService) { }
+              private sessionService: SessionService) { }
 
   ngOnInit() {
-    if(!this.userService.isUserLoggedIn()){
+    if(!this.sessionService.isUserLoggedIn()){
         this.router.navigate(['/']);
     }
   }
 
   logOut(event: Event) {
     event.preventDefault();
-    this.userService.setLogOut();
+    this.sessionService.setLogOut();
     this.router.navigate(['/']);
   }
 }

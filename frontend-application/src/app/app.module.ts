@@ -12,7 +12,11 @@ import { LoginComponent } from './login/login.component';
 
 import { LoginService } from './services/login.service';
 import { AuthInterceptor } from './services/auth.interceptor';
-import { UserService } from './services/user.service';
+import { SessionService } from './services/session.service';
+import { PersonaService } from './services/persona.service';
+import { UsuarioService } from './services/usuario.service';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-personas/gestion-personas.component';
@@ -39,7 +43,9 @@ import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-perso
   ],
   providers: [
     LoginService,
-    UserService,
+    UsuarioService,
+    PersonaService,
+    SessionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
