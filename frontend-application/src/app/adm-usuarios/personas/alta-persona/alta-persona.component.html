@@ -2,6 +2,7 @@
   <h3>Alta de persona</h3>
 
   <form class="form" #altapersona="ngForm" (ngSubmit)="onSubmit()">
+    <div>
       <label for="nombre">Nombre </label>
       <input type="text"
              name="nombre"
@@ -11,6 +12,8 @@
              [(ngModel)]="persona.nombre"
              #nombre="ngModel"
              required/>
+    </div>
+    <div>
       <label for="apellido">Apellido </label>
       <input type="text"
              name="apellido"
@@ -20,6 +23,8 @@
              [(ngModel)]="persona.apellido"
              #nombre="ngModel"
              required/>
+    </div>
+    <div>
       <label for="tipodoc">Tipo </label>
       <select id="tipodoc"
               class="form-control"
@@ -32,6 +37,8 @@
         <option>CUIL</option>
         <option>L.E</option>
       </select>
+    </div>
+    <div>
       <label for="nrodoc">Numero </label>
       <input type="number"
              name="documento"
@@ -42,6 +49,18 @@
              #nombre="ngModel"
              min="1" pattern="^[0-9]+"
              required/>
+    </div>
+    <div>
+      <label for="fechanac">Fecha de nacimiento</label>
+      <input type="date"
+             name="fechanac"
+             id="fechanac"
+             class="form-control "
+             [(ngModel)]="persona.fechaNac"
+             #nombre="ngModel"
+             required/>
+    </div>
+    <div>
       <label for="mail">Correo electronico </label>
       <input type="email"
              name="email"
@@ -52,10 +71,12 @@
              #nombre="ngModel"
              pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
              required/>
-      <input class="btn-wlm"
-             type="submit"
-             [disabled]="!altapersona.valid"
-             value="Continuar"/>
+    </div>
+      <button class="btn-wlm"
+           type="submit"
+           [disabled]="!altapersona.valid">
+        Continuar
+      </button>
 
   </form>
 </div>

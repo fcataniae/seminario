@@ -34,6 +34,9 @@ header{
 input:disabled {
   background: #ccc;
 }
+button:disabled {
+  background: #ccc;
+}
 
 .sm-width{
   min-width: 74px;
