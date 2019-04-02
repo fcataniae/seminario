@@ -1,0 +1,17 @@
+<div class="container">
+
+  <input type="submit" class="btn btn-danger" (click)="logOut($event)" value="Salir">
+
+  <ul>
+    <li>
+      <a [routerLink]="['alta']"><span>Alta Persona</span></a>
+    </li>
+    <li>
+      <a [routerLink]="['baja']"><span>Eliminar Persona</span></a>
+    </li>
+    <li>
+      <a [routerLink]="['modi']"><span>Modificar Persona</span></a>
+    </li>
+  </ul>
+
+</div>

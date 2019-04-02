@@ -15,12 +15,20 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { UserService } from './services/user.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-personas/gestion-personas.component';
+import { AltaPersonaComponent } from './adm-usuarios/personas/alta-persona/alta-persona.component';
+import { ModificarPersonaComponent } from './adm-usuarios/personas/modificar-persona/modificar-persona.component';
+import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-persona/eliminar-persona.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    GestionPersonasComponent,
+    AltaPersonaComponent,
+    ModificarPersonaComponent,
+    EliminarPersonaComponent
   ],
   imports: [
     BrowserModule,
