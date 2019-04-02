@@ -1,4 +1,17 @@
-<p>
-  home works!
-</p>
-<button type="submit" class="btn btn-danger" (click)="logOut($event)">logOut</button>
+<div class="container">
+
+  <input type="submit" class="btn btn-danger" (click)="logOut($event)" value="Salir">
+
+  <ul>
+    <li>
+      <a [routerLink]="[gestion/personas]"><span>Gestionar Personas</span></a>
+    </li>
+    <li>
+      <a [routerLink]="[gestion/usuarios]"><span>Gestionar Usuarios</span></a>
+    </li>
+    <li>
+      <a [routerLink]="[gestion/roles]"><span>Gestionar Roles</span></a>
+    </li>
+  </ul>
+
+</div>

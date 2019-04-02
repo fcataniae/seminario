@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     this.loginService.prueba().subscribe( r => console.log(r), error => console.log(error));
     console.log("object ");
     console.log( this.userService.getUserLoggedIn());
-    if(this.userService.getUserLoggedIn() === null){
+    if(this.userService.getUserLoggedIn() !== null){
         this.router.navigate(['/']);
     }
   }

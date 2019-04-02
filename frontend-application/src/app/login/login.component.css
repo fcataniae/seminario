@@ -16,3 +16,13 @@ form{
 input, button {
   display: block;
 }
+
+.btn-wlm{
+  border: none;
+  background-color: #0055ba;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 4px;
+}

@@ -21,7 +21,7 @@ public class JNDIAdapterConfigDev {
 
     @Primary
     @Bean(name = "dsSeminario")
-    @ConfigurationProperties(prefix = "desa.datasource")
+    @ConfigurationProperties(prefix = "seminario.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
