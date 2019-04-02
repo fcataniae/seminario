@@ -23,6 +23,10 @@ import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-person
 import { AltaPersonaComponent } from './adm-usuarios/personas/alta-persona/alta-persona.component';
 import { ModificarPersonaComponent } from './adm-usuarios/personas/modificar-persona/modificar-persona.component';
 import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-persona/eliminar-persona.component';
+import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuarios/gestion-usuarios.component';
+import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
+import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
+import { EliminarUsuarioComponent } from './adm-usuarios/usuarios/eliminar-usuario/eliminar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-perso
     GestionPersonasComponent,
     AltaPersonaComponent,
     ModificarPersonaComponent,
-    EliminarPersonaComponent
+    EliminarPersonaComponent,
+    GestionUsuariosComponent,
+    AltaUsuarioComponent,
+    ModificarUsuarioComponent,
+    EliminarUsuarioComponent
   ],
   imports: [
     BrowserModule,
