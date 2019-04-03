@@ -23,7 +23,8 @@ public class Usuario {
     @Column
     private String password;
 
-    @OneToMany
+    @JoinTable(name = "Usuario_Rol")
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Rol> roles;
 
     @Override
@@ -34,6 +35,9 @@ public class Usuario {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    @ManyToOne()
+    private Estado estado;
 
     public Long getId() {
         return id;
@@ -57,5 +61,13 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

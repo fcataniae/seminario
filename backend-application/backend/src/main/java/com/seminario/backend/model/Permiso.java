@@ -18,22 +18,31 @@ public class Permiso {
     private String nombre;
 
     @Column
-    private Boolean read;
+    private String descripcion;
 
     @Column
-    private Boolean write;
+    private String funcionalidad;
 
     @Column
-    private Boolean delete;
+    private boolean readPriv;
+
+    @Column
+    private boolean writePriv;
+
+
+    @ManyToOne()
+    private Estado estado;
+
 
     @Override
     public String toString() {
         return "Permiso{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", read=" + read +
-                ", write=" + write +
-                ", delete=" + delete +
+                ", descripcion='" +this.descripcion + "\'" +
+                ", funcionalidad='" +this.funcionalidad + "\'" +
+                ", write='" + this.writePriv + "\'" +
+                ", read='" + this.readPriv + "\'" +
                 '}';
     }
 
@@ -53,27 +62,11 @@ public class Permiso {
         this.nombre = nombre;
     }
 
-    public Boolean getRead() {
-        return read;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setRead(Boolean read) {
-        this.read = read;
-    }
-
-    public Boolean getWrite() {
-        return write;
-    }
-
-    public void setWrite(Boolean write) {
-        this.write = write;
-    }
-
-    public Boolean getDelete() {
-        return delete;
-    }
-
-    public void setDelete(Boolean delete) {
-        this.delete = delete;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

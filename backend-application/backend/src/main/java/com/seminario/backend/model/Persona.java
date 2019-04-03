@@ -25,14 +25,23 @@ public class Persona {
     private String apellido;
 
     @Column
+    private Integer nroDoc;
+
+    @Column
+    private String tipoDoc;
+
+    @Column
     @Temporal(TemporalType.DATE)
     private Date fecha_nacimiento;
 
     @Column
     private String email;
 
-    @OneToMany( fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Usuario> usuarios;
+
+    @ManyToOne()
+    private Estado estado;
 
     @Override
     public String toString() {
@@ -83,5 +92,13 @@ public class Persona {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

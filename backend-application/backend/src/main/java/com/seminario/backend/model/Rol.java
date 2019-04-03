@@ -24,7 +24,8 @@ public class Rol {
     @Column
     private String descripcion;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "ROL_PERMISO")
     private Set<Permiso> permisos;
 
     @Override
@@ -35,6 +36,9 @@ public class Rol {
                 ", descripcion='" + descripcion + '\'' +
                 '}';
     }
+
+    @ManyToOne()
+    private Estado estado;
 
     public Long getId() {
         return id;
@@ -58,5 +62,13 @@ public class Rol {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }
