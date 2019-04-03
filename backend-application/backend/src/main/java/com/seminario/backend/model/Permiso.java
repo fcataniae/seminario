@@ -30,7 +30,7 @@ public class Permiso {
     private boolean writePriv;
 
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
 

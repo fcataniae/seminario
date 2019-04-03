@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 09:19
  */
 public interface PermisoRepository extends JpaRepository<Permiso,Long>{
+    Permiso findByNombre(String nombre);
+    Permiso findById(Long Id);
 }

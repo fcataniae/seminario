@@ -1,0 +1,64 @@
+package com.seminario.backend.services;
+
+import com.seminario.backend.model.Estado;
+import com.seminario.backend.model.Permiso;
+import com.seminario.backend.model.Rol;
+import com.seminario.backend.repository.PermisoRepository;
+import com.seminario.backend.repository.RolRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class RolService implements IRolService {
+
+    @Autowired
+    private RolRepository rolRepository;
+    private PermisoRepository permisoRepository;
+
+    @Override
+    public List<Rol> getAllRoles() {
+        return null;
+    }
+
+    @Override
+    public Rol getRolById(Long id) {
+        return null;
+    }
+
+    @Override
+    public boolean addPermiso(Rol rol, Permiso permiso) {
+        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
+        if (permisoTmp != null) {
+            rol.addPermiso(permiso);
+            rolRepository.save(rol);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delRol(Rol rol, Permiso permiso) {
+        return false;
+    }
+
+    @Override
+    public boolean cambiarEstado(Rol rol, Estado estado) {
+        return false;
+    }
+
+    @Override
+    public boolean createRol(Rol rol) {
+        return false;
+    }
+
+    @Override
+    public boolean updateRol(Rol rol) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteUsuario(Long Id) {
+        return false;
+    }
+}

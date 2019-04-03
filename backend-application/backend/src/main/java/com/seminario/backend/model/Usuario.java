@@ -36,8 +36,11 @@ public class Usuario {
                 '}';
     }
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Persona persona;
 
     public Long getId() {
         return id;
@@ -69,5 +72,21 @@ public class Usuario {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public void addRol(Rol rol){
+        roles.add(rol);
+    }
+
+    public void delRol(Rol rol){
+        roles.remove(rol);
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 }
