@@ -15,4 +15,7 @@ export class UsuarioService {
   constructor(private _http: HttpClient) {
       }
 
+  getAllUsuarios(): Observable<User[]>{
+    return this._http.get<User[]>( environment.serviceUrl + "usuarios" );
+  }
 }

@@ -1,3 +1,12 @@
-<p>
-  eliminar-usuario works!
-</p>
+<div class="container">
+  <h3>Eliminar usuario</h3>
+
+  <ul *ngFor="let usuario of usuarios" >
+    <li>{{usuario.nombreUsuario}}</li>
+    <li>{{usuario.persona.nombre}}</li>
+    <li>{{usuario.persona.apellido}}</li>
+    <li>{{usuario.persona.email}}</li>
+    <li>{{usuario.persona.nroDoc}}</li> 
+  </ul>
+
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from './../../../model/user.model';
+import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
   selector: 'app-eliminar-usuario',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EliminarUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _usuarioService: UsuarioService) { }
 
-  ngOnInit() {
+  usuarios: User[];
+
+  ngOnInit( ) {
+
+      //cargo todos los usuarios para mostrar un listado
+      this._usuarioService.getAllUsuarios().subscribe(
+        res => {
+          this.usuarios = res;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
   }
+
+
 
 }

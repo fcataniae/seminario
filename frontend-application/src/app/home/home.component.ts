@@ -11,19 +11,19 @@ import { LoginService } from "../services/login.service";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService,
-              private router: Router,
-              private sessionService: SessionService) { }
+  constructor(private _loginService: LoginService,
+              private _router: Router,
+              private _sessionService: SessionService) { }
 
   ngOnInit() {
-    if(this.sessionService.isUserLoggedIn()){
-        this.router.navigate(['/']);
+    if(this._sessionService.isUserLoggedIn()){
+        this._router.navigate(['/']);
     }
   }
 
   logOut(event: Event) {
     event.preventDefault();
-    this.sessionService.setLogOut();
-    this.router.navigate(['/']);
+    this._sessionService.setLogOut();
+    this._router.navigate(['/']);
   }
 }
