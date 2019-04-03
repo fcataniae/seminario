@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "assets/forms.css";
 
 body{
   background-color: #FBF5EA;
@@ -32,6 +33,9 @@ header{
 
 
 input:disabled {
+  background: #ccc;
+}
+button:disabled {
   background: #ccc;
 }
 
@@ -80,6 +84,7 @@ li a span {
   display: inline-block;
   position: relative;
   transition: 0.5s;
+  color: white;
 }
 
 li a span:after {

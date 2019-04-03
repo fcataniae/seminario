@@ -4,4 +4,5 @@ export class Persona {
   email: string;
   tipoDoc: string;
   nroDoc: number;
+  fechaNac: Date;
 }

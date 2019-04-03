@@ -12,4 +12,12 @@ export class EliminarPersonaComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  buscarPersona(){
+
+  }
+
+  onSubmit(){
+
+  }
 }

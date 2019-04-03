@@ -1,3 +1,107 @@
-<p>
-  eliminar-persona works!
-</p>
+<div class="container">
+  <h3>Eliminar persona</h3>
+
+  <form *ngIf="!personaCargada"
+        #buscarpersona="ngForm"
+        (ngSubmit)="buscarPersona()"
+        class="form">
+    <div>
+      <input type="text"
+             name="documentoBusqueda"
+             placeholder="nro de documento"
+             id="documentoBusqueda"
+             class="form-control "
+             [(ngModel)]="documentoBusqueda"
+             #nombre="ngModel"
+             required/>
+      <button class="btn-wlm"
+              type="submit"
+              [disabled]="!buscarpersona.valid">
+        Buscar
+      </button>
+    </div>
+
+  </form>
+
+  <form  *ngIf="personaCargada"
+         class="form"
+         #altapersona="ngForm"
+         (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nombre">Nombre </label>
+      <input type="text"
+             name="nombre"
+             placeholder="nombre"
+             id="nombre"
+             class="form-control "
+             [(ngModel)]="persona.nombre"
+             #nombre="ngModel"
+             disabled/>
+    </div>
+    <div>
+      <label for="apellido">Apellido </label>
+      <input type="text"
+             name="apellido"
+             placeholder="Apellido"
+             id="apellido"
+             class="form-control "
+             [(ngModel)]="persona.apellido"
+             #nombre="ngModel"
+             disabled/>
+    </div>
+    <div>
+      <label for="tipodoc">Tipo </label>
+      <select id="tipodoc"
+              class="form-control"
+              name="tipodoc"
+              [(ngModel)]="persona.tipoDoc"
+              #nombre="ngModel"
+              disabled>
+        <option>D.N.I</option>
+        <option>CUIT</option>
+        <option>CUIL</option>
+        <option>L.E</option>
+      </select>
+    </div>
+    <div>
+      <label for="nrodoc">Numero </label>
+      <input type="number"
+             name="documento"
+             placeholder="documento"
+             id="nrodoc"
+             class="form-control "
+             [(ngModel)]="persona.nroDoc"
+             #nombre="ngModel"
+             min="1" pattern="^[0-9]+"
+             disabled/>
+    </div>
+    <div>
+      <label for="fechanac">Fecha de nacimiento</label>
+      <input type="date"
+             name="fechanac"
+             id="fechanac"
+             class="form-control "
+             [(ngModel)]="persona.fechaNac"
+             #nombre="ngModel"
+             disabled/>
+    </div>
+    <div>
+      <label for="mail">Correo electronico </label>
+      <input type="email"
+             name="email"
+             placeholder="correo electronico"
+             id="mail"
+             class="form-control "
+             [(ngModel)]="persona.email"
+             #nombre="ngModel"
+             pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+             disabled/>
+    </div>
+    <button class="btn-wlm"
+            type="submit"
+            [disabled]="!altapersona.valid">
+      Continuar
+    </button>
+
+  </form>
+</div>

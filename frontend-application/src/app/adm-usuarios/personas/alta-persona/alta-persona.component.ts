@@ -10,9 +10,10 @@ export class AltaPersonaComponent implements OnInit {
 
   constructor() { }
 
-  persona: Persona = new Persona();
+  persona: Persona;
 
   ngOnInit() {
+    this.persona = new Persona();
   }
 
   onSubmit(){

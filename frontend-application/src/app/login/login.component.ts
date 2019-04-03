@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService} from './../services/login.service';
 import { User } from './../model/user.model';
 import { Router } from '@angular/router';
-import { UserService } from './../services/user.service';
+import { SessionService } from './../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn: Boolean = true;
   constructor(private loginService: LoginService,
               private router: Router,
-              private userService: UserService) { }
+              private sessionService: SessionService) { }
 
   ngOnInit() {
   }
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         res => {
          console.log(res);
          this.isLoggedIn = true;
-         this.userService.setUserLoggedIn(res);
+         this.sessionService.setUserLoggedIn(res);
          this.router.navigate(['/home']);
         },
         error => {
