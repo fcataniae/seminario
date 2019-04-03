@@ -37,7 +37,7 @@ public class Rol {
                 '}';
     }
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
     public Long getId() {
@@ -70,5 +70,13 @@ public class Rol {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public void addPermiso(Permiso p){
+        permisos.add(p);
+    }
+
+    public void delPermiso(Permiso p){
+        permisos.remove(p);
     }
 }

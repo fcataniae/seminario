@@ -37,10 +37,7 @@ public class Persona {
     @Column
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Usuario> usuarios;
-
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
     @Override
