@@ -15,4 +15,8 @@ public interface IUsuarioService {
         boolean createUsuario(Usuario usuario);
         boolean updateUsuario(Usuario usuario);
         boolean deleteUsuario(Long Id);
+
+    Usuario getUsuarioByNombre(String nombre);
+
+        String deleteUsuarioByNombre(String nombre);
 }

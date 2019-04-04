@@ -11,6 +11,10 @@ public interface IPersonaService {
         Persona getPersonaById(Long id);
         boolean createPersona(Persona persona);
         // boolean cambiarEstado(Persona persona, Estado estado);
-        void updatePersona(Persona persona);
+        Persona updatePersona(Persona persona);
         void deletePersona(Long Id);
+
+    Persona getPersonaByDocumento(Long doc);
+
+        Persona deletePersona(Persona persona);
 }

@@ -16,11 +16,11 @@ export class UsuarioService {
       }
 
   getAllUsuarios(): Observable<Usuario[]>{
-    return this._http.get<Usuario[]>( environment.serviceUrl + "get/usuarios" );
+    return this._http.get<Usuario[]>( environment.serviceUrl + "listar-usuarios" );
   }
 
-  deleteUser(usuario: Usuario): Observable<boolean>{
-    return this._http.delete<boolean>( environment.serviceUrl + "delete/user", usuario );
+  deleteUser(usuario: Usuario): Observable<string>{
+    return this._http.delete<string>( environment.serviceUrl + "usuario/" + usuario );
   }
 
   getUsuarioByName(nombre: string): Observable<Usuario>{

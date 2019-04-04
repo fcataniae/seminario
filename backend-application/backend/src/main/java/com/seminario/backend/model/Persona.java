@@ -22,11 +22,27 @@ public class Persona implements Serializable {
     @Column
     private String nombre;
 
+    public Long getNroDoc() {
+        return nroDoc;
+    }
+
+    public void setNroDoc(Long nroDoc) {
+        this.nroDoc = nroDoc;
+    }
+
+    public String getTipoDoc() {
+        return tipoDoc;
+    }
+
+    public void setTipoDoc(String tipoDoc) {
+        this.tipoDoc = tipoDoc;
+    }
+
     @Column
     private String apellido;
 
     @Column
-    private Integer nroDoc;
+    private Long nroDoc;
 
     @Column
     private String tipoDoc;

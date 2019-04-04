@@ -38,12 +38,27 @@ public class PersonaService implements IPersonaService {
     }
 
     @Override
-    public void updatePersona(Persona persona) {
-        personaRepository.save(persona);
+    public Persona updatePersona(Persona persona) {
+        return personaRepository.save(persona);
     }
 
     @Override
     public void deletePersona(Long Id) {
         personaRepository.delete(getPersonaById(Id));
+    }
+
+    @Override
+    public Persona getPersonaByDocumento(Long doc) {
+        return personaRepository.findByNroDoc(doc);
+    }
+
+    @Override
+    public Persona deletePersona(Persona persona) {
+        Persona personaTmp = personaRepository.findByNroDoc(persona.getNroDoc());
+        if(personaTmp != null){
+            personaRepository.delete(personaTmp);
+
+        }
+        return null;
     }
 }

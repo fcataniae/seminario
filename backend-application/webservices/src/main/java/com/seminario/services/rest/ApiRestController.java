@@ -90,4 +90,24 @@ public class ApiRestController {
         return permisoService.getAllPermisos();
     }
 
+    @GetMapping("/usuario/{nombreusuario}")
+    public Usuario getUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
+        return usuarioService.getUsuarioByNombre(nombre);
+    }
+    @DeleteMapping("/usuario/{nombreusuario}")
+    public String deleteUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
+        return usuarioService.deleteUsuarioByNombre(nombre);
+    }
+    @GetMapping("/persona/{documento}")
+    public Persona getPersonaByDocumento(@PathVariable("documento") Long doc){
+        return personaService.getPersonaByDocumento(doc);
+    }
+    @PostMapping("/persona")
+    public Persona deletePersona(@RequestBody Persona persona){
+        return personaService.deletePersona(persona);
+    }
+    @PutMapping("/persona")
+    public Persona updatePersona(@RequestBody Persona persona){
+        return personaService.updatePersona(persona);
+    }
 }

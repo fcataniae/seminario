@@ -15,14 +15,14 @@ export class PersonaService {
     }
 
   getPersonaByDocumento(documento: number): Observable<Persona>{
-    return this._http.get<Persona>(environment.serviceUrl + 'persona/get/' + documento);
+    return this._http.get<Persona>(environment.serviceUrl + 'persona/' + documento);
   }
 
   deletePersona(persona: Persona): Observable<string>{
-    return this._http.delete<string>(environment.serviceUrl + 'persona/delete' , persona);
+    return this._http.delete<string>(environment.serviceUrl + 'persona/' , persona);
   }
   modificarPersona(persona: Persona): Observable<string>{
-    return this._http.put<string>(environment.serviceUrl + 'persona/modificar', persona);
+    return this._http.put<string>(environment.serviceUrl + 'persona/', persona);
   }
 
 }

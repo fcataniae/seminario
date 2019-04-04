@@ -12,5 +12,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface PersonaRepository extends CrudRepository<Persona, Long>  {
     List<Persona> findByNombre(String nombre);
     Persona findById(Long Id);
+    Persona findByNroDoc(Long nroDoc);
 }
 

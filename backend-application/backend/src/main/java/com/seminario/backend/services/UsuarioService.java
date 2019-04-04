@@ -19,8 +19,11 @@ public class UsuarioService implements IUsuarioService{
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
     private PersonaRepository personaRepository;
+    @Autowired
     private RolRepository rolRepository;
+    @Autowired
     private EstadoRepository estadoRespository;
 
     @Override
@@ -93,5 +96,20 @@ public class UsuarioService implements IUsuarioService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Usuario getUsuarioByNombre(String nombre) {
+        return usuarioRepository.findByNombreUsuario(nombre);
+    }
+
+    @Override
+    public String deleteUsuarioByNombre(String nombre) {
+        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
+        if(usuarioTmp != null){
+            usuarioRepository.delete(usuarioTmp);
+            return "Se elimino el usuario correctamente";
+        }
+        return "Error al eliminar el usuario";
     }
 }
