@@ -62,8 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .authenticationEntryPoint(restAuthenticationEntryPoint);
-
-        http.addFilterAfter(corsFilter,
+        http.csrf().disable();
+         http.addFilterAfter(corsFilter,
                 BasicAuthenticationFilter.class);
     }
 
