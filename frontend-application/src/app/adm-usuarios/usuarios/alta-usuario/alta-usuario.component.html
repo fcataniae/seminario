@@ -1,5 +1,5 @@
-<div class="container"a>
-
+<div class="container">
+  <h3>Alta de usuario</h3>
   <form class="form"
         #altausuario="ngForm"
         (ngSubmit)="onSubmit()">
@@ -43,9 +43,10 @@
 
     <button class="btn-wlm"
             type="submit"
-            [disabled]="passwordCheck !== user.password ">
+            [disabled]="(passwordCheck !== user.password) || !altausuario.valid">
       Confirmar
     </button>
+
   </form>
 
 </div>

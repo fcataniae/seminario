@@ -3,6 +3,7 @@ package com.seminario.backend.services;
 import com.seminario.backend.model.Usuario;
 import com.seminario.backend.repository.UsuarioRepository;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class IdentityManager {
 
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
     public IdentityManager(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
     }
