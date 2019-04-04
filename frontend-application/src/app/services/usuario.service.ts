@@ -20,7 +20,7 @@ export class UsuarioService {
   }
 
   deleteUser(usuario: Usuario): Observable<boolean>{
-    return this._http.get<boolean>( environment.serviceUrl + "delete/user" );
+    return this._http.delete<boolean>( environment.serviceUrl + "delete/user", usuario );
   }
 
   getUsuarioByName(nombre: string): Observable<Usuario>{

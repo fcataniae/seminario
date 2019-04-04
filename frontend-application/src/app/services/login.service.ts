@@ -13,8 +13,6 @@ export class LoginService {
 
   login(username:string, password:string): Observable<Usuario> {
     console.log(username + '   ' + password);
-    let headers = new HttpHeaders();
-
     sessionStorage.setItem('Auth','Basic ' + btoa(username+':'+password))
 
     return this._http.get<Usuario>( environment.serviceUrl + 'login'  );

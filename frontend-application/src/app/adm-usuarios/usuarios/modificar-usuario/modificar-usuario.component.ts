@@ -18,6 +18,7 @@ export class ModificarUsuarioComponent implements OnInit {
   passwordCheck: string;
 
   ngOnInit() {
+    this.usuario = new Usuario();
     this._route.paramMap.subscribe(params => {
       let id = params.get("id");
       this._usuarioService.getUsuarioByName(id).subscribe(

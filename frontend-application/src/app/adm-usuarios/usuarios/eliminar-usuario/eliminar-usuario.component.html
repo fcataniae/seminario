@@ -1,6 +1,15 @@
 <div class="container">
-  <h3>Eliminar usuario</h3>
+  <h3>Modificacion/Eliminacion de usuario</h3>
 
+  <ul>
+    <li>Nombre de usuario</li>
+    <li>Nombre</li>
+    <li>Apellido</li>
+    <li>Mail</li>
+    <li>Documento</li>
+    <li>Eliminar</li>
+    <li>Modificar</li>
+  </ul>
   <ul *ngFor="let usuario of usuarios">
       <li>{{usuario.nombreUsuario}}</li>
       <li>{{usuario.persona.nombre}}</li>
@@ -12,7 +21,7 @@
             value="Eliminar"
             (click)="deleteUser(usuario)">
       </li>
-      <li><a [routerLink]="['/home/gestion/usuarios/modi', usuario.nombreUsuario]"><span>Modificar Usuario</span></a>
+      <li><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"><span>Modificar Usuario</span></a>
       </li>
 
   </ul>
