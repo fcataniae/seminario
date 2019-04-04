@@ -3,7 +3,10 @@ package com.seminario.services.rest;
 
 
 import com.seminario.backend.dto.DTOUser;
+import com.seminario.backend.model.Permiso;
 import com.seminario.backend.model.Persona;
+import com.seminario.backend.model.Rol;
+import com.seminario.backend.model.Usuario;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import com.google.gson.Gson;
 
 import javax.json.Json;
+import java.util.List;
 
 /**
  * User: fcatania
@@ -63,36 +67,39 @@ public class ApiRestController {
 
     @RequestMapping("/alta-persona")
     public String createPersona(@RequestBody Persona persona) {
-        Gson gson = new Gson();
-        //throw new IllegalArgumentException("The 'name' parameter must not be null or empty");
         if (personaService.createPersona(persona))
             return "Exito!";
         else
             return "Fail";
     }
 
+    @RequestMapping("/alta-usuario")
+    public String createUsuario(@RequestBody Usuario usuario) {
+        if (usuarioService.createUsuario(usuario))
+            return "Exito!";
+        else
+            return "Fail";
+    }
+
+
     @GetMapping("/listar-personas")
-    public String listPersonas(){
-        Gson gson = new Gson();
-        return gson.toJson(personaService.getAllPersonas());
+    public List<Persona> listPersonas(){
+        return personaService.getAllPersonas();
     }
 
     @GetMapping("/listar-roles")
-    public String listRoles(){
-        Gson gson = new Gson();
-        return gson.toJson(rolService.getAllRoles());
+    public List<Rol> listRoles(){
+        return rolService.getAllRoles();
     }
 
     @GetMapping("/listar-usuarios")
-    public String listUsuarios(){
-        Gson gson = new Gson();
-        return gson.toJson(usuarioService.getAllUsuarios());
+    public List<Usuario> listUsuarios(){
+        return usuarioService.getAllUsuarios();
     }
 
     @GetMapping("/listar-permisos")
-    public String listPermisos(){
-        Gson gson = new Gson();
-        return gson.toJson(permisoService.getAllPermisos());
+    public List<Permiso> listPermisos(){
+        return permisoService.getAllPermisos();
     }
 
 }
