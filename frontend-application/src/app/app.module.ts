@@ -27,6 +27,10 @@ import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuari
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EliminarUsuarioComponent } from './adm-usuarios/usuarios/eliminar-usuario/eliminar-usuario.component';
+import { GestionRolesComponent } from './adm-usuarios/roles/gestion-roles/gestion-roles.component';
+import { AltaRolComponent } from './adm-usuarios/roles/alta-rol/alta-rol.component';
+import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
+import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modificar-rol.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,11 @@ import { EliminarUsuarioComponent } from './adm-usuarios/usuarios/eliminar-usuar
     GestionUsuariosComponent,
     AltaUsuarioComponent,
     ModificarUsuarioComponent,
-    EliminarUsuarioComponent
+    EliminarUsuarioComponent,
+    GestionRolesComponent,
+    AltaRolComponent,
+    EditarRolComponent,
+    ModificarRolComponent
   ],
   imports: [
     BrowserModule,

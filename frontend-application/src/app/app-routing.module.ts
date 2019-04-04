@@ -10,6 +10,10 @@ import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuari
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EliminarUsuarioComponent } from './adm-usuarios/usuarios/eliminar-usuario/eliminar-usuario.component';
+import { GestionRolesComponent } from './adm-usuarios/roles/gestion-roles/gestion-roles.component';
+import { AltaRolComponent } from './adm-usuarios/roles/alta-rol/alta-rol.component';
+import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
+import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modificar-rol.component';
 
 
 const routes: Routes = [
@@ -24,6 +28,10 @@ const routes: Routes = [
   { path: 'home/gestion/usuarios/alta', component: AltaUsuarioComponent},
   { path: 'home/gestion/usuarios/adm', component: EliminarUsuarioComponent},
   { path: 'home/gestion/usuarios/adm/:id', component: ModificarUsuarioComponent}
+  { path: 'home/gestion/roles', component: GestionRolesComponent},
+  { path: 'home/gestion/roles/alta', component: AltaRolComponent},
+  { path: 'home/gestion/roles/adm', component: EditarRolComponent},
+  { path: 'home/gestion/roles/adm/:id', component: ModificarRolComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
