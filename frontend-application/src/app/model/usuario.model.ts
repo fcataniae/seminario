@@ -1,7 +1,8 @@
 import { Persona } from './persona.model';
 
-export class User {
-  username: string;
+export class Usuario {
+
+  nombreUsuario: string;
   password: string;
   persona: Persona;
 

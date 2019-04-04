@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Usuario } from '../../../model/usuario.model';
+import { ActivatedRoute } from '@angular/router';
+import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModificarUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _route: ActivatedRoute,
+              private _usuarioService: UsuarioService) {
+    }
+
+  usuario : Usuario;
+  passwordCheck: string;
 
   ngOnInit() {
+    this._route.paramMap.subscribe(params => {
+      let id = params.get("id");
+      this._usuarioService.getUsuarioByName(id).subscribe(
+        res => {
+          this.usuario = res;
+          this.usuario.password = "";
+        },
+        error => {console.log(error)}
+      )
+    })
   }
+
 
 }

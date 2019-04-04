@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'home/gestion/usuarios', component: GestionUsuariosComponent},
   { path: 'home/gestion/usuarios/alta', component: AltaUsuarioComponent},
   { path: 'home/gestion/usuarios/baja', component: EliminarUsuarioComponent},
-  { path: 'home/gestion/usuarios/modi', component: ModificarUsuarioComponent}
+  { path: 'home/gestion/usuarios/modi/:id', component: ModificarUsuarioComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

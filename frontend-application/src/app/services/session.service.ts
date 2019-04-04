@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from './../model/user.model'
+import { Usuario } from '../model/usuario.model'
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { User } from './../model/user.model'
 export class SessionService {
 
   private userLoggedIn;
-  private usserLogged: User;
+  private usserLogged: Usuario;
 
   constructor() {
   	this.userLoggedIn = false;
@@ -16,14 +16,14 @@ export class SessionService {
   isUserLoggedIn(){
     return this.userLoggedIn;
   }
-  setUserLoggedIn(user:User) {
+  setUserLoggedIn(user:Usuario) {
     this.userLoggedIn = true;
     this.usserLogged = user;
     sessionStorage.setItem('currentUser', JSON.stringify(user));
 
   }
 
-  getUserLoggedIn(): User {
+  getUserLoggedIn(): Usuario {
   	return JSON.parse(sessionStorage.getItem('currentUser'));
   }
 

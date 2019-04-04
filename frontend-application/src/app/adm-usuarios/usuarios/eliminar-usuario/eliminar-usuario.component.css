@@ -1,0 +1,16 @@
+ul {
+  list-style-type: none;
+  min-width: 70%;
+  max-width: 100%;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+li {
+  display: table-cell;
+  width: 50%;
+}
+app-modificar-usuario {
+
+  width: 30%;
+}

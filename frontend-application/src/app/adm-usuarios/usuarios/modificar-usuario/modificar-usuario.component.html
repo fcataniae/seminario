@@ -1,3 +1,54 @@
-<p>
-  modificar-usuario works!
-</p>
+<div class="container">
+  <h3>Modificar usuario</h3>
+  <form class="form"
+        #modificarusuario="ngForm"
+        (ngSubmit)="onSubmit()">
+
+
+    <div>
+      <label for="nombre">Nombre de usuario</label>
+      <input type="text"
+             name="nombre"
+             placeholder="nombre de usuario"
+             id="nombre"
+             class="form-control "
+             [(ngModel)]="usuario.nombreUsuario"
+             #nombre="ngModel"
+             disabled
+             required/>
+    </div>
+    <h4>Cambiar Contraseña</h4>
+    <div>
+      <label for="pass">Ingrese su nueva contraseña</label>
+      <input type="password"
+             name="pass"
+             placeholder="contraseña"
+             id="pass"
+             class="form-control "
+             [(ngModel)]="usuario.password"
+             #pass="ngModel"
+             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+             required/>
+    </div>
+    <div>
+      <label for="pass2">Confirmar su nueva contraseña </label>
+      <input type="password"
+             name="pass2"
+             placeholder="vuelva a ingresar su contraseña"
+             id="pass2"
+             class="form-control "
+             [(ngModel)]="passwordCheck"
+             #pass2="ngModel"
+             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+             required/>
+    </div>
+
+    <button class="btn-wlm"
+            type="submit"
+            [disabled]="(passwordCheck !== usuario.password) || !modificarusuario.valid">
+      Confirmar
+    </button>
+
+  </form>
+
+</div>

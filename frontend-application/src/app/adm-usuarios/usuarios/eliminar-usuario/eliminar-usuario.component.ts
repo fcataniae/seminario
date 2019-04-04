@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../../model/user.model';
+import { Usuario } from '../../../model/usuario.model';
 import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
@@ -11,8 +11,8 @@ export class EliminarUsuarioComponent implements OnInit {
 
   constructor(private _usuarioService: UsuarioService) { }
 
-  usuarios: User[];
-
+  usuarios: Usuario[];
+  usuarioSelected: Usuario = null;
   ngOnInit( ) {
 
       //cargo todos los usuarios para mostrar un listado
@@ -27,6 +27,16 @@ export class EliminarUsuarioComponent implements OnInit {
 
   }
 
+  deleteUser(usuario: Usuario){
+    this._usuarioService.deleteUser(usuario).subscribe(
+      res => {console.log(res)},
+      error => {console.log(error)}
+    );
+  }
 
+  modificarUser(usuario: Usuario){
+    console.log(usuario);
+    this.usuarioSelected = usuario;
+  }
 
 }
