@@ -1,6 +1,7 @@
 package com.seminario.backend.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User: mrgrassho
@@ -9,8 +10,8 @@ import javax.persistence.*;
  */
 @Entity
 @Cacheable(false)
-public class Estado {
-
+public class Estado implements Serializable {
+    private static final long serialVersionUID = 2L;
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;

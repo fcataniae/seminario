@@ -1,6 +1,7 @@
 package com.seminario.backend.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,8 +13,8 @@ import java.util.Set;
 
 @Entity
 @Cacheable(false)
-public class Persona {
-
+public class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;

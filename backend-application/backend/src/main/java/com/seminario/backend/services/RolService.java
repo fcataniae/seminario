@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class RolService implements IRolService {
@@ -19,7 +20,11 @@ public class RolService implements IRolService {
 
     @Override
     public List<Rol> getAllRoles() {
-        return null;
+        List<Rol> list = new ArrayList<>();
+        for(Rol e : rolRepository.findAll()) {
+            list.add(e);
+        }
+        return list;
     }
 
     @Override
