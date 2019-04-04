@@ -3,6 +3,7 @@ package com.seminario.backend.services;
 import com.seminario.backend.model.Estado;
 import com.seminario.backend.model.Permiso;
 import com.seminario.backend.repository.PermisoRepository;
+import com.seminario.backend.services.interfaces.IPermisoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

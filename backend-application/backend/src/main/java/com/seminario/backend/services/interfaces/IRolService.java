@@ -1,4 +1,4 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.interfaces;
 
 import com.seminario.backend.model.Estado;
 import com.seminario.backend.model.Permiso;

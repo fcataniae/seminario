@@ -1,4 +1,4 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.interfaces;
 
 import java.util.List;
 

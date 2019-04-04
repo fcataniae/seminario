@@ -8,6 +8,7 @@ import com.seminario.backend.repository.UsuarioRepository;
 import com.seminario.backend.repository.RolRepository;
 import com.seminario.backend.repository.PersonaRepository;
 import com.seminario.backend.repository.EstadoRepository;
+import com.seminario.backend.services.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UsuarioService implements IUsuarioService{
+public class UsuarioService implements IUsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;

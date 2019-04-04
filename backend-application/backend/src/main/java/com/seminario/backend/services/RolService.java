@@ -5,6 +5,7 @@ import com.seminario.backend.model.Permiso;
 import com.seminario.backend.model.Rol;
 import com.seminario.backend.repository.PermisoRepository;
 import com.seminario.backend.repository.RolRepository;
+import com.seminario.backend.services.interfaces.IRolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
