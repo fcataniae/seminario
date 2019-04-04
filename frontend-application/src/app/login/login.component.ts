@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LoginService} from './../services/login.service';
-import { User } from './../model/user.model';
 import { Router } from '@angular/router';
 import { SessionService } from './../services/session.service';
 
@@ -13,9 +12,9 @@ import { SessionService } from './../services/session.service';
 export class LoginComponent implements OnInit {
 
   isLoggedIn: Boolean = true;
-  constructor(private loginService: LoginService,
-              private router: Router,
-              private sessionService: SessionService) { }
+  constructor(private _loginService: LoginService,
+              private _router: Router,
+              private _sessionService: SessionService) { }
 
   ngOnInit() {
   }
@@ -23,13 +22,13 @@ export class LoginComponent implements OnInit {
   logIn(username: string, password: string, event: Event) {
       event.preventDefault();
 
-      this.loginService.login(username, password).subscribe(
+      this._loginService.login(username, password).subscribe(
 
         res => {
          console.log(res);
          this.isLoggedIn = true;
-         this.sessionService.setUserLoggedIn(res);
-         this.router.navigate(['/home']);
+         this._sessionService.setUserLoggedIn(res);
+         this._router.navigate(['/home']);
         },
         error => {
           console.error(error);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './../../../model/user.model';
+import { Usuario } from '../../../model/usuario.model';
+import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
   selector: 'app-alta-usuario',
@@ -8,13 +9,13 @@ import { User } from './../../../model/user.model';
 })
 export class AltaUsuarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _usuarioService : UsuarioService) { }
 
-  user: User;
+  user: Usuario;
   passwordCheck: string;
 
   ngOnInit() {
-    this.user = new User();
+    this.user = new Usuario();
   }
 
   onSubmit(){

@@ -3,7 +3,7 @@
 
   <form *ngIf="!personaCargada"
         #buscarpersona="ngForm"
-        (ngSubmit)="buscarPersona()"
+        (ngSubmit)="buscarPersona($event)"
         class="form">
     <div>
       <input type="text"
@@ -26,7 +26,7 @@
   <form  *ngIf="personaCargada"
          class="form"
          #altapersona="ngForm"
-         (ngSubmit)="onSubmit()">
+         (ngSubmit)="onDelete($event)">
     <div>
       <label for="nombre">Nombre </label>
       <input type="text"
@@ -98,9 +98,8 @@
              disabled/>
     </div>
     <button class="btn-wlm"
-            type="submit"
-            [disabled]="!altapersona.valid">
-      Continuar
+            type="submit">
+      Eliminar
     </button>
 
   </form>
