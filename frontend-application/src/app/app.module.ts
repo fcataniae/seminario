@@ -26,7 +26,7 @@ import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-perso
 import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuarios/gestion-usuarios.component';
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
-import { EliminarUsuarioComponent } from './adm-usuarios/usuarios/eliminar-usuario/eliminar-usuario.component';
+import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { GestionRolesComponent } from './adm-usuarios/roles/gestion-roles/gestion-roles.component';
 import { AltaRolComponent } from './adm-usuarios/roles/alta-rol/alta-rol.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
@@ -44,7 +44,7 @@ import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modifi
     GestionUsuariosComponent,
     AltaUsuarioComponent,
     ModificarUsuarioComponent,
-    EliminarUsuarioComponent,
+    EditarUsuarioComponent,
     GestionRolesComponent,
     AltaRolComponent,
     EditarRolComponent,
