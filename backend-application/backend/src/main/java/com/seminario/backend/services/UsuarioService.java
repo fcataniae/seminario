@@ -66,9 +66,8 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario createUsuario(Usuario usuario) {
-        Persona persona = personaRepository.findById(usuario.getPersona().getId());
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (persona != null && usuarioTmp == null){
+        if (usuarioTmp == null){
             return usuarioRepository.save(usuario);
         }
         return null;

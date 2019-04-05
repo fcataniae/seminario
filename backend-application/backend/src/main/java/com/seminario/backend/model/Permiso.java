@@ -61,4 +61,21 @@ public class Permiso {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
+
+    public void setFuncionalidad(String funcionalidad){
+        this.funcionalidad = funcionalidad;
+    }
+
+
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getFuncionalidad() {
+        return funcionalidad;
+    }
 }
