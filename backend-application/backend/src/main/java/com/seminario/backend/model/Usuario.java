@@ -17,7 +17,7 @@ public class Usuario {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique=true)
     private String nombreUsuario;
 
     @Column
@@ -39,7 +39,8 @@ public class Usuario {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name="PERSONA_USUARIO")
     private Persona persona;
 
     public Long getId() {
@@ -92,5 +93,9 @@ public class Usuario {
 
     public Set<Rol> getRoles() {
         return this.roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
 }

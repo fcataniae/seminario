@@ -18,7 +18,7 @@ public class Rol {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique=true)
     private String nombre;
 
     @Column
@@ -78,5 +78,13 @@ public class Rol {
 
     public void delPermiso(Permiso p){
         permisos.remove(p);
+    }
+
+    public Set<Permiso> getPermisos() {
+        return this.permisos;
+    }
+
+    public void setPermisos(Set<Permiso> permisos) {
+        this.permisos = permisos;
     }
 }

@@ -18,4 +18,5 @@ public interface IUsuarioService {
 
         Usuario getUsuarioByNombre(String nombre);
         String deleteUsuarioByNombre(String nombre);
+        Usuario getUsuarioByUsuarioYPass(String usuario, String pass);
 }

@@ -84,5 +84,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:4.3.14.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:3.2.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.12" level="project" />
   </component>
 </module>

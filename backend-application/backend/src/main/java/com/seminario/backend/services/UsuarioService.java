@@ -108,4 +108,9 @@ public class UsuarioService implements IUsuarioService {
         }
         return "Error al eliminar el usuario";
     }
+
+    @Override
+    public Usuario getUsuarioByUsuarioYPass(String usuario, String pass) {
+        return usuarioRepository.findByNombreUsuarioPassword(usuario, pass);
+    }
 }

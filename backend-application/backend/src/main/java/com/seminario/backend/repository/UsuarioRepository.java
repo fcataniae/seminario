@@ -2,6 +2,7 @@ package com.seminario.backend.repository;
 
 import com.seminario.backend.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * User: fcatania
@@ -9,7 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 09:18
  */
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>  {
-
+    @Query("SELECT u FROM Usuario u WHERE u.nombreUsuario = ?1 and u.password = ?2")
+    Usuario findByNombreUsuarioPassword(String nombreUsuario, String password);
     Usuario findByNombreUsuario(String name);
     Usuario findById(Long Id);
 }
