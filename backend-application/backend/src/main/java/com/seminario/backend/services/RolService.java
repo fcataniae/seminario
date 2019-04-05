@@ -27,32 +27,12 @@ public class RolService implements IRolService {
 
     @Override
     public Rol getRolById(Long id) {
-        return null;
-    }
-
-    @Override
-    public boolean addRol(Rol rol, Permiso permiso) {
-        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
-        if (permisoTmp != null) {
-            rol.addPermiso(permiso);
-            rolRepository.save(rol);
-        }
-        return false;
+        return rolRepository.findById(id);
     }
 
     @Override
     public Rol getRolByNombre(String nombre) {
         return rolRepository.findByNombre(nombre);
-    }
-
-    @Override
-    public boolean delRol(Rol rol, Permiso permiso) {
-        return false;
-    }
-
-    @Override
-    public boolean cambiarEstado(Rol rol, Estado estado) {
-        return false;
     }
 
     @Override
