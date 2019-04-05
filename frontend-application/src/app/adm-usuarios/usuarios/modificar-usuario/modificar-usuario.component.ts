@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
+import { Rol } from '../../../model/rol.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './../../../services/usuario.service';
+import { RolService } from './../../../services/rol.service';
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -11,12 +13,14 @@ import { UsuarioService } from './../../../services/usuario.service';
 export class ModificarUsuarioComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
-              private _usuarioService: UsuarioService) {
+              private _usuarioService: UsuarioService,
+              private _rolService: RolService) {
     }
 
   usuario : Usuario;
   passwordCheck: string;
   cambiaContrasenia: boolean;
+  rolesNoAsignados: Rol[];
 
   ngOnInit() {
     this.cambiaContrasenia = false;
@@ -27,6 +31,7 @@ export class ModificarUsuarioComponent implements OnInit {
         res => {
           this.usuario = res;
           this.passwordCheck = this.usuario.password;
+          this.cargarRoles();
         },
         error => {console.log(error);}
       )
@@ -47,5 +52,22 @@ export class ModificarUsuarioComponent implements OnInit {
     );
 
   }
+  cargarRoles(){
 
+    this._rolService.getAllRoles().subscribe(
+
+      res => {
+          let roles = this.usuario.roles;
+          this.rolesNoAsignados = res.filter(function(array){
+            return roles.filter( function(array2){
+              return array2.id == array.id;
+            }).length == 0
+          });
+          console.log(this.rolesNoAsignados);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }
