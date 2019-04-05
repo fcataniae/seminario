@@ -1,22 +1,34 @@
-INSERT INTO dbtest.ESTADO
+DROP DATABASE seminario;
+
+CREATE DATABASE seminario;
+
+SELECT ID, NOMBREUSUARIO, PASSWORD, ESTADO_ID, PERSONA_ID
+FROM seminario.USUARIO;
+
+INSERT INTO seminario.ESTADO
 (DESCRIP)
 VALUES('ACTIVO');
 
-INSERT INTO dbtest.ESTADO
+INSERT INTO seminario.ESTADO
 (DESCRIP)
 VALUES('INACTIVO');
 
-INSERT INTO dbtest.PERSONA
-(APELLIDO, EMAIL, FECHA_NACIMIENTO, NOMBRE, NRODOC, TIPODOC, ESTADO_ID)
-VALUES('Power', 'HomeroPower@gmail.com', '1982-01-22', 'Homero', 40343230, 'DNI', 1);
-
-INSERT INTO dbtest.USUARIO
+INSERT INTO seminario.USUARIO
 (NOMBREUSUARIO, PASSWORD, ESTADO_ID)
 VALUES('admin', 'admin', 1);
 
-INSERT INTO dbtest.PERSONA_USUARIO
-(Persona_ID, usuarios_ID)
-VALUES(1, 1);
+INSERT INTO seminario.ROL VALUES(100, 'Administrador', 'Administrador del sistema', 1);
+
+INSERT INTO seminario.Usuario_Rol VALUES(1, 100);
+
+INSERT INTO seminario.PERMISO VALUES(1000, 'Alta Usuario', 'Permite dar de alta usuarios.', 'ALTA-USUARIO', 1, 1, 1);
+
+INSERT INTO seminario.PERMISO VALUES(1001, 'Baja Usuario', 'Permite dar de baja usuarios.', 'BAJA-USUARIO', 1, 1, 1);
+INSERT INTO seminario.PERMISO VALUES(1002, 'Consulta Usuario', 'Permite dar de Consulta usuarios.', 'CONS-USUARIO', 1, 1, 1);
+
+INSERT INTO seminario.ROL_PERMISO VALUES(100, 1000);
+INSERT INTO seminario.ROL_PERMISO VALUES(100, 1001);
+INSERT INTO seminario.ROL_PERMISO VALUES(100, 1002);
 
 
 

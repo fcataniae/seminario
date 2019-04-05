@@ -89,4 +89,8 @@ public class Usuario {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
+
+    public Set<Rol> getRoles() {
+        return this.roles;
+    }
 }

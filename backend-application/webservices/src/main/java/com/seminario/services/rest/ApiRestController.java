@@ -136,15 +136,15 @@ public class ApiRestController {
      * @param    usuarioActual  Es el Usuario que quiere dar de alta un nuevo usuario
      *                          (debe tener los permisos para ejecutar el método).
      * @param    IdUsuario      Es el ID del Usuario al cual se le asignará el ROL.
-     * @param    IdRol          El Rol que se va a asignar
      * */
-    @GetMapping("asignar-rol/{id-usuario}/{id-rol}")
+    @GetMapping("asignar-rol/{id-usuario}")
     public String asignarRolUsuario(@PathVariable("id-usuario") Long IdUsuario,
-                                    @PathVariable("id-rol") Long IdRol,
                                     @RequestBody Usuario usuarioActual)
     {
         Usuario u = usuarioService.getUsuarioById(IdUsuario);
-        Rol r = rolService.getRolById(IdRol);
+        for (Rol e: usuarioActual.getRoles()) {
+
+        }
         if ((u != null) && ( r != null)) {
             if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                     contains(permisoService.getPermisoByNombre("ASIGNAR-ROL"))) {
