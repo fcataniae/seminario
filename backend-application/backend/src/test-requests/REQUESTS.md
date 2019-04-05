@@ -25,7 +25,11 @@ curl -X PUT \
 
 Ingresar el <id-persona> a la cual estará asociado el nuevo usuario.
 
+<<<<<<< HEAD
 ```
+=======
+``
+>>>>>>> d9afc41a438b71c9c48fb53f918b1a360433ec73
 curl -X POST \
   http://localhost:9081/service/<id-persona>/usuario \
   -H 'authorization: Basic YWRtaW46YWRtaW4=' \
