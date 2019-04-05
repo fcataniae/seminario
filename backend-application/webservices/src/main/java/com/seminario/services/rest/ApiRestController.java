@@ -59,8 +59,8 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    personaNueva    Es la Persona que se va a dar de alta.
      * */
-    @RequestMapping("/alta-persona")
-    public String createPersona(@RequestBody Usuario usuarioActual, Persona personaNueva) {
+    @RequestMapping(value="/alta-persona",method = RequestMethod.PUT)
+    public String createPersona(@RequestBody Usuario usuarioActual,@RequestBody Persona personaNueva) {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-PERSONA"))){
             if (personaService.createPersona(personaNueva) != null)
@@ -77,8 +77,8 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    usuarioNuevo    Es el Usuario que se va a dar de alta.
      * */
-    @RequestMapping("/alta-usuario")
-    public String createUsuario(@RequestBody Usuario usuarioActual, Usuario usuarioNuevo) {
+    @RequestMapping(value="/alta-usuario", method = RequestMethod.PUT)
+    public String createUsuario(@RequestBody Usuario usuarioActual,@RequestBody Usuario usuarioNuevo) {
         if (personaService.getPersonaById(usuarioNuevo.getPersona().getId()) != null) {
             if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                     contains(permisoService.getPermisoByNombre("ALTA-USUARIO"))) {
@@ -97,8 +97,8 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    rolNuevo        Es el Rol que se va a dar de alta.
      * */
-    @RequestMapping("/alta-rol")
-    public String createRol(@RequestBody Usuario usuarioActual, Rol rolNuevo) {
+    @RequestMapping(value="/alta-rol", method = RequestMethod.POST)
+    public String createRol(@RequestBody Usuario usuarioActual,@RequestBody Rol rolNuevo) {
         if (rolService.getRolById(rolNuevo.getId()) == null) {
             if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                     contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
@@ -117,8 +117,8 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    permisoNuevo    Es el Permiso que se va a dar de alta.
      * */
-    @RequestMapping("/alta-usuario")
-    public String createPermiso(@RequestBody Usuario usuarioActual, Permiso permisoNuevo) {
+    @RequestMapping(value="/alta-usuario", method =  RequestMethod.POST)
+    public String createPermiso(@RequestBody Usuario usuarioActual, @RequestBody Permiso permisoNuevo) {
         if (permisoService.getPermisoById(permisoNuevo.getId()) == null) {
             if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                     contains(permisoService.getPermisoByNombre("ALTA-PERMISO"))) {
