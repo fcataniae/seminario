@@ -16,20 +16,36 @@ export class ModificarUsuarioComponent implements OnInit {
 
   usuario : Usuario;
   passwordCheck: string;
+  cambiaContrasenia: boolean;
 
   ngOnInit() {
+    this.cambiaContrasenia = false;
     this.usuario = new Usuario();
     this._route.paramMap.subscribe(params => {
       let id = params.get("id");
       this._usuarioService.getUsuarioByName(id).subscribe(
         res => {
           this.usuario = res;
-          this.usuario.password = "";
+          this.passwordCheck = this.usuario.password;
         },
-        error => {console.log(error)}
+        error => {console.log(error);}
       )
-    })
+    });
   }
+  onChangeContrasenia(){
+    if(!this.cambiaContrasenia){
+      this.usuario.password = "";
+      this.passwordCheck = "";
+      this.cambiaContrasenia = true;
+    }
+    console.log(this.cambiaContrasenia);
+  }
+  onSubmit(){
+    this._usuarioService.updateUsuario(this.usuario).subscribe(
+      res => { alert(res);},
+      error => {alert(error);}
+    );
 
+  }
 
 }

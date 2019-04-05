@@ -17,8 +17,17 @@
              disabled
              required/>
     </div>
-    <h4>Cambiar Contraseña</h4>
-    <div>
+      <label for="cambiarContrasenia" *ngIf="!cambiaContrasenia">
+          Cambiar contraseña
+      <input type="checkbox"
+              name="cambiarContrasenia"
+              id="cambiarContrasenia"
+              [disabled]="cambiaContrasenia"
+              (change)="onChangeContrasenia()"/>
+      </label>
+    <h4 *ngIf="cambiaContrasenia">Cambiar Contraseña</h4>
+    <div *ngIf="cambiaContrasenia">
+
       <label for="pass">Ingrese su nueva contraseña</label>
       <input type="password"
              name="pass"
@@ -28,9 +37,11 @@
              [(ngModel)]="usuario.password"
              #pass="ngModel"
              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required/>
+             required
+             [disabled]="!cambiaContrasenia"
+             />
     </div>
-    <div>
+    <div *ngIf="cambiaContrasenia">
       <label for="pass2">Confirmar su nueva contraseña </label>
       <input type="password"
              name="pass2"
@@ -40,7 +51,9 @@
              [(ngModel)]="passwordCheck"
              #pass2="ngModel"
              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required/>
+             required
+             [disabled]="!cambiaContrasenia"
+             />
     </div>
 
     <button class="btn-wlm"
