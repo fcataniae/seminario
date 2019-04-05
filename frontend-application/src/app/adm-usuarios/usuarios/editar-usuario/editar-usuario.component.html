@@ -1,29 +1,34 @@
 <div class="container">
   <h3>Modificacion/Eliminacion de usuario</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Documento</th>
+        <th>Email</th>
+        <th>Eliminar</th>
+        <th>Modificar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{usuario.nombreUsuario}}</td>
+        <td>{{usuario.persona.nombre}}</td>
+        <td>{{usuario.persona.apellido}}</td>
+        <td>{{usuario.persona.email}}</td>
+        <td>{{usuario.persona.nroDoc}}</td>
+        <td><input type="button"
+              name="eliminar"
+              value="Eliminar"
+              (click)="deleteUser(usuario)">
+        </td>
+        <td><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"><span>Modificar Usuario</span></a>
+        </td>
+      </tr>
+    </tbody>
 
-  <ul>
-    <li>Nombre de usuario</li>
-    <li>Nombre</li>
-    <li>Apellido</li>
-    <li>Mail</li>
-    <li>Documento</li>
-    <li>Eliminar</li>
-    <li>Modificar</li>
-  </ul>
-  <ul *ngFor="let usuario of usuarios">
-      <li>{{usuario.nombreUsuario}}</li>
-      <li>{{usuario.persona.nombre}}</li>
-      <li>{{usuario.persona.apellido}}</li>
-      <li>{{usuario.persona.email}}</li>
-      <li>{{usuario.persona.nroDoc}}</li>
-      <li><input type="button"
-            name="eliminar"
-            value="Eliminar"
-            (click)="deleteUser(usuario)">
-      </li>
-      <li><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"><span>Modificar Usuario</span></a>
-      </li>
-
-  </ul>
+  </table>
 
 </div>

@@ -43,4 +43,5 @@ export class ModificarPersonaComponent implements OnInit {
         res => {alert('Se modifico la persona correctamente');},
         error => {alert('No se pudo actualizar los datos de la persona: '+error)}
       );
+    }
 }
