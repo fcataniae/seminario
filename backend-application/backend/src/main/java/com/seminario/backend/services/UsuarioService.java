@@ -38,21 +38,6 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public boolean addRol(Usuario usuario, Rol rol) {
-        Rol rolTmp = rolRepository.findByNombre(rol.getNombre());
-        if (rolTmp != null) {
-            usuario.addRol(rol);
-            usuarioRepository.save(usuario);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delRol(Usuario usuario, Rol rol) {
-        return false;
-    }
-
-    @Override
     public boolean cambiarEstado(Usuario usuario, Estado estado) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         Estado estadoTmp = estadoRespository.findById(estado.getId());

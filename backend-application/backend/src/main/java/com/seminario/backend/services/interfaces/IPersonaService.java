@@ -10,10 +10,8 @@ public interface IPersonaService {
         List<Persona> getAllPersonas();
         Persona getPersonaById(Long id);
         Persona createPersona(Persona persona);
-        // boolean cambiarEstado(Persona persona, Estado estado);
         Persona updatePersona(Persona persona);
         void deletePersona(Long nroDoc);
-
         Persona getPersonaByDocumento(Long doc);
 
 }

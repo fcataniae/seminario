@@ -3,6 +3,7 @@ package com.seminario.backend.services;
 import com.seminario.backend.model.Estado;
 import com.seminario.backend.model.Permiso;
 import com.seminario.backend.model.Usuario;
+import com.seminario.backend.repository.EstadoRepository;
 import com.seminario.backend.repository.PermisoRepository;
 import com.seminario.backend.services.interfaces.IPermisoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class PermisoService implements IPermisoService {
     @Autowired
     private PermisoRepository permisoRepository;
 
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     @Override
     public List<Permiso> getAllPermisos() {
@@ -39,9 +42,17 @@ public class PermisoService implements IPermisoService {
     }
 
     @Override
-    public boolean cambiarEstado(Estado estado) {
+    public boolean cambiarEstado(Permiso permiso, Estado estado) {
+        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
+        Estado estadoTmp = estadoRepository.findById(estado.getId());
+        if (permisoTmp != null && estadoTmp != null){
+            permisoTmp.setEstado(estado);
+            permisoRepository.save(permisoTmp);
+            return true;
+        }
         return false;
     }
+
 
     @Override
     public boolean createPermiso(Permiso permiso) {
@@ -64,6 +75,11 @@ public class PermisoService implements IPermisoService {
 
     @Override
     public boolean deletePermiso(Long Id) {
+        Permiso permisoTmp = permisoRepository.findById(Id);
+        if(permisoTmp != null){
+            permisoRepository.delete(permisoTmp);
+            return true;
+        }
         return false;
     }
 }

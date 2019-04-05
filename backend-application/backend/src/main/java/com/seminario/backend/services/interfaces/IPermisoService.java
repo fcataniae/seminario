@@ -9,10 +9,10 @@ import java.util.List;
 public interface IPermisoService {
         List<Permiso> getAllPermisos();
         Permiso getPermisoById(Long id);
-        boolean cambiarEstado(Estado estado);
         boolean createPermiso(Permiso permiso);
         Permiso updatePermiso(Permiso permiso);
         boolean deletePermiso(Long Id);
         List<Permiso> getAllPermisosWhereUsuario(Usuario usuario);
         Permiso getPermisoByNombre(String nombre);
+        boolean cambiarEstado(Permiso permiso, Estado estado);
 }

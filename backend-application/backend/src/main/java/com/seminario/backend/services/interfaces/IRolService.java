@@ -11,9 +11,6 @@ public interface IRolService {
         List<Rol> getAllRoles();
         Rol getRolById(Long id);
         Rol getRolByNombre(String nombre);
-        boolean addRol(Rol rol, Permiso permiso);
-        boolean delRol(Rol rol, Permiso permiso);
-        boolean cambiarEstado(Rol rol, Estado estado);
         Rol createRol(Rol rol);
         Rol updateRol(Rol rol);
         void deleteRolByNombre(String Nombre);
