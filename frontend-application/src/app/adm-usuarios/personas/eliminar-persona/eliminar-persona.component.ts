@@ -10,7 +10,8 @@ import { Persona } from './../../../model/persona.model';
 })
 export class EliminarPersonaComponent implements OnInit {
 
-  constructor(private _personaService: PersonaService) { }
+  constructor(private _personaService: PersonaService,
+              private _router: RouterService) { }
 
   documentoBusqueda: number;
   persona: Persona;
@@ -45,6 +46,7 @@ export class EliminarPersonaComponent implements OnInit {
           alert('Se elimino la persona correctamente');
           this.personaCargada = false;
           this.persona = null;
+          this._router.navigate(['/home/gestion/personas']);
         },
         error => {
           alert('No se pudo eliminar la persona: '+error);

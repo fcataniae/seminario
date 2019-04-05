@@ -24,5 +24,8 @@ export class PersonaService {
   modificarPersona(persona: Persona): Observable<string>{
     return this._http.put<string>(environment.serviceUrl + 'persona/',  persona);
   }
+  createPersona(persona: Persona): Observable<string>{
+    return this._http.post<string>(environment.serviceUrl + "alta-persona", persona);
+  }
 
 }

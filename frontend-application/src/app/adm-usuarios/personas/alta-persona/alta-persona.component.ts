@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from './../../../model/persona.model';
+import { Router } from '@angular/router';
+import { PersonaService } from './../../../services/persona.service';
 
 @Component({
   selector: 'app-alta-persona',
@@ -8,7 +10,8 @@ import { Persona } from './../../../model/persona.model';
 })
 export class AltaPersonaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _personaService: PersonaService,
+              private _router: Router) { }
 
   persona: Persona;
 
@@ -17,8 +20,16 @@ export class AltaPersonaComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log("asdasd");
-  console.log(this.persona);
+    this._personaService.createPersona(this.persona).
+      subscribe(
+        res => {
+          console.log(res);
+          alert(res);
+          this._router.navigate(['/home/gestion/personas']);
+
+        },
+        error => {console.log(error);}
+      )
   }
 
 }
