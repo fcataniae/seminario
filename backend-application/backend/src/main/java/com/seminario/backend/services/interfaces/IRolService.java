@@ -10,10 +10,10 @@ import java.util.List;
 public interface IRolService {
         List<Rol> getAllRoles();
         Rol getRolById(Long id);
-        boolean addPermiso(Rol rol, Permiso permiso);
+        boolean addRol(Rol rol, Permiso permiso);
         boolean delRol(Rol rol, Permiso permiso);
         boolean cambiarEstado(Rol rol, Estado estado);
-        boolean createRol(Rol rol);
-        boolean updateRol(Rol rol);
-        boolean deleteUsuario(Long Id);
+        Rol createRol(Rol rol);
+        Rol updateRol(Rol rol);
+        void deleteUsuario(Long Id);
 }

@@ -69,24 +69,22 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public boolean createUsuario(Usuario usuario) {
+    public Usuario createUsuario(Usuario usuario) {
         Persona persona = personaRepository.findById(usuario.getPersona().getId());
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (persona != null && usuarioTmp == null){
-            usuarioRepository.save(usuario);
-            return true;
+            return usuarioRepository.save(usuario);
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean updateUsuario(Usuario usuario) {
+    public Usuario updateUsuario(Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (usuarioTmp != null) {
-            usuarioRepository.save(usuario);
-            return true;
+            return usuarioRepository.save(usuario);
         }
-        return false;
+        return null;
     }
 
     @Override

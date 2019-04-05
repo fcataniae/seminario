@@ -12,11 +12,10 @@ public interface IUsuarioService {
         boolean addRol(Usuario usuario, Rol rol);
         boolean delRol(Usuario usuario, Rol rol);
         boolean cambiarEstado(Usuario usuario, Estado estado);
-        boolean createUsuario(Usuario usuario);
-        boolean updateUsuario(Usuario usuario);
+        Usuario createUsuario(Usuario usuario);
+        Usuario updateUsuario(Usuario usuario);
         boolean deleteUsuario(Long Id);
 
-    Usuario getUsuarioByNombre(String nombre);
-
+        Usuario getUsuarioByNombre(String nombre);
         String deleteUsuarioByNombre(String nombre);
 }

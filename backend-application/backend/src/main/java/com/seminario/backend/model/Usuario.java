@@ -23,7 +23,7 @@ public class Usuario {
     @Column
     private String password;
 
-    @JoinTable(name = "Usuario_Rol")
+    @JoinTable(name = "USUARIO_ROL")
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Rol> roles;
 

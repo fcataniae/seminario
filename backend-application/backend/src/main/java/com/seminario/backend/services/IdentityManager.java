@@ -17,7 +17,7 @@ import java.util.ArrayList;
 @Service
 public class IdentityManager {
 
-
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired

@@ -17,6 +17,7 @@ public class RolService implements IRolService {
 
     @Autowired
     private RolRepository rolRepository;
+    @Autowired
     private PermisoRepository permisoRepository;
 
     @Override
@@ -34,7 +35,7 @@ public class RolService implements IRolService {
     }
 
     @Override
-    public boolean addPermiso(Rol rol, Permiso permiso) {
+    public boolean addRol(Rol rol, Permiso permiso) {
         Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
         if (permisoTmp != null) {
             rol.addPermiso(permiso);
@@ -54,17 +55,19 @@ public class RolService implements IRolService {
     }
 
     @Override
-    public boolean createRol(Rol rol) {
-        return false;
+    public Rol createRol(Rol rol) {
+        if(rolRepository.findById(rol.getId()) == null){
+            return rolRepository.save(rol);
+        }
+        return null;
     }
 
     @Override
-    public boolean updateRol(Rol rol) {
-        return false;
+    public Rol updateRol(Rol rol) {
+        return rolRepository.save(rol);
     }
 
     @Override
-    public boolean deleteUsuario(Long Id) {
-        return false;
+    public void deleteUsuario(Long Id) {
     }
 }
