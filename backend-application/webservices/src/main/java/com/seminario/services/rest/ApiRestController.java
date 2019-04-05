@@ -418,24 +418,56 @@ public class ApiRestController {
     }
 
 
+    /**
+     * Basico para safar
+     * @param nombre
+     * @return
+     */
     @GetMapping("/usuario/{nombreusuario}")
     public Usuario getUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
-        return usuarioService.getUsuarioByNombre(nombre);
+        Usuario u =  usuarioService.getUsuarioByNombre(nombre);
+        if(u!=null){
+            return u;
+        }else{
+            throw new RuntimeException("error al actualizar usuario");
+        }
     }
 
     @DeleteMapping("/usuario/{nombreusuario}")
-    public String deleteUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
-        return usuarioService.deleteUsuarioByNombre(nombre);
+    public void deleteUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
+        usuarioService.deleteUsuarioByNombre(nombre);
+
+
     }
 
+    /**
+     * BASICO PARA SAFAR
+     * @param doc
+     * @return
+     */
     @GetMapping("/persona/{documento}")
     public Persona getPersonaByDocumento(@PathVariable("documento") Long doc){
-        return personaService.getPersonaByDocumento(doc);
+        Persona p =  personaService.getPersonaByDocumento(doc);
+        if(p!=null){
+            return p;
+        }else{
+            throw new RuntimeException("error al buscar persona");
+        }
     }
 
+    /**
+     * BASICO PARA SAFAR
+     * @param persona
+     * @return
+     */
     @PutMapping("/persona")
     public Persona updatePersona(@RequestBody Persona persona){
-        return personaService.updatePersona(persona);
+        Persona p = personaService.updatePersona(persona);
+        if(p!=null){
+            return p;
+        }else{
+            throw new RuntimeException("error al actualizar poersona");
+        }
     }
 
     @GetMapping("/permisos-usuario/{nombreusuario}")
@@ -443,8 +475,30 @@ public class ApiRestController {
         return permisoService.getAllPermisosWhereUsuario(usuarioService.getUsuarioByNombre(nombre));
     }
 
+    /**
+     *  Basico para safar
+     * @param usuario
+     * @return
+     */
     @PostMapping("/usuario")
     public Usuario updateUsuario(@RequestBody Usuario usuario){
-        return usuarioService.updateUsuario(usuario);
+
+        Usuario u = usuarioService.updateUsuario(usuario);
+        if(u!=null){
+            return u;
+        }else{
+            throw new RuntimeException("error al actualizar usuario");
+        }
+    }
+
+    @GetMapping("/login")
+    public Usuario login(@RequestHeader("Authorization") String auth){
+
+        System.out.println(auth);
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if(usuarioActual != null)
+            return usuarioActual;
+        else
+            throw new RuntimeException("Usuario incorrector");
     }
 }

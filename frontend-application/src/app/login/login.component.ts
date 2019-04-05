@@ -17,6 +17,9 @@ export class LoginComponent implements OnInit {
               private _sessionService: SessionService) { }
 
   ngOnInit() {
+    if(this._sessionService.isUserLoggedIn()){
+        this._router.navigate(['/home']);
+    }
   }
 
   logIn(username: string, password: string, event: Event) {
@@ -34,8 +37,6 @@ export class LoginComponent implements OnInit {
           console.error(error);
           this.isLoggedIn = false;
                 }
-
-      //  () => this.navigate()
       );
 
     }

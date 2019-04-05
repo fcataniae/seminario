@@ -30,6 +30,5 @@ export class ModificarRolComponent implements OnInit {
           }
         );
     }
-
   }
 }
