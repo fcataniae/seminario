@@ -9,5 +9,5 @@ export class Rol{
   nombre:string;
   descripcion:string;
   estado: Estado;
-  permisos[]:Permiso;
+  permisos:Permiso[];
 }

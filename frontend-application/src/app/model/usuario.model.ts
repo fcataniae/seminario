@@ -1,5 +1,8 @@
 import { Persona } from './persona.model';
 import { Estado } from './estado.model';
+import { Rol } from './rol.model';
+
+
 
 export class Usuario {
 
@@ -7,5 +10,6 @@ export class Usuario {
   password: string;
   persona: Persona;
   estado: Estado;
+  roles: Rol[];
 
 }
