@@ -29,7 +29,6 @@ export class ModificarUsuarioComponent implements OnInit {
   rolesAsignados: Rol[];
 
 
-
   ngOnInit() {
     this.cambiaContrasenia = false;
     this.asignarRoles = false;
