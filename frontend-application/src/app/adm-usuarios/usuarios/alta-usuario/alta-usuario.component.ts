@@ -21,6 +21,18 @@ export class AltaUsuarioComponent implements OnInit {
   }
 
   onSubmit(){
+    this._usuarioService.createUsuario(this.user).
+      subscribe(
+        res =>{
+          console.log(res);
+          alert("Se creo el usuario correctamente");
+          this._router.navigate(['/home/gestion/usuarios']);
+        },
+        error => {
+          console.log(error);
+          alert("Error al crear el usuario " + error);
+        }
+      );
   }
 
 }
