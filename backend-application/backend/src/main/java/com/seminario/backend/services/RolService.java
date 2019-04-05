@@ -41,6 +41,11 @@ public class RolService implements IRolService {
     }
 
     @Override
+    public Rol getRolByNombre(String nombre) {
+        return rolRepository.findByNombre(nombre);
+    }
+
+    @Override
     public boolean delRol(Rol rol, Permiso permiso) {
         return false;
     }
@@ -52,7 +57,7 @@ public class RolService implements IRolService {
 
     @Override
     public Rol createRol(Rol rol) {
-        if(rolRepository.findById(rol.getId()) == null){
+        if(rolRepository.findByNombre(rol.getNombre()) == null){
             return rolRepository.save(rol);
         }
         return null;

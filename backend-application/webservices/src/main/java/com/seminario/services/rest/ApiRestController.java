@@ -63,12 +63,11 @@ public class ApiRestController {
     }
 
     private Rol asignarPermisosRol(Usuario usuarioActual, Rol rol) {
-        Rol RolesTmp = rolService.getRolById(rol.getId());
+        Rol RolesTmp = rolService.getRolByNombre(rol.getNombre());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-ROL"))){
             Set<Permiso> permisos = rol.getPermisos();
             RolesTmp.setPermisos(new HashSet());
-            RolesTmp.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
             if (permisos != null) {
                 for (Permiso p : permisos) {
                     if (permisoService.getPermisoById(p.getId()) != null)
