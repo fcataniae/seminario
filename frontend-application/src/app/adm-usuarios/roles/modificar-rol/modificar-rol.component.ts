@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Rol } from '../../../model/rol.model';
+import { ActivatedRoute } from '@angular/router';
+import { RolService } from './../../../services/rol.service';
 
 @Component({
   selector: 'app-modificar-rol',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModificarRolComponent implements OnInit {
 
-  constructor() { }
 
+  constructor((private _route: ActivatedRoute,
+    private _rolService: RolService) { }
+
+  rol : Rol;
   ngOnInit() {
+    this.rol = new Rol();
+    this._route.paramMap.subscribe(params => {
+      let id = params.get("id");
+      this._rolService.getRolByName(id).subscribe(
+        res => {
+          this.rol = res;
+        },
+        error => {console.log(error)}
+      )
   }
 
 }

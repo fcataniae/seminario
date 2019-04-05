@@ -1,3 +1,30 @@
-<p>
-  editar-rol works!
-</p>
+<div class="container">
+  <h3>Editar roles</h3>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th>nombre</th>
+        <th>descripcion</th>
+        <th>Eliminar</th>
+        <th>Modificar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rol of roles">
+        <td>{{rol.nombre}}</td>
+        <td>{{rol.descripcion}}</td>
+        <td><input type="button"
+              class="button"
+              name="eliminar"
+              value="Eliminar"
+              (click)="deleteRol(rol)">
+        </td>
+        <td><a [routerLink]="['/home/gestion/roles/adm', rol.nombre]"
+                class="button"><span>Modificar</span></a>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
