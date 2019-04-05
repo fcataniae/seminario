@@ -43,8 +43,8 @@ public class PersonaService implements IPersonaService {
     }
 
     @Override
-    public void deletePersona(Long Id) {
-        personaRepository.delete(getPersonaById(Id));
+    public void deletePersona(Long nroDoc) {
+        personaRepository.delete(personaRepository.findByNroDoc(nroDoc));
     }
 
     @Override
@@ -52,12 +52,5 @@ public class PersonaService implements IPersonaService {
         return personaRepository.findByNroDoc(doc);
     }
 
-    @Override
-    public Persona deletePersona(Persona persona) {
-        Persona personaTmp = personaRepository.findByNroDoc(persona.getNroDoc());
-        if(personaTmp != null){
-            personaRepository.delete(personaTmp);
-        }
-        return null;
-    }
+
 }

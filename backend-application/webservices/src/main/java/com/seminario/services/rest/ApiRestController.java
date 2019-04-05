@@ -188,9 +188,9 @@ public class ApiRestController {
         return personaService.getPersonaByDocumento(doc);
     }
 
-    @DeleteMapping("/persona")
-    public Persona deletePersona(@RequestBody Persona persona){
-        return personaService.deletePersona(persona);
+    @DeleteMapping("/persona/{documento}")
+    public void deletePersona(@PathVariable("documento") Long doc){
+        personaService.deletePersona(doc);
     }
 
     @PutMapping("/persona")

@@ -19,10 +19,10 @@ export class PersonaService {
   }
 
   deletePersona(persona: Persona): Observable<string>{
-    return this._http.delete<string>(environment.serviceUrl + 'persona/' + persona.nroDoc);
+    return this._http.delete<string>(environment.serviceUrl + 'persona/' +persona.nroDoc);
   }
   modificarPersona(persona: Persona): Observable<string>{
-    return this._http.post<string>(environment.serviceUrl + 'persona/',  persona);
+    return this._http.put<string>(environment.serviceUrl + 'persona/',  persona);
   }
 
 }
