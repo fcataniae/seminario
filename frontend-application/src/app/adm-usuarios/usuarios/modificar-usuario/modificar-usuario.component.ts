@@ -31,5 +31,12 @@ export class ModificarUsuarioComponent implements OnInit {
     })
   }
 
+  onSubmit(){
+    this._usuarioService.updateUsuario(this.usuario).subscribe(
+      res => { alert(res)},
+      error => {alert(error)}      
+    );
+
+  }
 
 }

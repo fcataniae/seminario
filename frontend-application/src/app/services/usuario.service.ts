@@ -22,6 +22,9 @@ export class UsuarioService {
   deleteUser(usuario: Usuario): Observable<string>{
     return this._http.delete<string>( environment.serviceUrl + "usuario/" + usuario.nombreUsuario );
   }
+  updateUsuario(usuario: Usuario): Observable<Usuario>{
+    return this._http.post<Usuario>( environment.serviceUrl + "usuario/" , usuario);
+  }
 
   getUsuarioByName(nombre: string): Observable<Usuario>{
     return this._http.get<Usuario>(environment.serviceUrl + "usuario/" + nombre);

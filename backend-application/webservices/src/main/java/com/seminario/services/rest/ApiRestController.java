@@ -323,4 +323,8 @@ public class ApiRestController {
         return permisoService.getAllPermisosWhereUsuario(usuarioService.getUsuarioByNombre(nombre));
     }
 
+    @PostMapping("/usuario")
+    public Usuario updateUsuario(@RequestBody Usuario usuario){
+        return usuarioService.updateUsuario(usuario);
+    }
 }
