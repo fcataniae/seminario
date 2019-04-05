@@ -402,7 +402,7 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    nombreUsuario  nombreUsuario del Usuario.
      **/
-    @DeleteMapping("/usuario/{nombre-usuario}")
+    @DeleteMapping("/del-usuario/{nombre-usuario}")
     public void deleteUsuario(@RequestHeader("Authorization") String auth,
                               @PathVariable("nombre-usuario") String nombreUsuario){
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -419,7 +419,7 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    rol            nombre del rol
      **/
-    @DeleteMapping("/usuario/{rol}")
+    @DeleteMapping("/del-rol/{rol}")
     public void deleteRol(@RequestHeader("Authorization") String auth,
                           @PathVariable("rol") String rol){
         Usuario usuarioActual = base64ToUsuario(auth);
