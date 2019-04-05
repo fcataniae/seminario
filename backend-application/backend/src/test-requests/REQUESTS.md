@@ -18,7 +18,7 @@ curl -X PUT \
 	"fecha_nacimiento" :"2018-09-13",
 	"email" : "maria@db.com",
 	"estado_id": "1"
-}'
+  }'
 ```
 
 ##### ALTA DE USUARIO
@@ -35,7 +35,7 @@ curl -X POST \
   -d '{
 	"nombreUsuario": "NicholasCage",
 	"password": "Cage123"
-}'
+  }'
 ```
 
 ##### ALTA DE ROL
@@ -50,7 +50,7 @@ curl -X POST \
   -d '{
     "nombre": "ROL1",
     "descripcion": "Novato"
-}'
+  }'
 ```
 
 ##### ALTA DE PERMISO
@@ -66,7 +66,7 @@ curl -X POST \
 	"nombre": "NUEVO_PERMISO",
 	"descripcion" : "FUNCION X al sistema",
 	"funcionalidad": "Hace bla, bla, bla."
-}'
+  }'
 ```
 
 ### Modificaciones
@@ -92,7 +92,7 @@ curl -X PUT \
         "id": 1,
         "descrip": "ACTIVO"
     }
-}'
+  }'
 ```
 
 
@@ -110,7 +110,22 @@ curl -X PUT \
   -d '{
 	"nombreUsuario": "reatt", 
 	"password": "123"
-}'
+  }'
+```
+
+Ejemplo de un usuario al que se le inyecta una lista de 
+
+```
+curl -X PUT \
+  http://localhost:9081/service/update-usuario \
+  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 703f61bc-090f-7256-1023-263041d70289' \
+  -d '{
+        "nombreUsuario": "reatt",
+        "roles": [ {"id": 101}, {"id": 103}, {"id": 102} ]
+  }'
 ```
 
 ##### MODIFICAR ROLES
