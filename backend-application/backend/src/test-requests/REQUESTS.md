@@ -25,7 +25,7 @@ curl -X PUT \
 
 Ingresar el <id-persona> a la cual estará asociado el nuevo usuario.
 
-``
+```
 curl -X POST \
   http://localhost:9081/service/<id-persona>/usuario \
   -H 'authorization: Basic YWRtaW46YWRtaW4=' \
@@ -79,7 +79,7 @@ Cambiar en <objeto> por [personas/usuarios/roles/permisos]`
 curl -X GET \
   http://localhost:9081/service/listar-<objeto> \
   -H 'authorization: Basic YWRtaW46YWRtaW4=' \
-  -H 'cache-control: no-cache' \
+  -H 'cache-control: o-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 65dbfc43-39cb-281f-2b3a-f32fc376adac'
 ```
