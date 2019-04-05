@@ -54,8 +54,9 @@ public class ApiRestController {
             usuarioTmp.setRoles(new HashSet());
             if (roles != null) {
                 for (Rol r : roles) {
-                    if (rolService.getRolById(r.getId()) != null)
-                        usuarioTmp.addRol(r);
+                    Rol rValid = rolService.getRolById(r.getId());
+                    if (rValid != null)
+                        usuarioTmp.addRol(rValid);
                 }
             }
         }
@@ -70,8 +71,9 @@ public class ApiRestController {
             RolesTmp.setPermisos(new HashSet());
             if (permisos != null) {
                 for (Permiso p : permisos) {
-                    if (permisoService.getPermisoById(p.getId()) != null)
-                        RolesTmp.addPermiso(p);
+                    Permiso pValid = permisoService.getPermisoById(p.getId());
+                    if (pValid != null)
+                        RolesTmp.addPermiso(pValid);
                 }
             }
         }
@@ -362,6 +364,60 @@ public class ApiRestController {
         return null;
     }
 
+    /**
+     * Baja de persona.
+     *
+     *  @param    auth       Credenciales de usuario.
+     *                       (debe tener los permisos para ejecutar el método).
+     *  @param    doc        Nro de documento de la persona.
+     **/
+    @DeleteMapping("/persona/{documento}")
+    public void deletePersona(@RequestHeader("Authorization") String auth,
+                              @PathVariable("documento") Long doc){
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("BAJA-PERSONA"))) {
+            // FALTA OBTENER TODOS LOS USUARIOS DE
+            // UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
+            personaService.deletePersona(doc);
+        }
+    }
+
+    /**
+     * Baja de usuario
+     *
+     * @param    auth           Credenciales de usuario.
+     *                          (debe tener los permisos para ejecutar el método).
+     * @param    nombreUsuario  nombreUsuario del Usuario.
+     **/
+    @DeleteMapping("/usuario/{nombre-usuario}")
+    public void deleteUsuario(@RequestHeader("Authorization") String auth,
+                              @PathVariable("nombre-usuario") String nombreUsuario){
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
+            usuarioService.deleteUsuarioByNombre(nombreUsuario);
+        }
+    }
+
+    /**
+     * Baja de rol
+     *
+     * @param    auth           Credenciales de usuario.
+     *                          (debe tener los permisos para ejecutar el método).
+     * @param    rol            nombre del rol
+     **/
+    @DeleteMapping("/usuario/{rol}")
+    public void deleteRol(@RequestHeader("Authorization") String auth,
+                          @PathVariable("rol") String rol){
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("BAJA-ROL"))) {
+            rolService.deleteRolByNombre(rol);
+        }
+    }
+
+
     @GetMapping("/usuario/{nombreusuario}")
     public Usuario getUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
         return usuarioService.getUsuarioByNombre(nombre);
@@ -375,11 +431,6 @@ public class ApiRestController {
     @GetMapping("/persona/{documento}")
     public Persona getPersonaByDocumento(@PathVariable("documento") Long doc){
         return personaService.getPersonaByDocumento(doc);
-    }
-
-    @DeleteMapping("/persona/{documento}")
-    public void deletePersona(@PathVariable("documento") Long doc){
-        personaService.deletePersona(doc);
     }
 
     @PutMapping("/persona")

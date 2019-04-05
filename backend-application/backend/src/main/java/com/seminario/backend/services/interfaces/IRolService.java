@@ -16,5 +16,5 @@ public interface IRolService {
         boolean cambiarEstado(Rol rol, Estado estado);
         Rol createRol(Rol rol);
         Rol updateRol(Rol rol);
-        void deleteUsuario(Long Id);
+        void deleteRolByNombre(String Nombre);
 }

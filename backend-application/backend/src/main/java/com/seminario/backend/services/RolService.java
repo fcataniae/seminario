@@ -69,6 +69,7 @@ public class RolService implements IRolService {
     }
 
     @Override
-    public void deleteUsuario(Long Id) {
+    public void deleteRolByNombre(String nombre) {
+        rolRepository.delete(rolRepository.findByNombre(nombre));
     }
 }
