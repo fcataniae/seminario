@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonaService } from './../../../services/persona.service';
 import { Persona } from './../../../model/persona.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Persona } from './../../../model/persona.model';
 export class EliminarPersonaComponent implements OnInit {
 
   constructor(private _personaService: PersonaService,
-              private _router: RouterService) { }
+              private _router: Router) { }
 
   documentoBusqueda: number;
   persona: Persona;
