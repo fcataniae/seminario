@@ -184,6 +184,37 @@ public class ApiRestController {
 
     /**
      * Actualiza:
+     *      -   la nombre, apellido, fechaNacimiento, email
+     *
+     * El resto de los atributos no se permiten cambiar. A excepción del Estado,
+     * pero para este atributo se utiliza otro método.
+     *
+     * @param    auth       Credenciales de usuario.
+     *                      (debe tener los permisos para ejecutar el método).
+     * @param    persona    Es el Objeto Usuario que se actualizará.
+     * */
+    @RequestMapping(value = "/update-persona", method = RequestMethod.PUT)
+    public String updatePersona(@RequestHeader("Authorization") String auth,
+                                @RequestBody Persona persona)
+    {
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("MODI-PERSONA"))) {
+            if (persona.getId() == null) return "Fail";
+            Persona personaTmp = personaService.getPersonaById(persona.getId());
+            personaTmp.setNombre(persona.getNombre());
+            personaTmp.setApellido(persona.getApellido());
+            personaTmp.setEmail(persona.getEmail());
+            personaTmp.setFecha_nacimiento(persona.getFecha_nacimiento());
+            if (personaService.updatePersona(personaTmp) != null) {
+                return "Exito!";
+            }
+        }
+        return "Fail";
+    }
+
+    /**
+     * Actualiza:
      *      -   la lista de Roles de un Usuario.
      *      -   la password.
      *
@@ -192,10 +223,10 @@ public class ApiRestController {
      *
      * @param    auth       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
-     * @param    usuario    Es el Objeto Usuario que se persistirá.
+     * @param    usuario    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-usuario", method = RequestMethod.PUT)
-    public String asignarRolUsuario(@RequestHeader("Authorization") String auth,
+    public String updateUsuario(@RequestHeader("Authorization") String auth,
                                     @RequestBody Usuario usuario)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -223,8 +254,8 @@ public class ApiRestController {
      * @param    rol        Es el Objeto Rol que se persistirá.
      * */
     @RequestMapping(value = "/update-rol", method = RequestMethod.PUT)
-    public String asignarRolUsuario(@RequestHeader("Authorization") String auth,
-                                    @RequestBody Rol rol)
+    public String updateRol(@RequestHeader("Authorization") String auth,
+                            @RequestBody Rol rol)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
@@ -238,6 +269,34 @@ public class ApiRestController {
         return "Fail";
     }
 
+    /**
+     * Actualiza:
+     *      -   descripcion, funcionalidad
+     *
+     * El resto de los atributos no se permiten cambiar. A excepción del Estado,
+     * pero para este atributo se utiliza otro método.
+     *
+     * @param    auth       Credenciales de usuario.
+     *                      (debe tener los permisos para ejecutar el método).
+     * @param    permiso    Es el Objeto Usuario que se actualizará.
+     * */
+    @RequestMapping(value = "/update-permiso", method = RequestMethod.PUT)
+    public String updatePermiso(@RequestHeader("Authorization") String auth,
+                                @RequestBody Permiso permiso)
+    {
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("MODI-PERMISO"))) {
+            if (permiso.getId() == null) return "Fail";
+            Permiso permisoTmp = permisoService.getPermisoById(permiso.getId());
+            permisoTmp.setDescripcion(permiso.getDescripcion());
+            permisoTmp.setFuncionalidad(permiso.getFuncionalidad());
+            if (permisoService.updatePermiso(permisoTmp) != null) {
+                return "Exito!";
+            }
+        }
+        return "Fail";
+    }
 
     /**
      * Lista todas las personas.
@@ -307,10 +366,12 @@ public class ApiRestController {
     public Usuario getUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
         return usuarioService.getUsuarioByNombre(nombre);
     }
+
     @DeleteMapping("/usuario/{nombreusuario}")
     public String deleteUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
         return usuarioService.deleteUsuarioByNombre(nombre);
     }
+
     @GetMapping("/persona/{documento}")
     public Persona getPersonaByDocumento(@PathVariable("documento") Long doc){
         return personaService.getPersonaByDocumento(doc);
