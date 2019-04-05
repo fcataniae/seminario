@@ -88,16 +88,28 @@ public class ApiRestController {
      * @param    personaNueva    Es la Persona que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-persona", method = RequestMethod.POST)
-    public String createPersona(@RequestHeader("Authorization") String auth, @RequestBody Persona personaNueva) {
+    public void createPersona(@RequestHeader("Authorization") String auth, @RequestBody Persona personaNueva) {
         Usuario usuarioActual = base64ToUsuario(auth);
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("ALTA-PERSONA"))){
+
+        List<Permiso> permisos = permisoService.getAllPermisosWhereUsuario(usuarioActual);
+        System.out.println(permisos);
+        boolean puede = false;
+
+        Permiso alta = permisoService.getPermisoById(1000l);
+        for(Permiso p : permisos){
+            puede = puede ||  p.getId().equals(alta.getId());
+        }
+        if (puede){
             personaNueva.setId(null);
             personaNueva.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            if (personaService.createPersona(personaNueva) != null)
-                return "Exito!";
+            if(personaService.createPersona(personaNueva) == null)
+                throw new RuntimeException("No se pudo dar de alta la persona");
+
+        }else
+        {
+            throw new RuntimeException("La persona no tiene permisos");
         }
-        return "Fail!";
+
     }
 
 

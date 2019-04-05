@@ -24,7 +24,7 @@ public class Rol {
     @Column
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ROL_PERMISO")
     private Set<Permiso> permisos;
 

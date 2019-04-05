@@ -24,7 +24,7 @@ public class Usuario {
     private String password;
 
     @JoinTable(name = "USUARIO_ROL")
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Rol> roles;
 
     @Override
