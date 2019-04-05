@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rol } from '../../../model/rol.model';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { RolService } from './../../../services/rol.service';
 
 @Component({
@@ -11,12 +11,12 @@ import { RolService } from './../../../services/rol.service';
 export class ModificarRolComponent implements OnInit {
 
 
-  constructor(private _route: ActivatedRoute,
+  constructor(private _route: Router,
               private _rolService: RolService) { }
 
   rol : Rol;
 
-  
+
   ngOnInit() {
     this.rol = new Rol();
     this._route.paramMap.subscribe(params => {

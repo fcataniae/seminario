@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonaService } from './../../../services/persona.service';
 import { Persona } from './../../../model/persona.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modificar-persona',
@@ -9,14 +10,15 @@ import { Persona } from './../../../model/persona.model';
 })
 export class ModificarPersonaComponent implements OnInit {
 
-  constructor(private _personaService: PersonaService) { }
+  constructor(private _personaService: PersonaService,
+              private _router: Router) { }
 
   personaCargada: boolean;
   persona: Persona;
   documentoBusqueda: number;
 
   ngOnInit() {
-    this.personaCargada = true;
+    this.personaCargada = false;
     this.persona = new Persona();
   }
 
@@ -40,7 +42,10 @@ export class ModificarPersonaComponent implements OnInit {
       event.preventDefault();
 
       this._personaService.modificarPersona(this.persona).subscribe(
-        res => {alert('Se modifico la persona correctamente');},
+        res => {
+                alert('Se modifico la persona correctamente');
+                this._router.navigate(['/home/gestion/personas']);
+              },
         error => {alert('No se pudo actualizar los datos de la persona: '+error)}
       );
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { Rol } from '../../../model/rol.model';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UsuarioService } from './../../../services/usuario.service';
 import { RolService } from './../../../services/rol.service';
 import {forkJoin} from 'rxjs';
@@ -14,7 +14,7 @@ import { map,pipe } from 'rxjs/operators';
 })
 export class ModificarUsuarioComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute,
+  constructor(private _router: Router,
               private _usuarioService: UsuarioService,
               private _rolService: RolService) {
     }
