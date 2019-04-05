@@ -21,6 +21,38 @@ curl -X PUT \
 }'
 ```
 
+##### ALTA DE USUARIO
+
+Ingresar el <id-persona> a la cual estará asociado el nuevo usuario.
+
+```
+curl -X POST \
+  http://localhost:9081/service/<id-persona>/usuario \
+  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 51ff0bf1-e26c-668d-8e8c-32b3aa62ed08' \
+  -d '{
+	"nombreUsuario": "NicholasCage",
+	"password": "Cage123"
+}'
+```
+
+##### ALTA DE ROL
+
+```
+curl -X POST \
+  http://localhost:9081/service/alta-rol \
+  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 36b5d42b-850e-12b9-3066-e0561436f25b' \
+  -d '{
+    "nombre": "ROL1",
+    "descripcion": "Novato"
+}'
+```
+
 ##### ALTA DE PERMISO
 
 ```
@@ -41,7 +73,8 @@ curl -X POST \
 ##### LISTAR DE PERSONAS/USUARIOS/ROLES/PERMISOS
 
 
-Cambiar en <objeto> por [personas/usuarios/roles/permisos]
+Cambiar en <objeto> por [personas/usuarios/roles/permisos]`
+
 ```
 curl -X GET \
   http://localhost:9081/service/listar-<objeto> \
