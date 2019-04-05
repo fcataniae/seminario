@@ -118,33 +118,33 @@ public class ApiRestController {
      *
      * @param    auth            Credenciales de usuario.
      *                           (debe tener los permisos para ejecutar el método).
-     * @param    usuarioNuevo    Es el Usuario que se va a dar de alta.
+     * @param    usuario    Es el Usuario que se va a dar de alta.
      * */
-    @RequestMapping(value="/{persona-id}/alta-usuario", method = RequestMethod.POST)
-    public String createUsuario(@RequestHeader("Authorization") String auth,
-                                @RequestBody Usuario usuarioNuevo,
-                                @PathVariable("persona-id") Long Id) {
+    @RequestMapping(value="/alta-usuario", method = RequestMethod.POST)
+    public void createUsuario(@RequestHeader("Authorization") String auth,
+                                @RequestBody Usuario usuario) {
         Usuario usuarioActual = base64ToUsuario(auth);
+        System.out.println(usuario);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-USUARIO"))) {
 
-            Set<Rol> roles = usuarioNuevo.getRoles();
-            usuarioNuevo.setId(null);
-            usuarioNuevo.setRoles(new HashSet());
-            usuarioNuevo.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            Persona persona = personaService.getPersonaById(Id);
+            Set<Rol> roles = usuario.getRoles();
+            usuario.setId(null);
+            usuario.setRoles(new HashSet());
+            usuario.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
+            Persona persona = personaService.getPersonaByDocumento(usuario.getPersona().getNroDoc());
             if (persona == null)
-                return "Usuario sin Persona Existente!";
-            usuarioNuevo.setPersona(persona);
-            if(usuarioService.createUsuario(usuarioNuevo) != null) {
-                usuarioNuevo.setRoles(roles);
-                Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuarioNuevo);
-                if (usuarioService.updateUsuario(usuarioTmp) != null) {
-                    return "Exito!";
+                throw new RuntimeException("Persona no existe");
+            usuario.setPersona(persona);
+            if(usuarioService.createUsuario(usuario) != null) {
+                usuario.setRoles(roles);
+                Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
+                if (usuarioService.updateUsuario(usuarioTmp) == null) {
+                    throw new RuntimeException("Error al dar de alta roles");
                 }
             }
-        }
-        return "Fail";
+        }else
+        {throw new RuntimeException("No cuenta con permisos");}
     }
 
     /**
@@ -352,12 +352,12 @@ public class ApiRestController {
      **/
     @GetMapping("/listar-roles")
     public List<Rol> listRoles(@RequestHeader("Authorization") String auth){
-        Usuario usuarioActual = base64ToUsuario(auth);
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-ROL"))){
+        //Usuario usuarioActual = base64ToUsuario(auth);
+        //if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+        //        contains(permisoService.getPermisoByNombre("CONS-ROL"))){
             return rolService.getAllRoles();
-        }
-        return null;
+        //}
+        //return null;
     }
 
     /**

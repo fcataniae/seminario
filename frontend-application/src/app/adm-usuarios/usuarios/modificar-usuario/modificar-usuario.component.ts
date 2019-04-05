@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { Rol } from '../../../model/rol.model';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './../../../services/usuario.service';
 import { RolService } from './../../../services/rol.service';
 import {forkJoin} from 'rxjs';
@@ -15,6 +15,7 @@ import { map,pipe } from 'rxjs/operators';
 export class ModificarUsuarioComponent implements OnInit {
 
   constructor(private _router: Router,
+              private _route: ActivatedRoute;
               private _usuarioService: UsuarioService,
               private _rolService: RolService) {
     }
@@ -73,7 +74,10 @@ export class ModificarUsuarioComponent implements OnInit {
 
   onSubmit(){
     this._usuarioService.updateUsuario(this.usuario).subscribe(
-      res => { alert(res);},
+      res => {
+        alert("usuario modificado correctamente!");
+        this._router.navigate(['/home/gestion/usuarios']);
+      },
       error => {alert(error);}
     );
 

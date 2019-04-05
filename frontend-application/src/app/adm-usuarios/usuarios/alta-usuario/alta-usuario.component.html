@@ -4,7 +4,17 @@
         #altausuario="ngForm"
         (ngSubmit)="onSubmit()">
 
-
+    <div>
+      <label for="nombre">Documento</label>
+      <input type="text"
+             name="doc"
+             placeholder="Nro de documento"
+             id="doc"
+             class="form-control "
+             [(ngModel)]="user.persona.nroDoc"
+             #nombre="ngModel"
+             required/>
+    </div>
     <div>
       <label for="nombre">Nombre de usuario</label>
       <input type="text"

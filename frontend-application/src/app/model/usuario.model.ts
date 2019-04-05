@@ -12,4 +12,7 @@ export class Usuario {
   estado: Estado;
   roles: Rol[];
 
+  constructor(){
+    this.persona = new Persona();
+  }
 }
