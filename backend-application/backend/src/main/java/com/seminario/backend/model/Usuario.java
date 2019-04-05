@@ -40,7 +40,7 @@ public class Usuario {
     private Estado estado;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name="PERSONA_USUARIO")
+    @JoinColumn(name="PERSONA_ID")
     private Persona persona;
 
     public Long getId() {

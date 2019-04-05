@@ -23,12 +23,6 @@ public class Permiso {
     @Column
     private String funcionalidad;
 
-    @Column
-    private boolean readPriv;
-
-    @Column
-    private boolean writePriv;
-
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
@@ -41,8 +35,6 @@ public class Permiso {
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" +this.descripcion + "\'" +
                 ", funcionalidad='" +this.funcionalidad + "\'" +
-                ", write='" + this.writePriv + "\'" +
-                ", read='" + this.readPriv + "\'" +
                 '}';
     }
 
