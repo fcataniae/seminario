@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EliminarUsuarioComponent } from './eliminar-usuario.component';
+import { EditarRolComponent } from './editar-rol.component';
 
-describe('EliminarUsuarioComponent', () => {
-  let component: EliminarUsuarioComponent;
-  let fixture: ComponentFixture<EliminarUsuarioComponent>;
+describe('EditarRolComponent', () => {
+  let component: EditarRolComponent;
+  let fixture: ComponentFixture<EditarRolComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EliminarUsuarioComponent ]
+      declarations: [ EditarRolComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EliminarUsuarioComponent);
+    fixture = TestBed.createComponent(EditarRolComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

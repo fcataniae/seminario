@@ -3,11 +3,11 @@ import { Usuario } from '../../../model/usuario.model';
 import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
-  selector: 'app-eliminar-usuario',
-  templateUrl: './eliminar-usuario.component.html',
-  styleUrls: ['./eliminar-usuario.component.css']
+  selector: 'app-editar-usuario',
+  templateUrl: './editar-usuario.component.html',
+  styleUrls: ['./editar-usuario.component.css']
 })
-export class EliminarUsuarioComponent implements OnInit {
+export class EditarUsuarioComponent implements OnInit {
 
   constructor(private _usuarioService: UsuarioService) { }
 
