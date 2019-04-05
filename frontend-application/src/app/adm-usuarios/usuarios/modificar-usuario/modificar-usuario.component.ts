@@ -4,6 +4,8 @@ import { Rol } from '../../../model/rol.model';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './../../../services/usuario.service';
 import { RolService } from './../../../services/rol.service';
+import {forkJoin} from 'rxjs';
+import { map,pipe } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -20,31 +22,55 @@ export class ModificarUsuarioComponent implements OnInit {
   usuario : Usuario;
   passwordCheck: string;
   cambiaContrasenia: boolean;
+
+  asignarRoles: boolean;
   rolesNoAsignados: Rol[];
+  rolesAsignados: Rol[];
+
+
 
   ngOnInit() {
     this.cambiaContrasenia = false;
+    this.asignarRoles = false;
     this.usuario = new Usuario();
     this._route.paramMap.subscribe(params => {
-      let id = params.get("id");
-      this._usuarioService.getUsuarioByName(id).subscribe(
-        res => {
-          this.usuario = res;
-          this.passwordCheck = this.usuario.password;
-          this.cargarRoles();
-        },
-        error => {console.log(error);}
-      )
-    });
+        let id = params.get("id");
+        const observable1 =this._usuarioService.getUsuarioByName(id).pipe(map(res => res));
+        const observable2 = this._rolService.getAllRoles().pipe(map(res => res));
+        forkJoin(observable1,
+                 observable2)
+          .subscribe(
+          ([res1,res2])=>{
+            console.log(res1);
+            this.usuario = res1;
+            this.passwordCheck = this.usuario.password;
+            this.rolesAsignados = this.usuario.roles;
+            let roles = this.usuario.roles;
+            this.rolesNoAsignados = res2.filter(function(array){
+              return roles.filter( function(array2){
+                return array2.id == array.id;
+              }).length == 0
+            });
+            console.log(this.rolesNoAsignados);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    },
+    error => {console.log(error);}
   }
+
   onChangeContrasenia(){
     if(!this.cambiaContrasenia){
       this.usuario.password = "";
       this.passwordCheck = "";
       this.cambiaContrasenia = true;
+
     }
     console.log(this.cambiaContrasenia);
   }
+
   onSubmit(){
     this._usuarioService.updateUsuario(this.usuario).subscribe(
       res => { alert(res);},
@@ -52,10 +78,9 @@ export class ModificarUsuarioComponent implements OnInit {
     );
 
   }
+
   cargarRoles(){
-
     this._rolService.getAllRoles().subscribe(
-
       res => {
           let roles = this.usuario.roles;
           this.rolesNoAsignados = res.filter(function(array){
@@ -64,10 +89,18 @@ export class ModificarUsuarioComponent implements OnInit {
             }).length == 0
           });
           console.log(this.rolesNoAsignados);
+          this.asignarRoles =true;
       },
       error => {
         console.log(error);
       }
     );
+
+
   }
+
+  onChangeAsignarRoles(){
+    this.asignarRoles = true;
+  }
+
 }

@@ -8,9 +8,9 @@
     <div>
       <label for="nombre">Nombre de usuario</label>
       <input type="text"
-             name="nombre"
+             name="nombreUsuario"
              placeholder="nombre de usuario"
-             id="nombre"
+             id="nombreUsuario"
              class="form-control "
              [(ngModel)]="usuario.nombreUsuario"
              #nombre="ngModel"
@@ -24,6 +24,14 @@
               id="cambiarContrasenia"
               [disabled]="cambiaContrasenia"
               (change)="onChangeContrasenia()"/>
+      </label>
+      <label for="asignarRoles" *ngIf="!asignarRoles">
+          Asignar roles
+      <input type="checkbox"
+              name="asignarRoles"
+              id="asignarRoles"
+              [disabled]="asignarRoles"
+              (change)="onChangeAsignarRoles()"/>
       </label>
     <h4 *ngIf="cambiaContrasenia">Cambiar Contraseña</h4>
     <div *ngIf="cambiaContrasenia">
@@ -55,7 +63,14 @@
              [disabled]="!cambiaContrasenia"
              />
     </div>
-
+    <div *ngIf="asignarRoles">
+      <select >
+          <option *ngFor="let rol of rolesNoAsignados">{{rol.nombre}}</option>
+      </select>
+      <select >
+          <option *ngFor="let rol of rolesAsignados">{{rol.nombre}}</option>
+      </select>
+    </div>
     <button class="btn-wlm"
             type="submit"
             [disabled]="(passwordCheck !== usuario.password) || !modificarusuario.valid">
@@ -63,5 +78,6 @@
     </button>
 
   </form>
+
 
 </div>

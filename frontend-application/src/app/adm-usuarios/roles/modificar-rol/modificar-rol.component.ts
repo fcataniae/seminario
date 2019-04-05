@@ -15,6 +15,8 @@ export class ModificarRolComponent implements OnInit {
               private _rolService: RolService) { }
 
   rol : Rol;
+
+  
   ngOnInit() {
     this.rol = new Rol();
     this._route.paramMap.subscribe(params => {
@@ -23,7 +25,9 @@ export class ModificarRolComponent implements OnInit {
           res => {
             this.rol = res;
           },
-          error => {console.log(error);}
+          error => {
+            console.log(error);
+          }
         );
     }
 
