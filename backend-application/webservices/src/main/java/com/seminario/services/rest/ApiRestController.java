@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.apache.commons.codec.binary.Base64;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  * User: fcatania
@@ -50,10 +51,12 @@ public class ApiRestController {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-USUARIO"))){
             Set<Rol> roles = usuario.getRoles();
-            usuarioTmp.setRoles(null);
-            for (Rol r: roles) {
-                if (rolService.getRolById(r.getId()) != null)
-                    usuarioTmp.addRol(r);
+            usuarioTmp.setRoles(new HashSet());
+            if (roles != null) {
+                for (Rol r : roles) {
+                    if (rolService.getRolById(r.getId()) != null)
+                        usuarioTmp.addRol(r);
+                }
             }
         }
         return usuarioTmp;
@@ -64,11 +67,13 @@ public class ApiRestController {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-ROL"))){
             Set<Permiso> permisos = rol.getPermisos();
-            RolesTmp.setPermisos(null);
+            RolesTmp.setPermisos(new HashSet());
             RolesTmp.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            for (Permiso p: permisos) {
-                if (permisoService.getPermisoById(p.getId()) != null)
-                    RolesTmp.addPermiso(p);
+            if (permisos != null) {
+                for (Permiso p : permisos) {
+                    if (permisoService.getPermisoById(p.getId()) != null)
+                        RolesTmp.addPermiso(p);
+                }
             }
         }
         return RolesTmp;
@@ -81,7 +86,7 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    personaNueva    Es la Persona que se va a dar de alta.
      * */
-    @RequestMapping(value="/alta-persona", method = RequestMethod.PUT)
+    @RequestMapping(value="/alta-persona", method = RequestMethod.POST)
     public String createPersona(@RequestHeader("Authorization") String auth, @RequestBody Persona personaNueva) {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
@@ -102,19 +107,22 @@ public class ApiRestController {
      *                           (debe tener los permisos para ejecutar el método).
      * @param    usuarioNuevo    Es el Usuario que se va a dar de alta.
      * */
-    @RequestMapping(value="/alta-usuario", method = RequestMethod.PUT)
-    public String createUsuario(@RequestHeader("Authorization") String auth, @RequestBody Usuario usuarioNuevo) {
+    @RequestMapping(value="/{persona-id}/alta-usuario", method = RequestMethod.POST)
+    public String createUsuario(@RequestHeader("Authorization") String auth,
+                                @RequestBody Usuario usuarioNuevo,
+                                @PathVariable("persona-id") Long Id) {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-USUARIO"))) {
 
             Set<Rol> roles = usuarioNuevo.getRoles();
             usuarioNuevo.setId(null);
-            usuarioNuevo.setRoles(null);
+            usuarioNuevo.setRoles(new HashSet());
             usuarioNuevo.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            if (personaService.getPersonaById(usuarioNuevo.getPersona().getId()) == null)
+            Persona persona = personaService.getPersonaById(Id);
+            if (persona == null)
                 return "Usuario sin Persona Existente!";
-
+            usuarioNuevo.setPersona(persona);
             if(usuarioService.createUsuario(usuarioNuevo) != null) {
                 usuarioNuevo.setRoles(roles);
                 Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuarioNuevo);
@@ -134,14 +142,15 @@ public class ApiRestController {
      * @param    rolNuevo        Es el Rol que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-rol", method = RequestMethod.POST)
-    public String createRol(@RequestHeader("Authorization") String auth, @RequestBody Rol rolNuevo) {
+    public String createRol(@RequestHeader("Authorization") String auth,
+                            @RequestBody Rol rolNuevo) {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
 
             Set<Permiso> permisos = rolNuevo.getPermisos();
             rolNuevo.setId(null);
-            rolNuevo.setPermisos(null);
+            rolNuevo.setPermisos(new HashSet());
             rolNuevo.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
             if(rolService.createRol(rolNuevo) != null) {
                 rolNuevo.setPermisos(permisos);
@@ -186,7 +195,7 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      * @param    usuario    Es el Objeto Usuario que se persistirá.
      * */
-    @GetMapping("/update-usuario")
+    @RequestMapping(value = "/update-usuario", method = RequestMethod.PUT)
     public String asignarRolUsuario(@RequestHeader("Authorization") String auth,
                                     @RequestBody Usuario usuario)
     {
@@ -214,7 +223,7 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      * @param    rol        Es el Objeto Rol que se persistirá.
      * */
-    @GetMapping("/update-rol")
+    @RequestMapping(value = "/update-rol", method = RequestMethod.PUT)
     public String asignarRolUsuario(@RequestHeader("Authorization") String auth,
                                     @RequestBody Rol rol)
     {
