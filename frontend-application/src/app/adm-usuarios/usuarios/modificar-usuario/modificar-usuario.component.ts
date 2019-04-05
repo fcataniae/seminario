@@ -99,8 +99,4 @@ export class ModificarUsuarioComponent implements OnInit {
 
   }
 
-  onChangeAsignarRoles(){
-    this.asignarRoles = true;
-  }
-
 }

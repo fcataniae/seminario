@@ -17,22 +17,24 @@
              disabled
              required/>
     </div>
-      <label for="cambiarContrasenia" *ngIf="!cambiaContrasenia">
-          Cambiar contraseña
-      <input type="checkbox"
+    <div>
+      <input type="button"
+              class="btn-wlm"
               name="cambiarContrasenia"
               id="cambiarContrasenia"
+              value="cambiar contraseña"
               [disabled]="cambiaContrasenia"
-              (change)="onChangeContrasenia()"/>
-      </label>
-      <label for="asignarRoles" *ngIf="!asignarRoles">
-          Asignar roles
-      <input type="checkbox"
+              (click)="onChangeContrasenia()"/>
+
+      <input  type="button"
+              class="btn-wlm"
               name="asignarRoles"
               id="asignarRoles"
+              value="asignar rol"
               [disabled]="asignarRoles"
-              (change)="onChangeAsignarRoles()"/>
-      </label>
+              (click)="asignarRoles = !asignarRoles"/>
+
+    </div>
     <h4 *ngIf="cambiaContrasenia">Cambiar Contraseña</h4>
     <div *ngIf="cambiaContrasenia">
 
@@ -63,11 +65,13 @@
              [disabled]="!cambiaContrasenia"
              />
     </div>
+    <h4 *ngIf="asignarRoles">Asignar roles</h4>
     <div *ngIf="asignarRoles">
-      <select >
+
+      <select size="5">
           <option *ngFor="let rol of rolesNoAsignados">{{rol.nombre}}</option>
       </select>
-      <select >
+      <select  size="5">
           <option *ngFor="let rol of rolesAsignados">{{rol.nombre}}</option>
       </select>
     </div>
