@@ -31,7 +31,7 @@ public class PersonaService implements IPersonaService {
 
     @Override
     public Persona createPersona(Persona persona) {
-        if(personaRepository.findById(persona.getId()) == null){
+        if(personaRepository.findByNroDoc(persona.getNroDoc()) == null){
             return personaRepository.save(persona);
         }
         return null;
@@ -39,7 +39,14 @@ public class PersonaService implements IPersonaService {
 
     @Override
     public Persona updatePersona(Persona persona) {
-        return personaRepository.save(persona);
+        Persona personaTmp = personaRepository.findByNroDoc(persona.getNroDoc());
+        if(personaTmp != null){
+            persona.setId(personaTmp.getId());
+            return personaRepository.save(persona);
+
+        }
+
+        return null;
     }
 
     @Override

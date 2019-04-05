@@ -20,11 +20,7 @@ public class PermisoService implements IPermisoService {
 
     @Override
     public List<Permiso> getAllPermisos() {
-        List<Permiso> list = new ArrayList<>();
-        for(Permiso e : permisoRepository.findAll()) {
-            list.add(e);
-        }
-        return list;
+        return permisoRepository.findAll();
     }
 
     @Override
@@ -49,7 +45,7 @@ public class PermisoService implements IPermisoService {
 
     @Override
     public boolean createPermiso(Permiso permiso) {
-        if(permisoRepository.findById(permiso.getId()) == null){
+        if(permisoRepository.findByNombre(permiso.getNombre()) == null){
             permisoRepository.save(permiso);
             return true;
         }
@@ -58,7 +54,12 @@ public class PermisoService implements IPermisoService {
 
     @Override
     public Permiso updatePermiso(Permiso permiso) {
-        return permisoRepository.save(permiso);
+        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
+        if(permisoTmp != null){
+            permiso.setId(permiso.getId());
+            return permisoRepository.save(permiso);
+        }
+        return null;
     }
 
     @Override

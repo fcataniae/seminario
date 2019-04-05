@@ -14,7 +14,6 @@ export class EditarUsuarioComponent implements OnInit {
   usuarios: Usuario[];
   usuarioSelected: Usuario = null;
   ngOnInit( ) {
-
       //cargo todos los usuarios para mostrar un listado
       this._usuarioService.getAllUsuarios().subscribe(
         res => {

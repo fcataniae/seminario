@@ -22,11 +22,7 @@ public class RolService implements IRolService {
 
     @Override
     public List<Rol> getAllRoles() {
-        List<Rol> list = new ArrayList<>();
-        for(Rol e : rolRepository.findAll()) {
-            list.add(e);
-        }
-        return list;
+        return rolRepository.findAll();
     }
 
     @Override

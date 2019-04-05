@@ -1,8 +1,8 @@
 package com.seminario.backend.repository;
 
 import com.seminario.backend.model.Estado;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EstadoRepository extends CrudRepository<Estado, Long>  {
+public interface EstadoRepository extends JpaRepository<Estado, Long> {
     Estado findById(Long Id);
 }

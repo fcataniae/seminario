@@ -29,11 +29,7 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public List<Usuario> getAllUsuarios() {
-        List<Usuario> list = new ArrayList<>();
-        for(Usuario e : usuarioRepository.findAll()) {
-            list.add(e);
-        }
-        return list;
+        return usuarioRepository.findAll();
     }
 
     @Override
@@ -82,6 +78,7 @@ public class UsuarioService implements IUsuarioService {
     public Usuario updateUsuario(Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (usuarioTmp != null) {
+            usuario.setId(usuarioTmp.getId());
             return usuarioRepository.save(usuario);
         }
         return null;
@@ -91,7 +88,7 @@ public class UsuarioService implements IUsuarioService {
     public boolean deleteUsuario(Long Id) {
         Usuario usuarioTmp = usuarioRepository.findById(Id);
         if (usuarioTmp != null) {
-            usuarioRepository.delete(getUsuarioById(Id));
+            usuarioRepository.delete(usuarioTmp);
             return true;
         }
         return false;
