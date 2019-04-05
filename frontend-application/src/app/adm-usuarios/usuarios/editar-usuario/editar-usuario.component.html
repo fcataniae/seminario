@@ -1,13 +1,13 @@
 <div class="container">
-  <h3>Modificacion/Eliminacion de usuario</h3>
-  <table>
+  <h3>Editar usuario</h3>
+  <table class="table table-stripped">
     <thead>
       <tr>
         <th>Usuario</th>
         <th>Nombre</th>
         <th>Apellido</th>
-        <th>Documento</th>
         <th>Email</th>
+        <th>Documento</th>
         <th>Eliminar</th>
         <th>Modificar</th>
       </tr>
@@ -20,11 +20,13 @@
         <td>{{usuario.persona.email}}</td>
         <td>{{usuario.persona.nroDoc}}</td>
         <td><input type="button"
+              class="button"
               name="eliminar"
               value="Eliminar"
               (click)="deleteUser(usuario)">
         </td>
-        <td><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"><span>Modificar Usuario</span></a>
+        <td><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"
+                class="button"><span>Modificar</span></a>
         </td>
       </tr>
     </tbody>
