@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { UsuarioService } from './../../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -9,7 +10,8 @@ import { UsuarioService } from './../../../services/usuario.service';
 })
 export class EditarUsuarioComponent implements OnInit {
 
-  constructor(private _usuarioService: UsuarioService) { }
+  constructor(private _router: Router,
+              private _usuarioService: UsuarioService) { }
 
   usuarios: Usuario[];
   usuarioSelected: Usuario = null;
@@ -28,8 +30,14 @@ export class EditarUsuarioComponent implements OnInit {
 
   deleteUser(usuario: Usuario){
     this._usuarioService.deleteUser(usuario).subscribe(
-      res => {console.log(res)},
-      error => {console.log(error)}
+      res => {
+        console.log(res);
+        alert("Se elimino el usuario correctamente!");
+        this._router.navigate(['/home/gestion/usuarios']);
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 

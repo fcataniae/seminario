@@ -405,11 +405,11 @@ public class ApiRestController {
     @DeleteMapping("/del-usuario/{nombre-usuario}")
     public void deleteUsuario(@RequestHeader("Authorization") String auth,
                               @PathVariable("nombre-usuario") String nombreUsuario){
-        Usuario usuarioActual = base64ToUsuario(auth);
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
+        //Usuario usuarioActual = base64ToUsuario(auth);
+      //  if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+       //         contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
             usuarioService.deleteUsuarioByNombre(nombreUsuario);
-        }
+        //}
     }
 
     /**
@@ -419,7 +419,11 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    rol            nombre del rol
      **/
+<<<<<<< HEAD
     @DeleteMapping("/del-rol/{rol}")
+=======
+    @DeleteMapping("/usuario-rol/{rol}")
+>>>>>>> 221f2ea7a8fe8f849315c20582af0b30714cd4e3
     public void deleteRol(@RequestHeader("Authorization") String auth,
                           @PathVariable("rol") String rol){
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -445,12 +449,6 @@ public class ApiRestController {
         }
     }
 
-    @DeleteMapping("/usuario/{nombreusuario}")
-    public void deleteUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
-        usuarioService.deleteUsuarioByNombre(nombre);
-
-
-    }
 
     /**
      * BASICO PARA SAFAR
