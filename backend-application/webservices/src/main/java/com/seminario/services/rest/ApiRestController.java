@@ -425,11 +425,8 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    rol            nombre del rol
      **/
-<<<<<<< HEAD
-    @DeleteMapping("/del-rol/{rol}")
-=======
+
     @DeleteMapping("/usuario-rol/{rol}")
->>>>>>> 221f2ea7a8fe8f849315c20582af0b30714cd4e3
     public void deleteRol(@RequestHeader("Authorization") String auth,
                           @PathVariable("rol") String rol){
         Usuario usuarioActual = base64ToUsuario(auth);
