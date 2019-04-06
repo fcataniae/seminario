@@ -155,25 +155,31 @@ public class ApiRestController {
      * @param    rolNuevo        Es el Rol que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-rol", method = RequestMethod.POST)
-    public String createRol(@RequestHeader("Authorization") String auth,
+    public void createRol(@RequestHeader("Authorization") String auth,
                             @RequestBody Rol rolNuevo) {
         Usuario usuarioActual = base64ToUsuario(auth);
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
+  //      if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+    //            contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
 
             Set<Permiso> permisos = rolNuevo.getPermisos();
             rolNuevo.setId(null);
             rolNuevo.setPermisos(new HashSet());
             rolNuevo.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            if(rolService.createRol(rolNuevo) != null) {
-                rolNuevo.setPermisos(permisos);
-                Rol rolTmp = asignarPermisosRol(usuarioActual, rolNuevo);
-                if (rolService.updateRol(rolTmp) != null) {
-                    return "Exito!";
-                }
+            Rol rolBD = rolService.getRolByNombre(rolNuevo.getNombre());
+
+            if(rolBD != null){
+                    throw new RuntimeException("El rol ya existe");
             }
-        }
-        return "Fail";
+            rolService.createRol(rolNuevo);
+            //if(rolService.createRol(rolNuevo) != null) {
+              //  rolNuevo.setPermisos(permisos);
+                //Rol rolTmp = asignarPermisosRol(usuarioActual, rolNuevo);
+               // if (rolService.updateRol(rolTmp) != null) {
+                //    return "Exito!";
+                //}
+            //}
+        //}
+      //  return "Fail";
     }
 
     /**
