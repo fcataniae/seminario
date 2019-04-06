@@ -20,14 +20,14 @@ export class UsuarioService {
   }
 
   deleteUser(usuario: Usuario): Observable<string>{
-    return this._http.delete<string>( environment.serviceUrl + "usuario/" + usuario.nombreUsuario );
+    return this._http.delete<string>( environment.serviceUrl + "delete-usuario/" + usuario.nombreUsuario );
   }
   updateUsuario(usuario: Usuario): Observable<Usuario>{
-    return this._http.post<Usuario>( environment.serviceUrl + "usuario/" , usuario);
+    return this._http.put<Usuario>( environment.serviceUrl + "update-usuario/" , usuario);
   }
 
   getUsuarioByName(nombre: string): Observable<Usuario>{
-    return this._http.get<Usuario>(environment.serviceUrl + "usuario/" + nombre);
+    return this._http.get<Usuario>(environment.serviceUrl + "get-usuario/" + nombre);
   }
   createUsuario(usuario: Usuario): Observable<string>{
     console.log(usuario);
