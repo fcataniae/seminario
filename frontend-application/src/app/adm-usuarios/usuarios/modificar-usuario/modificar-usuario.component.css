@@ -18,3 +18,21 @@ div label{
   text-align: center;
   font-family: Myriad-Pro;
 }
+ul{
+  padding: 0px;
+  min-width: 40px;
+
+}
+ul li{
+  padding: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+ul li input{
+  padding: 0px;
+  border-radius: 5px;
+  background-color: #0055ba;
+  color: white;
+  border: none;
+
+}

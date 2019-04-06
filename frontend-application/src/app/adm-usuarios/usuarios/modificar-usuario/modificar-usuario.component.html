@@ -74,6 +74,10 @@
       <select size="5">
           <option *ngFor="let rol of rolesNoAsignados">{{rol.nombre}}</option>
       </select>
+      <ul>
+        <li><input type="button" (click)="asignar($event)" value="&#171;"/></li>
+        <li><input type="button" (click)="desasignar($event)" value="&#187;"/></li>
+      </ul>
       <select  size="5">
           <option *ngFor="let rol of rolesAsignados">{{rol.nombre}}</option>
       </select>
