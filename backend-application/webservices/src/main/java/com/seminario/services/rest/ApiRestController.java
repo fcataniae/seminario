@@ -90,26 +90,15 @@ public class ApiRestController {
     @RequestMapping(value="/alta-persona", method = RequestMethod.POST)
     public void createPersona(@RequestHeader("Authorization") String auth, @RequestBody Persona personaNueva) {
         Usuario usuarioActual = base64ToUsuario(auth);
-
-        List<Permiso> permisos = permisoService.getAllPermisosWhereUsuario(usuarioActual);
-        System.out.println(permisos);
-        boolean puede = false;
-
-        Permiso alta = permisoService.getPermisoById(1000l);
-        for(Permiso p : permisos){
-            puede = puede ||  p.getId().equals(alta.getId());
-        }
-        if (puede){
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("ALTA-PERSONA"))){
             personaNueva.setId(null);
             personaNueva.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            if(personaService.createPersona(personaNueva) == null)
-                throw new RuntimeException("No se pudo dar de alta la persona");
-
-        }else
-        {
-            throw new RuntimeException("La persona no tiene permisos");
+            if (personaService.createPersona(personaNueva) == null)
+                throw new RuntimeException("Error al dar de alta la persona!");
+        } else {
+            throw new RuntimeException("No cuenta con permisos para dar de alta personas!");
         }
-
     }
 
 
@@ -132,19 +121,22 @@ public class ApiRestController {
             usuario.setId(null);
             usuario.setRoles(new HashSet());
             usuario.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            Persona persona = personaService.getPersonaByDocumento(usuario.getPersona().getNroDoc());
+            Long nroDocPersona = usuario.getPersona().getNroDoc();
+            if (nroDocPersona == null) {
+                throw new RuntimeException("Persona NO existente!");
+            }
+            Persona persona = personaService.getPersonaByDocumento(nroDocPersona);
             if (persona == null)
-                throw new RuntimeException("Persona no existe");
+                throw new RuntimeException("Persona NO existente!");
             usuario.setPersona(persona);
             if(usuarioService.createUsuario(usuario) != null) {
                 usuario.setRoles(roles);
                 Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
                 if (usuarioService.updateUsuario(usuarioTmp) == null) {
-                    throw new RuntimeException("Error al dar de alta roles");
+                    throw new RuntimeException("Error al dar de alta roles!");
                 }
-            }
-        }else
-        {throw new RuntimeException("No cuenta con permisos");}
+            } else { throw new RuntimeException("Error! El Usuario ya existe!"); }
+        } else { throw new RuntimeException("No cuenta con permisos para dar de alta usuarios!");}
     }
 
     /**
@@ -158,28 +150,21 @@ public class ApiRestController {
     public void createRol(@RequestHeader("Authorization") String auth,
                             @RequestBody Rol rolNuevo) {
         Usuario usuarioActual = base64ToUsuario(auth);
-  //      if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-    //            contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
 
             Set<Permiso> permisos = rolNuevo.getPermisos();
             rolNuevo.setId(null);
             rolNuevo.setPermisos(new HashSet());
             rolNuevo.setEstado(estadoService.getEstadoByNombre("ACTIVO"));
-            Rol rolBD = rolService.getRolByNombre(rolNuevo.getNombre());
-
-            if(rolBD != null){
-                    throw new RuntimeException("El rol ya existe");
-            }
-            rolService.createRol(rolNuevo);
-            //if(rolService.createRol(rolNuevo) != null) {
-              //  rolNuevo.setPermisos(permisos);
-                //Rol rolTmp = asignarPermisosRol(usuarioActual, rolNuevo);
-               // if (rolService.updateRol(rolTmp) != null) {
-                //    return "Exito!";
-                //}
-            //}
-        //}
-      //  return "Fail";
+            if(rolService.createRol(rolNuevo) != null) {
+                rolNuevo.setPermisos(permisos);
+                Rol rolTmp = asignarPermisosRol(usuarioActual, rolNuevo);
+                if (rolService.updateRol(rolTmp) == null) {
+                    throw new RuntimeException("Error al actualizar el rol!");
+                }
+            } else { throw new RuntimeException("Error! El Rol ya existe!"); }
+        } else { throw new RuntimeException("No cuenta con los permisos para dar de alta roles!"); }
     }
 
     /**
@@ -190,16 +175,17 @@ public class ApiRestController {
      * @param    permisoNuevo    Es el Permiso que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-permiso", method =  RequestMethod.POST)
-    public String createPermiso(@RequestHeader("Authorization") String auth, @RequestBody Permiso permisoNuevo) {
+    public void createPermiso(@RequestHeader("Authorization") String auth, @RequestBody Permiso permisoNuevo) {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-PERMISO"))) {
             permisoNuevo.setId(null);
-            if (permisoService.createPermiso(permisoNuevo)){
-                    return "Exito!";
+            if (!permisoService.createPermiso(permisoNuevo)){
+                throw new RuntimeException("Error! El permiso ya existe!");
             }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para dar de alta permisos!");
         }
-        return "Fail";
     }
 
     /**
@@ -214,23 +200,24 @@ public class ApiRestController {
      * @param    persona    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-persona", method = RequestMethod.PUT)
-    public String updatePersona(@RequestHeader("Authorization") String auth,
+    public void updatePersona(@RequestHeader("Authorization") String auth,
                                 @RequestBody Persona persona)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-PERSONA"))) {
-            if (persona.getId() == null) return "Fail";
+            if (persona.getId() == null) throw new RuntimeException("Id Persona NO existente!");
             Persona personaTmp = personaService.getPersonaById(persona.getId());
             personaTmp.setNombre(persona.getNombre());
             personaTmp.setApellido(persona.getApellido());
             personaTmp.setEmail(persona.getEmail());
             personaTmp.setFecha_nacimiento(persona.getFecha_nacimiento());
-            if (personaService.updatePersona(personaTmp) != null) {
-                return "Exito!";
+            if (personaService.updatePersona(personaTmp) == null) {
+                throw new RuntimeException("Error al modificar la persona!");
             }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar personas!");
         }
-        return "Fail";
     }
 
     /**
@@ -246,7 +233,7 @@ public class ApiRestController {
      * @param    usuario    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-usuario", method = RequestMethod.PUT)
-    public String updateUsuario(@RequestHeader("Authorization") String auth,
+    public void updateUsuario(@RequestHeader("Authorization") String auth,
                                     @RequestBody Usuario usuario)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -254,11 +241,12 @@ public class ApiRestController {
                 contains(permisoService.getPermisoByNombre("MODI-USUARIO"))) {
             Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
             usuarioTmp.setPassword(usuario.getPassword());
-            if (usuarioService.updateUsuario(usuarioTmp) != null) {
-                return "Exito!";
+            if (usuarioService.updateUsuario(usuarioTmp) == null) {
+                throw new RuntimeException("Error al modificar usuario!");
             }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar usuarios!");
         }
-        return "Fail";
     }
 
     /**
@@ -274,7 +262,7 @@ public class ApiRestController {
      * @param    rol        Es el Objeto Rol que se persistirá.
      * */
     @RequestMapping(value = "/update-rol", method = RequestMethod.PUT)
-    public String updateRol(@RequestHeader("Authorization") String auth,
+    public void updateRol(@RequestHeader("Authorization") String auth,
                             @RequestBody Rol rol)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -282,11 +270,12 @@ public class ApiRestController {
                 contains(permisoService.getPermisoByNombre("MODI-ROL"))) {
             Rol rolTmp = asignarPermisosRol(usuarioActual, rol);
             rolTmp.setDescripcion(rol.getDescripcion());
-            if (rolService.updateRol(rolTmp) != null) {
-                return "Exito!";
+            if (rolService.updateRol(rolTmp) == null) {
+                throw new RuntimeException("Error al modificar roles!");
             }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar usuarios!");
         }
-        return "Fail";
     }
 
     /**
@@ -301,21 +290,22 @@ public class ApiRestController {
      * @param    permiso    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-permiso", method = RequestMethod.PUT)
-    public String updatePermiso(@RequestHeader("Authorization") String auth,
+    public void updatePermiso(@RequestHeader("Authorization") String auth,
                                 @RequestBody Permiso permiso)
     {
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-PERMISO"))) {
-            if (permiso.getId() == null) return "Fail";
+            if (permiso.getId() == null) throw new RuntimeException("Id Permiso NO existente!");
             Permiso permisoTmp = permisoService.getPermisoById(permiso.getId());
             permisoTmp.setDescripcion(permiso.getDescripcion());
             permisoTmp.setFuncionalidad(permiso.getFuncionalidad());
             if (permisoService.updatePermiso(permisoTmp) != null) {
-                return "Exito!";
+                throw new RuntimeException("Error al modificar roles!");
             }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar permisos!");
         }
-        return "Fail";
     }
 
     /**
@@ -330,8 +320,9 @@ public class ApiRestController {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-PERSONA"))) {
             return personaService.getAllPersonas();
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar personas!");
         }
-        return null;
     }
 
     /**
@@ -346,8 +337,9 @@ public class ApiRestController {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             return usuarioService.getAllUsuarios();
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar usuario!");
         }
-        return null;
     }
 
     /**
@@ -358,12 +350,13 @@ public class ApiRestController {
      **/
     @GetMapping("/listar-roles")
     public List<Rol> listRoles(@RequestHeader("Authorization") String auth){
-        //Usuario usuarioActual = base64ToUsuario(auth);
-        //if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-        //        contains(permisoService.getPermisoByNombre("CONS-ROL"))){
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("CONS-ROL"))){
             return rolService.getAllRoles();
-        //}
-        //return null;
+        }else {
+            throw new RuntimeException("No cuenta con los permisos para consultar roles!");
+        }
     }
 
     /**
@@ -378,8 +371,9 @@ public class ApiRestController {
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-PERMISO"))) {
             return permisoService.getAllPermisos();
+        }else {
+            throw new RuntimeException("No cuenta con los permisos para consultar permisos!");
         }
-        return null;
     }
 
     /**
@@ -398,6 +392,8 @@ public class ApiRestController {
             // FALTA OBTENER TODOS LOS USUARIOS DE
             // UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
             personaService.deletePersona(doc);
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para eliminar personas!");
         }
     }
 
@@ -411,11 +407,13 @@ public class ApiRestController {
     @DeleteMapping("/del-usuario/{nombre-usuario}")
     public void deleteUsuario(@RequestHeader("Authorization") String auth,
                               @PathVariable("nombre-usuario") String nombreUsuario){
-        //Usuario usuarioActual = base64ToUsuario(auth);
-      //  if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-       //         contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
             usuarioService.deleteUsuarioByNombre(nombreUsuario);
-        //}
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para eliminar usuarios!");
+        }
     }
 
     /**
@@ -426,13 +424,15 @@ public class ApiRestController {
      * @param    rol            nombre del rol
      **/
 
-    @DeleteMapping("/usuario-rol/{rol}")
+    @DeleteMapping("/del-rol/{rol}")
     public void deleteRol(@RequestHeader("Authorization") String auth,
                           @PathVariable("rol") String rol){
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("BAJA-ROL"))) {
             rolService.deleteRolByNombre(rol);
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para eliminar roles!");
         }
     }
 
