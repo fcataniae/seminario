@@ -15,7 +15,7 @@ export class PersonaService {
     }
 
   getPersonaByDocumento(documento: number): Observable<Persona>{
-    return this._http.get<Persona>(environment.serviceUrl + 'persona/' + documento);
+    return this._http.get<Persona>(environment.serviceUrl + 'get-persona/' + documento);
   }
 
   deletePersona(persona: Persona): Observable<string>{
