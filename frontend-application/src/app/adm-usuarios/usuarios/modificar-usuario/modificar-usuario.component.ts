@@ -72,6 +72,10 @@ export class ModificarUsuarioComponent implements OnInit {
   }
 
   onSubmit(){
+    if (this.asignarRoles){
+      console.log("asigno roles");
+      this.usuario.roles = this.rolesAsignados;
+    }
     this._usuarioService.updateUsuario(this.usuario).subscribe(
       res => {
         alert("usuario modificado correctamente!");
@@ -79,26 +83,6 @@ export class ModificarUsuarioComponent implements OnInit {
       },
       error => {alert(error);}
     );
-
-  }
-
-  cargarRoles(){
-    this._rolService.getAllRoles().subscribe(
-      res => {
-          let roles = this.usuario.roles;
-          this.rolesNoAsignados = res.filter(function(array){
-            return roles.filter( function(array2){
-              return array2.id == array.id;
-            }).length == 0
-          });
-          console.log(this.rolesNoAsignados);
-          this.asignarRoles =true;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
 
   }
 
