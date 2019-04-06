@@ -80,6 +80,17 @@ public class ApiRestController {
         return RolesTmp;
     }
 
+    @GetMapping("/login")
+    public Usuario login(@RequestHeader("Authorization") String auth){
+
+        System.out.println(auth);
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if(usuarioActual != null)
+            return usuarioActual;
+        else
+            throw new RuntimeException("Usuario incorrector");
+    }
+
     /**
      * Dar de Alta un nueva Persona.
      *
@@ -383,14 +394,16 @@ public class ApiRestController {
      *                       (debe tener los permisos para ejecutar el método).
      *  @param    doc        Nro de documento de la persona.
      **/
-    @DeleteMapping("/persona/{documento}")
+    @DeleteMapping("/delete-persona/{documento}")
     public void deletePersona(@RequestHeader("Authorization") String auth,
                               @PathVariable("documento") Long doc){
         Usuario usuarioActual = base64ToUsuario(auth);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("BAJA-PERSONA"))) {
-            // FALTA OBTENER TODOS LOS USUARIOS DE
-            // UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
+            /*
+              TODO:     FALTA OBTENER TODOS LOS USUARIOS DE
+                        UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
+            */
             personaService.deletePersona(doc);
         } else {
             throw new RuntimeException("No cuenta con los permisos para eliminar personas!");
@@ -404,7 +417,7 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    nombreUsuario  nombreUsuario del Usuario.
      **/
-    @DeleteMapping("/del-usuario/{nombre-usuario}")
+    @DeleteMapping("/delete-usuario/{nombre-usuario}")
     public void deleteUsuario(@RequestHeader("Authorization") String auth,
                               @PathVariable("nombre-usuario") String nombreUsuario){
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -424,7 +437,7 @@ public class ApiRestController {
      * @param    rol            nombre del rol
      **/
 
-    @DeleteMapping("/del-rol/{rol}")
+    @DeleteMapping("/delete-rol/{rol}")
     public void deleteRol(@RequestHeader("Authorization") String auth,
                           @PathVariable("rol") String rol){
         Usuario usuarioActual = base64ToUsuario(auth);
@@ -436,82 +449,120 @@ public class ApiRestController {
         }
     }
 
-
     /**
-     * Basico para safar
-     * @param nombre
-     * @return
-     */
-    @GetMapping("/usuario/{nombreusuario}")
-    public Usuario getUsuarioByNombre(@PathVariable("nombreusuario") String nombre){
-        Usuario u =  usuarioService.getUsuarioByNombre(nombre);
-        if(u!=null){
-            return u;
-        }else{
-            throw new RuntimeException("error al actualizar usuario");
-        }
-    }
-
-
-    /**
-     * BASICO PARA SAFAR
-     * @param doc
-     * @return
-     */
-    @GetMapping("/persona/{documento}")
-    public Persona getPersonaByDocumento(@PathVariable("documento") Long doc){
-        Persona p =  personaService.getPersonaByDocumento(doc);
-        if(p!=null){
-            return p;
-        }else{
-            throw new RuntimeException("error al buscar persona");
-        }
+     * Baja de rol
+     *
+     * @param    auth           Credenciales de usuario.
+     *                          (debe tener los permisos para ejecutar el método).
+     * @param    permiso        Nombre del permiso
+     **/
+    @DeleteMapping("/delete-permiso/{permiso-nombre}")
+    public void deletePermiso(@RequestHeader("Authorization") String auth,
+                              @PathVariable("permiso-nombre") String permiso){
+        // TODO:
     }
 
     /**
-     * BASICO PARA SAFAR
-     * @param persona
-     * @return
+     * Obtiene un Persona por documento
+     *
+     * @param   auth    Credenciales de usuario.
+     *                  (debe tener los permisos para ejecutar el método).
+     * @param   doc     Numero de Documento
+     * @return  Persona
      */
-    @PutMapping("/persona")
-    public Persona updatePersona(@RequestBody Persona persona){
-        Persona p = personaService.updatePersona(persona);
-        if(p!=null){
-            return p;
-        }else{
-            throw new RuntimeException("error al actualizar poersona");
-        }
-    }
-
-    @GetMapping("/permisos-usuario/{nombreusuario}")
-    public List<Permiso> getPermisosByNombre(@PathVariable("nombreusuario") String nombre){
-        return permisoService.getAllPermisosWhereUsuario(usuarioService.getUsuarioByNombre(nombre));
-    }
-
-    /**
-     *  Basico para safar
-     * @param usuario
-     * @return
-     */
-    @PostMapping("/usuario")
-    public Usuario updateUsuario(@RequestBody Usuario usuario){
-
-        Usuario u = usuarioService.updateUsuario(usuario);
-        if(u!=null){
-            return u;
-        }else{
-            throw new RuntimeException("error al actualizar usuario");
-        }
-    }
-
-    @GetMapping("/login")
-    public Usuario login(@RequestHeader("Authorization") String auth){
-
-        System.out.println(auth);
+    @GetMapping("/get-persona/{documento}")
+    public Persona getPersonaByDocumento(@RequestHeader("Authorization") String auth,
+                                         @PathVariable("documento") Long doc){
+        Persona persona = null;
         Usuario usuarioActual = base64ToUsuario(auth);
-        if(usuarioActual != null)
-            return usuarioActual;
-        else
-            throw new RuntimeException("Usuario incorrector");
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
+            persona = personaService.getPersonaByDocumento(doc);
+            if( persona == null) {
+                throw new RuntimeException("Error al actualizar persona");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar personas!");
+        }
+        return persona;
     }
+
+
+    /**
+     * Obtiene un Usuario por Nombre
+     *
+     * @param   auth        Credenciales de usuario.
+     *                      (debe tener los permisos para ejecutar el método).
+     * @param   nombre      Nombre del Usuario
+     * @return  Usuario
+     */
+    @GetMapping("/get-usuario/{nombreusuario}")
+    public Usuario getUsuarioByNombre(@RequestHeader("Authorization") String auth,
+                                      @PathVariable("nombreusuario") String nombre){
+        Usuario usuario;
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
+            usuario = usuarioService.getUsuarioByNombre(nombre);
+            if( usuario == null) {
+                throw new RuntimeException("Error al actualizar usuario");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
+        }
+        return usuario;
+    }
+
+
+    /**
+     * Obtiene un Rol por Nombre
+     *
+     * @param   auth        Credenciales de usuario.
+     *                      (debe tener los permisos para ejecutar el método).
+     * @param   nombre      Nombre del Rol
+     * @return  Rol
+     */
+    @GetMapping("/get-rol/{rol-nombre}")
+    public Rol getRolByNombre(@RequestHeader("Authorization") String auth,
+                              @PathVariable("rol-nombre") String nombre){
+        Rol rol;
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
+            rol = rolService.getRolByNombre(nombre);
+            if( rol == null) {
+                throw new RuntimeException("Error al actualizar usuario");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
+        }
+        return rol;
+    }
+
+    /**
+     * Obtiene un Permiso por Nombre
+     *
+     * @param   auth        Credenciales de usuario.
+     *                      (debe tener los permisos para ejecutar el método).
+     * @param   nombre      Nombre del Permiso
+     * @return  Permiso
+     */
+    @GetMapping("/get-permiso/{permiso-nombre}")
+    public Permiso getPermisoByNombre(@RequestHeader("Authorization") String auth,
+                                      @PathVariable("rol-permiso") String nombre){
+        Permiso permiso;
+        Usuario usuarioActual = base64ToUsuario(auth);
+        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
+                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
+            permiso = permisoService.getPermisoByNombre(nombre);
+            if( permiso == null) {
+                throw new RuntimeException("Error al actualizar usuario");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
+        }
+        return permiso;
+    }
+
+
 }
