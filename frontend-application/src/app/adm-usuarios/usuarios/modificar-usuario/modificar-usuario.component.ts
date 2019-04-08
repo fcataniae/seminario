@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { Rol } from '../../../model/rol.model';
 import { Router,ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ export class ModificarUsuarioComponent implements OnInit {
               private _usuarioService: UsuarioService,
               private _rolService: RolService) {
     }
+  @ViewChild('RolesNo') selectRN: ElementRef;
+  @ViewChild('RolesSi') selectRS: ElementRef;
+
 
   usuario : Usuario;
   passwordCheck: string;
@@ -84,6 +87,22 @@ export class ModificarUsuarioComponent implements OnInit {
       error => {alert(error);}
     );
 
+  }
+
+  asignarRol(event: Event){
+    event.preventDefault();
+    console.log("asigna");
+    console.log(this.selectRN);
+    var selected = this.selectRN.outerText;
+    console.log(selected);
+  }
+
+  desasignarRol(event: Event){
+    event.preventDefault();
+    console.log("desasigna");
+    console.log(this.selectRS);
+    var selected = this.selectRS.outerText;
+    console.log(selected);
   }
 
 }
