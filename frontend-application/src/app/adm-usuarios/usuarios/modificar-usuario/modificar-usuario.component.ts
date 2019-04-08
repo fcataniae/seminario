@@ -5,7 +5,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { UsuarioService } from './../../../services/usuario.service';
 import { RolService } from './../../../services/rol.service';
 import {forkJoin} from 'rxjs';
-import { map,pipe } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -15,7 +15,7 @@ import { map,pipe } from 'rxjs/operators';
 export class ModificarUsuarioComponent implements OnInit {
 
   constructor(private _router: Router,
-              private _route: ActivatedRoute;
+              private _route: ActivatedRoute,
               private _usuarioService: UsuarioService,
               private _rolService: RolService) {
     }
@@ -37,31 +37,34 @@ export class ModificarUsuarioComponent implements OnInit {
     this.asignarRoles = false;
     this.usuario = new Usuario();
     this._route.paramMap.subscribe(params => {
-        let id = params.get("id");
-        const observable1 =this._usuarioService.getUsuarioByName(id).pipe(map(res => res));
-        const observable2 = this._rolService.getAllRoles().pipe(map(res => res));
-        forkJoin(observable1,
-                 observable2)
-          .subscribe(
-          ([res1,res2])=>{
-            console.log(res1);
-            this.usuario = res1;
-            this.passwordCheck = this.usuario.password;
-            this.rolesAsignados = this.usuario.roles;
-            let roles = this.usuario.roles;
-            this.rolesNoAsignados = res2.filter(function(array){
-              return roles.filter( function(array2){
-                return array2.id == array.id;
-              }).length == 0
-            });
-            console.log(this.rolesNoAsignados);
-          },
-          error => {
-            console.log(error);
-          }
-        );
-    },
-    error => {console.log(error);}
+          let id = params.get("id");
+          const observable1 =this._usuarioService.getUsuarioByName(id).pipe(map(res => res));
+          const observable2 = this._rolService.getAllRoles().pipe(map(res => res));
+          forkJoin(observable1,
+                   observable2)
+            .subscribe(
+            ([res1,res2])=>{
+              console.log(res1);
+              this.usuario = res1;
+              this.passwordCheck = this.usuario.password;
+              this.rolesAsignados = this.usuario.roles;
+              let roles = this.usuario.roles;
+              this.rolesNoAsignados = res2.filter(function(array){
+                return roles.filter( function(array2){
+                  return array2.id == array.id;
+                }).length == 0
+              });
+              console.log(this.rolesNoAsignados);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   onChangeContrasenia(){
