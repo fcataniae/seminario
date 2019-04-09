@@ -24,7 +24,7 @@ export class RolService {
     console.log(rol);
     return this._http.post<string>(environment.serviceUrl + "alta-rol", rol);
   }
-  updateRol(rol: Rol): Oservable<string>{
+  updateRol(rol: Rol): Observable<string>{
     return this._http.put<string>(environment.serviceUrl + "update-rol", rol);
   }
 }

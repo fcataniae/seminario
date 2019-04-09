@@ -11,7 +11,7 @@ export class EditarRolComponent implements OnInit {
 
   constructor(private _rolService: RolService) { }
 
-  roles: Rol;
+  roles: Rol[];
 
   ngOnInit() {
 
