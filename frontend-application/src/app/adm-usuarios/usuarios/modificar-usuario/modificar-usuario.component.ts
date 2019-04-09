@@ -96,16 +96,35 @@ export class ModificarUsuarioComponent implements OnInit {
     event.preventDefault();
     console.log("asigna");
     console.log(this.selectRN);
-    var selected = this.selectRN.outerText;
-    console.log(selected);
+    if(this.selectRN.nativeElement.selectedIndex != -1){
+      var selected = this.selectRN.nativeElement.options[this.selectRN.nativeElement.selectedIndex].innerHTML;
+      console.log(selected);
+      if(selected) {
+        let rol = this.rolesNoAsignados.find(function(element){
+          return element.nombre == selected;
+        });
+        console.log(rol);
+        this.rolesNoAsignados.splice(this.rolesNoAsignados.indexOf(rol),1);
+        this.rolesAsignados.push(rol);
+      }
+    }
   }
 
   desasignarRol(event: Event){
     event.preventDefault();
     console.log("desasigna");
     console.log(this.selectRS);
-    var selected = this.selectRS.outerText;
-    console.log(selected);
+    if(this.selectRS.nativeElement.selectedIndex != -1){
+      var selected = this.selectRS.nativeElement.options[this.selectRS.nativeElement.selectedIndex].innerHTML;
+      console.log(selected);
+      if(selected) {
+        let rol = this.rolesAsignados.find(function(element){
+          return element.nombre == selected;
+        });
+        console.log(rol);
+        this.rolesAsignados.splice(this.rolesAsignados.indexOf(rol),1);
+        this.rolesNoAsignados.push(rol);
+      }
+    }
   }
-
 }
