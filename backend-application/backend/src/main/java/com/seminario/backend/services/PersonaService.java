@@ -1,8 +1,10 @@
 package com.seminario.backend.services;
 
 import com.seminario.backend.model.Persona;
+import com.seminario.backend.model.Usuario;
+import com.seminario.backend.repository.PermisoRepository;
 import com.seminario.backend.repository.PersonaRepository;
-import com.seminario.backend.services.interfaces.IPersonaService;
+import com.seminario.backend.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,11 @@ public class PersonaService implements IPersonaService {
 
     @Autowired
     private PersonaRepository personaRepository;
-
-    @Override
+    @Autowired
+    private PermisoRepository permisoRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
+    
     public List<Persona> getAllPersonas() {
         List<Persona> list = new ArrayList<>();
         for(Persona e : personaRepository.findAll()) {
@@ -23,21 +28,24 @@ public class PersonaService implements IPersonaService {
         }
         return list;
     }
-
-    @Override
+    
     public Persona getPersonaById(Long Id) {
         return personaRepository.findById(Id);
     }
-
-    @Override
-    public Persona createPersona(Persona persona) {
-        if(personaRepository.findByNroDoc(persona.getNroDoc()) == null){
-            return personaRepository.save(persona);
+    
+    public Persona createPersona(Usuario usuarioActual, Persona personaNueva) throws CustomException{
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-PERSONA"))){
+            personaNueva.setId(null);
+            personaNueva.setEstado(estadoRepository.findByDescrip("ACTIVO"));
+            if (personaRepository.save(personaNueva) == null)
+                throw new CustomException("Error al dar de alta la persona!");
+        } else {
+            throw new CustomException("No cuenta con permisos para dar de alta personas!");
         }
-        return null;
     }
 
-    @Override
+     
     public Persona updatePersona(Persona persona) {
         Persona personaTmp = personaRepository.findByNroDoc(persona.getNroDoc());
         if(personaTmp != null){
@@ -49,12 +57,12 @@ public class PersonaService implements IPersonaService {
         return null;
     }
 
-    @Override
+     
     public void deletePersona(Long nroDoc) {
         personaRepository.delete(personaRepository.findByNroDoc(nroDoc));
     }
 
-    @Override
+     
     public Persona getPersonaByDocumento(Long doc) {
         return personaRepository.findByNroDoc(doc);
     }

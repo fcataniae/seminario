@@ -4,16 +4,15 @@ import com.seminario.backend.model.Estado;
 import com.seminario.backend.model.Rol;
 import com.seminario.backend.model.Usuario;
 import com.seminario.backend.model.Persona;
-import com.seminario.backend.repository.UsuarioRepository;
-import com.seminario.backend.repository.RolRepository;
-import com.seminario.backend.repository.PersonaRepository;
-import com.seminario.backend.repository.EstadoRepository;
+import com.seminario.backend.repository.*;
 import com.seminario.backend.services.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UsuarioService implements IUsuarioService {
@@ -26,18 +25,37 @@ public class UsuarioService implements IUsuarioService {
     private RolRepository rolRepository;
     @Autowired
     private EstadoRepository estadoRespository;
+    @Autowired
+    private PermisoRepository permisosRepository;
 
-    @Override
+    private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
+        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
+        if (permisosRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisosRepository.findByNombre("MODI-USUARIO"))){
+            Set<Rol> roles = usuario.getRoles();
+            usuarioTmp.setRoles(new HashSet());
+            if (roles != null) {
+                for (Rol r : roles) {
+                    Rol rValid = rolRepository.findById(r.getId());
+                    if (rValid != null)
+                        usuarioTmp.addRol(rValid);
+                }
+            }
+        }
+        return usuarioTmp;
+    }
+
+     
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
 
-    @Override
+     
     public Usuario getUsuarioById(Long id) {
         return usuarioRepository.findById(id);
     }
 
-    @Override
+     
     public boolean cambiarEstado(Usuario usuario, Estado estado) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         Estado estadoTmp = estadoRespository.findById(estado.getId());
@@ -49,7 +67,7 @@ public class UsuarioService implements IUsuarioService {
         return false;
     }
 
-    @Override
+     
     public Usuario createUsuario(Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (usuarioTmp == null){
@@ -58,7 +76,7 @@ public class UsuarioService implements IUsuarioService {
         return null;
     }
 
-    @Override
+     
     public Usuario updateUsuario(Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (usuarioTmp != null) {
@@ -68,7 +86,7 @@ public class UsuarioService implements IUsuarioService {
         return null;
     }
 
-    @Override
+     
     public boolean deleteUsuario(Long Id) {
         Usuario usuarioTmp = usuarioRepository.findById(Id);
         if (usuarioTmp != null) {
@@ -78,12 +96,12 @@ public class UsuarioService implements IUsuarioService {
         return false;
     }
 
-    @Override
+     
     public Usuario getUsuarioByNombre(String nombre) {
         return usuarioRepository.findByNombreUsuario(nombre);
     }
 
-    @Override
+     
     public String deleteUsuarioByNombre(String nombre) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
         if(usuarioTmp != null){
@@ -93,7 +111,7 @@ public class UsuarioService implements IUsuarioService {
         return "Error al eliminar el usuario";
     }
 
-    @Override
+     
     public Usuario getUsuarioByUsuarioYPass(String usuario, String pass) {
         return usuarioRepository.findByNombreUsuarioPassword(usuario, pass);
     }
