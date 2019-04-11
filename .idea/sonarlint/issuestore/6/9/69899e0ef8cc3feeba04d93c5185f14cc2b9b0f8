@@ -1,3 +1,64 @@
 
-ysquid:S1488"\Immediately return this expression instead of assigning it to the temporary variable "user".(ÀÙô*8ö™…¬œ-
-Msquid:EmptyStatementUsageCheck"Remove this empty statement.(™í€±8ı˜İªœ-
+fsquid:S00112«"FDefine and throw a dedicated exception instead of using a generic one.(µÀÁ8˜•Ğä -
+isquid:S4488©"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(È‡“8˜•Ğä -
+[
+squid:S106l"9Replace this use of System.out or System.err by a logger.(¬Û·½üÿÿÿÿ8˜•Ğä -
+lsquid:S1192Ñ"MDefine a constant instead of duplicating this literal "CONS-USUARIO" 5 times.(¿ŒÏ½8˜•Ğä -
+fsquid:S00112á"FDefine and throw a dedicated exception instead of using a generic one.(‘¿‚Ú8˜•Ğä -
+isquid:S4488"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(’Î”å8˜•Ğä -
+csquid:S4684S"@Replace this persistent entity with a simple POJO or DTO object.(¢»ôãûÿÿÿÿ8 ğƒì -
+fsquid:S00112û"FDefine and throw a dedicated exception instead of using a generic one.(Ù¤íâ8˜•Ğä -
+fsquid:S00112¨"FDefine and throw a dedicated exception instead of using a generic one.(Æä¾—8˜•Ğä -
+fsquid:S00112’"FDefine and throw a dedicated exception instead of using a generic one.(ÔÁ½²8˜•Ğä -
+fsquid:S00112‚"FDefine and throw a dedicated exception instead of using a generic one.(©ğŠÌ8˜•Ğä -
+fsquid:S00112•"FDefine and throw a dedicated exception instead of using a generic one.(Ù¤íâ8˜•Ğä -
+^squid:S4684"@Replace this persistent entity with a simple POJO or DTO object.(ıä8 ğƒì -
+fsquid:S00112ø"FDefine and throw a dedicated exception instead of using a generic one.(ÔÁ½²8˜•Ğä -
+{squid:S1192ø"\Define a constant instead of duplicating this literal "Error al actualizar usuario" 3 times.(ÔÁ½²8˜•Ğä -
+_squid:S4684"@Replace this persistent entity with a simple POJO or DTO object.(ºÖ€•8 ğƒì -
+ksquid:S00112Ô"FDefine and throw a dedicated exception instead of using a generic one.(öà¡Õøÿÿÿÿ8˜•Ğä -
+fsquid:S00112«"FDefine and throw a dedicated exception instead of using a generic one.(ÔÁ½²8˜•Ğä -
+Msquid:EmptyStatementUsageCheck"Remove this empty statement.(™í€±8ı˜İªœ-
+fsquid:S00112É"FDefine and throw a dedicated exception instead of using a generic one.(”ØšÉ8˜•Ğä -
+msquid:S4488R"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(³èĞ‹ûÿÿÿÿ8˜•Ğä -
+fsquid:S00112À"FDefine and throw a dedicated exception instead of using a generic one.(‘¿‚Ú8˜•Ğä -
+ksquid:S00112ƒ"FDefine and throw a dedicated exception instead of using a generic one.(°Ûæîûÿÿÿÿ8˜•Ğä -
+msquid:S4488h"JReplace "@RequestMapping(method = RequestMethod.POST)" with "@PostMapping"(ËÑ˜ïşÿÿÿÿ8˜•Ğä -
+esquid:S00112°"FDefine and throw a dedicated exception instead of using a generic one.(’„–8˜•Ğä -
+Qsquid:S1135Ê"2Complete the task associated to this TODO comment.(ÓñàÍ8˜•Ğä -
+ksquid:S00112ğ"FDefine and throw a dedicated exception instead of using a generic one.(á©¿¦üÿÿÿÿ8˜•Ğä -
+fsquid:S00112®"FDefine and throw a dedicated exception instead of using a generic one.(Ù¤íâ8˜•Ğä -
+_squid:S4684‚"@Replace this persistent entity with a simple POJO or DTO object.(‰÷8 ğƒì -
+gsquid:S4488ã"HReplace "@RequestMapping(method = RequestMethod.PUT)" with "@PutMapping"(„ø±Ø8˜•Ğä -
+jsquid:S00112v"FDefine and throw a dedicated exception instead of using a generic one.(èîöŒÿÿÿÿÿ8˜•Ğä -
+fsquid:S00112£"FDefine and throw a dedicated exception instead of using a generic one.(áÒ›ò8˜•Ğä -
+ksquid:S00112Ğ"FDefine and throw a dedicated exception instead of using a generic one.(¸«Ã‡úÿÿÿÿ8˜•Ğä -
+fsquid:S00112¼"FDefine and throw a dedicated exception instead of using a generic one.(ïÎñ·8˜•Ğä -
+“squid:S1192û"tDefine a constant instead of duplicating this literal "No cuenta con los permisos para consultar usuarios!" 3 times.(Ù¤íâ8˜•Ğä -
+esquid:S1192X"GDefine a constant instead of duplicating this literal "ACTIVO" 3 times.(Î‹Èû8˜•Ğä -
+fsquid:S00112Ÿ"FDefine and throw a dedicated exception instead of using a generic one.(–‚Ä¸8˜•Ğä -
+Qsquid:S1135"2Complete the task associated to this TODO comment.(­ëíö8˜•Ğä -
+ksquid:S00112€"FDefine and throw a dedicated exception instead of using a generic one.(–˜ù½øÿÿÿÿ8˜•Ğä -
+esquid:S00112è"FDefine and throw a dedicated exception instead of using a generic one.(ø‰·,8˜•Ğä -
+ksquid:S00112œ"FDefine and throw a dedicated exception instead of using a generic one.(çƒìúÿÿÿÿ8˜•Ğä -
+fsquid:S00112í"FDefine and throw a dedicated exception instead of using a generic one.(·Æ™º8˜•Ğä -
+ksquid:S00112Ş"FDefine and throw a dedicated exception instead of using a generic one.(èøôùıÿÿÿÿ8˜•Ğä -
+dsquid:S4684Ä"@Replace this persistent entity with a simple POJO or DTO object.(Ÿê¯§ÿÿÿÿÿ8 ğƒì -
+fsquid:S00112Š"FDefine and throw a dedicated exception instead of using a generic one.(Æä¾—8˜•Ğä -
+jsquid:S00112z"FDefine and throw a dedicated exception instead of using a generic one.(èîöŒÿÿÿÿÿ8˜•Ğä -
+esquid:S00112³"FDefine and throw a dedicated exception instead of using a generic one.(¿†¯=8˜•Ğä -
+ksquid:S00112Ó"FDefine and throw a dedicated exception instead of using a generic one.(Æãèşÿÿÿÿ8˜•Ğä -
+lsquid:S4488€"HReplace "@RequestMapping(method = RequestMethod.PUT)" with "@PutMapping"(“ÎâÅşÿÿÿÿ8˜•Ğä -
+gsquid:S4488Â"HReplace "@RequestMapping(method = RequestMethod.PUT)" with "@PutMapping"(²ÙÂ8˜•Ğä -
+fsquid:S00112§"FDefine and throw a dedicated exception instead of using a generic one.(§—è·8˜•Ğä -
+ksquid:S00112”"FDefine and throw a dedicated exception instead of using a generic one.(­§Îêüÿÿÿÿ8˜•Ğä -
+_squid:S4684å"@Replace this persistent entity with a simple POJO or DTO object.(“’‡×8 ğƒì -
+ksquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.( ØÅîÿÿÿÿÿ8˜•Ğä -
+gsquid:S4488œ"HReplace "@RequestMapping(method = RequestMethod.PUT)" with "@PutMapping"(Ù¬­è8˜•Ğä -
+ksquid:S00112ü"FDefine and throw a dedicated exception instead of using a generic one.(·¿ˆøÿÿÿÿ8˜•Ğä -
+csquid:S4684j"@Replace this persistent entity with a simple POJO or DTO object.(ôøæµıÿÿÿÿ8 ğƒì -
+esquid:S00112\"FDefine and throw a dedicated exception instead of using a generic one.(ç½å§8˜•Ğä -
+psquid:S00117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°çæô8˜•Ğä -
+ksquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(á©¿¦üÿÿÿÿ8˜•Ğä -
+jsquid:S00112Z"FDefine and throw a dedicated exception instead of using a generic one.(ß†áüÿÿÿÿ8˜•Ğä -
+dsquid:S4684ª"@Replace this persistent entity with a simple POJO or DTO object.(ä éÛıÿÿÿÿ8 ğƒì -
