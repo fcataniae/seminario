@@ -1,6 +1,8 @@
 package com.seminario.backend.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -97,5 +99,13 @@ public class Usuario {
 
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
+    }
+
+    public List<String> rolesToArrayString() {
+        List<String> roles = new ArrayList<>();
+
+        this.roles.forEach(r -> r.getPermisos().forEach(p -> roles.add(p.getNombre())));
+
+        return roles;
     }
 }

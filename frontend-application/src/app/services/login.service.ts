@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Usuario }  from '../model/usuario.model';
+import { Token }  from '../model/token.model';
 import { HttpHeaders } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
@@ -11,15 +11,16 @@ export class LoginService {
   constructor(private _http: HttpClient) {
   }
 
-  login(username:string, password:string): Observable<Usuario> {
-    console.log(username + '   ' + password);
-    sessionStorage.setItem('Auth','Basic ' + btoa(username+':'+password))
-
-    return this._http.get<Usuario>( environment.serviceUrl + 'login'  );
+  login(username:string, password:string): Observable<Token> {
+    let httpHeaders = new HttpHeaders({
+      	'Content-Type' : 'application/json'
+     });
+     let options = {
+	      headers: httpHeaders
+     };
+     let body = JSON.stringify({"username": username , "password": password});
+     console.log(body);
+    return this._http.post<Token>( environment.serviceUrl.replace('service', 'auth/login'), body , options  );
   }
 
-  prueba(): Observable<string>{
-    return this._http.get<string>(environment.serviceUrl + 'prueba');
-
-  }
 }
