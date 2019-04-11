@@ -7,6 +7,7 @@ import com.seminario.backend.model.Usuario;
 import com.seminario.backend.repository.PermisoRepository;
 import com.seminario.backend.repository.PersonaRepository;
 import com.seminario.backend.repository.RolRepository;
+import com.seminario.backend.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ public class RolService {
     private PermisoRepository permisoRepository;
     @Autowired
     private PersonaRepository personaRepository;
+    @Autowired
+    private EstadoRepository estadoRepository;
 
     private Rol asignarPermisosRol(Usuario usuarioActual, Rol rol)  {
         Rol RolesTmp = rolRepository.findByNombre(rol.getNombre());
@@ -52,15 +55,36 @@ public class RolService {
         return rolRepository.findByNombre(nombre);
     }
 
-    public Rol createRol(Rol rol) {
-        if(rolRepository.findByNombre(rol.getNombre()) == null){
-            return rolRepository.save(rol);
-        }
-        return null;
+    public void create(Usuario usuarioActual, Rol rolNuevo) throws CustomException{
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-ROL"))) {
+
+            Set<Permiso> permisos = rolNuevo.getPermisos();
+            rolNuevo.setId(null);
+            rolNuevo.setPermisos(new HashSet());
+            rolNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
+            if(rolRepository.save(rolNuevo) != null) {
+                rolNuevo.setPermisos(permisos);
+                Rol rolTmp = asignarPermisosRol(usuarioActual, rolNuevo);
+                if (rolRepository.save(rolTmp) == null) {
+                    throw new CustomException("Error al actualizar el rol!");
+                }
+            } else { throw new CustomException("Error! El Rol ya existe!"); }
+        } else { throw new CustomException("No cuenta con los permisos para dar de alta roles!"); }
+
     }
 
-    public Rol updateRol(Rol rol) {
-        return rolRepository.save(rol);
+    public void update(Usuario usuarioActual, Rol rol) throws CustomException{
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-ROL"))) {
+            Rol rolTmp = asignarPermisosRol(usuarioActual, rol);
+            rolTmp.setDescripcion(rol.getDescripcion());
+            if (rolRepository.save(rolTmp) == null) {
+                throw new RuntimeException("Error al modificar roles!");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar roles!");
+        }
     }
 
     public void deleteRolByNombre(String nombre) {

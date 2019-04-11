@@ -5,7 +5,6 @@ import com.seminario.backend.model.Rol;
 import com.seminario.backend.model.Usuario;
 import com.seminario.backend.model.Persona;
 import com.seminario.backend.repository.*;
-import com.seminario.backend.services.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class UsuarioService{
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -24,14 +23,14 @@ public class UsuarioService implements IUsuarioService {
     @Autowired
     private RolRepository rolRepository;
     @Autowired
-    private EstadoRepository estadoRespository;
+    private EstadoRepository estadoRepository;
     @Autowired
-    private PermisoRepository permisosRepository;
+    private PermisoRepository permisoRepository;
 
     private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (permisosRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisosRepository.findByNombre("MODI-USUARIO"))){
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-USUARIO"))){
             Set<Rol> roles = usuario.getRoles();
             usuarioTmp.setRoles(new HashSet());
             if (roles != null) {
@@ -58,7 +57,7 @@ public class UsuarioService implements IUsuarioService {
      
     public boolean cambiarEstado(Usuario usuario, Estado estado) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        Estado estadoTmp = estadoRespository.findById(estado.getId());
+        Estado estadoTmp = estadoRepository.findById(estado.getId());
         if (usuarioTmp != null && estadoTmp != null){
             usuarioTmp.setEstado(estado);
             usuarioRepository.save(usuarioTmp);
@@ -68,22 +67,44 @@ public class UsuarioService implements IUsuarioService {
     }
 
      
-    public Usuario createUsuario(Usuario usuario) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (usuarioTmp == null){
-            return usuarioRepository.save(usuario);
-        }
-        return null;
+    public void create(Usuario usuarioActual, Usuario usuario) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-USUARIO"))) {
+
+            Set<Rol> roles = usuario.getRoles();
+            usuario.setId(null);
+            usuario.setRoles(new HashSet());
+            usuario.setEstado(estadoRepository.findByDescrip("ACTIVO"));
+            Long nroDocPersona = usuario.getPersona().getNroDoc();
+            if (nroDocPersona == null) {
+                throw new CustomException("Persona NO existente!");
+            }
+            Persona persona = personaRepository.findByNroDoc(nroDocPersona);
+            if (persona == null)
+                throw new CustomException("Persona NO existente!");
+            usuario.setPersona(persona);
+            if(usuarioRepository.save(usuario) != null) {
+                usuario.setRoles(roles);
+                Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
+                if (usuarioRepository.save(usuarioTmp) == null) {
+                    throw new CustomException("Error al dar de alta roles!");
+                }
+            } else { throw new CustomException("Error! El Usuario ya existe!"); }
+        } else { throw new CustomException("No cuenta con permisos para dar de alta usuarios!");}
     }
 
      
-    public Usuario updateUsuario(Usuario usuario) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (usuarioTmp != null) {
-            usuario.setId(usuarioTmp.getId());
-            return usuarioRepository.save(usuario);
+    public void update(Usuario usuarioActual, Usuario usuario) {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-USUARIO"))) {
+            Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
+            usuarioTmp.setPassword(usuario.getPassword());
+            if (usuarioRepository.save(usuarioTmp) == null) {
+                throw new RuntimeException("Error al modificar usuario!");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar usuarios!");
         }
-        return null;
     }
 
      

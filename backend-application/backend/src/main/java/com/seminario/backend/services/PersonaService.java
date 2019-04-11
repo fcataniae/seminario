@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Service
-public class PersonaService implements IPersonaService {
+public class PersonaService {
 
     @Autowired
     private PersonaRepository personaRepository;
@@ -33,7 +33,7 @@ public class PersonaService implements IPersonaService {
         return personaRepository.findById(Id);
     }
     
-    public Persona createPersona(Usuario usuarioActual, Persona personaNueva) throws CustomException{
+    public void create(Usuario usuarioActual, Persona personaNueva) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
                 contains(permisoRepository.findByNombre("ALTA-PERSONA"))){
             personaNueva.setId(null);
@@ -46,15 +46,21 @@ public class PersonaService implements IPersonaService {
     }
 
      
-    public Persona updatePersona(Persona persona) {
-        Persona personaTmp = personaRepository.findByNroDoc(persona.getNroDoc());
-        if(personaTmp != null){
-            persona.setId(personaTmp.getId());
-            return personaRepository.save(persona);
-
+    public void update(Usuario usuarioActual, Persona persona) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-PERSONA"))) {
+            if (persona.getId() == null) throw new RuntimeException("Id Persona NO existente!");
+            Persona personaTmp = personaRepository.findById(persona.getId());
+            personaTmp.setNombre(persona.getNombre());
+            personaTmp.setApellido(persona.getApellido());
+            personaTmp.setEmail(persona.getEmail());
+            personaTmp.setFecha_nacimiento(persona.getFecha_nacimiento());
+            if (personaRepository.save(personaTmp) == null) {
+                throw new RuntimeException("Error al modificar la persona!");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar personas!");
         }
-
-        return null;
     }
 
      

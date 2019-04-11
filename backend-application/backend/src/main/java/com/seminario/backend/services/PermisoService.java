@@ -46,21 +46,31 @@ public class PermisoService {
     }
 
 
-    public boolean createPermiso(Permiso permiso) {
-        if(permisoRepository.findByNombre(permiso.getNombre()) == null){
-            permisoRepository.save(permiso);
-            return true;
+    public void create(Usuario usuarioActual, Permiso permisoNuevo) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-PERMISO"))) {
+            permisoNuevo.setId(null);
+            if (permisoRepository.save(permisoNuevo) == null){
+                throw new CustomException("Error! El permiso ya existe!");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para dar de alta permisos!");
         }
-        return false;
     }
 
-    public Permiso updatePermiso(Permiso permiso) {
-        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
-        if(permisoTmp != null){
-            permiso.setId(permiso.getId());
-            return permisoRepository.save(permiso);
+    public void update(Usuario usuarioActual, Permiso permiso) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-PERMISO"))) {
+            if (permiso.getId() == null) throw new RuntimeException("Id Permiso NO existente!");
+            Permiso permisoTmp = permisoRepository.findById(permiso.getId());
+            permisoTmp.setDescripcion(permiso.getDescripcion());
+            permisoTmp.setFuncionalidad(permiso.getFuncionalidad());
+            if (permisoRepository.save(permisoTmp) != null) {
+                throw new RuntimeException("Error al modificar permiso!");
+            }
+        } else {
+            throw new RuntimeException("No cuenta con los permisos para modificar permisos!");
         }
-        return null;
     }
 
     public boolean deletePermiso(Long Id) {
