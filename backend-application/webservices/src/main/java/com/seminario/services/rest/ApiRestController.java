@@ -1,23 +1,21 @@
 package com.seminario.services.rest;
 
-
-
-import com.seminario.backend.dto.DTOUser;
 import com.seminario.backend.model.*;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import com.seminario.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.apache.commons.codec.binary.Base64;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
 /**
- * User: fcatania
+ * UserAuth: fcatania
  * Date: 27/3/2019
  * Time: 08:35
  */
@@ -40,11 +38,6 @@ public class ApiRestController {
     @Autowired
     private EstadoService estadoService;
 
-    private Usuario base64ToUsuario(String auth) {
-        String decodedData = new String(Base64.decodeBase64(auth.split(" ")[1]));
-        String[] data = decodedData.split(":");
-        return usuarioService.getUsuarioByUsuarioYPass(data[0], data[1]);
-    }
 
     private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
         Usuario usuarioTmp = usuarioService.getUsuarioByNombre(usuario.getNombreUsuario());
@@ -79,28 +72,16 @@ public class ApiRestController {
         }
         return RolesTmp;
     }
-
-    @GetMapping("/login")
-    public Usuario login(@RequestHeader("Authorization") String auth){
-
-        System.out.println(auth);
-        Usuario usuarioActual = base64ToUsuario(auth);
-        if(usuarioActual != null)
-            return usuarioActual;
-        else
-            throw new RuntimeException("Usuario incorrector");
-    }
-
     /**
      * Dar de Alta un nueva Persona.
      *
-     * @param    auth            Credenciales de usuario.
+     * @param    userDetails            Credenciales de usuario.
      *                           (debe tener los permisos para ejecutar el método).
      * @param    personaNueva    Es la Persona que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-persona", method = RequestMethod.POST)
-    public void createPersona(@RequestHeader("Authorization") String auth, @RequestBody Persona personaNueva) {
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public void createPersona(@AuthenticationPrincipal UserDetails userDetails, @RequestBody Persona personaNueva) {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-PERSONA"))){
             personaNueva.setId(null);
@@ -116,14 +97,14 @@ public class ApiRestController {
     /**
      * Dar de Alta un nuevo Usuario.
      *
-     * @param    auth            Credenciales de usuario.
+     * @param    userDetails            Credenciales de usuario.
      *                           (debe tener los permisos para ejecutar el método).
      * @param    usuario    Es el Usuario que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-usuario", method = RequestMethod.POST)
-    public void createUsuario(@RequestHeader("Authorization") String auth,
+    public void createUsuario(@AuthenticationPrincipal UserDetails userDetails,
                                 @RequestBody Usuario usuario) {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         System.out.println(usuario);
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-USUARIO"))) {
@@ -153,14 +134,14 @@ public class ApiRestController {
     /**
      * Dar de Alta un nuevo Rol.
      *
-     * @param    auth            Credenciales de usuario.
+     * @param    userDetails            Credenciales de usuario.
      *                           (debe tener los permisos para ejecutar el método).
      * @param    rolNuevo        Es el Rol que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-rol", method = RequestMethod.POST)
-    public void createRol(@RequestHeader("Authorization") String auth,
+    public void createRol(@AuthenticationPrincipal UserDetails userDetails,
                             @RequestBody Rol rolNuevo) {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-ROL"))) {
 
@@ -181,13 +162,13 @@ public class ApiRestController {
     /**
      * Dar de Alta un nuevo Permiso.
      *
-     * @param    auth            Credenciales de usuario.
+     * @param    userDetails            Credenciales de usuario.
      *                           (debe tener los permisos para ejecutar el método).
      * @param    permisoNuevo    Es el Permiso que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-permiso", method =  RequestMethod.POST)
-    public void createPermiso(@RequestHeader("Authorization") String auth, @RequestBody Permiso permisoNuevo) {
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public void createPermiso(@AuthenticationPrincipal UserDetails userDetails, @RequestBody Permiso permisoNuevo) {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("ALTA-PERMISO"))) {
             permisoNuevo.setId(null);
@@ -206,15 +187,15 @@ public class ApiRestController {
      * El resto de los atributos no se permiten cambiar. A excepción del Estado,
      * pero para este atributo se utiliza otro método.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param    persona    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-persona", method = RequestMethod.PUT)
-    public void updatePersona(@RequestHeader("Authorization") String auth,
+    public void updatePersona(@AuthenticationPrincipal UserDetails userDetails,
                                 @RequestBody Persona persona)
     {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-PERSONA"))) {
             if (persona.getId() == null) throw new RuntimeException("Id Persona NO existente!");
@@ -239,15 +220,15 @@ public class ApiRestController {
      * El resto de los atributos no se permiten cambiar. A excepción del Estado,
      * pero para este atributo se utiliza otro método.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param    usuario    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-usuario", method = RequestMethod.PUT)
-    public void updateUsuario(@RequestHeader("Authorization") String auth,
+    public void updateUsuario(@AuthenticationPrincipal UserDetails userDetails,
                                     @RequestBody Usuario usuario)
     {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-USUARIO"))) {
             Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
@@ -268,15 +249,15 @@ public class ApiRestController {
      * El resto de los atributos no se permiten cambiar. A excepción del Estado,
      * pero para este atributo se utiliza otro método.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param    rol        Es el Objeto Rol que se persistirá.
      * */
     @RequestMapping(value = "/update-rol", method = RequestMethod.PUT)
-    public void updateRol(@RequestHeader("Authorization") String auth,
+    public void updateRol(@AuthenticationPrincipal UserDetails userDetails,
                             @RequestBody Rol rol)
     {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-ROL"))) {
             Rol rolTmp = asignarPermisosRol(usuarioActual, rol);
@@ -296,15 +277,15 @@ public class ApiRestController {
      * El resto de los atributos no se permiten cambiar. A excepción del Estado,
      * pero para este atributo se utiliza otro método.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param    permiso    Es el Objeto Usuario que se actualizará.
      * */
     @RequestMapping(value = "/update-permiso", method = RequestMethod.PUT)
-    public void updatePermiso(@RequestHeader("Authorization") String auth,
+    public void updatePermiso(@AuthenticationPrincipal UserDetails userDetails,
                                 @RequestBody Permiso permiso)
     {
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("MODI-PERMISO"))) {
             if (permiso.getId() == null) throw new RuntimeException("Id Permiso NO existente!");
@@ -322,12 +303,16 @@ public class ApiRestController {
     /**
      * Lista todas las personas.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-personas")
-    public List<Persona> listPersonas(@RequestHeader("Authorization") String auth){
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public List<Persona> listPersonas(@AuthenticationPrincipal UserDetails userDetails){
+
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+
+
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-PERSONA"))) {
             return personaService.getAllPersonas();
@@ -339,12 +324,15 @@ public class ApiRestController {
     /**
      * Lista todos los usuarios.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-usuarios")
-    public List<Usuario> listUsuarios(@RequestHeader("Authorization") String auth){
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public List<Usuario> listUsuarios(@AuthenticationPrincipal UserDetails userDetails){
+
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             return usuarioService.getAllUsuarios();
@@ -356,12 +344,15 @@ public class ApiRestController {
     /**
      * Lista todos los roles.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-roles")
-    public List<Rol> listRoles(@RequestHeader("Authorization") String auth){
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public List<Rol> listRoles(@AuthenticationPrincipal UserDetails userDetails){
+
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-ROL"))){
             return rolService.getAllRoles();
@@ -373,12 +364,15 @@ public class ApiRestController {
     /**
      * Lista todos los Permisos.
      *
-     * @param    auth       Credenciales de usuario.
+     * @param    userDetails       Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-permisos")
-    public List<Permiso> listPermisos(@RequestHeader("Authorization") String auth){
-        Usuario usuarioActual = base64ToUsuario(auth);
+    public List<Permiso> listPermisos(@AuthenticationPrincipal UserDetails userDetails){
+
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-PERMISO"))) {
             return permisoService.getAllPermisos();
@@ -390,14 +384,15 @@ public class ApiRestController {
     /**
      * Baja de persona.
      *
-     *  @param    auth       Credenciales de usuario.
+     *  @param    userDetails       Credenciales de usuario.
      *                       (debe tener los permisos para ejecutar el método).
      *  @param    doc        Nro de documento de la persona.
      **/
     @DeleteMapping("/delete-persona/{documento}")
-    public void deletePersona(@RequestHeader("Authorization") String auth,
+    public void deletePersona(@AuthenticationPrincipal UserDetails userDetails,
                               @PathVariable("documento") Long doc){
-        Usuario usuarioActual = base64ToUsuario(auth);
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("BAJA-PERSONA"))) {
             /*
@@ -413,14 +408,14 @@ public class ApiRestController {
     /**
      * Baja de usuario
      *
-     * @param    auth           Credenciales de usuario.
+     * @param    userDetails           Credenciales de usuario.
      *                          (debe tener los permisos para ejecutar el método).
      * @param    nombreUsuario  nombreUsuario del Usuario.
      **/
     @DeleteMapping("/delete-usuario/{nombre-usuario}")
-    public void deleteUsuario(@RequestHeader("Authorization") String auth,
+    public void deleteUsuario(@AuthenticationPrincipal UserDetails userDetails,
                               @PathVariable("nombre-usuario") String nombreUsuario){
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
             usuarioService.deleteUsuarioByNombre(nombreUsuario);
@@ -432,15 +427,16 @@ public class ApiRestController {
     /**
      * Baja de rol
      *
-     * @param    auth           Credenciales de usuario.
+     * @param    userDetails           Credenciales de usuario.
      *                          (debe tener los permisos para ejecutar el método).
      * @param    rol            nombre del rol
      **/
 
     @DeleteMapping("/delete-rol/{rol}")
-    public void deleteRol(@RequestHeader("Authorization") String auth,
+    public void deleteRol(@AuthenticationPrincipal UserDetails userDetails,
                           @PathVariable("rol") String rol){
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("BAJA-ROL"))) {
             rolService.deleteRolByNombre(rol);
@@ -452,12 +448,12 @@ public class ApiRestController {
     /**
      * Baja de rol
      *
-     * @param    auth           Credenciales de usuario.
+     * @param    userDetails           Credenciales de usuario.
      *                          (debe tener los permisos para ejecutar el método).
      * @param    permiso        Nombre del permiso
      **/
     @DeleteMapping("/delete-permiso/{permiso-nombre}")
-    public void deletePermiso(@RequestHeader("Authorization") String auth,
+    public void deletePermiso(@AuthenticationPrincipal UserDetails userDetails,
                               @PathVariable("permiso-nombre") String permiso){
         // TODO:
     }
@@ -465,16 +461,16 @@ public class ApiRestController {
     /**
      * Obtiene un Persona por documento
      *
-     * @param   auth    Credenciales de usuario.
+     * @param   userDetails    Credenciales de usuario.
      *                  (debe tener los permisos para ejecutar el método).
      * @param   doc     Numero de Documento
      * @return  Persona
      */
     @GetMapping("/get-persona/{documento}")
-    public Persona getPersonaByDocumento(@RequestHeader("Authorization") String auth,
+    public Persona getPersonaByDocumento(@AuthenticationPrincipal UserDetails userDetails,
                                          @PathVariable("documento") Long doc){
         Persona persona = null;
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             persona = personaService.getPersonaByDocumento(doc);
@@ -491,16 +487,16 @@ public class ApiRestController {
     /**
      * Obtiene un Usuario por Nombre
      *
-     * @param   auth        Credenciales de usuario.
+     * @param   userDetails        Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param   nombre      Nombre del Usuario
      * @return  Usuario
      */
     @GetMapping("/get-usuario/{nombreusuario}")
-    public Usuario getUsuarioByNombre(@RequestHeader("Authorization") String auth,
+    public Usuario getUsuarioByNombre(@AuthenticationPrincipal UserDetails userDetails,
                                       @PathVariable("nombreusuario") String nombre){
         Usuario usuario;
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             usuario = usuarioService.getUsuarioByNombre(nombre);
@@ -517,16 +513,16 @@ public class ApiRestController {
     /**
      * Obtiene un Rol por Nombre
      *
-     * @param   auth        Credenciales de usuario.
+     * @param   userDetails        Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param   nombre      Nombre del Rol
      * @return  Rol
      */
     @GetMapping("/get-rol/{rol-nombre}")
-    public Rol getRolByNombre(@RequestHeader("Authorization") String auth,
+    public Rol getRolByNombre(@AuthenticationPrincipal UserDetails userDetails,
                               @PathVariable("rol-nombre") String nombre){
         Rol rol;
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             rol = rolService.getRolByNombre(nombre);
@@ -542,16 +538,16 @@ public class ApiRestController {
     /**
      * Obtiene un Permiso por Nombre
      *
-     * @param   auth        Credenciales de usuario.
+     * @param   userDetails        Credenciales de usuario.
      *                      (debe tener los permisos para ejecutar el método).
      * @param   nombre      Nombre del Permiso
      * @return  Permiso
      */
     @GetMapping("/get-permiso/{permiso-nombre}")
-    public Permiso getPermisoByNombre(@RequestHeader("Authorization") String auth,
+    public Permiso getPermisoByNombre(@AuthenticationPrincipal UserDetails userDetails,
                                       @PathVariable("rol-permiso") String nombre){
         Permiso permiso;
-        Usuario usuarioActual = base64ToUsuario(auth);
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
                 contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
             permiso = permisoService.getPermisoByNombre(nombre);

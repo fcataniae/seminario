@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from '../model/usuario.model'
+import { Token } from '../model/token.model'
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,6 @@ import { Usuario } from '../model/usuario.model'
 export class SessionService {
 
   private userLoggedIn;
-  private usserLogged: Usuario;
 
   constructor() {
   	this.userLoggedIn = false;
@@ -16,20 +15,19 @@ export class SessionService {
   isUserLoggedIn(){
     return this.userLoggedIn;
   }
-  setUserLoggedIn(user:Usuario) {
+  setUserLoggedIn(token: Token) {
     this.userLoggedIn = true;
-    this.usserLogged = user;
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
+    sessionStorage.setItem('currentUser', JSON.stringify(token));
+    sessionStorage.setItem('Auth', 'Bearer ' + token.token);
 
   }
 
-  getUserLoggedIn(): Usuario {
+  getUserLoggedIn(): Token {
   	return JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   setLogOut() {
-    this.usserLogged = null;
     this.userLoggedIn = false;
-    sessionStorage.setItem('currentUser', JSON.stringify(this.usserLogged));
+    sessionStorage.setItem('currentUser', '');
   }
 }

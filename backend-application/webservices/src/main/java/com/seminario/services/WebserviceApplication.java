@@ -1,17 +1,15 @@
 package com.seminario.services;
 
 import com.seminario.backend.BackendApplication;
-import com.seminario.services.security.WebSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.WebApplicationInitializer;
 
 /**
- * User: fcatania
+ * UserAuth: fcatania
  * Date: 27/3/2019
  * Time: 08:42
  */
