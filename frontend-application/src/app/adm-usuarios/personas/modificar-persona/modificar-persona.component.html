@@ -45,7 +45,7 @@
              id="apellido"
              class="form-control "
              [(ngModel)]="persona.apellido"
-             #nombre="ngModel"
+             #apellido="ngModel"
              required/>
     </div>
     <div>
@@ -54,7 +54,7 @@
               class="form-control"
               name="tipodoc"
               [(ngModel)]="persona.tipoDoc"
-              #nombre="ngModel"
+              #tipodoc="ngModel"
               required>
         <option>D.N.I</option>
         <option>CUIT</option>
@@ -70,7 +70,7 @@
              id="nrodoc"
              class="form-control "
              [(ngModel)]="persona.nroDoc"
-             #nombre="ngModel"
+             #doc="ngModel"
              min="1" pattern="^[0-9]+"
              required/>
     </div>
@@ -80,8 +80,8 @@
              name="fechanac"
              id="fechanac"
              class="form-control "
-             [(ngModel)]="persona.fecha_nacimiento"
-             #nombre="ngModel"
+             [(ngModel)]="persona.fecha_nacimiento  "
+             #fechanac="ngModel"
              required/>
     </div>
     <div>
@@ -92,7 +92,7 @@
              id="mail"
              class="form-control "
              [(ngModel)]="persona.email"
-             #nombre="ngModel"
+             #email="ngModel"
              pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
              required/>
     </div>

@@ -1,3 +1,4 @@
 
-V
-squid:S106"9Replace this use of System.out or System.err by a logger.(‚ÈÆ8±•¼Óœ-
+\squid:UselessImportCheck"4Remove this unused import 'org.apache.log4j.Logger'.(ñè½8“ÖÏä -
+Ysquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8“ÖÏä -
+Ysquid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8“ÖÏä -

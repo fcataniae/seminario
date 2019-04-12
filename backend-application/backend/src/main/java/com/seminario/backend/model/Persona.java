@@ -1,5 +1,7 @@
 package com.seminario.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -49,6 +51,7 @@ public class Persona implements Serializable {
 
     @Column
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fecha_nacimiento;
 
     @Column
