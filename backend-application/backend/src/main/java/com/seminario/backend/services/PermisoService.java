@@ -31,8 +31,18 @@ public class PermisoService {
         return permisoRepository.findAllPermisosWhereUsuario(usuario.getId());
     };
 
-    public Permiso getPermisoByNombre(String nombre) {
-        return permisoRepository.findByNombre(nombre);
+    public Permiso getPermisoByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        Permiso permiso;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERMISO"))) {
+            permiso = permisoRepository.findByNombre(nombre);
+            if( permiso == null) {
+                throw new CustomException("Error al consultar permiso");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar permisos!");
+        }
+        return permiso;
     }
 
     public Permiso getPermisoById(Long id) {
@@ -49,7 +59,6 @@ public class PermisoService {
         }
         return false;
     }
-
 
     public void create(Usuario usuarioActual, Permiso permisoNuevo) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).

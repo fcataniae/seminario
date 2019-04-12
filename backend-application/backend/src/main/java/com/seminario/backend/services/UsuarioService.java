@@ -99,16 +99,16 @@ public class UsuarioService{
     }
 
      
-    public void update(Usuario usuarioActual, Usuario usuario) {
+    public void update(Usuario usuarioActual, Usuario usuario) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
                 contains(permisoRepository.findByNombre("MODI-USUARIO"))) {
             Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
             usuarioTmp.setPassword(usuario.getPassword());
             if (usuarioRepository.save(usuarioTmp) == null) {
-                throw new RuntimeException("Error al modificar usuario!");
+                throw new CustomException("Error al modificar usuario!");
             }
         } else {
-            throw new RuntimeException("No cuenta con los permisos para modificar usuarios!");
+            throw new CustomException("No cuenta con los permisos para modificar usuarios!");
         }
     }
 
@@ -123,7 +123,21 @@ public class UsuarioService{
     }
 
      
-    public Usuario getUsuarioByNombre(String nombre) {
+    public Usuario getUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        Usuario usuario;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+            usuario = usuarioRepository.findByNombreUsuario(nombre);
+            if( usuario == null) {
+                throw new CustomException("Error al consultar usuario");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar usuarios!");
+        }
+        return usuario;
+    }
+
+    public Usuario getUsuarioByNombre(String nombre) throws CustomException {
         return usuarioRepository.findByNombreUsuario(nombre);
     }
 

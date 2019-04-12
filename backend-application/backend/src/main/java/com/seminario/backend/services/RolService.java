@@ -57,8 +57,18 @@ public class RolService {
         return rolRepository.findById(id);
     }
 
-    public Rol getRolByNombre(String nombre) {
-        return rolRepository.findByNombre(nombre);
+    public Rol getRolByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        Rol rol;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-ROL"))) {
+            rol = rolRepository.findByNombre(nombre);
+            if( rol == null) {
+                throw new CustomException("Error al consultar rol");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar roles!");
+        }
+        return rol;
     }
 
     public void create(Usuario usuarioActual, Rol rolNuevo) throws CustomException{

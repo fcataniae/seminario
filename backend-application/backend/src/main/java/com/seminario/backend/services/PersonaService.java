@@ -65,7 +65,7 @@ public class PersonaService {
     }
 
      
-    public void delete(Usuario usuarioActual, Long nroDoc) throws CustomException{
+    public void delete(Usuario usuarioActual, Long nroDoc) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
                 contains(permisoRepository.findByNombre("BAJA-PERSONA"))) {
             /*
@@ -79,8 +79,18 @@ public class PersonaService {
     }
 
      
-    public Persona getPersonaByDocumento(Long doc) {
-        return personaRepository.findByNroDoc(doc);
+    public Persona getPersonaByDocumento(Usuario usuarioActual, Long doc) throws CustomException {
+        Persona persona;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERSONA"))) {
+            persona = personaRepository.findByNroDoc(doc);
+            if( persona == null) {
+                throw new CustomException("Error al consultar persona");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar personas!");
+        }
+        return persona;
     }
 
 

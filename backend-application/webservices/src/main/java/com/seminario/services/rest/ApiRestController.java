@@ -1,7 +1,6 @@
 package com.seminario.services.rest;
 
 import com.seminario.backend.model.*;
-import com.seminario.backend.repository.RolRepository;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * UserAuth: fcatania
@@ -290,95 +287,52 @@ public class ApiRestController {
     @GetMapping("/get-persona/{documento}")
     public Persona getPersonaByDocumento(@AuthenticationPrincipal UserDetails userDetails,
                                          @PathVariable("documento") Long doc) throws CustomException {
-        Persona persona = null;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
-            persona = personaService.getPersonaByDocumento(doc);
-            if( persona == null) {
-                throw new RuntimeException("Error al actualizar persona");
-            }
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar personas!");
-        }
-        return persona;
+        return personaService.getPersonaByDocumento(usuarioActual, doc);
     }
 
 
     /**
      * Obtiene un Usuario por Nombre
      *
-     * @param   userDetails        Credenciales de usuario.
-     *                      (debe tener los permisos para ejecutar el método).
-     * @param   nombre      Nombre del Usuario
+     * @param   userDetails     Credenciales de usuario.
+     * @param   nombre          Nombre del Usuario
      * @return  Usuario
      */
     @GetMapping("/get-usuario/{nombreusuario}")
     public Usuario getUsuarioByNombre(@AuthenticationPrincipal UserDetails userDetails,
                                       @PathVariable("nombreusuario") String nombre) throws CustomException {
-        Usuario usuario;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
-            usuario = usuarioService.getUsuarioByNombre(nombre);
-            if( usuario == null) {
-                throw new RuntimeException("Error al actualizar usuario");
-            }
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
-        }
-        return usuario;
+        return usuarioService.getUsuarioByNombre(usuarioActual, nombre);
     }
 
 
     /**
      * Obtiene un Rol por Nombre
      *
-     * @param   userDetails        Credenciales de usuario.
-     *                      (debe tener los permisos para ejecutar el método).
-     * @param   nombre      Nombre del Rol
+     * @param   userDetails     Credenciales de usuario.
+     * @param   nombre          Nombre del Rol
      * @return  Rol
      */
     @GetMapping("/get-rol/{rol-nombre}")
     public Rol getRolByNombre(@AuthenticationPrincipal UserDetails userDetails,
                               @PathVariable("rol-nombre") String nombre) throws CustomException {
-        Rol rol;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
-            rol = rolService.getRolByNombre(nombre);
-            if( rol == null) {
-                throw new RuntimeException("Error al actualizar usuario");
-            }
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
-        }
-        return rol;
+        return rolService.getRolByNombre(usuarioActual, nombre);
     }
 
     /**
      * Obtiene un Permiso por Nombre
      *
      * @param   userDetails        Credenciales de usuario.
-     *                      (debe tener los permisos para ejecutar el método).
      * @param   nombre      Nombre del Permiso
      * @return  Permiso
      */
     @GetMapping("/get-permiso/{permiso-nombre}")
     public Permiso getPermisoByNombre(@AuthenticationPrincipal UserDetails userDetails,
                                       @PathVariable("rol-permiso") String nombre) throws CustomException {
-        Permiso permiso;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
-            permiso = permisoService.getPermisoByNombre(nombre);
-            if( permiso == null) {
-                throw new RuntimeException("Error al actualizar usuario");
-            }
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar usuarios!");
-        }
-        return permiso;
+        return permisoService.getPermisoByNombre(usuarioActual, nombre);
     }
 
 
