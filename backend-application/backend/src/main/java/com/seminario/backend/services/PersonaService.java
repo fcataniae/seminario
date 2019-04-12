@@ -21,12 +21,13 @@ public class PersonaService {
     @Autowired
     private EstadoRepository estadoRepository;
     
-    public List<Persona> getAllPersonas() {
-        List<Persona> list = new ArrayList<>();
-        for(Persona e : personaRepository.findAll()) {
-            list.add(e);
+    public List<Persona> getAll(Usuario usuarioActual) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERSONA"))) {
+            return personaRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar usuarios!");
         }
-        return list;
     }
     
     public Persona getPersonaById(Long Id) {
@@ -49,23 +50,32 @@ public class PersonaService {
     public void update(Usuario usuarioActual, Persona persona) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
                 contains(permisoRepository.findByNombre("MODI-PERSONA"))) {
-            if (persona.getId() == null) throw new RuntimeException("Id Persona NO existente!");
+            if (persona.getId() == null) throw new CustomException("Id Persona NO existente!");
             Persona personaTmp = personaRepository.findById(persona.getId());
             personaTmp.setNombre(persona.getNombre());
             personaTmp.setApellido(persona.getApellido());
             personaTmp.setEmail(persona.getEmail());
             personaTmp.setFecha_nacimiento(persona.getFecha_nacimiento());
             if (personaRepository.save(personaTmp) == null) {
-                throw new RuntimeException("Error al modificar la persona!");
+                throw new CustomException("Error al modificar la persona!");
             }
         } else {
-            throw new RuntimeException("No cuenta con los permisos para modificar personas!");
+            throw new CustomException("No cuenta con los permisos para modificar personas!");
         }
     }
 
      
-    public void deletePersona(Long nroDoc) {
-        personaRepository.delete(personaRepository.findByNroDoc(nroDoc));
+    public void delete(Usuario usuarioActual, Long nroDoc) throws CustomException{
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-PERSONA"))) {
+            /*
+              TODO:     FALTA OBTENER TODOS LOS USUARIOS DE
+                        UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
+            */
+            personaRepository.delete(personaRepository.findByNroDoc(nroDoc));
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar personas!");
+        }
     }
 
      

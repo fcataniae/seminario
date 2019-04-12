@@ -43,8 +43,14 @@ public class RolService {
         return RolesTmp;
     }
 
-    public List<Rol> getAllRoles() {
-        return rolRepository.findAll();
+    public List<Rol> getAll(Usuario usuarioActual) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-ROL"))){
+            return rolRepository.findAll();
+        }else {
+            throw new CustomException("No cuenta con los permisos para consultar roles!");
+        }
+
     }
 
     public Rol getRolById(Long id) {
@@ -80,14 +86,20 @@ public class RolService {
             Rol rolTmp = asignarPermisosRol(usuarioActual, rol);
             rolTmp.setDescripcion(rol.getDescripcion());
             if (rolRepository.save(rolTmp) == null) {
-                throw new RuntimeException("Error al modificar roles!");
+                throw new CustomException("Error al modificar roles!");
             }
         } else {
-            throw new RuntimeException("No cuenta con los permisos para modificar roles!");
+            throw new CustomException("No cuenta con los permisos para modificar roles!");
         }
     }
 
-    public void deleteRolByNombre(String nombre) {
-        rolRepository.delete(rolRepository.findByNombre(nombre));
+    public void deleteRolByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-ROL"))) {
+            Rol rol = rolRepository.findByNombre(nombre);
+            rolRepository.delete(rol);
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar roles!");
+        }
     }
 }

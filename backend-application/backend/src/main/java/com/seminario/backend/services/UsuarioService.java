@@ -45,8 +45,13 @@ public class UsuarioService{
     }
 
      
-    public List<Usuario> getAllUsuarios() {
-        return usuarioRepository.findAll();
+    public List<Usuario> getAll(Usuario usuarioActual) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+            return usuarioRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar personas!");
+        }
     }
 
      
@@ -108,7 +113,7 @@ public class UsuarioService{
     }
 
      
-    public boolean deleteUsuario(Long Id) {
+    public boolean delete(Long Id) {
         Usuario usuarioTmp = usuarioRepository.findById(Id);
         if (usuarioTmp != null) {
             usuarioRepository.delete(usuarioTmp);
@@ -123,13 +128,14 @@ public class UsuarioService{
     }
 
      
-    public String deleteUsuarioByNombre(String nombre) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
-        if(usuarioTmp != null){
+    public void deleteUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+      if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-USUARIO"))) {
+            Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
             usuarioRepository.delete(usuarioTmp);
-            return "Se elimino el usuario correctamente";
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar usuarios!");
         }
-        return "Error al eliminar el usuario";
     }
 
      

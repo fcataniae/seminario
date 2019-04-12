@@ -108,7 +108,7 @@ public class ApiRestController {
      * */
     @RequestMapping(value = "/update-persona", method = RequestMethod.PUT)
     public void updatePersona(@AuthenticationPrincipal UserDetails userDetails,
-                                @RequestBody Persona persona)
+                                @RequestBody Persona persona) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         personaService.update(usuarioActual, persona);
@@ -177,18 +177,10 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-personas")
-    public List<Persona> listPersonas(@AuthenticationPrincipal UserDetails userDetails){
-
-
+    public List<Persona> listPersonas(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-
-
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-PERSONA"))) {
-            return personaService.getAllPersonas();
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar personas!");
-        }
+        return personaService.getAll(usuarioActual);
     }
 
     /**
@@ -198,17 +190,10 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-usuarios")
-    public List<Usuario> listUsuarios(@AuthenticationPrincipal UserDetails userDetails){
-
-
+    public List<Usuario> listUsuarios(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-USUARIO"))) {
-            return usuarioService.getAllUsuarios();
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para consultar usuario!");
-        }
+        return usuarioService.getAll(usuarioActual);
     }
 
     /**
@@ -218,17 +203,10 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-roles")
-    public List<Rol> listRoles(@AuthenticationPrincipal UserDetails userDetails){
-
-
+    public List<Rol> listRoles(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-ROL"))){
-            return rolService.getAllRoles();
-        }else {
-            throw new RuntimeException("No cuenta con los permisos para consultar roles!");
-        }
+        return rolService.getAll(usuarioActual);
     }
 
     /**
@@ -238,17 +216,10 @@ public class ApiRestController {
      *                      (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/listar-permisos")
-    public List<Permiso> listPermisos(@AuthenticationPrincipal UserDetails userDetails){
-
-
+    public List<Permiso> listPermisos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("CONS-PERMISO"))) {
-            return permisoService.getAllPermisos();
-        }else {
-            throw new RuntimeException("No cuenta con los permisos para consultar permisos!");
-        }
+        return permisoService.getAll(usuarioActual);
     }
 
     /**
@@ -260,19 +231,10 @@ public class ApiRestController {
      **/
     @DeleteMapping("/delete-persona/{documento}")
     public void deletePersona(@AuthenticationPrincipal UserDetails userDetails,
-                              @PathVariable("documento") Long doc){
+                              @PathVariable("documento") Long doc) throws CustomException {
 
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("BAJA-PERSONA"))) {
-            /*
-              TODO:     FALTA OBTENER TODOS LOS USUARIOS DE
-                        UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
-            */
-            personaService.deletePersona(doc);
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para eliminar personas!");
-        }
+        personaService.delete(usuarioActual, doc);
     }
 
     /**
@@ -284,14 +246,9 @@ public class ApiRestController {
      **/
     @DeleteMapping("/delete-usuario/{nombre-usuario}")
     public void deleteUsuario(@AuthenticationPrincipal UserDetails userDetails,
-                              @PathVariable("nombre-usuario") String nombreUsuario){
+                              @PathVariable("nombre-usuario") String nombreUsuario) throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("BAJA-USUARIO"))) {
-            usuarioService.deleteUsuarioByNombre(nombreUsuario);
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para eliminar usuarios!");
-        }
+        usuarioService.deleteUsuarioByNombre(usuarioActual, nombreUsuario);
     }
 
     /**
@@ -301,18 +258,11 @@ public class ApiRestController {
      *                          (debe tener los permisos para ejecutar el método).
      * @param    rol            nombre del rol
      **/
-
     @DeleteMapping("/delete-rol/{rol}")
     public void deleteRol(@AuthenticationPrincipal UserDetails userDetails,
-                          @PathVariable("rol") String rol){
+                          @PathVariable("rol") String rol) throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-
-        if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
-                contains(permisoService.getPermisoByNombre("BAJA-ROL"))) {
-            rolService.deleteRolByNombre(rol);
-        } else {
-            throw new RuntimeException("No cuenta con los permisos para eliminar roles!");
-        }
+        rolService.deleteRolByNombre(usuarioActual, rol);
     }
 
     /**
@@ -324,8 +274,9 @@ public class ApiRestController {
      **/
     @DeleteMapping("/delete-permiso/{permiso-nombre}")
     public void deletePermiso(@AuthenticationPrincipal UserDetails userDetails,
-                              @PathVariable("permiso-nombre") String permiso){
-        // TODO:
+                              @PathVariable("permiso-nombre") String permiso) throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        permisoService.deletePermisoByNombre(usuarioActual, permiso);
     }
 
     /**
@@ -338,7 +289,7 @@ public class ApiRestController {
      */
     @GetMapping("/get-persona/{documento}")
     public Persona getPersonaByDocumento(@AuthenticationPrincipal UserDetails userDetails,
-                                         @PathVariable("documento") Long doc){
+                                         @PathVariable("documento") Long doc) throws CustomException {
         Persona persona = null;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
@@ -364,7 +315,7 @@ public class ApiRestController {
      */
     @GetMapping("/get-usuario/{nombreusuario}")
     public Usuario getUsuarioByNombre(@AuthenticationPrincipal UserDetails userDetails,
-                                      @PathVariable("nombreusuario") String nombre){
+                                      @PathVariable("nombreusuario") String nombre) throws CustomException {
         Usuario usuario;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
@@ -390,7 +341,7 @@ public class ApiRestController {
      */
     @GetMapping("/get-rol/{rol-nombre}")
     public Rol getRolByNombre(@AuthenticationPrincipal UserDetails userDetails,
-                              @PathVariable("rol-nombre") String nombre){
+                              @PathVariable("rol-nombre") String nombre) throws CustomException {
         Rol rol;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).
@@ -415,7 +366,7 @@ public class ApiRestController {
      */
     @GetMapping("/get-permiso/{permiso-nombre}")
     public Permiso getPermisoByNombre(@AuthenticationPrincipal UserDetails userDetails,
-                                      @PathVariable("rol-permiso") String nombre){
+                                      @PathVariable("rol-permiso") String nombre) throws CustomException {
         Permiso permiso;
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         if (permisoService.getAllPermisosWhereUsuario(usuarioActual).

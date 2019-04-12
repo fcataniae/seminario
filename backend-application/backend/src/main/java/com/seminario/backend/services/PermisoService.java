@@ -18,8 +18,13 @@ public class PermisoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    public List<Permiso> getAllPermisos() {
-        return permisoRepository.findAll();
+    public List<Permiso> getAll(Usuario usuarioActual) {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERMISO"))) {
+            return permisoRepository.findAll();
+        }else {
+            throw new CustomException("No cuenta con los permisos para consultar permisos!");
+        }
     }
 
     public List<Permiso> getAllPermisosWhereUsuario(Usuario usuario){
@@ -61,15 +66,15 @@ public class PermisoService {
     public void update(Usuario usuarioActual, Permiso permiso) throws CustomException {
         if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
                 contains(permisoRepository.findByNombre("MODI-PERMISO"))) {
-            if (permiso.getId() == null) throw new RuntimeException("Id Permiso NO existente!");
+            if (permiso.getId() == null) throw new CustomException("Id Permiso NO existente!");
             Permiso permisoTmp = permisoRepository.findById(permiso.getId());
             permisoTmp.setDescripcion(permiso.getDescripcion());
             permisoTmp.setFuncionalidad(permiso.getFuncionalidad());
             if (permisoRepository.save(permisoTmp) != null) {
-                throw new RuntimeException("Error al modificar permiso!");
+                throw new CustomException("Error al modificar permiso!");
             }
         } else {
-            throw new RuntimeException("No cuenta con los permisos para modificar permisos!");
+            throw new CustomException("No cuenta con los permisos para modificar permisos!");
         }
     }
 
@@ -80,5 +85,15 @@ public class PermisoService {
             return true;
         }
         return false;
+    }
+
+    public void deletePermisoByNombre(Usuario usuarioActual, String permisoNombre) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-PERMISO"))) {
+            Permiso permiso = permisoRepository.findByNombre(permisoNombre);
+            permisoRepository.delete(permiso);
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar personas!");
+        }
     }
 }
