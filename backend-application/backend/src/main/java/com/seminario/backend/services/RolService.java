@@ -28,8 +28,7 @@ public class RolService {
 
     private Rol asignarPermisosRol(Usuario usuarioActual, Rol rol)  {
         Rol RolesTmp = rolRepository.findByNombre(rol.getNombre());
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("MODI-ROL"))){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-ROL")) {
             Set<Permiso> permisos = rol.getPermisos();
             RolesTmp.setPermisos(new HashSet());
             if (permisos != null) {
@@ -44,8 +43,7 @@ public class RolService {
     }
 
     public List<Rol> getAll(Usuario usuarioActual) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-ROL"))){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ROL")) {
             return rolRepository.findAll();
         }else {
             throw new CustomException("No cuenta con los permisos para consultar roles!");
@@ -59,8 +57,7 @@ public class RolService {
 
     public Rol getRolByNombre(Usuario usuarioActual, String nombre) throws CustomException {
         Rol rol;
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-ROL"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ROL")) {
             rol = rolRepository.findByNombre(nombre);
             if( rol == null) {
                 throw new CustomException("Error al consultar rol");
@@ -72,8 +69,7 @@ public class RolService {
     }
 
     public void create(Usuario usuarioActual, Rol rolNuevo) throws CustomException{
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("ALTA-ROL"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-ROL")) {
 
             Set<Permiso> permisos = rolNuevo.getPermisos();
             rolNuevo.setId(null);
@@ -91,8 +87,7 @@ public class RolService {
     }
 
     public void update(Usuario usuarioActual, Rol rol) throws CustomException{
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("MODI-ROL"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-ROL")) {
             Rol rolTmp = asignarPermisosRol(usuarioActual, rol);
             rolTmp.setDescripcion(rol.getDescripcion());
             if (rolRepository.save(rolTmp) == null) {
@@ -104,8 +99,7 @@ public class RolService {
     }
 
     public void deleteRolByNombre(Usuario usuarioActual, String nombre) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("BAJA-ROL"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"BAJA-ROL")) {
             Rol rol = rolRepository.findByNombre(nombre);
             rolRepository.delete(rol);
         } else {

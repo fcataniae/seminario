@@ -7,8 +7,6 @@ import com.seminario.backend.model.Persona;
 import com.seminario.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,8 +27,7 @@ public class UsuarioService{
 
     private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("MODI-USUARIO"))){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-USUARIO")) {
             Set<Rol> roles = usuario.getRoles();
             usuarioTmp.setRoles(new HashSet());
             if (roles != null) {
@@ -46,8 +43,7 @@ public class UsuarioService{
 
      
     public List<Usuario> getAll(Usuario usuarioActual) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-USUARIO")) {
             return usuarioRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar personas!");
@@ -73,8 +69,7 @@ public class UsuarioService{
 
      
     public void create(Usuario usuarioActual, Usuario usuario) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("ALTA-USUARIO"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-USUARIO")) {
 
             Set<Rol> roles = usuario.getRoles();
             usuario.setId(null);
@@ -100,8 +95,7 @@ public class UsuarioService{
 
      
     public void update(Usuario usuarioActual, Usuario usuario) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("MODI-USUARIO"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-USUARIO")) {
             Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
             usuarioTmp.setPassword(usuario.getPassword());
             if (usuarioRepository.save(usuarioTmp) == null) {
@@ -125,8 +119,7 @@ public class UsuarioService{
      
     public Usuario getUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
         Usuario usuario;
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-USUARIO")) {
             usuario = usuarioRepository.findByNombreUsuario(nombre);
             if( usuario == null) {
                 throw new CustomException("Error al consultar usuario");
@@ -143,8 +136,7 @@ public class UsuarioService{
 
      
     public void deleteUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
-      if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("BAJA-USUARIO"))) {
+      if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"BAJA-USUARIO")) {
             Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
             usuarioRepository.delete(usuarioTmp);
         } else {

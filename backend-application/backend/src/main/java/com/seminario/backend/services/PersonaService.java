@@ -22,8 +22,7 @@ public class PersonaService {
     private EstadoRepository estadoRepository;
     
     public List<Persona> getAll(Usuario usuarioActual) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-PERSONA"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-PERSONA"))  {
             return personaRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar usuarios!");
@@ -35,8 +34,7 @@ public class PersonaService {
     }
     
     public void create(Usuario usuarioActual, Persona personaNueva) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("ALTA-PERSONA"))){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-PERSONA")) {
             personaNueva.setId(null);
             personaNueva.setEstado(estadoRepository.findByDescrip("ACTIVO"));
             if (personaRepository.save(personaNueva) == null)
@@ -48,8 +46,7 @@ public class PersonaService {
 
      
     public void update(Usuario usuarioActual, Persona persona) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("MODI-PERSONA"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-PERSONA")) {
             if (persona.getId() == null) throw new CustomException("Id Persona NO existente!");
             Persona personaTmp = personaRepository.findById(persona.getId());
             personaTmp.setNombre(persona.getNombre());
@@ -66,8 +63,7 @@ public class PersonaService {
 
      
     public void delete(Usuario usuarioActual, Long nroDoc) throws CustomException {
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("BAJA-PERSONA"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"BAJA-PERSONA")) {
             /*
               TODO:     FALTA OBTENER TODOS LOS USUARIOS DE
                         UNA PERSONA Y DARLOS DE BAJA ó HACER ON DELETE CASCADE.
@@ -81,8 +77,7 @@ public class PersonaService {
      
     public Persona getPersonaByDocumento(Usuario usuarioActual, Long doc) throws CustomException {
         Persona persona;
-        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
-                contains(permisoRepository.findByNombre("CONS-PERSONA"))) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-PERSONA")) {
             persona = personaRepository.findByNroDoc(doc);
             if( persona == null) {
                 throw new CustomException("Error al consultar persona");
