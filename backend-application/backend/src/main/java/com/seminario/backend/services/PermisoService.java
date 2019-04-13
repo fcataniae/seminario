@@ -5,15 +5,12 @@ import com.seminario.backend.model.Permiso;
 import com.seminario.backend.model.Usuario;
 import com.seminario.backend.repository.EstadoRepository;
 import com.seminario.backend.repository.PermisoRepository;
-import com.seminario.backend.services.interfaces.IPermisoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PermisoService implements IPermisoService {
+public class PermisoService {
 
     @Autowired
     private PermisoRepository permisoRepository;
@@ -21,27 +18,37 @@ public class PermisoService implements IPermisoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    @Override
-    public List<Permiso> getAllPermisos() {
-        return permisoRepository.findAll();
+    public List<Permiso> getAll(Usuario usuarioActual) {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERMISO"))) {
+            return permisoRepository.findAll();
+        }else {
+            throw new CustomException("No cuenta con los permisos para consultar permisos!");
+        }
     }
 
-    @Override
     public List<Permiso> getAllPermisosWhereUsuario(Usuario usuario){
         return permisoRepository.findAllPermisosWhereUsuario(usuario.getId());
     };
 
-    @Override
-    public Permiso getPermisoByNombre(String nombre) {
-        return permisoRepository.findByNombre(nombre);
+    public Permiso getPermisoByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        Permiso permiso;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-PERMISO"))) {
+            permiso = permisoRepository.findByNombre(nombre);
+            if( permiso == null) {
+                throw new CustomException("Error al consultar permiso");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar permisos!");
+        }
+        return permiso;
     }
 
-    @Override
     public Permiso getPermisoById(Long id) {
         return permisoRepository.findById(id);
     }
 
-    @Override
     public boolean cambiarEstado(Permiso permiso, Estado estado) {
         Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
         Estado estadoTmp = estadoRepository.findById(estado.getId());
@@ -53,27 +60,33 @@ public class PermisoService implements IPermisoService {
         return false;
     }
 
-
-    @Override
-    public boolean createPermiso(Permiso permiso) {
-        if(permisoRepository.findByNombre(permiso.getNombre()) == null){
-            permisoRepository.save(permiso);
-            return true;
+    public void create(Usuario usuarioActual, Permiso permisoNuevo) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-PERMISO"))) {
+            permisoNuevo.setId(null);
+            if (permisoRepository.save(permisoNuevo) == null){
+                throw new CustomException("Error! El permiso ya existe!");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para dar de alta permisos!");
         }
-        return false;
     }
 
-    @Override
-    public Permiso updatePermiso(Permiso permiso) {
-        Permiso permisoTmp = permisoRepository.findByNombre(permiso.getNombre());
-        if(permisoTmp != null){
-            permiso.setId(permiso.getId());
-            return permisoRepository.save(permiso);
+    public void update(Usuario usuarioActual, Permiso permiso) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-PERMISO"))) {
+            if (permiso.getId() == null) throw new CustomException("Id Permiso NO existente!");
+            Permiso permisoTmp = permisoRepository.findById(permiso.getId());
+            permisoTmp.setDescripcion(permiso.getDescripcion());
+            permisoTmp.setFuncionalidad(permiso.getFuncionalidad());
+            if (permisoRepository.save(permisoTmp) != null) {
+                throw new CustomException("Error al modificar permiso!");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para modificar permisos!");
         }
-        return null;
     }
 
-    @Override
     public boolean deletePermiso(Long Id) {
         Permiso permisoTmp = permisoRepository.findById(Id);
         if(permisoTmp != null){
@@ -81,5 +94,15 @@ public class PermisoService implements IPermisoService {
             return true;
         }
         return false;
+    }
+
+    public void deletePermisoByNombre(Usuario usuarioActual, String permisoNombre) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-PERMISO"))) {
+            Permiso permiso = permisoRepository.findByNombre(permisoNombre);
+            permisoRepository.delete(permiso);
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar personas!");
+        }
     }
 }

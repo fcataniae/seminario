@@ -4,19 +4,17 @@ import com.seminario.backend.model.Estado;
 import com.seminario.backend.model.Rol;
 import com.seminario.backend.model.Usuario;
 import com.seminario.backend.model.Persona;
-import com.seminario.backend.repository.UsuarioRepository;
-import com.seminario.backend.repository.RolRepository;
-import com.seminario.backend.repository.PersonaRepository;
-import com.seminario.backend.repository.EstadoRepository;
-import com.seminario.backend.services.interfaces.IUsuarioService;
+import com.seminario.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class UsuarioService{
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -25,22 +23,46 @@ public class UsuarioService implements IUsuarioService {
     @Autowired
     private RolRepository rolRepository;
     @Autowired
-    private EstadoRepository estadoRespository;
+    private EstadoRepository estadoRepository;
+    @Autowired
+    private PermisoRepository permisoRepository;
 
-    @Override
-    public List<Usuario> getAllUsuarios() {
-        return usuarioRepository.findAll();
+    private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
+        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-USUARIO"))){
+            Set<Rol> roles = usuario.getRoles();
+            usuarioTmp.setRoles(new HashSet());
+            if (roles != null) {
+                for (Rol r : roles) {
+                    Rol rValid = rolRepository.findById(r.getId());
+                    if (rValid != null)
+                        usuarioTmp.addRol(rValid);
+                }
+            }
+        }
+        return usuarioTmp;
     }
 
-    @Override
+     
+    public List<Usuario> getAll(Usuario usuarioActual) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+            return usuarioRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar personas!");
+        }
+    }
+
+     
     public Usuario getUsuarioById(Long id) {
         return usuarioRepository.findById(id);
     }
 
-    @Override
+     
     public boolean cambiarEstado(Usuario usuario, Estado estado) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        Estado estadoTmp = estadoRespository.findById(estado.getId());
+        Estado estadoTmp = estadoRepository.findById(estado.getId());
         if (usuarioTmp != null && estadoTmp != null){
             usuarioTmp.setEstado(estado);
             usuarioRepository.save(usuarioTmp);
@@ -49,27 +71,49 @@ public class UsuarioService implements IUsuarioService {
         return false;
     }
 
-    @Override
-    public Usuario createUsuario(Usuario usuario) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (usuarioTmp == null){
-            return usuarioRepository.save(usuario);
-        }
-        return null;
+     
+    public void create(Usuario usuarioActual, Usuario usuario) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("ALTA-USUARIO"))) {
+
+            Set<Rol> roles = usuario.getRoles();
+            usuario.setId(null);
+            usuario.setRoles(new HashSet());
+            usuario.setEstado(estadoRepository.findByDescrip("ACTIVO"));
+            Long nroDocPersona = usuario.getPersona().getNroDoc();
+            if (nroDocPersona == null) {
+                throw new CustomException("Persona NO existente!");
+            }
+            Persona persona = personaRepository.findByNroDoc(nroDocPersona);
+            if (persona == null)
+                throw new CustomException("Persona NO existente!");
+            usuario.setPersona(persona);
+            if(usuarioRepository.save(usuario) != null) {
+                usuario.setRoles(roles);
+                Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
+                if (usuarioRepository.save(usuarioTmp) == null) {
+                    throw new CustomException("Error al dar de alta roles!");
+                }
+            } else { throw new CustomException("Error! El Usuario ya existe!"); }
+        } else { throw new CustomException("No cuenta con permisos para dar de alta usuarios!");}
     }
 
-    @Override
-    public Usuario updateUsuario(Usuario usuario) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
-        if (usuarioTmp != null) {
-            usuario.setId(usuarioTmp.getId());
-            return usuarioRepository.save(usuario);
+     
+    public void update(Usuario usuarioActual, Usuario usuario) throws CustomException {
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("MODI-USUARIO"))) {
+            Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
+            usuarioTmp.setPassword(usuario.getPassword());
+            if (usuarioRepository.save(usuarioTmp) == null) {
+                throw new CustomException("Error al modificar usuario!");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para modificar usuarios!");
         }
-        return null;
     }
 
-    @Override
-    public boolean deleteUsuario(Long Id) {
+     
+    public boolean delete(Long Id) {
         Usuario usuarioTmp = usuarioRepository.findById(Id);
         if (usuarioTmp != null) {
             usuarioRepository.delete(usuarioTmp);
@@ -78,22 +122,37 @@ public class UsuarioService implements IUsuarioService {
         return false;
     }
 
-    @Override
-    public Usuario getUsuarioByNombre(String nombre) {
+     
+    public Usuario getUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+        Usuario usuario;
+        if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("CONS-USUARIO"))) {
+            usuario = usuarioRepository.findByNombreUsuario(nombre);
+            if( usuario == null) {
+                throw new CustomException("Error al consultar usuario");
+            }
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar usuarios!");
+        }
+        return usuario;
+    }
+
+    public Usuario getUsuarioByNombre(String nombre) throws CustomException {
         return usuarioRepository.findByNombreUsuario(nombre);
     }
 
-    @Override
-    public String deleteUsuarioByNombre(String nombre) {
-        Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
-        if(usuarioTmp != null){
+     
+    public void deleteUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
+      if (permisoRepository.findAllPermisosWhereUsuario(usuarioActual.getId()).
+                contains(permisoRepository.findByNombre("BAJA-USUARIO"))) {
+            Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
             usuarioRepository.delete(usuarioTmp);
-            return "Se elimino el usuario correctamente";
+        } else {
+            throw new CustomException("No cuenta con los permisos para eliminar usuarios!");
         }
-        return "Error al eliminar el usuario";
     }
 
-    @Override
+     
     public Usuario getUsuarioByUsuarioYPass(String usuario, String pass) {
         return usuarioRepository.findByNombreUsuarioPassword(usuario, pass);
     }
