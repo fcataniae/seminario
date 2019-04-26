@@ -6,17 +6,17 @@ import { Token } from '../model/token.model'
 })
 export class SessionService {
 
-  private userLoggedIn;
+
 
   constructor() {
-  	this.userLoggedIn = false;
   }
 
-  isUserLoggedIn(){
-    return this.userLoggedIn;
+  isUserLoggedIn(): boolean{
+    let logedin = sessionStorage.getItem('logedIn');
+    return logedin === 'true';
   }
   setUserLoggedIn(token: Token) {
-    this.userLoggedIn = true;
+    sessionStorage.setItem('logedIn','true');
     sessionStorage.setItem('currentUser', JSON.stringify(token));
     sessionStorage.setItem('Auth', 'Bearer ' + token.token);
 
@@ -27,7 +27,7 @@ export class SessionService {
   }
 
   setLogOut() {
-    this.userLoggedIn = false;
+    sessionStorage.setItem('logedIn','false');
     sessionStorage.setItem('currentUser', '');
   }
 }

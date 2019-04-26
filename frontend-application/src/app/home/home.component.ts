@@ -16,14 +16,15 @@ export class HomeComponent implements OnInit {
               private _sessionService: SessionService) { }
 
   ngOnInit() {
+    console.log(!this._sessionService.isUserLoggedIn());
     if(!this._sessionService.isUserLoggedIn()){
-        this._router.navigate(['/']);
+        this._router.navigate(['/login']);
     }
   }
 
   logOut(event: Event) {
     event.preventDefault();
     this._sessionService.setLogOut();
-    this._router.navigate(['/']);
+    this._router.navigate(['/login']);
   }
 }
