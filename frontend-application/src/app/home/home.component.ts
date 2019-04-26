@@ -19,8 +19,12 @@ export class HomeComponent implements OnInit {
     console.log(!this._sessionService.isUserLoggedIn());
     if(!this._sessionService.isUserLoggedIn()){
         this._router.navigate(['/login']);
+    }else{
+      this.username = this._sessionService.getUserLoggedIn().username;
     }
   }
+
+username: string;
 
   logOut(event: Event) {
     event.preventDefault();

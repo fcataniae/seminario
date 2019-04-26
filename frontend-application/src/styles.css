@@ -7,6 +7,16 @@ body{
   background-color: #FBF5EA;
 }
 
+div.flotante{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background-color:#0055ba;
+  color:white;
+  box-shadow:0 0 15px #6E6E6E;
+  padding:4px;
+  border-radius:6px;
+}
 
 
 header{
