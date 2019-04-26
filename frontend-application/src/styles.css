@@ -2,7 +2,7 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "assets/forms.css";
-
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 body{
   background-color: #FBF5EA;
 }
@@ -116,4 +116,3 @@ h3 {
   text-align: center;
   font-family: "Myriad Pro"
   }
-

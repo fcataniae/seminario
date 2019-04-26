@@ -19,10 +19,10 @@
         <td>{{usuario.persona.apellido}}</td>
         <td>{{usuario.persona.email}}</td>
         <td>{{usuario.persona.nroDoc}}</td>
-        <td><input type="button"
+        <td><input
               class="button"
-              name="eliminar"
-              value="Eliminar"
+              type="button"
+              value= "Eliminar"
               (click)="deleteUser(usuario)">
         </td>
         <td><a [routerLink]="['/home/gestion/usuarios/adm', usuario.nombreUsuario]"

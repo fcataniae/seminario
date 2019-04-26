@@ -31,6 +31,11 @@ import { GestionRolesComponent } from './adm-usuarios/roles/gestion-roles/gestio
 import { AltaRolComponent } from './adm-usuarios/roles/alta-rol/alta-rol.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
 import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modificar-rol.component';
+import { ConfirmacionPopupComponent } from './adm-usuarios/confirmacion-popup/confirmacion-popup.component';
+import { MatDialogModule,MatDialog} from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -48,26 +53,32 @@ import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modifi
     GestionRolesComponent,
     AltaRolComponent,
     EditarRolComponent,
-    ModificarRolComponent
+    ModificarRolComponent,
+    ConfirmacionPopupComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [
     LoginService,
     UsuarioService,
     PersonaService,
     SessionService,
+    MatDialog,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmacionPopupComponent]
 })
 export class AppModule { }
