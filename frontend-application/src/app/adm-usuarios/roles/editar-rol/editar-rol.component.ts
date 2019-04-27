@@ -6,6 +6,7 @@ import { ConfirmacionPopupComponent } from '../../confirmacion-popup/confirmacio
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
+import { AltaRolComponent } from '../alta-rol/alta-rol.component';
 
 @Component({
   selector: 'app-editar-rol',
@@ -49,8 +50,39 @@ export class EditarRolComponent implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
 
         if (result && result == "true"){
-          this._rolService.deleteRol(rol).subscribe();
+          this._rolService.deleteRol(rol).subscribe(
+            res => {
+              this.dataSource.data = this.dataSource.data.filter (e => e.nombre !== rol.nombre);
+            }
+          );
         }
+    });
+  }
+
+  onAltaRol(){
+    const dialogRef = this.dialog.open(AltaRolComponent,{
+      width: '90%'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this._rolService.createRol(result).subscribe(
+          res => {
+            this._rolService.getAllRoles().subscribe(
+              res2 => {
+                this.dataSource.data = res2;
+              },
+              error =>
+              {
+                console.log(error);
+              }
+            )
+          },
+          error => {
+            console.log(error);
+            alert("Error al dar de alta el rol");
+          }
+        );
+      }
     });
   }
 

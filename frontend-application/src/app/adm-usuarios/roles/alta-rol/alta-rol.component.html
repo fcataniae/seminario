@@ -1,6 +1,5 @@
-<div class="container">
-  <h3>Alta de roles</h3>
-
+<h3 class="mat-dialog-title">Alta de roles</h3>
+<div class="mat-dialog-content">
   <form class="form" #altarol="ngForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="nombre">Nombre de rol </label>
@@ -24,11 +23,12 @@
              #nombre="ngModel"
              required/>
     </div>
-      <button class="btn-wlm"
-           type="submit"
-           [disabled]="!altarol.valid">
-        Continuar
-      </button>
+      
 
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-button (click)="onSubmit()" cdkFocusInitial [disabled]="!altarol.valid">Confirmar</button>
+    </div>
   </form>
 </div>

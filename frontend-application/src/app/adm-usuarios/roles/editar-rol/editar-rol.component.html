@@ -1,11 +1,17 @@
 
-<h3>Administracion de Roles</h3>
-<div fxLayout fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
-    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
-  </mat-form-field>
-</div>
+
+
 <div class="mat-elevation-z8 margin">
+  <h3>Administracion de Roles</h3>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+
+    <button mat-icon-button color="accent" (click)="onAltaRol()">
+        <mat-icon >libray_add</mat-icon>
+    </button>
+  </div>
  <table mat-table [dataSource]="dataSource" matSort >
   <ng-container matColumnDef="nombre">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
