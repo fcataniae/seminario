@@ -33,7 +33,7 @@ import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modifi
 import { ConfirmacionPopupComponent } from './adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 import { MatDialogModule,MatDialog} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule } from '@angular/material';
+import { MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSelectModule } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -72,7 +72,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     MatInputModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule 
   ],
   providers: [
     LoginService,
@@ -89,7 +90,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmacionPopupComponent,
-    AltaRolComponent
+    AltaRolComponent,
+    ModificarRolComponent
 ]
 })
 export class AppModule { }

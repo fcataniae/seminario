@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
 import { AltaRolComponent } from '../alta-rol/alta-rol.component';
+import { ModificarRolComponent } from '../modificar-rol/modificar-rol.component';
 
 @Component({
   selector: 'app-editar-rol',
@@ -87,8 +88,24 @@ export class EditarRolComponent implements OnInit  {
     });
   }
 
-  redirectToUpdate(nombre: string){
-    this._router.navigate(['/home/adm/roles/' + nombre]);
+  redirectToUpdate(rol: Rol){
+    const dialogRef = this.dialog.open(ModificarRolComponent,{
+      width: '50%',
+      data: {rol: rol}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if( result ){
+        this._rolService.updateRol(result).subscribe(
+          res => {
+            console.log("update ok");
+          },
+          error => {
+            console.log(error);
+            alert('No se pudo actualizar el rol');
+          }
+        );
+      }
+    });
   }
 
 

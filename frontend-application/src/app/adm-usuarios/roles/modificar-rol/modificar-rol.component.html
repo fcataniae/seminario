@@ -1,59 +1,42 @@
-<div class="container">
-  <h3>Modificar rol</h3>
-  <form class="form"
-        #modificarrol="ngForm"
-        (ngSubmit)="onSubmit()">
+<h2 mat-dialog-title>Modificacion de rol</h2>
+<form #modificacionrol="ngForm">
+  <mat-dialog-content fxLayout="column">
 
-    <h4 >Cambiar datos</h4>
-    <div >
-
-      <label for="nombre">Nombre</label>
-      <input type="text"
-             name="nombre"
-             placeholder="Nombre de rol"
-             id="nombre"
-             class="form-control "
-             [(ngModel)]="rol.nombre"
-             #nombre="ngModel"
-             required
-             />
-    </div>
-    <div >
-      <label for="desc">descripcion</label>
-      <input type="text"
-             name="desc"
-             placeholder="Descripcion de rol"
-             id="desc"
-             class="form-control "
-             [(ngModel)]="rol.descripcion"
-             #pass2="ngModel"
-             required
-             />
-    </div>
-    <h4 >Asignar Permisos</h4>
-    <div >
-      <label>No asignados</label>
-      <label>Asignados</label>
-    </div>
-    <div >
-      <select size="5" #PermisosNo>
-          <option *ngFor="let permiso of permisosNoAsignados">{{permiso.nombre}}</option>
-      </select>
-      <ul>
-        <li><input type="button" (click)="desasignarPermiso($event)" value="&#171;"/></li>
-        <li><input type="button" (click)="asignarPermiso($event)" value="&#187;"/></li>
-      </ul>
-      <select  size="5" #PermisosSi>
-          <option *ngFor="let permiso of permisosAsignados">{{permiso.nombre}}</option>
-      </select>
-    </div>
-    <button class="btn-wlm"
-            type="submit"_
-            [disabled]= "!modificarrol.valid">
-      Confirmar
-    </button>
-
-  </form>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Nombre"
+               required
+               name="nombre"
+               [(ngModel)]="rol.nombre">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder=" Descripcion"
+               required
+               name="descripcion"
+               [(ngModel)]="rol.descripcion">
+    </mat-form-field>
 
 
-</div>
+  </mat-dialog-content>
+
+
+<h2 mat-dialog-title>Permisos</h2>
+    <mat-form-field >
+      <mat-select multiple placeholder="permisos"
+                  name="Permisos"
+                  [(ngModel)]="permisosSelecionados">
+          <mat-option *ngFor="let cp of permisos"
+                      (click)="cp.asignado = !cp.asignado"
+                      [value]="cp">{{cp.permiso.nombre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
+      <button mat-button class="mat-raised-button mat-primary"
+              (click)="onSubmit()"
+              [disabled]="!modificacionrol.valid">Modificar</button>
+    </mat-dialog-actions>
+
+
+</form>

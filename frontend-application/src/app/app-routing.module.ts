@@ -11,7 +11,6 @@ import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
-import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modificar-rol.component';
 
 
 const routes: Routes = [
@@ -26,9 +25,8 @@ const routes: Routes = [
   { path: 'home/gestion/usuarios/alta', component: AltaUsuarioComponent},
   { path: 'home/gestion/usuarios/adm', component: EditarUsuarioComponent},
   { path: 'home/gestion/usuarios/adm/:id', component: ModificarUsuarioComponent},
-  
-  { path: 'home/adm/roles', component: EditarRolComponent},
-  { path: 'home/adm/roles/:id', component: ModificarRolComponent}
+
+  { path: 'home/adm/roles', component: EditarRolComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

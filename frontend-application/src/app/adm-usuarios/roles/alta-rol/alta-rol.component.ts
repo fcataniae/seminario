@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Rol } from './../../../model/rol.model';
-import { Router } from '@angular/router';
 import { RolService } from './../../../services/rol.service';
 import { MatDialogRef } from '@angular/material';
 
@@ -12,8 +11,7 @@ import { MatDialogRef } from '@angular/material';
 export class AltaRolComponent {
 
   constructor( public dialogRef: MatDialogRef<AltaRolComponent>,
-                private _rolService: RolService,
-               private _router: Router)
+               private _rolService: RolService)
  {
    this.rol = new Rol;
   }

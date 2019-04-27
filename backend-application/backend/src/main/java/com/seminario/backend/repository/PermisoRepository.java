@@ -21,7 +21,7 @@ public interface PermisoRepository extends JpaRepository<Permiso,Long> {
             "WHERE u.id = ?1")
     List<Permiso> findAllPermisosWhereUsuario(Long id);
 
-    @Query("SELECT p FROM Usuario u " +
+    @Query("SELECT distinct(p) FROM Usuario u " +
             "JOIN u.roles r " +
             "JOIN r.permisos p " +
             "WHERE u.id = ?1 and p.nombre= ?2")
