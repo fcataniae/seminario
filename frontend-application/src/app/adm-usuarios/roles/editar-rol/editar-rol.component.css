@@ -1,20 +1,4 @@
 table{
   text-align: center;
-}
-.button{
-  cursor: pointer;
-  position: relative;
-  color: white;
-  display: inline-block;
-  margin: 2%;
-  width: 110px;
-  min-width: 70px;
-  border: none;
-  background-color: #0055ba;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  border-radius: 4px;
+  width: 100%;
 }

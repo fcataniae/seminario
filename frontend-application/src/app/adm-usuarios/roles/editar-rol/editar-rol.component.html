@@ -1,30 +1,40 @@
-<div class="container">
-  <h3>Editar roles</h3>
-  <table class="table table-stripped">
-    <thead>
-      <tr>
-        <th>nombre</th>
-        <th>descripcion</th>
-        <th>Eliminar</th>
-        <th>Modificar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let rol of roles">
-        <td>{{rol.nombre}}</td>
-        <td>{{rol.descripcion}}</td>
-        <td><input type="button"
-              class="button"
-              name="eliminar"
-              value="Eliminar"
-              (click)="deleteRol(rol)">
-        </td>
-        <td><a [routerLink]="['/home/gestion/roles/adm', rol.nombre]"
-                class="button"><span>Modificar</span></a>
-        </td>
-      </tr>
-    </tbody>
 
-  </table>
+<h3>Administracion de Roles</h3>
+
+<div class="mat-elevation-z8 margin">
+ <table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="Nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Descripcion">
+    <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+    <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="Eliminar">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="deleteRol(element)">
+            <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Modificar">
+        <th mat-header-cell *matHeaderCellDef> Modificar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="redirectToUpdate(element.nombre)">
+            <mat-icon class="mat-18" >system_update</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
 
 </div>

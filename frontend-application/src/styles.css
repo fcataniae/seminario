@@ -3,9 +3,16 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "assets/forms.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+
 body{
   background-color: #FBF5EA;
 }
+.margin{
+  margin: 1%;
+}
+
 
 div.flotante{
   position:fixed;
