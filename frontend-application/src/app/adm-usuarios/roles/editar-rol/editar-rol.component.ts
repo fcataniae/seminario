@@ -61,10 +61,11 @@ export class EditarRolComponent implements OnInit  {
 
   onAltaRol(){
     const dialogRef = this.dialog.open(AltaRolComponent,{
-      width: '90%'
+      width: '50%'
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      console.log(result instanceof Rol );
+      if( result instanceof Rol ){
         this._rolService.createRol(result).subscribe(
           res => {
             this._rolService.getAllRoles().subscribe(
@@ -87,11 +88,15 @@ export class EditarRolComponent implements OnInit  {
   }
 
   redirectToUpdate(nombre: string){
-    this._router.navigate(['/home/gestion/roles/adm/' + nombre]);
+    this._router.navigate(['/home/adm/roles/' + nombre]);
   }
 
 
-  public doFilter  (value: string)  {
+  doFilter  (value: string)  {
       this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+
+  redirectToHome(){
+    this._router.navigate(['home']);
   }
 }

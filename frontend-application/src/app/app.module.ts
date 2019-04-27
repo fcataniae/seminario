@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,7 +27,6 @@ import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuari
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
-import { GestionRolesComponent } from './adm-usuarios/roles/gestion-roles/gestion-roles.component';
 import { AltaRolComponent } from './adm-usuarios/roles/alta-rol/alta-rol.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
 import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modificar-rol.component';
@@ -52,7 +51,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AltaUsuarioComponent,
     ModificarUsuarioComponent,
     EditarUsuarioComponent,
-    GestionRolesComponent,
     AltaRolComponent,
     EditarRolComponent,
     ModificarRolComponent,
@@ -73,7 +71,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     FlexLayoutModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   providers: [
     LoginService,
@@ -88,6 +87,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmacionPopupComponent]
+  entryComponents: [
+    ConfirmacionPopupComponent,
+    AltaRolComponent
+]
 })
 export class AppModule { }

@@ -1,34 +1,31 @@
-<h3 class="mat-dialog-title">Alta de roles</h3>
-<div class="mat-dialog-content">
-  <form class="form" #altarol="ngForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="nombre">Nombre de rol </label>
-      <input type="text"
-             name="nombre"
-             placeholder="nombre del rol"
-             id="nombre"
-             class="form-control "
-             [(ngModel)]="rol.nombre"
-             #nombre="ngModel"
-             required/>
-    </div>
-    <div>
-      <label for="descripcion">Descripcion del rol </label>
-      <input type="text"
-             name="descripcion"
-             placeholder="descripcion del rol"
-             id="descripcion"
-             class="form-control "
-             [(ngModel)]="rol.descripcion"
-             #nombre="ngModel"
-             required/>
-    </div>
-      
+
+<h2 mat-dialog-title>Alta de rol</h2>
+<form #altarol="ngForm">
+  <mat-dialog-content fxLayout="column">
+
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Nombre"
+               required               
+               name="nombre"
+               [(ngModel)]="rol.nombre">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder=" Descripcion"
+               required
+               name="descripcion"
+               [(ngModel)]="rol.descripcion"
+               >
+    </mat-form-field>
 
 
-    <div mat-dialog-actions>
-      <button mat-button (click)="onCancel()">Cancelar</button>
-      <button mat-button (click)="onSubmit()" cdkFocusInitial [disabled]="!altarol.valid">Confirmar</button>
-    </div>
-  </form>
-</div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
+    <button mat-button class="mat-raised-button mat-primary"
+            (click)="onSubmit()"
+            [disabled]="!altarol.valid">Alta</button>
+  </mat-dialog-actions>
+</form>

@@ -26,6 +26,7 @@ export class AltaRolComponent {
     this.dialogRef.close();
   }
   onSubmit(): void {
+    console.log(this.rol);
     this.dialogRef.close(this.rol);
   }
 }
