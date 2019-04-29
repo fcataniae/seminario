@@ -1,3 +1,20 @@
+<h2 mat-dialog-title>Roles</h2>
+    <mat-form-field >
+      <mat-select multiple placeholder="Roles"
+                  name="Roles"
+                  [(ngModel)]="rolesSeleccionados">
+          <mat-option *ngFor="let cr of roles"
+                      (click)="cr.asignado = !cr.asignado"
+                      [value]="cr">{{cr.rol.nombre}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
+      <button mat-button class="mat-raised-button mat-primary"
+              (click)="onSubmit()"
+              [disabled]="!modificarusuario.valid">Modificar</button>
+    </mat-dialog-actions>
+
 <div class="container">
   <h3>Modificar usuario</h3>
   <form class="form"

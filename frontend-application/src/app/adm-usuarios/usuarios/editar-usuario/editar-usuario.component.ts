@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
 import { MatSort, MatPaginator } from '@angular/material';
 import { ConfirmacionPopupComponent } from '../../confirmacion-popup/confirmacion-popup.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
+import { ModificarUsuarioComponent } from '../modificar-usuario/modificar-usuario.component';
 
 
 @Component({
@@ -85,9 +86,24 @@ export class EditarUsuarioComponent implements OnInit {
         }
     });
   }
-  modificarUser(usuario: Usuario){
-    console.log(usuario);
-    this.usuarioSelected = usuario;
+  redirectToUpdate(usuario: Usuario){
+    const dialogRef = this.dialog.open(ModificarUsuarioComponent,{
+      width: '50%',
+      data: {usuario: usuario}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if( result instanceof Usuario){
+        this._usuarioService.updateUsuario(result).subscribe(
+          res => {
+            console.log("update ok");
+          },
+          error => {
+            console.log(error);
+            alert('No se pudo actualizar el usuario');
+          }
+        );
+      }
+    });
   }
 
 }

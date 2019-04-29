@@ -1,62 +1,45 @@
-<div class="container">
-  <h3>Alta de usuario</h3>
-  <form class="form"
-        #altausuario="ngForm"
-        (ngSubmit)="onSubmit()">
 
-    <div>
-      <label for="nombre">Documento</label>
-      <input type="text"
-             name="doc"
-             placeholder="Nro de documento"
-             id="doc"
-             class="form-control "
-             [(ngModel)]="user.persona.nroDoc"
-             #nombre="ngModel"
-             required/>
-    </div>
-    <div>
-      <label for="nombre">Nombre de usuario</label>
-      <input type="text"
-             name="nombre"
-             placeholder="nombre de usuario"
-             id="nombre"
-             class="form-control "
-             [(ngModel)]="user.nombreUsuario"
-             #nombre="ngModel"
-             required/>
-    </div>
-    <div>
-      <label for="pass">Contraseña</label>
-      <input type="password"
-             name="pass"
-             placeholder="contraseña"
-             id="pass"
-             class="form-control "
-             [(ngModel)]="user.password"
-             #nombre="ngModel"
-             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required/>
-    </div>
-    <div>
-      <label for="pass2">Confirmar contraseña </label>
-      <input type="password"
-             name="pass2"
-             placeholder="vuelva a ingresar su contraseña"
-             id="pass2"
-             class="form-control "
-             [(ngModel)]="passwordCheck"
-             #nombre="ngModel"
-             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required/>
-    </div>
+<h2 mat-dialog-title>Alta de Usuario</h2>
+<form #altausuario="ngForm">
+  <mat-dialog-content fxLayout="column">
 
-    <button class="btn-wlm"
-            type="submit"
-            [disabled]="(passwordCheck !== user.password) || !altausuario.valid">
-      Confirmar
-    </button>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder="Nombre"
+               required
+               name="nombre"
+               [(ngModel)]="user.nombreUsuario">
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder=" Contraseña"
+               required
+               type="password"
+               title="La contraseña debe tener caracteres en mayusculas, minusculas y numeros"
+               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="contraseña"
+               [(ngModel)]="user.password"
+               >
+    </mat-form-field>
+    <mat-form-field fxFlex>
+        <input matInput
+               placeholder=" Vuelva a ingresar su contraseña"
+               required
+               type="password"
+               title="La contraseña debe tener caracteres en mayusculas, minusculas y numeros"
+               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="contraseña"
+               [(ngModel)]="passwordCheck"
+               >
+    </mat-form-field>
 
-  </form>
 
-</div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
+    <button mat-button class="mat-raised-button mat-primary"
+            (click)="onSubmit()"
+            [disabled]="!altausuario.valid && (user.password !== passwordCheck)">Alta</button>
+  </mat-dialog-actions>
+</form>

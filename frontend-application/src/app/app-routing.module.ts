@@ -6,9 +6,6 @@ import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-person
 import { AltaPersonaComponent } from './adm-usuarios/personas/alta-persona/alta-persona.component';
 import { ModificarPersonaComponent } from './adm-usuarios/personas/modificar-persona/modificar-persona.component';
 import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-persona/eliminar-persona.component';
-import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuarios/gestion-usuarios.component';
-import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
-import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
 
@@ -21,11 +18,7 @@ const routes: Routes = [
   { path: 'home/gestion/personas/alta', component: AltaPersonaComponent},
   { path: 'home/gestion/personas/baja', component: EliminarPersonaComponent},
   { path: 'home/gestion/personas/modi', component: ModificarPersonaComponent},
-  { path: 'home/gestion/usuarios', component: GestionUsuariosComponent},
-  { path: 'home/gestion/usuarios/alta', component: AltaUsuarioComponent},
-  { path: 'home/gestion/usuarios/adm', component: EditarUsuarioComponent},
-  { path: 'home/gestion/usuarios/adm/:id', component: ModificarUsuarioComponent},
-
+  { path: 'home/adm/usuarios', component: EditarUsuarioComponent},
   { path: 'home/adm/roles', component: EditarRolComponent}
 ];
 @NgModule({

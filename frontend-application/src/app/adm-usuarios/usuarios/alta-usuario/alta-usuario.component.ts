@@ -22,8 +22,7 @@ export class AltaUsuarioComponent {
   }
 
   onSubmit(){
-    this.dialogRef.close(this.user);
-    
+    this.dialogRef.close(this.user);    
   }
 
 }

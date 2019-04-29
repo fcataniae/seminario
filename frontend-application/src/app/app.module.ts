@@ -23,7 +23,6 @@ import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-person
 import { AltaPersonaComponent } from './adm-usuarios/personas/alta-persona/alta-persona.component';
 import { ModificarPersonaComponent } from './adm-usuarios/personas/modificar-persona/modificar-persona.component';
 import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-persona/eliminar-persona.component';
-import { GestionUsuariosComponent } from './adm-usuarios/usuarios/gestion-usuarios/gestion-usuarios.component';
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
@@ -35,7 +34,6 @@ import { MatDialogModule,MatDialog} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSelectModule } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -47,7 +45,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AltaPersonaComponent,
     ModificarPersonaComponent,
     EliminarPersonaComponent,
-    GestionUsuariosComponent,
     AltaUsuarioComponent,
     ModificarUsuarioComponent,
     EditarUsuarioComponent,
@@ -69,11 +66,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatSortModule,
     MatFormFieldModule,
-    FlexLayoutModule,
     MatInputModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatSelectModule 
+    MatSelectModule
   ],
   providers: [
     LoginService,
@@ -91,7 +87,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   entryComponents: [
     ConfirmacionPopupComponent,
     AltaRolComponent,
-    ModificarRolComponent
+    ModificarUsuarioComponent,
+    ModificarRolComponent,
+    AltaUsuarioComponent
 ]
 })
 export class AppModule { }
