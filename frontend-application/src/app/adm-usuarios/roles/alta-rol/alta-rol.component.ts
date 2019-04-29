@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Rol } from './../../../model/rol.model';
 import { RolService } from './../../../services/rol.service';
 import { MatDialogRef } from '@angular/material';
@@ -13,7 +13,7 @@ export class AltaRolComponent {
   constructor( public dialogRef: MatDialogRef<AltaRolComponent>,
                private _rolService: RolService)
  {
-   this.rol = new Rol;
+   this.rol = new Rol();
   }
 
   rol: Rol;
