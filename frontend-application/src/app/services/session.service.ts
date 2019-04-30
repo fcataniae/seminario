@@ -9,6 +9,10 @@ export class SessionService {
 
 
   constructor() {
+    let token = new Token();
+    token.token ='';
+    token.username ='';
+    sessionStorage.setItem('currentUser', JSON.stringify(token));
   }
 
   isUserLoggedIn(): boolean{
@@ -27,7 +31,10 @@ export class SessionService {
   }
 
   setLogOut() {
+    let token = new Token();
+    token.token ='';
+    token.username ='';
     sessionStorage.setItem('logedIn','false');
-    sessionStorage.setItem('currentUser', '');
+    sessionStorage.setItem('currentUser', JSON.stringify(token));
   }
 }
