@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { UsuarioService } from './../../../services/usuario.service';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogRef, MatTableDataSource} from '@angular/material';
+import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { MatSort, MatPaginator } from '@angular/material';
 import { ConfirmacionPopupComponent } from '../../confirmacion-popup/confirmacion-popup.component';
 import { AltaUsuarioComponent } from '../alta-usuario/alta-usuario.component';
@@ -21,9 +21,8 @@ export class EditarUsuarioComponent implements OnInit {
               private dialog: MatDialog) { }
 
   usuarios: Usuario[];
-  usuarioSelected: Usuario = null;
   public dataSource = new MatTableDataSource<Usuario>();
-  public displayedColumns = ['nombreUsuario', 'nombre', 'apellido','email', 'nroDoc', 'modificar', 'eliminar'];
+  public displayedColumns = ['nombreUsuario', /*'nombre',*/ 'apellido','email', /*'nroDoc',*/ 'modificar', 'eliminar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -42,7 +41,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   }
 
-  deleteUser(usuario: Usuario){
+  deleteUsuario(usuario: Usuario){
     const dialogRef = this.dialog.open(ConfirmacionPopupComponent,{
       width: '40%',
       data: { mensaje: "Desea eliminar el usuario?"}
@@ -53,9 +52,7 @@ export class EditarUsuarioComponent implements OnInit {
         if (result && result == "true"){
           this._usuarioService.deleteUser(usuario).subscribe(
             res => {
-              console.log(res);
-              alert("Se elimino el usuario correctamente!");
-              this._router.navigate(['/home/gestion/usuarios']);
+              this.dataSource.data = this.dataSource.data.filter (e => e.nombreUsuario !== usuario.nombreUsuario);
             },
             error => {
               console.log(error);
@@ -106,4 +103,11 @@ export class EditarUsuarioComponent implements OnInit {
     });
   }
 
+    doFilter  (value: string)  {
+        this.dataSource.filter = value.trim().toLocaleLowerCase();
+    }
+
+    redirectToHome(){
+      this._router.navigate(['home']);
+    }
 }

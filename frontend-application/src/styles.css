@@ -37,6 +37,11 @@ header{
   height: auto;
 }
 
+.w70{
+  width: 70%;
+  margin-left: 15%;
+}
+
 
 .btn-wlm{
   border: none;
@@ -133,4 +138,8 @@ h3 {
   padding: 10px;
   text-align: center;
   font-family: "Myriad Pro"
+  }
+  mat-dialog-content {
+    display: flex !important;
+    flex-direction: column;
   }

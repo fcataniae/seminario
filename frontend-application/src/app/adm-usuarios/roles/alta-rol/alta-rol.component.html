@@ -3,14 +3,14 @@
 <form #altarol="ngForm">
   <mat-dialog-content fxLayout="column">
 
-    <mat-form-field fxFlex>
+    <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder="Nombre"
-               required               
+               required
                name="nombre"
                [(ngModel)]="rol.nombre">
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder=" Descripcion"
                required
@@ -22,7 +22,7 @@
 
   </mat-dialog-content>
 
-  <mat-dialog-actions>
+  <mat-dialog-actions class="w70">
     <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
     <button mat-button class="mat-raised-button mat-primary"
             (click)="onSubmit()"

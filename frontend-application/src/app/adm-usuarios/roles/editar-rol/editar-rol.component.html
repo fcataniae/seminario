@@ -4,15 +4,14 @@
 <div class="mat-elevation-z8 margin">
   <h3>Administracion de Roles</h3>
   <div fxLayout fxLayoutAlign="left center">
-    <button mat-icon-button color="primary" fxFlex="15%" (click)="redirectToHome()">
+    <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
     </button>
-    <mat-form-field fxFlex="40%">
+    <mat-form-field class= "input-search" >
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
     </mat-form-field>
-
-    <button mat-icon-button color="primary" fxFlex="4%" (click)="onAltaRol()">
-        <mat-icon class="mat-18">libray_add</mat-icon>
+    <button class="button-alta" mat-icon-button color="primary" (click)="onAltaRol()">
+      <mat-icon class="mat-18" >library_add</mat-icon> Alta
     </button>
   </div>
  <table mat-table [dataSource]="dataSource" matSort >

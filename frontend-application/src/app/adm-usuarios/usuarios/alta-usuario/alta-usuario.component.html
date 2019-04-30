@@ -3,14 +3,14 @@
 <form #altausuario="ngForm">
   <mat-dialog-content fxLayout="column">
 
-    <mat-form-field fxFlex>
+    <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder="Nombre"
                required
                name="nombre"
                [(ngModel)]="user.nombreUsuario">
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder=" Contraseña"
                required
@@ -21,7 +21,7 @@
                [(ngModel)]="user.password"
                >
     </mat-form-field>
-    <mat-form-field fxFlex>
+    <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder=" Vuelva a ingresar su contraseña"
                required
@@ -36,7 +36,7 @@
 
   </mat-dialog-content>
 
-  <mat-dialog-actions>
+  <mat-dialog-actions class="w70">
     <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
     <button mat-button class="mat-raised-button mat-primary"
             (click)="onSubmit()"

@@ -5,7 +5,6 @@ import { HttpClientModule }    from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
@@ -69,7 +68,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [
     LoginService,
