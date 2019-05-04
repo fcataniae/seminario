@@ -1,7 +1,33 @@
 <h2 mat-dialog-title>Modificar Usuario</h2>
+<mat-checkbox [(ngModel)]="cambiaContrasenia" >Cambiar contraseña</mat-checkbox>
 
+<div *ngIf="cambiaContrasenia">
+  <h2 mat-dialog-title>Cambiar contraseña</h2>
+      <mat-form-field class="w70" fxFlex >
+        <input matInput
+               placeholder=" Contraseña"
+               required="!cambiaContrasenia"
+               type="password"
+               title="La contraseña debe tener caracteres en mayusculas, minusculas y numeros"
+               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="contraseña"
+               [(ngModel)]="usuario.password"
+               >
+    </mat-form-field>
+    <mat-form-field class="w70" fxFlex >
+        <input matInput
+               placeholder=" Vuelva a ingresar su contraseña"
+               required="!cambiaContrasenia"
+               type="password"
+               title="La contraseña debe tener caracteres en mayusculas, minusculas y numeros"
+               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="contraseña"
+               [(ngModel)]="passwordCheck"
+               >
+    </mat-form-field>
+</div>
 
-<h2 mat-dialog-title>Roles</h2>
+<h2 mat-dialog-title>Asignar roles</h2>
     <mat-form-field >
       <mat-select multiple placeholder="Roles"
                   name="Roles"
@@ -15,100 +41,7 @@
       <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
       <button mat-button class="mat-raised-button mat-primary"
               (click)="onSubmit()"
-              [disabled]="!modificarusuario.valid">Modificar</button>
+              [disabled]="(cambiaContrasenia && usuario.password !== passwordCheck) ">Modificar</button>
     </mat-dialog-actions>
 
 <div class="container">
-  <h3>Modificar usuario</h3>
-  <form class="form"
-        #modificarusuario="ngForm"
-        (ngSubmit)="onSubmit()">
-
-
-    <div>
-      <label for="nombre">Nombre de usuario</label>
-      <input type="text"
-             name="nombreUsuario"
-             placeholder="nombre de usuario"
-             id="nombreUsuario"
-             class="form-control "
-             [(ngModel)]="usuario.nombreUsuario"
-             #nombre="ngModel"
-             disabled
-             required/>
-    </div>
-    <div>
-      <input type="button"
-              class="btn-wlm"
-              name="cambiarContrasenia"
-              id="cambiarContrasenia"
-              value="cambiar contraseña"
-              [disabled]="cambiaContrasenia"
-              (click)="onChangeContrasenia()"/>
-
-      <input  type="button"
-              class="btn-wlm"
-              name="asignarRoles"
-              id="asignarRoles"
-              value="asignar rol"
-              [disabled]="asignarRoles"
-              (click)="asignarRoles = !asignarRoles"/>
-
-    </div>
-    <h4 *ngIf="cambiaContrasenia">Cambiar Contraseña</h4>
-    <div *ngIf="cambiaContrasenia">
-
-      <label for="pass">Ingrese su nueva contraseña</label>
-      <input type="password"
-             name="pass"
-             placeholder="contraseña"
-             id="pass"
-             class="form-control "
-             [(ngModel)]="usuario.password"
-             #pass="ngModel"
-             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required
-             [disabled]="!cambiaContrasenia"
-             />
-    </div>
-    <div *ngIf="cambiaContrasenia">
-      <label for="pass2">Confirmar su nueva contraseña </label>
-      <input type="password"
-             name="pass2"
-             placeholder="vuelva a ingresar su contraseña"
-             id="pass2"
-             class="form-control "
-             [(ngModel)]="passwordCheck"
-             #pass2="ngModel"
-             pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-             required
-             [disabled]="!cambiaContrasenia"
-             />
-    </div>
-    <h4 *ngIf="asignarRoles">Asignar roles</h4>
-    <div *ngIf="asignarRoles">
-      <label>No asignados</label>
-      <label>Asignados</label>
-    </div>
-    <div *ngIf="asignarRoles">
-      <select size="5" #RolesNo>
-          <option *ngFor="let rol of rolesNoAsignados">{{rol.nombre}}</option>
-      </select>
-      <ul>
-        <li><input type="button" (click)="desasignarRol($event)" value="&#171;"/></li>
-        <li><input type="button" (click)="asignarRol($event)" value="&#187;"/></li>
-      </ul>
-      <select  size="5" #RolesSi>
-          <option *ngFor="let rol of rolesAsignados">{{rol.nombre}}</option>
-      </select>
-    </div>
-    <button class="btn-wlm"
-            type="submit"
-            [disabled]="(((passwordCheck !== usuario.password) || !modificarusuario.valid) && cambiaContrasenia) || (!asignarRoles && !cambiaContrasenia)">
-      Confirmar
-    </button>
-
-  </form>
-
-
-</div>

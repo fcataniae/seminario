@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../../model/usuario.model';
 import { MatDialogRef } from '@angular/material';
+import { Persona } from '../../../model/persona.model';
 
 @Component({
   selector: 'app-alta-usuario',
@@ -11,6 +12,7 @@ export class AltaUsuarioComponent {
 
   constructor(public dialogRef: MatDialogRef<AltaUsuarioComponent>) {
     this.user = new Usuario();
+    this.user.persona = new Persona();
   }
 
   user: Usuario;
@@ -22,7 +24,7 @@ export class AltaUsuarioComponent {
   }
 
   onSubmit(){
-    this.dialogRef.close(this.user);    
+    this.dialogRef.close(this.user);
   }
 
 }

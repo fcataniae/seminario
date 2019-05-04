@@ -73,7 +73,6 @@ export class EditarUsuarioComponent implements OnInit {
             res =>{
               console.log(res);
               alert("Se creo el usuario correctamente");
-              this._router.navigate(['/home/gestion/usuarios']);
             },
             error => {
               console.log(error);
@@ -89,7 +88,8 @@ export class EditarUsuarioComponent implements OnInit {
       data: {usuario: usuario}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if( result instanceof Usuario){
+      console.log(result);
+      if( result ){
         this._usuarioService.updateUsuario(result).subscribe(
           res => {
             console.log("update ok");

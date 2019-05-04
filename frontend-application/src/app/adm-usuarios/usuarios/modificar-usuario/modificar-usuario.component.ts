@@ -82,7 +82,8 @@ export class ModificarUsuarioComponent{
 
   onSubmit(){
 
-
+    this.usuario.roles.splice(0,this.usuario.roles.length);
+    this.roles.filter( p => p.asignado).forEach(p => this.usuario.roles.push(p.rol));
 
     this.dialogRef.close(this.usuario);
 
