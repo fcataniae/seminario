@@ -1,6 +1,6 @@
 
-Ssquid:UselessImportCheck"*Remove this unused import 'java.util.Set'.(ö²„¤þÿÿÿÿ
-xsquid:S001167"[Rename this field "fecha_nacimiento" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áßì¦ùÿÿÿÿ
 ksquid:S00100f"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ð¼µµøÿÿÿÿ
 fsquid:S00100b"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»üÇš
+Ssquid:UselessImportCheck"*Remove this unused import 'java.util.Set'.(ö²„¤þÿÿÿÿ
+xsquid:S001167"[Rename this field "fecha_nacimiento" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áßì¦ùÿÿÿÿ
 nsquid:S00117f"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ð¼µµøÿÿÿÿ
