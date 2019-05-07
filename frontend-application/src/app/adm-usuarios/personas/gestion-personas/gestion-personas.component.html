@@ -1,19 +1,56 @@
-<div class="container">
 
 
-  <ul>
-    <li>
-      <a [routerLink]="['alta']"><span>Alta Persona</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['baja']"><span>Eliminar Persona</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['modi']"><span>Modificar Persona</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['/home']"><span>Volver</span></a>
-    </li>
-  </ul>
+
+<div class="mat-elevation-z8 margin">
+  <h3>Administracion de Roles</h3>
+  <div fxLayout fxLayoutAlign="left center">
+    <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+    </button>
+    <mat-form-field class= "input-search" >
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+    <button class="button-alta" mat-icon-button color="primary" (click)="onAltaPersona()">
+      <mat-icon class="mat-18" >library_add</mat-icon> Alta
+    </button>
+  </div>
+ <table mat-table [dataSource]="dataSource" matSort >
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="apellido">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+    <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+  </ng-container>
+
+
+
+  <ng-container matColumnDef="eliminar">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="deletePersona(element)">
+            <mat-icon class="mat-18">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modificar">
+        <th mat-header-cell *matHeaderCellDef> Modificar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="redirectToUpdate(element)">
+            <mat-icon class="mat-18" >system_update</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+</mat-paginator>
+
 
 </div>

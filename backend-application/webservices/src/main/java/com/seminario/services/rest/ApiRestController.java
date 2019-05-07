@@ -335,5 +335,10 @@ public class ApiRestController {
         return permisoService.getPermisoByNombre(usuarioActual, nombre);
     }
 
+    @GetMapping("/get-personas")
+    public List<Persona> getAllPersonas(@AuthenticationPrincipal UserDetails userDetails){
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return personaService.getAll(usuarioActual);
+    }
 
 }

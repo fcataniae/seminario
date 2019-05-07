@@ -1,52 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { PersonaService } from './../../../services/persona.service';
+import { Component } from '@angular/core';
 import { Persona } from './../../../model/persona.model';
-import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Inject } from '@angular/core';
+
+export interface Data{
+  persona: Persona;
+}
 
 @Component({
   selector: 'app-modificar-persona',
   templateUrl: './modificar-persona.component.html',
   styleUrls: ['./modificar-persona.component.css']
 })
-export class ModificarPersonaComponent implements OnInit {
+export class ModificarPersonaComponent{
 
-  constructor(private _personaService: PersonaService,
-              private _router: Router) { }
+  constructor(public _dialogRef: MatDialogRef<ModificarPersonaComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Data)
+  {
+    this.persona = data.persona;
+  }
 
-  personaCargada: boolean;
   persona: Persona;
-  documentoBusqueda: number;
 
-  ngOnInit() {
-    this.personaCargada = false;
-    this.persona = new Persona();
+  onCancel(){
+    this._dialogRef.close();
   }
 
-  buscarPersona(event: Event){
-      event.preventDefault();
-
-      this._personaService.getPersonaByDocumento(this.documentoBusqueda)
-        .subscribe(
-          res => {
-            this.persona = res;
-            this.personaCargada = true;
-          },
-          error => {
-            alert('No se encontro una persona dada de alta con ese documento: ' + error);
-            this.documentoBusqueda = null;
-          }
-        );
+  onSubmit(){
+    this._dialogRef.close(this.persona);
   }
 
-  onModificar(event: Event){
-      event.preventDefault();
-
-      this._personaService.modificarPersona(this.persona).subscribe(
-        res => {
-                alert('Se modifico la persona correctamente');
-                this._router.navigate(['/home/gestion/personas']);
-              },
-        error => {alert('No se pudo actualizar los datos de la persona: '+error)}
-      );
-    }
 }

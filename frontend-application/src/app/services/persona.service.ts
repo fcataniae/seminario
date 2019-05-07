@@ -27,5 +27,7 @@ export class PersonaService {
   createPersona(persona: Persona): Observable<string>{
     return this._http.post<string>(environment.serviceUrl + "alta-persona", persona);
   }
-
+  getAllPersonas() : Observable<Persona[]>{
+    return this._http.get<Persona[]>(environment.serviceUrl + "get-personas");
+  }
 }

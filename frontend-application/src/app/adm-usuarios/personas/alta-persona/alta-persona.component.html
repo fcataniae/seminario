@@ -1,83 +1,69 @@
-<div class="container">
-  <h3>Alta de persona</h3>
-
-  <form class="form" #altapersona="ngForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="nombre">Nombre </label>
-      <input type="text"
+<h2 mat-dialog-title>Alta de Persona</h2>
+<form #altapersona="ngForm">
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field>
+      <input matInput
+             type="text"
              name="nombre"
-             placeholder="nombre"
-             id="nombre"
-             class="form-control "
+             placeholder="Nombre"
              [(ngModel)]="persona.nombre"
-             #nombre="ngModel"
              required/>
-    </div>
-    <div>
-      <label for="apellido">Apellido </label>
-      <input type="text"
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="text"
              name="apellido"
              placeholder="Apellido"
-             id="apellido"
-             class="form-control "
              [(ngModel)]="persona.apellido"
-             #nombre="ngModel"
              required/>
-    </div>
-    <div>
-      <label for="tipodoc">Tipo </label>
-      <select id="tipodoc"
-              class="form-control"
-              name="tipodoc"
-              [(ngModel)]="persona.tipoDoc"
-              #nombre="ngModel"
-              required>
-        <option>D.N.I</option>
-        <option>CUIT</option>
-        <option>CUIL</option>
-        <option>L.E</option>
-      </select>
-    </div>
-    <div>
-      <label for="nrodoc">Numero </label>
-      <input type="number"
+
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Tipo documento"
+                  name="tipoDoc"
+                  required
+                  [(ngModel)]="persona.tipoDoc">
+        <mat-option value="DNI">DNI</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             type="number"
              name="documento"
              placeholder="documento"
-             id="nrodoc"
-             class="form-control "
              [(ngModel)]="persona.nroDoc"
-             #nombre="ngModel"
-             min="1" pattern="^[0-9]+"
+             min="1"
+             pattern="^[0-9]+"
              required/>
-    </div>
-    <div>
-      <label for="fechanac">Fecha de nacimiento</label>
-      <input type="date"
+
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="date"
              name="fechanac"
-             id="fechanac"
-             class="form-control "
              [(ngModel)]="persona.fecha_nacimiento"
              max="2019-04-13"
-             #nombre="ngModel"
              required/>
-    </div>
-    <div>
-      <label for="mail">Correo electronico </label>
-      <input type="email"
+
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="email"
              name="email"
-             placeholder="correo electronico"
-             id="mail"
-             class="form-control "
+             placeholder="Correo electronico"
              [(ngModel)]="persona.email"
-             #nombre="ngModel"
              pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
              required/>
-    </div>
-      <button class="btn-wlm"
-           type="submit"
-           [disabled]="!altapersona.valid">
-        Continuar
-      </button>
 
-  </form>
-</div>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="w70">
+    <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
+    <button mat-button class="mat-raised-button mat-primary"
+            (click)="onSubmit()"
+            [disabled]="!altapersona.valid">Alta</button>
+  </mat-dialog-actions>
+</form>

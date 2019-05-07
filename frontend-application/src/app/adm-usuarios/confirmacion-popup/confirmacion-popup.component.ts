@@ -12,9 +12,8 @@ export interface Data{
 })
 export class ConfirmacionPopupComponent {
 
-  constructor(
-      public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: Data) {
+  constructor(public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Data) {
 
       }
 

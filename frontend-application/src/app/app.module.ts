@@ -21,7 +21,6 @@ import { HomeComponent } from './home/home.component';
 import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-personas/gestion-personas.component';
 import { AltaPersonaComponent } from './adm-usuarios/personas/alta-persona/alta-persona.component';
 import { ModificarPersonaComponent } from './adm-usuarios/personas/modificar-persona/modificar-persona.component';
-import { EliminarPersonaComponent } from './adm-usuarios/personas/eliminar-persona/eliminar-persona.component';
 import { AltaUsuarioComponent } from './adm-usuarios/usuarios/alta-usuario/alta-usuario.component';
 import { ModificarUsuarioComponent } from './adm-usuarios/usuarios/modificar-usuario/modificar-usuario.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
@@ -43,7 +42,6 @@ import { MatSortModule } from '@angular/material/sort';
     GestionPersonasComponent,
     AltaPersonaComponent,
     ModificarPersonaComponent,
-    EliminarPersonaComponent,
     AltaUsuarioComponent,
     ModificarUsuarioComponent,
     EditarUsuarioComponent,
@@ -89,7 +87,9 @@ import { MatSortModule } from '@angular/material/sort';
     AltaRolComponent,
     ModificarUsuarioComponent,
     ModificarRolComponent,
-    AltaUsuarioComponent
+    AltaUsuarioComponent,
+    AltaPersonaComponent,
+    ModificarPersonaComponent
 ]
 })
 export class AppModule { }

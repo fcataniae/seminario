@@ -1,35 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Persona } from './../../../model/persona.model';
 import { Router } from '@angular/router';
-import { PersonaService } from './../../../services/persona.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-alta-persona',
   templateUrl: './alta-persona.component.html',
   styleUrls: ['./alta-persona.component.css']
 })
-export class AltaPersonaComponent implements OnInit {
+export class AltaPersonaComponent  {
 
-  constructor(private _personaService: PersonaService,
-              private _router: Router) { }
-
-  persona: Persona;
-
-  ngOnInit() {
+  constructor(public _dialogRef: MatDialogRef<AltaPersonaComponent>) {
     this.persona = new Persona();
   }
 
-  onSubmit(){
-    this._personaService.createPersona(this.persona).
-      subscribe(
-        res => {
-          console.log(res);
-          alert(res);
-          this._router.navigate(['/home/gestion/personas']);
+  persona: Persona;
 
-        },
-        error => {console.log(error);}
-      )
+  onSubmit(){
+    this._dialogRef.close(this.persona);
   }
 
+  onCancel(){
+    this._dialogRef.close();
+  }
 }
