@@ -39,13 +39,12 @@
 
     </mat-form-field>
     <mat-form-field>
-      <input matInput
-             type="date"
-             name="fechanac"
-             [(ngModel)]="persona.fecha_nacimiento"
-             max="2019-04-13"
-             required/>
-
+      <input matInput [matDatepicker]="fechaNac"
+             placeholder="Fecha de nacimiento"
+             [value]="persona.fecha_nacimiento"
+             disabled>
+      <mat-datepicker-toggle matSuffix [for]="fechaNac"></mat-datepicker-toggle>
+      <mat-datepicker #fechaNac disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <input matInput

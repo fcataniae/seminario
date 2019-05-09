@@ -30,7 +30,11 @@ import { ModificarRolComponent } from './adm-usuarios/roles/modificar-rol/modifi
 import { ConfirmacionPopupComponent } from './adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 import { MatDialogModule,MatDialog} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
+import {
+  MatNativeDateModule,
+  MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
+  MatSelectModule, MatCheckboxModule, MatDatepickerModule
+} from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 
 
@@ -67,7 +71,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     LoginService,
