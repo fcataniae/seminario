@@ -1,0 +1,17 @@
+ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
+997,AltaPersona,Permitedardealtapersonas.,ALTA-PERSONA,1
+998,BajaPersona,Permitedardebajapersonas.,BAJA-PERSONA,1
+999,ConsultaPersona,Permitedarconsultarpersonas.,CONS-PERSONA,1
+1000,ModificarPersona,Permitedarmodificarpersonas.,MODI-PERSONA,1
+1001,Altausuario,Permitedardealtausuarios.,ALTA-USUARIO,1
+1002,BajaUsuario,Permitedardebajausuarios.,BAJA-USUARIO,1
+1003,ConsultaUSUARIO,Permitedarconsultarusuario.,CONS-USUARIO,1
+1004,Modificarusuario,Permitedarmodificarusuarios.,MODI-USUARIO,1
+1005,AltaROL,Permitedardealtaroles.,ALTA-ROL,1
+1006,BajaROL,Permitedardebajaroles.,BAJA-ROL,1
+1007,ConsultaROL,Permitedarconsultarroles.,CONS-ROL,1
+1008,Modificarroles,Permitedarmodificarroles.,MODI-ROL,1
+1009,Altapermiso,Permitedardealtapermisos.,ALTA-PERMISO,1
+1010,Bajapermiso,Permitedardebajapermisos.,BAJA-PERMISO,1
+1011,Consultapermiso,Permitedarconsultarpermisos.,CONS-PERMISO,1
+1012,Modificarpermisos,Permitedarmodificarpermisos.,MODI-PERMISO,1

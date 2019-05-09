@@ -1,5 +1,6 @@
 package com.seminario.backend;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -43,5 +44,12 @@ public class JNDIAdapterConfig {
            this.jndiName = jndiName;
         }
    }
+    @Bean
+    public SpringLiquibase liquibase()throws NamingException {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:db/liquibase-changelog.xml");
+        liquibase.setDataSource(dataSource());
+        return liquibase;
+    }
 
 }

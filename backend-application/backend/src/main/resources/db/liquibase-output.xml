@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Franco (generated)" id="1557400491581-1">
+        <createTable tableName="estado">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIP" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-2">
+        <createTable tableName="permiso">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIPCION" type="VARCHAR(255)"/>
+            <column name="FUNCIONALIDAD" type="VARCHAR(255)"/>
+            <column name="NOMBRE" type="VARCHAR(255)"/>
+            <column name="ESTADO_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-3">
+        <createTable tableName="persona">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="APELLIDO" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="FECHA_NACIMIENTO" type="date"/>
+            <column name="NOMBRE" type="VARCHAR(255)"/>
+            <column name="NRODOC" type="BIGINT"/>
+            <column name="TIPODOC" type="VARCHAR(255)"/>
+            <column name="ESTADO_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-4">
+        <createTable tableName="rol">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIPCION" type="VARCHAR(255)"/>
+            <column name="NOMBRE" type="VARCHAR(255)"/>
+            <column name="ESTADO_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-5">
+        <createTable tableName="rol_permiso">
+            <column name="Rol_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permisos_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-6">
+        <createTable tableName="usuario">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="NOMBREUSUARIO" type="VARCHAR(255)"/>
+            <column name="PASSWORD" type="VARCHAR(255)"/>
+            <column name="ESTADO_ID" type="BIGINT"/>
+            <column name="PERSONA_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-7">
+        <createTable tableName="usuario_rol">
+            <column name="Usuario_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-8">
+        <addPrimaryKey columnNames="Rol_ID, permisos_ID" tableName="rol_permiso"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-9">
+        <addPrimaryKey columnNames="Usuario_ID, roles_ID" tableName="usuario_rol"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-10">
+        <addUniqueConstraint columnNames="DESCRIP" constraintName="DESCRIP" tableName="estado"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-11">
+        <addUniqueConstraint columnNames="NOMBRE" constraintName="NOMBRE" tableName="permiso"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-12">
+        <addUniqueConstraint columnNames="NOMBRE" constraintName="NOMBRE" tableName="rol"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-13">
+        <addUniqueConstraint columnNames="NOMBREUSUARIO" constraintName="NOMBREUSUARIO" tableName="usuario"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-14">
+        <createIndex indexName="FK_PERMISO_ESTADO_ID" tableName="permiso">
+            <column name="ESTADO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-15">
+        <createIndex indexName="FK_PERSONA_ESTADO_ID" tableName="persona">
+            <column name="ESTADO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-16">
+        <createIndex indexName="FK_ROL_ESTADO_ID" tableName="rol">
+            <column name="ESTADO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-17">
+        <createIndex indexName="FK_ROL_PERMISO_permisos_ID" tableName="rol_permiso">
+            <column name="permisos_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-18">
+        <createIndex indexName="FK_USUARIO_ESTADO_ID" tableName="usuario">
+            <column name="ESTADO_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-19">
+        <createIndex indexName="FK_USUARIO_PERSONA_ID" tableName="usuario">
+            <column name="PERSONA_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-20">
+        <createIndex indexName="FK_USUARIO_ROL_roles_ID" tableName="usuario_rol">
+            <column name="roles_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-21">
+        <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="permiso" constraintName="FK_PERMISO_ESTADO_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-22">
+        <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="persona" constraintName="FK_PERSONA_ESTADO_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-23">
+        <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="rol" constraintName="FK_ROL_ESTADO_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-24">
+        <addForeignKeyConstraint baseColumnNames="Rol_ID" baseTableName="rol_permiso" constraintName="FK_ROL_PERMISO_Rol_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="rol"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-25">
+        <addForeignKeyConstraint baseColumnNames="permisos_ID" baseTableName="rol_permiso" constraintName="FK_ROL_PERMISO_permisos_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="permiso"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-26">
+        <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="usuario" constraintName="FK_USUARIO_ESTADO_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-27">
+        <addForeignKeyConstraint baseColumnNames="PERSONA_ID" baseTableName="usuario" constraintName="FK_USUARIO_PERSONA_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="persona"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-28">
+        <addForeignKeyConstraint baseColumnNames="Usuario_ID" baseTableName="usuario_rol" constraintName="FK_USUARIO_ROL_Usuario_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="usuario"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-29">
+        <addForeignKeyConstraint baseColumnNames="roles_ID" baseTableName="usuario_rol" constraintName="FK_USUARIO_ROL_roles_ID"   onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="rol"/>
+    </changeSet>
+</databaseChangeLog>

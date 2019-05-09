@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <include file="classpath:db/liquibase-output.xml" />
+
+    <changeSet author="Franco" id ="1999">
+        <loadUpdateData tableName="estado"
+                        file="classpath:db/csv/estados.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name = "descrip" type="STRING"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="persona"
+                        file="classpath:db/csv/personas.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name="apellido" type="STRING" />
+            <column name="email" type="STRING" />
+            <column name="fecha_nacimiento" type="DATE" />
+            <column name="nombre" type="STRING" />
+            <column name="tipodoc" type="STRING" />
+            <column name="nrodoc" type="NUMERIC" />
+            <column name="estado_id" type="NUMERIC" />
+        </loadUpdateData>
+        <loadUpdateData tableName="usuario"
+                        file="classpath:db/csv/usuarios.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name="nombreusuario" type="STRING" />
+            <column name="password" type="STRING" />
+            <column name="estado_id" type="NUMERIC" />
+            <column name="persona_id" type="NUMERIC" />
+        </loadUpdateData>
+        <loadUpdateData tableName="rol"
+                        file="classpath:db/csv/roles.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name="descripcion" type="STRING" />
+            <column name="nombre" type="STRING" />
+            <column name="estado_id" type="NUMERIC" />
+        </loadUpdateData>
+        <loadUpdateData tableName="permiso"
+                        file="classpath:db/csv/permisos.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name="descripcion" type="STRING" />
+            <column name="funcionalidad" type="STRING" />
+            <column name="nombre" type="STRING" />
+            <column name="estado_id" type="NUMERIC" />
+        </loadUpdateData>
+        <loadUpdateData tableName="usuario_rol"
+                        file="classpath:db/csv/usuario_roles.csv"
+                        primaryKey="usuario_id,roles_id">
+            <column name="usuario_id" type="NUMERIC" />
+            <column name="roles_id" type="NUMERIC" />
+        </loadUpdateData>
+        <loadUpdateData tableName="rol_permiso"
+                        file="classpath:db/csv/rol_permisos.csv"
+                        primaryKey="rol_id,permisos_id">
+            <column name="rol_id" type="NUMERIC" />
+            <column name="permisos_id" type="NUMERIC" />
+        </loadUpdateData>
+    </changeSet>
+
+</databaseChangeLog>
