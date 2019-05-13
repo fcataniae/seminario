@@ -8,11 +8,11 @@ package com.seminario.services.auth.cipher;
 
 public class EncryptManager {
 
-    public static String decryptWord(String encrypt) throws Exception{
+    public static String decryptWord(String encrypt) {
         CipherEncrypter objEncrypt = new CipherEncrypter("CompEncryptedDataSourceFactory");
         return objEncrypt.decrypt(encrypt);
     }
-    public static String encryptWord(String decrypt) throws Exception{
+    public static String encryptWord(String decrypt) {
         CipherEncrypter objEncrypt = new CipherEncrypter("CompEncryptedDataSourceFactory");
         return objEncrypt.encrypt(decrypt);
     }

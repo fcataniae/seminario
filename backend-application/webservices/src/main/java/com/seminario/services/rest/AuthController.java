@@ -5,6 +5,7 @@ import com.seminario.backend.model.Usuario;
 import com.seminario.backend.repository.UsuarioRepository;
 import com.seminario.services.auth.Token;
 import com.seminario.services.auth.UserAuth;
+import com.seminario.services.auth.cipher.EncryptManager;
 import com.seminario.services.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,8 +35,8 @@ public class AuthController {
 
         try {
             String username = data.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            Usuario u = users.findByNombreUsuarioPassword(username,data.getPassword());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, EncryptManager.encryptWord(data.getPassword())));
+            Usuario u = users.findByNombreUsuarioPassword(username, EncryptManager.encryptWord(data.getPassword()));
             if (u == null) throw new UsernameNotFoundException("Not found");
 
             String token = jwtTokenProvider.createToken(username, u.rolesToArrayString());
