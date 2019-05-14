@@ -12,7 +12,6 @@ export class AppComponent {
 
   constructor (private _sessionService: SessionService,
                private _router: Router){
-
     this.username = "";
     _router.events.subscribe( e => {
       if(_sessionService.isUserLoggedIn){

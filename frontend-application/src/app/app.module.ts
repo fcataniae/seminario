@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -36,6 +37,7 @@ import {
   MatSelectModule, MatCheckboxModule, MatDatepickerModule
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
+import { CustomLocationStrategy } from 'src/app/app.common';
 
 
 @NgModule({
@@ -85,7 +87,12 @@ import { MatSortModule } from '@angular/material/sort';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {
+            provide: APP_BASE_HREF,
+            useValue: '/' + (window.location.pathname.split('/')[1] || '')
+    },
+    { provide: LocationStrategy, useClass: CustomLocationStrategy }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
