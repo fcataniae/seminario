@@ -90,7 +90,7 @@ import { CustomLocationStrategy } from 'src/app/app.common';
     },
     {
             provide: APP_BASE_HREF,
-            useValue: '/' + (window.location.pathname.split('/')[1] || '')
+            useValue: '/' + (window.location.pathname.split('/')[1] || 'desa')
     },
     { provide: LocationStrategy, useClass: CustomLocationStrategy }
   ],
