@@ -1,8 +1,8 @@
 package com.seminario.services.rest;
 
 
-import com.seminario.backend.model.Usuario;
-import com.seminario.backend.repository.UsuarioRepository;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.repository.abm.UsuarioRepository;
 import com.seminario.services.auth.Token;
 import com.seminario.services.auth.UserAuth;
 import com.seminario.services.auth.cipher.EncryptManager;
@@ -12,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +51,9 @@ public class AuthController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+    @PostMapping("logout")
+    public void logout(@AuthenticationPrincipal UserDetails userDetails){
+
     }
 }

@@ -1,11 +1,14 @@
 package com.seminario.services.rest;
 
-import com.seminario.backend.model.*;
+import com.seminario.backend.model.abm.Permiso;
+import com.seminario.backend.model.abm.Persona;
+import com.seminario.backend.model.abm.Rol;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.services.abm.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import com.seminario.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +25,9 @@ import java.util.List;
 @RequestMapping("/service")
 @CrossOrigin
 @Scope("session")
-public class ApiRestController {
+public class AbmRestController {
 
-    private ApiRestController(){};
+    private AbmRestController(){};
     @Autowired
     private PersonaService personaService;
     @Autowired

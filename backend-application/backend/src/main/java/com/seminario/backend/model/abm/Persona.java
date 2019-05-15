@@ -1,11 +1,10 @@
-package com.seminario.backend.model;
+package com.seminario.backend.model.abm;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * User: fcatania

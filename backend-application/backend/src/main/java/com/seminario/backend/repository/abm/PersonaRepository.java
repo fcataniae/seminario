@@ -1,6 +1,6 @@
-package com.seminario.backend.repository;
+package com.seminario.backend.repository.abm;
 
-import com.seminario.backend.model.Persona;
+import com.seminario.backend.model.abm.Persona;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

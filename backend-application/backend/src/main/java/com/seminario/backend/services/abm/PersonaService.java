@@ -1,15 +1,14 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.abm;
 
-import com.seminario.backend.model.Persona;
-import com.seminario.backend.model.Usuario;
-import com.seminario.backend.repository.PermisoRepository;
-import com.seminario.backend.repository.PersonaRepository;
-import com.seminario.backend.repository.EstadoRepository;
+import com.seminario.backend.model.abm.Persona;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.repository.abm.PermisoRepository;
+import com.seminario.backend.repository.abm.PersonaRepository;
+import com.seminario.backend.repository.abm.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @Service
 public class PersonaService {

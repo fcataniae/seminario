@@ -1,13 +1,9 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.abm;
 
-import com.seminario.backend.model.Usuario;
-import com.seminario.backend.repository.UsuarioRepository;
-import org.apache.log4j.Logger;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.repository.abm.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
-import java.util.ArrayList;
 
 /**
  * User: fcatania

@@ -1,4 +1,4 @@
-package com.seminario.backend.model;
+package com.seminario.backend.model.abm;
 
 import javax.persistence.*;
 import java.io.Serializable;

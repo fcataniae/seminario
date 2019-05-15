@@ -1,4 +1,4 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.abm;
 
 public class CustomException extends RuntimeException {
 

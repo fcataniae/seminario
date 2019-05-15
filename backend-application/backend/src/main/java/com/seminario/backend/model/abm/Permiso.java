@@ -1,19 +1,15 @@
-package com.seminario.backend.model;
-
+package com.seminario.backend.model.abm;
 
 import javax.persistence.*;
-import java.util.Set;
 
 /**
  * User: fcatania
  * Date: 1/4/2019
- * Time: 09:13
+ * Time: 09:15
  */
-
 @Entity
 @Cacheable(false)
-public class Rol {
-
+public class Permiso {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,21 +20,23 @@ public class Rol {
     @Column
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "ROL_PERMISO")
-    private Set<Permiso> permisos;
+    @Column
+    private String funcionalidad;
 
-    @Override
-    public String toString() {
-        return "Rol{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
-    }
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
+
+
+    @Override
+    public String toString() {
+        return "Permiso{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" +this.descripcion + "\'" +
+                ", funcionalidad='" +this.funcionalidad + "\'" +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -56,14 +54,6 @@ public class Rol {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public Estado getEstado() {
         return estado;
     }
@@ -72,19 +62,20 @@ public class Rol {
         this.estado = estado;
     }
 
-    public void addPermiso(Permiso p){
-        permisos.add(p);
+    public void setFuncionalidad(String funcionalidad){
+        this.funcionalidad = funcionalidad;
     }
 
-    public void delPermiso(Permiso p){
-        permisos.remove(p);
+
+    public void setDescripcion(String descripcion){
+        this.descripcion = descripcion;
     }
 
-    public Set<Permiso> getPermisos() {
-        return this.permisos;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setPermisos(Set<Permiso> permisos) {
-        this.permisos = permisos;
+    public String getFuncionalidad() {
+        return funcionalidad;
     }
 }

@@ -1,10 +1,10 @@
-package com.seminario.backend.services;
+package com.seminario.backend.services.abm;
 
-import com.seminario.backend.model.Estado;
-import com.seminario.backend.model.Permiso;
-import com.seminario.backend.model.Usuario;
-import com.seminario.backend.repository.EstadoRepository;
-import com.seminario.backend.repository.PermisoRepository;
+import com.seminario.backend.model.abm.Estado;
+import com.seminario.backend.model.abm.Permiso;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.repository.abm.EstadoRepository;
+import com.seminario.backend.repository.abm.PermisoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

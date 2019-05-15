@@ -1,8 +1,8 @@
 package com.seminario.services.auth.service;
 
 
-import com.seminario.backend.model.Usuario;
-import com.seminario.backend.services.UsuarioService;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.services.abm.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
