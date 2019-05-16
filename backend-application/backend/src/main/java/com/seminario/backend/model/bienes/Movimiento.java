@@ -21,10 +21,16 @@ public class Movimiento {
     private Long id;
 
     @Column
+    private Long origen;
+
+    @Column
     private Long destino;
 
     @Column
-    private Long origen;
+    private TipoLocal tipoLocalDestino;
+
+    @Column
+    private TipoLocal tipoLocalOrigen;
 
     @Column
     private TipoMovimiento tipoMovimiento;
