@@ -25,6 +25,17 @@
 
 * Crear usuario en mariadb
 
+* Crear archivo:
+
+```
+backend-application/backend/src/main/resources/application.properties
+```
+
+Completar la configuracion (credenciales, host, etc). Basarse en:
+
+```
+backend-application/backend/src/main/resources/application.properties.example
+```
 * Crear la base de Datos 'seminario'
 
 * Importar el proyecto a IDEA (en caso de hacerlo otro IDE, por la terminal, cargar dependencias de Maven `mvn install`).
@@ -38,5 +49,3 @@
 * Correr el backend desde:
 
  `backend-application/Webservices.../ApiRestController`
-
-* Realizar los insert de `/backend-application/backend/src/main/java/com/seminario/backend/bd-scripts/INSERTS.sql;` en la BD 'seminario'.
