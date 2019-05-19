@@ -56,6 +56,9 @@ public class Movimiento {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private EstadoViaje estadoViaje;
+
     @Column
     private Long idTransportista;
 
@@ -164,5 +167,13 @@ public class Movimiento {
 
     public void setTipoLocalDestino(TipoLocal tipoLocalDestino) {
         this.tipoLocalDestino = tipoLocalDestino;
+    }
+
+    public EstadoViaje getEstadoViaje() {
+        return estadoViaje;
+    }
+
+    public void setEstadoViaje(EstadoViaje estadoViaje) {
+        this.estadoViaje = estadoViaje;
     }
 }

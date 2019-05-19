@@ -1,9 +1,6 @@
 package com.seminario.backend.model.bienes;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Usuario: Franco
@@ -15,9 +12,10 @@ import javax.persistence.Id;
 public class TipoMovimiento {
 
     @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique=true)
     private String nombre;
 
     @Column
