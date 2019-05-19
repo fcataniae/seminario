@@ -1,8 +1,6 @@
 package com.seminario.backend.model.bienes;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Usuario: Franco
@@ -14,9 +12,25 @@ import javax.persistence.Id;
 public class TipoLocal {
 
     @Id
-    private Long Id;
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Id
+    @Column(unique = true)
     private String nombre;
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -3,15 +3,16 @@ package com.seminario.backend.services.bienes;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.ItemMovimiento;
 import com.seminario.backend.model.bienes.Movimiento;
+import com.seminario.backend.model.bienes.TipoLocal;
 import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.repository.abm.EstadoRepository;
-import com.seminario.backend.repository.bienes.EstadoViajeRepository;
-import com.seminario.backend.repository.bienes.TipoMovimientoRepository;
-import com.seminario.backend.repository.bienes.MovimientoRepository;
+import com.seminario.backend.repository.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -27,6 +28,13 @@ public class MovimientoService {
     EstadoRepository estadoRepository;
     @Autowired
     EstadoViajeRepository estadoViajeRepository;
+    @Autowired
+    BienIntercambiableRepository bienIntercambiableRepository;
+    @Autowired
+    LocalRepository localRepository;
+    @Autowired
+    ProveedorRepository proveedorRepository;
+
 
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo, List<ItemMovimiento> items) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
@@ -53,11 +61,12 @@ public class MovimientoService {
      *  Valida que el BienItemcambiable del ItemMovimiento exista.
      *
      * */
-    public void validarItems(List<ItemMovimiento> items){
+    public void validarItems(List<ItemMovimiento> items) throws CustomException {
         for (ItemMovimiento item: items) {
-            //
-            //item.getBienIntercambiable().getId();
-
+            Long id = item.getBienIntercambiable().getId();
+            if (null == bienIntercambiableRepository.findById(id)) {
+                throw new CustomException("ItemMovimiento contiende bien Intercambiable inexistente.");
+            }
         }
     }
 
@@ -68,10 +77,28 @@ public class MovimientoService {
      *
      * */
     public void validarMovimiento(Movimiento movimiento) throws CustomException{
-        // TODO: Hacer las validaciones
-        // - Verficar existencia de Origen, Destino
-        // -
-        throw new CustomException("Movimiento con datos invalidos.");
+        TipoLocal TipoLocalOrigen = movimiento.getTipoLocalOrigen();
+        TipoLocal TipoLocalDestino = movimiento.getTipoLocalDestino();
+        // Valido Nros de Origen
+        if (TipoLocalOrigen.getNombre().equals("PROVEEDOR")){
+            if (null == proveedorRepository.findByNro(movimiento.getOrigen())){
+                throw  new CustomException("Proveedor origen no encontrado.");
+            }
+        } else if (TipoLocalOrigen.getNombre().equals("TIENDA") || TipoLocalOrigen.getNombre().equals("CD")) {
+            if (null == localRepository.findByNro(movimiento.getOrigen())){
+                throw new CustomException("Local origen no encontrado.");
+            }
+        }
+        // Valido Nros de Destino
+        if (TipoLocalDestino.getNombre().equals("PROVEEDOR")) {
+            if (null == proveedorRepository.findByNro(movimiento.getDestino())){
+                throw  new CustomException("Proveedor destino no encontrado.");
+            }
+        } else if (TipoLocalDestino.getNombre().equals("TIENDA") || TipoLocalDestino.getNombre().equals("CD")) {
+            if (null == localRepository.findByNro(movimiento.getDestino())){
+                throw new CustomException("Local destino no encontrado.");
+            }
+        }
     }
 
     /*
@@ -81,14 +108,16 @@ public class MovimientoService {
     private void sanitizarMovimiento(Movimiento movimientoNuevo) {
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
         movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
-        //movimientoNuevo.setFechaAlta('TODAY');
+        movimientoNuevo.setFechaAlta(Time.valueOf(LocalTime.now()));
     }
 
     /*
     *   A cada itemMov le asigna el movimiento
     * */
     private void asignarItemsAMovimientos(Movimiento movimiento, List<ItemMovimiento> items) {
-        //
+        for (ItemMovimiento item : items) {
+            item.setMovimiento(movimiento);
+        }
     }
 
     /*
