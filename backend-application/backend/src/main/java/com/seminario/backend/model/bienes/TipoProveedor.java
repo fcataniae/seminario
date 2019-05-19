@@ -1,7 +1,6 @@
 package com.seminario.backend.model.bienes;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Usuario: Franco
@@ -11,4 +10,28 @@ import javax.persistence.Entity;
 @Entity
 @Cacheable(false)
 public class TipoProveedor {
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique=true)
+    private String descrip;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescrip() {
+        return descrip;
+    }
+
+    public void setDescrip(String descrip) {
+        this.descrip = descrip;
+    }
+
 }

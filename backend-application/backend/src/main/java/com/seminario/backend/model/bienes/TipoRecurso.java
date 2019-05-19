@@ -11,4 +11,5 @@ import javax.persistence.Entity;
 @Entity
 @Cacheable(false)
 public class TipoRecurso {
+
 }

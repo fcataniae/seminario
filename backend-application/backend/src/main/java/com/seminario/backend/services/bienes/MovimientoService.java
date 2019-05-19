@@ -11,8 +11,9 @@ import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
-import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +36,11 @@ public class MovimientoService {
     @Autowired
     ProveedorRepository proveedorRepository;
 
+    @Autowired
+    StockBienEnLocalService stockBienEnLocalService;
+
+
+    private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo, List<ItemMovimiento> items) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
@@ -48,7 +54,7 @@ public class MovimientoService {
                     throw new CustomException("Error al dar de alta la persona!");
                 validarItems(items);
                 asignarItemsAMovimientos(movimientoNuevo,items);
-                actualizarStock(movimientoNuevo, items);
+                actualizarStockYDeuda(movimientoNuevo, items);
             } else {
                 throw new CustomException("No se encontró el tipo de movimientoNuevo que desea asignar!");
             }
@@ -108,7 +114,7 @@ public class MovimientoService {
     private void sanitizarMovimiento(Movimiento movimientoNuevo) {
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
         movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
-        movimientoNuevo.setFechaAlta(Time.valueOf(LocalTime.now()));
+        movimientoNuevo.setFechaAlta(Date.from(ZonedDateTime.now(zoneId).toInstant()));
     }
 
     /*
@@ -123,12 +129,20 @@ public class MovimientoService {
     /*
     *   Actualiza el stock dependiendo el tipodeMovimiento
     * */
-    private void actualizarStock(Movimiento movimiento, List<ItemMovimiento> items) {
+    private void actualizarStockYDeuda(Movimiento movimiento, List<ItemMovimiento> items) {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         if (movimiento.getTipoMovimiento().getNombre().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
+            for (ItemMovimiento item: items) {
+                stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+            }
         } else if (movimiento.getTipoMovimiento().getNombre().equals("DEVOLUCION")) {
             // Actualizo Stock Origen (-) y Destino (+)
+            for (ItemMovimiento item: items) {
+                stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+            }
             // Vales en estado Reservado
         } else if (movimiento.getTipoMovimiento().getNombre().equals("RECEPCION")) {
             // Actualizo Stock Origen (+) y Destino (-)

@@ -22,7 +22,6 @@ public class IntercambioProveedor {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Proveedor proveedor;
 
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private BienIntercambiable bienIntercambiable;
 

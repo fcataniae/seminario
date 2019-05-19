@@ -13,16 +13,24 @@ import java.util.Set;
 public class ItemMovimiento {
 
     @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long Id;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Movimiento movimiento;
 
-    @Id
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private BienIntercambiable bienIntercambiable;
 
-    @JoinTable(name = "ITEMMOVIMIENTO_TIPODOC")
-    @OneToMany (fetch = FetchType.EAGER)
-    private Set<TipoDocumento> tipoDocumentos;
+
+    @OneToMany(mappedBy = "ItemMovimiento", fetch = FetchType.EAGER)
+    private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
+
+    @Column
+    private Long cantidad;
+
+    @Column
+    private Double precio;
 
     public ItemMovimiento(){
 
@@ -44,11 +52,27 @@ public class ItemMovimiento {
         this.bienIntercambiable = bienIntercambiable;
     }
 
-    public Set<TipoDocumento> getTipoDocumentos() {
-        return tipoDocumentos;
+    public Set<ItemMovimientoTipoDoc> getItemMovimientoTipoDoc() {
+        return itemMovimientoTipoDoc;
     }
 
-    public void setTipoDocumentos(Set<TipoDocumento> tipoDocumentos) {
-        this.tipoDocumentos = tipoDocumentos;
+    public void setItemMovimientoTipoDoc(Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc) {
+        this.itemMovimientoTipoDoc = itemMovimientoTipoDoc;
+    }
+
+    public Long getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Long cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 }
