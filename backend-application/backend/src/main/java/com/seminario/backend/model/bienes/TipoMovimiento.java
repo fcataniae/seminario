@@ -20,6 +20,12 @@ public class TipoMovimiento {
     @Column
     private String nombre;
 
+    @Column
+    private TipoLocal tipoLocalDestino;
+
+    @Column
+    private TipoLocal tipoLocalOrigen;
+
     public Long getId() {
         return id;
     }
@@ -28,12 +34,27 @@ public class TipoMovimiento {
         this.id = id;
     }
 
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public TipoLocal getTipoLocalDestino() {
+        return tipoLocalDestino;
+    }
+
+    public void setTipoLocalDestino(TipoLocal tipoLocalDestino) {
+        this.tipoLocalDestino = tipoLocalDestino;
+    }
+
+    public TipoLocal getTipoLocalOrigen() {
+        return tipoLocalOrigen;
+    }
+
+    public void setTipoLocalOrigen(TipoLocal tipoLocalOrigen) {
+        this.tipoLocalOrigen = tipoLocalOrigen;
     }
 }

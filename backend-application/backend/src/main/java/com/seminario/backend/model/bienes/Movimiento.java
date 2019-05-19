@@ -149,4 +149,20 @@ public class Movimiento {
     public void setIdTransportista(Long idTransportista) {
         this.idTransportista = idTransportista;
     }
+
+    public TipoLocal getTipoLocalOrigen() {
+        return tipoLocalOrigen;
+    }
+
+    public void setTipoLocalOrigen(TipoLocal tipoLocalOrigen) {
+        this.tipoLocalOrigen = tipoLocalOrigen;
+    }
+
+    public TipoLocal getTipoLocalDestino() {
+        return tipoLocalDestino;
+    }
+
+    public void setTipoLocalDestino(TipoLocal tipoLocalDestino) {
+        this.tipoLocalDestino = tipoLocalDestino;
+    }
 }
