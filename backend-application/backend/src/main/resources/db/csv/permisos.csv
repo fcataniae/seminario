@@ -1,17 +1,33 @@
 ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
-997,AltaPersona,Permitedardealtapersonas.,ALTA-PERSONA,1
-998,BajaPersona,Permitedardebajapersonas.,BAJA-PERSONA,1
-999,ConsultaPersona,Permitedarconsultarpersonas.,CONS-PERSONA,1
-1000,ModificarPersona,Permitedarmodificarpersonas.,MODI-PERSONA,1
-1001,Altausuario,Permitedardealtausuarios.,ALTA-USUARIO,1
-1002,BajaUsuario,Permitedardebajausuarios.,BAJA-USUARIO,1
-1003,ConsultaUSUARIO,Permitedarconsultarusuario.,CONS-USUARIO,1
-1004,Modificarusuario,Permitedarmodificarusuarios.,MODI-USUARIO,1
-1005,AltaROL,Permitedardealtaroles.,ALTA-ROL,1
-1006,BajaROL,Permitedardebajaroles.,BAJA-ROL,1
-1007,ConsultaROL,Permitedarconsultarroles.,CONS-ROL,1
-1008,Modificarroles,Permitedarmodificarroles.,MODI-ROL,1
-1009,Altapermiso,Permitedardealtapermisos.,ALTA-PERMISO,1
-1010,Bajapermiso,Permitedardebajapermisos.,BAJA-PERMISO,1
-1011,Consultapermiso,Permitedarconsultarpermisos.,CONS-PERMISO,1
-1012,Modificarpermisos,Permitedarmodificarpermisos.,MODI-PERMISO,1
+997, ,Permite dar de alta personas,ALTA-PERSONA,1
+998, ,Permite dar de baja personas,BAJA-PERSONA,1
+999, ,Permite modificar personas,MODI-PERSONA,1
+1000, ,Permite consultar personas,CONS-PERSONA,1
+1001, ,Permite dar de alta usuarios,ALTA-USUARIO,1
+1002, ,Permite dar de baja usuarios,BAJA-USUARIO,1
+1003, ,Permite modificar usuarios,MODI-USUARIO,1
+1004, ,Permite consultar usuario,CONS-USUARIO,1
+1005, ,Permite dar de alta roles,ALTA-ROL,1
+1006, ,Permite dar de baja roles,BAJA-ROL,1
+1007, ,Permite dar modificar roles,MODI-ROL,1
+1008, ,Permite dar consultar roles,CONS-ROL,1
+1009, ,Permite dar de alta permisos,ALTA-PERMISO,1
+1010, ,Permite dar de baja permisos,BAJA-PERMISO,1
+1011, ,Permite modificar permisos,MODI-PERMISO,1
+1012, ,Permite consultar permisos,CONS-PERMISO,1
+1013, ,Permite dar de alta bienes intercambiables,ALTA-BI,1
+1014, ,Permite dar de baja bienes intercambiables,BAJA-BI,1
+1015, ,Permite modificar bienes intercambiables,MODI-BI,1
+1016, ,Permite consultar bienes Intercambiables,CONS-BI,1
+1017, ,Permite dar de alta recursos,ALTA-RECURSO,1
+1018, ,Permite dar de baja recursos,BAJA-RECURSO,1
+1019, ,Permite modificar recursos,MODI-RECURSO,1
+1020, ,Permite consultar recursos,CONS-RECURSOS,1
+1021, ,Permite dar de alta movimientos,ALTA-MOVIMIENTO,1
+1022, ,Permite dar de baja movimientos,BAJA-MOVIMIENTO,1
+1023, ,Permite modificar movimientos,MODI-MOVIMIENTO,1
+1024, ,Permite consultar movimientos,CONS-MOVIMIENTO,1
+1025, ,Permite dar de alta movimientos,ALTA-TIPOMOV,1
+1026, ,Permite dar de baja movimientos,BAJA-TIPOMOV,1
+1027, ,Permite modificar movimientos,MODI-TIPOMOV,1
+1028, ,Permite consultar movimientos,CONS-TIPOMOV,1

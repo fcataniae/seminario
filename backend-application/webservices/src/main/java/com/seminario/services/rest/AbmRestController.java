@@ -127,7 +127,7 @@ public class AbmRestController {
      * */
     @RequestMapping(value = "/update-usuario", method = RequestMethod.PUT)
     public void updateUsuario(@AuthenticationPrincipal UserDetails userDetails,
-                                    @RequestBody Usuario usuario) throws CustomException
+                              @RequestBody Usuario usuario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         usuarioService.update(usuarioActual,usuario);

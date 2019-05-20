@@ -19,6 +19,20 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
+    <changeSet author="Franco (generated)" id="1557400491581-919">
+        <createTable tableName="STOCK_BIEN_EN_LOCAL">
+            <column autoIncrement="false" name="local_nro" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column autoIncrement="false" name="bi_id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="STOCK_LIBRe" type="BIGINT"/>
+            <column name="STOCK_OCUPADO" type="BIGINT"/>
+            <column name="STOCK_DESTRUIDO" type="BIGINT"/>
+            <column name="STOCK_RESERVADO" type="BIGINT"/>
+        </createTable>
+    </changeSet>
     <changeSet author="Franco (generated)" id="1557400491581-3">
         <createTable tableName="persona">
             <column autoIncrement="true" name="ID" type="BIGINT">
