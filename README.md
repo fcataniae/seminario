@@ -1,7 +1,5 @@
 # Seminario - Proyecto Bienes Int.
 
-* TODO: agregar el archivo web.xml/clase de configuracion para deployarlo en tomcat
-
 ## FrontEnd
 
 ### Pasos para correr el front, sobre la carpeta frontend-application
@@ -13,7 +11,10 @@
 
 ### Build
 
-* ng build --prod -aot href /
+* configurar archivo environment.prod.ts
+* ng build --prod -aot
+
+**TODO: Generar war automatico**
 
 ## BackEnd
 
