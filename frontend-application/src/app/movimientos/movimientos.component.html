@@ -1,0 +1,47 @@
+<button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
+  <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+</button>
+
+<h3>Tipo de movimiento</h3>
+<div class="movimientos">
+
+  <mat-form-field>
+    <mat-label>Movimiento</mat-label>
+    <mat-select [(value)]="MovSelected">
+      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento.path">
+        {{movimiento.nombre}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Origen</mat-label>
+    <mat-select [(value)]="OriSelected" [disabled]="MovSelected==null">
+      <mat-option *ngFor="let origen of origenes" [value]="origen">
+        {{origen}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Destino</mat-label>
+    <mat-select [(value)]="DestSelected" [disabled]="MovSelected==null">
+      <mat-option *ngFor="let destino of destinos" [value]="destino">
+        {{destino}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<ul>
+  <li>
+    <a routerLink="{{MovSelected}}" *ngIf="(OriSelected!=null && DestSelected!=null)"><span>Siguiente</span></a>
+  </li>
+  <li>
+    <a *ngIf="!(OriSelected!=null && DestSelected!=null)" class="desactivado"><span>Siguiente</span></a>
+  </li>
+</ul>
+
+
+
+

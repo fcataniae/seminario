@@ -1,0 +1,132 @@
+.button-back{
+  left: 1em;
+  width: 30%;
+  text-align: left;
+}
+
+mat-form-field {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  width: 15%;
+  layout: "column";
+  layout-align: "center center"
+}
+
+.medio, .botonRecursosAsignados {
+  margin-left: 42%;
+  margin-right: auto;
+  min-width: 250px;
+  width: 10%;
+  layout: "column";
+  layout-align: "center center"
+}
+
+.datosRecepcion{
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr;
+}
+
+.recepcionDocumentos, .confirmar{
+  display: block;
+  grid-colum: 2/3;
+}
+
+input, mat-table {
+  margin: 10px ;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  padding: 10px;
+}
+
+input {
+  width: 20%;
+}
+
+mat-table{
+  width: 40%;
+}
+
+h4 {
+  border-top: 1px solid #0055ba;
+  margin: 10px ;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  width: 90%;
+  padding: 10px;
+  text-align: center;
+  font-family: "Myriad Pro"
+}
+
+.datosRecursosAsignados{
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr;
+}
+
+.recursosAsignados {
+  display: block;
+  grid-colum: 2/3;
+}
+
+.datosBienesIntercambiables {
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "titulo titulo titulo titulo"
+                    ". tipobien tipodocbien ."
+                      ". idbien iddocbien ."
+                      ". opcional opcional2 ."
+                      ". cantidad vacio ."
+                      ". agregar agregar .";
+}
+
+.bienesIntercambiables {
+  grid-area: titulo;
+}
+
+.bienesIntercambiables1 {
+  grid-area: tipobien;
+}
+
+.bienesIntercambiables2 {
+  grid-area: idbien;
+}
+
+.bienesIntercambiables3 {
+  grid-area: tipodocbien;
+}
+
+.bienesIntercambiables4 {
+  grid-area: iddocbien;
+}
+
+.bienesIntercambiables5 {
+  grid-area: cantidad;
+  justify-self:end;
+  margin-left: auto;
+  margin-right: 5%;
+}
+
+.bienesIntercambiables6 {
+  grid-area: vacio;
+  justify-self:start;
+  margin-right: auto;
+  margin-left: 5%;
+}
+
+.botonBienesAsignados {
+  grid-area: agregar;
+  min-width: 250px;
+  width: 10%;
+  justify-self:center;
+}
+
+.bienesIntercambiablesOpt {
+  grid-area: opcional;
+}
+
+.bienesIntercambiablesOpt2 {
+  grid-area: opcional2;
+}

@@ -1,0 +1,32 @@
+.movimientos {
+  margin: 10px ;
+  margin-left: 42%;
+  margin-right: auto;
+  min-width: 250px;
+  width: 10%;
+  padding: 10px;
+  layout: "column";
+  layout-align: "center center"
+}
+
+ul {
+  margin-left: 40%;
+}
+
+mat-form-field{
+  margin-bottom: 1em;
+}
+
+.button-back{
+  left: 1em;
+  width: 30%;
+  text-align: left;
+}
+
+.desactivado {
+  background-color: #9494b8;
+  color: white;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+}

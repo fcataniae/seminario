@@ -38,6 +38,9 @@ import {
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { CustomLocationStrategy } from 'src/app/app.common';
+import { MovimientosComponent } from './movimientos/movimientos.component';
+import { RecepcionComponent } from './movimientos/recepcion/recepcion.component';
+import { EnvioComponent } from './movimientos/envio/envio.component';
 
 
 @NgModule({
@@ -54,7 +57,10 @@ import { CustomLocationStrategy } from 'src/app/app.common';
     AltaRolComponent,
     EditarRolComponent,
     ModificarRolComponent,
-    ConfirmacionPopupComponent
+    ConfirmacionPopupComponent,
+    MovimientosComponent,
+    RecepcionComponent,
+    EnvioComponent
   ],
   imports: [
     BrowserModule,

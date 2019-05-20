@@ -5,7 +5,9 @@ import { HomeComponent }      from './home/home.component';
 import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-personas/gestion-personas.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
-
+import { MovimientosComponent } from './movimientos/movimientos.component';
+import { RecepcionComponent } from './movimientos/recepcion/recepcion.component';
+import { EnvioComponent } from './movimientos/envio/envio.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,7 +15,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'home/adm/personas', component: GestionPersonasComponent},
   { path: 'home/adm/usuarios', component: EditarUsuarioComponent},
-  { path: 'home/adm/roles', component: EditarRolComponent}
+  { path: 'home/adm/roles', component: EditarRolComponent},
+  { path: 'home/movimientos', component: MovimientosComponent},
+  { path: 'home/movimientos/recepcion', component: RecepcionComponent},
+  { path: 'home/movimientos/envio', component: EnvioComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes, { useHash: true }) ],
