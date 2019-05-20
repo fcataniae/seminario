@@ -154,8 +154,12 @@ public class MovimientoService {
 
     }
 
-    public List<TipoMovimiento> getMovimientos(){
-        return tipoMovimientoRepository.findAll();
+    public List<TipoMovimiento> getTipoMovimientos(Usuario usuarioActual){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV")) {
+            return tipoMovimientoRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar recursos");
+        }
     }
 
 
