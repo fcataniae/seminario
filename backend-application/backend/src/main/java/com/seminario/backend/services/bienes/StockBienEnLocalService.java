@@ -1,10 +1,11 @@
 package com.seminario.backend.services.bienes;
 
-import com.seminario.backend.model.bienes.Local;
-import com.seminario.backend.model.bienes.BienIntercambiable;
-import com.seminario.backend.repository.bienes.StockBienEnLocalRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 /**
  * Usuario: Franco
@@ -15,18 +16,18 @@ import org.springframework.stereotype.Service;
 public class StockBienEnLocalService {
 
     @Autowired
-    StockBienEnLocalRepository stockBienEnLocalRepository;
+    EntityManagerFactory emf;
 
     private void actualizarStock(Long localNro, Long biId, Long cantNueva, String tipoStock, boolean resta){
 
-        Long cantActual = stockBienEnLocalRepository.findStockLibre(tipoStock,  localNro, biId);
+        Long cantActual = findStockByLocalAndBi(tipoStock,  localNro, biId);
         if (resta) {
             cantActual -= cantNueva;
             cantActual = (cantActual < 0) ? 0 : cantActual;
         } else {
             cantActual += cantNueva;
         }
-        stockBienEnLocalRepository.updateStock(tipoStock, cantActual, localNro, biId);
+        updateStock(tipoStock, cantActual, localNro, biId);
     }
 
     public void aumentarStockDestruido(Long localNro, Long biId,  Long cant){
@@ -61,8 +62,31 @@ public class StockBienEnLocalService {
         this.actualizarStock(localNro, biId, cant, "STOCK_RESERVADO", true);
     }
 
+    public Long findStockByLocalAndBi(String tipoStock, Long locaNro, Long biId){
+        EntityManager em = emf.createEntityManager();
 
+        Long stock = (Long) em.createNativeQuery("select "+tipoStock+" from STOCK_BIEN_EN_LOCAL " +
+                " where LOCAL_NRO = ?1 and BI_ID = ?2")
+                .setParameter(1,locaNro)
+                .setParameter(2,biId)
+                .getSingleResult();
+        em.close();
+        return stock;
 
+    }
 
+    public void updateStock(String tipoStock, Long cant, Long localNro, Long bienIntercambiableId){
+
+        EntityManager em = emf.createEntityManager();
+
+        em.createNativeQuery(" update STOCK_BIEN_EN_LOCAL SET "+tipoStock+" = ?1 " +
+                " where LOCAL_NRO = ?2 and BI_ID = ?3")
+                .setParameter(1,cant)
+                .setParameter(2,localNro)
+                .setParameter(3,bienIntercambiableId)
+                .executeUpdate();
+
+        em.close();
+    }
 
 }

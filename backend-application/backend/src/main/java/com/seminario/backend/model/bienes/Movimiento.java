@@ -26,16 +26,13 @@ public class Movimiento {
     @Column
     private Long destino;
 
-    @Column
-    private TipoLocal tipoLocalDestino;
 
-    @Column
-    private TipoLocal tipoLocalOrigen;
 
-    @Column
+    @JoinColumn(name = "id_tipo_movimiento")
     private TipoMovimiento tipoMovimiento;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_documento")
     private TipoDocumento tipoDocumento;
 
     @Column
@@ -153,21 +150,6 @@ public class Movimiento {
         this.idTransportista = idTransportista;
     }
 
-    public TipoLocal getTipoLocalOrigen() {
-        return tipoLocalOrigen;
-    }
-
-    public void setTipoLocalOrigen(TipoLocal tipoLocalOrigen) {
-        this.tipoLocalOrigen = tipoLocalOrigen;
-    }
-
-    public TipoLocal getTipoLocalDestino() {
-        return tipoLocalDestino;
-    }
-
-    public void setTipoLocalDestino(TipoLocal tipoLocalDestino) {
-        this.tipoLocalDestino = tipoLocalDestino;
-    }
 
     public EstadoViaje getEstadoViaje() {
         return estadoViaje;

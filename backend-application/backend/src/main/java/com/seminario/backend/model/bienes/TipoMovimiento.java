@@ -18,10 +18,10 @@ public class TipoMovimiento {
     @Column(unique=true)
     private String nombre;
 
-    @Column
+    @JoinColumn(name = "id_tipo_destino")
     private TipoLocal tipoLocalDestino;
 
-    @Column
+    @JoinColumn(name = "id_tipo_origen")
     private TipoLocal tipoLocalOrigen;
 
     public Long getId() {

@@ -9,5 +9,5 @@ import java.util.List;
 public interface LocalRepository extends JpaRepository<Local, Long> {
     Local findByNro(Long nro);
     Local findByNombre(String nombre);
-    List<Local> findAllWhereTipo(TipoLocal tipoLocal);
+    List<Local> findAllByTipoLocal(TipoLocal tipoLocal);
 }

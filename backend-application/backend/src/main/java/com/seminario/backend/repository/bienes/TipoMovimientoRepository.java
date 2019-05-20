@@ -8,7 +8,7 @@ import com.seminario.backend.model.bienes.TipoMovimiento;
 
 public interface TipoMovimientoRepository extends JpaRepository<TipoMovimiento, Long> {
 
-    @Query("SELECT t from TipoMovimiento t" +
-            "WHERE t.nombre = ?1 and t.origen = ?2 and t.destino = ?3")
-    TipoMovimiento findTipoMovByNombreAndOrigenAndDestino(String tipoMovimientoNombre, TipoLocal origen, TipoLocal destino);
+    @Query("SELECT t from TipoMovimiento t " +
+            "WHERE t.nombre = ?1 and t.tipoLocalOrigen = ?2 and t.tipoLocalDestino = ?3")
+    TipoMovimiento findByNombreAndTipoOrigenAndTipoDestino(String tipoMovimientoNombre, TipoLocal origen, TipoLocal destino);
 }

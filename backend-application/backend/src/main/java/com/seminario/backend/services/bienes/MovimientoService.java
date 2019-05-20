@@ -4,6 +4,7 @@ import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.ItemMovimiento;
 import com.seminario.backend.model.bienes.Movimiento;
 import com.seminario.backend.model.bienes.TipoLocal;
+import com.seminario.backend.model.bienes.TipoMovimiento;
 import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.repository.abm.EstadoRepository;
 import com.seminario.backend.repository.bienes.*;
@@ -44,8 +45,8 @@ public class MovimientoService {
 
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo, List<ItemMovimiento> items) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
-            if (null != tipoMovimientoRepository.findTipoMovByNombreAndOrigenAndDestino(
-                    movimientoNuevo.getTipoMovimiento().getNombre(),movimientoNuevo.getTipoLocalOrigen(), movimientoNuevo.getTipoLocalDestino())) {
+            if (null != tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
+                    movimientoNuevo.getTipoMovimiento().getNombre(),movimientoNuevo.getTipoMovimiento().getTipoLocalOrigen(), movimientoNuevo.getTipoMovimiento().getTipoLocalDestino())) {
 
                 movimientoNuevo.setId(null);
                 validarMovimiento(movimientoNuevo);
@@ -83,8 +84,8 @@ public class MovimientoService {
      *
      * */
     public void validarMovimiento(Movimiento movimiento) throws CustomException{
-        TipoLocal TipoLocalOrigen = movimiento.getTipoLocalOrigen();
-        TipoLocal TipoLocalDestino = movimiento.getTipoLocalDestino();
+        TipoLocal TipoLocalOrigen = movimiento.getTipoMovimiento().getTipoLocalOrigen();
+        TipoLocal TipoLocalDestino = movimiento.getTipoMovimiento().getTipoLocalDestino();
         // Valido Nros de Origen
         if (TipoLocalOrigen.getNombre().equals("PROVEEDOR")){
             if (null == proveedorRepository.findByNro(movimiento.getOrigen())){
@@ -151,6 +152,10 @@ public class MovimientoService {
 
         }
 
+    }
+
+    public List<TipoMovimiento> getMovimientos(){
+        return tipoMovimientoRepository.findAll();
     }
 
 

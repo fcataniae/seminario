@@ -37,7 +37,8 @@ public class Local {
     @Column
     private String coordenada;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_local")
     private TipoLocal tipoLocal;
 
     @Column

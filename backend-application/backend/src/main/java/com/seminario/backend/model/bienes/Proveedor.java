@@ -54,7 +54,8 @@ public class Proveedor {
         this.tipoProveedor = tipoProveedor;
     }
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_proveedor")
     private TipoProveedor tipoProveedor;
 
     @Override

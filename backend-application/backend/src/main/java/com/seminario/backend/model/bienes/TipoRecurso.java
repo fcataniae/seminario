@@ -1,7 +1,6 @@
 package com.seminario.backend.model.bienes;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Usuario: Franco
@@ -12,4 +11,7 @@ import javax.persistence.Entity;
 @Cacheable(false)
 public class TipoRecurso {
 
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long id;
 }
