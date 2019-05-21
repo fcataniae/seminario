@@ -1,6 +1,6 @@
 import { Component, Inject} from '@angular/core';
-import { Usuario } from '../../../model/usuario.model';
-import { Rol } from '../../../model/rol.model';
+import { Usuario } from '../../../model/abm/usuario.model';
+import { Rol } from '../../../model/abm/rol.model';
 import { RolService } from './../../../services/rol.service';
 import {forkJoin} from 'rxjs';
 import { map } from 'rxjs/operators';

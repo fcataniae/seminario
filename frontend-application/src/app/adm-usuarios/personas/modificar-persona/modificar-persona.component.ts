@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Persona } from './../../../model/persona.model';
+import { Persona } from './../../../model/abm/persona.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
 

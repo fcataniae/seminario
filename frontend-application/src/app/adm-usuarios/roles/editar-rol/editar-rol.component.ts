@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Rol } from '../../../model/rol.model';
+import { Rol } from '../../../model/abm/rol.model';
 import { RolService } from './../../../services/rol.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ConfirmacionPopupComponent } from '../../confirmacion-popup/confirmacion-popup.component';

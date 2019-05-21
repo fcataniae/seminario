@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Persona } from './../../../model/persona.model';
+import { Persona } from './../../../model/abm/persona.model';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material';
 

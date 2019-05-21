@@ -5,9 +5,9 @@ import { HomeComponent }      from './home/home.component';
 import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-personas/gestion-personas.component';
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
-import { MovimientosComponent } from './movimientos/movimientos.component';
-import { RecepcionComponent } from './movimientos/recepcion/recepcion.component';
-import { EnvioComponent } from './movimientos/envio/envio.component';
+import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
+import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
+import { EnvioComponent } from './bienes/envio/envio.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

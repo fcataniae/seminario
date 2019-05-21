@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from '../../../model/persona.model';
+import { Persona } from '../../../model/abm/persona.model';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { PersonaService } from '../../../services/persona.service';

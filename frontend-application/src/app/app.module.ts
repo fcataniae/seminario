@@ -38,9 +38,9 @@ import {
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { CustomLocationStrategy } from 'src/app/app.common';
-import { MovimientosComponent } from './movimientos/movimientos.component';
-import { RecepcionComponent } from './movimientos/recepcion/recepcion.component';
-import { EnvioComponent } from './movimientos/envio/envio.component';
+import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
+import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
+import { EnvioComponent } from './bienes/envio/envio.component';
 
 
 @NgModule({

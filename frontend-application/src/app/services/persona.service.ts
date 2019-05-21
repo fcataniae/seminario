@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Persona }  from '../model/persona.model';
+import { Persona }  from '../model/abm/persona.model';
 import { HttpHeaders } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 

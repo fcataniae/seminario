@@ -1,6 +1,6 @@
 import { Component, Inject, ViewChild  } from '@angular/core';
-import { Rol } from '../../../model/rol.model';
-import { Permiso } from '../../../model/permiso.model';
+import { Rol } from '../../../model/abm/rol.model';
+import { Permiso } from '../../../model/abm/permiso.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RolService } from './../../../services/rol.service';
 import { PermisoService } from './../../../services/permiso.service';

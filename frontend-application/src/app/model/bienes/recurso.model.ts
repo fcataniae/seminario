@@ -1,4 +1,4 @@
-export class RecursoAsignado {
+export class Recurso {
 
   posicion: number;
   tipoRecurso: string;

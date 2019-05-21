@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../../model/usuario.model';
+import { Usuario } from '../../../model/abm/usuario.model';
 import { MatDialogRef } from '@angular/material';
-import { Persona } from '../../../model/persona.model';
+import { Persona } from '../../../model/abm/persona.model';
 
 @Component({
   selector: 'app-alta-usuario',

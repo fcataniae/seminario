@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TipoMovimiento } from './TipoMovimiento';
+import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 
 @Component({
   selector: 'app-movimientos',

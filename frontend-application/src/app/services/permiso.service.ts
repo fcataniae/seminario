@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Permiso }  from '../model/permiso.model';
+import { Permiso }  from '../model/abm/permiso.model';
 import { HttpHeaders } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 

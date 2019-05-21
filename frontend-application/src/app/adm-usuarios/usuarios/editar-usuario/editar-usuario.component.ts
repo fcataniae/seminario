@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Usuario } from '../../../model/usuario.model';
+import { Usuario } from '../../../model/abm/usuario.model';
 import { UsuarioService } from './../../../services/usuario.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MatTableDataSource } from '@angular/material';
