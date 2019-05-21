@@ -1,14 +1,10 @@
 .movimientos {
   margin: 10px ;
-  margin-left: 41%;
+  margin-left: auto;
   margin-right: auto;
   min-width: 250px;
   width: 10%;
   padding: 10px;
-}
-
-ul {
-  margin-left: 40%;
 }
 
 mat-form-field{
@@ -17,7 +13,6 @@ mat-form-field{
 }
 
 .button-back{
-  left: 1em;
   width: 30%;
   text-align: left;
 }
