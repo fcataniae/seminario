@@ -8,7 +8,7 @@
   <mat-form-field>
     <mat-label>Movimiento</mat-label>
     <mat-select [(value)]="MovSelected">
-      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento.path">
+      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento.tipo">
         {{movimiento.nombre}}
       </mat-option>
     </mat-select>
@@ -35,7 +35,7 @@
 
 <ul>
   <li>
-    <a routerLink="{{MovSelected}}" *ngIf="(OriSelected!=null && DestSelected!=null)"><span>Siguiente</span></a>
+    <a routerLink="{{MovSelected | lowercase}}" *ngIf="(OriSelected!=null && DestSelected!=null)"><span>Siguiente</span></a>
   </li>
   <li>
     <a *ngIf="!(OriSelected!=null && DestSelected!=null)" class="desactivado"><span>Siguiente</span></a>

@@ -4,6 +4,7 @@ import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import {MovimientoService} from "../../services/movimiento.service";
 import {Agente} from "../../model/bienes/agente.model";
 
+
 @Component({
   selector: 'app-movimientos',
   templateUrl: './movimientos.component.html',
