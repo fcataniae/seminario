@@ -1,5 +1,6 @@
 package com.seminario.backend.services.bienes;
 
+import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.ItemMovimiento;
 import com.seminario.backend.model.bienes.Movimiento;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class MovimientoService {
 
     @Autowired
     StockBienEnLocalService stockBienEnLocalService;
+
+    @Autowired
+    TipoLocalRepository tipoLocalRepository;
 
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
@@ -162,5 +167,37 @@ public class MovimientoService {
         }
     }
 
+
+    public List<Agente> getAllAgentes(Usuario usuarioActual) {
+
+       // if (null == permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV"))
+
+        List<Agente> agentes = new ArrayList<>();
+
+        TipoLocal prov = tipoLocalRepository.findByNombre("PROVEEDOR");
+        TipoLocal loca = tipoLocalRepository.findByNombre("LOCAL");
+
+        proveedorRepository.findAll().forEach( p -> {
+            Agente a = new Agente();
+            a.setDenominacion(p.getDenominacion());
+            a.setDireccion(p.getDireccion());
+            a.setNro(p.getNro());
+            a.setNombre(p.getNombre());
+            a.setTipoLocal(prov);
+            agentes.add(a);
+        });
+
+        localRepository.findAll().forEach( l -> {
+            Agente a = new Agente();
+            a.setDenominacion(l.getDenominacion());
+            a.setDireccion(l.getDireccion());
+            a.setNro(l.getNro());
+            a.setNombre(l.getNombre());
+            a.setTipoLocal(loca);
+            agentes.add(a);
+        });
+
+        return agentes;
+    }
 
 }

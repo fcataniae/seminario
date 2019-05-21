@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { TipoMovimiento } from '../model/bienes/tipomovimiento.model';
 import { environment } from '../../environments/environment';
+import {Agente} from "../model/bienes/agente.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,8 @@ export class MovimientoService {
   getAllTipoMovimientos() : Observable<TipoMovimiento[]>{
     return this._http.get<TipoMovimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-movimientos');
   }
-  
+
+  getAllAgentes() : Observable<Agente[]>{
+    return this._http.get<Agente[]>(environment.serviceUrl.replace('service','bienes') + 'listar-agentes');
+  }
 }

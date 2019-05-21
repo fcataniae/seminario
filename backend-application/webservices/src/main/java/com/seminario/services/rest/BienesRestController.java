@@ -1,5 +1,6 @@
 package com.seminario.services.rest;
 
+import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.BienIntercambiable;
 import com.seminario.backend.model.bienes.Recurso;
@@ -83,5 +84,9 @@ public class BienesRestController {
         return recursoService.getRecursos(usuarioActual);
     }
 
-
+    @GetMapping("/listar-agentes")
+    public List<Agente> getAgentes(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllAgentes(usuarioActual);
+    }
 }
