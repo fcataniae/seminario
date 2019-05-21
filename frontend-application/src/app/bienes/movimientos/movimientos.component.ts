@@ -15,7 +15,9 @@ export class MovimientosComponent implements OnInit {
   movimientos: TipoMovimiento[];
   origenes: Agente[];
   destinos: Agente[];
-
+  selectedMov: TipoMovimiento;
+  selectedDest: Agente;
+  selectedOrig: Agente;
   disable: boolean = true;
 
   constructor(private _router : Router,
@@ -36,6 +38,18 @@ export class MovimientosComponent implements OnInit {
     this._router.navigate(['home']);
   }
 
+  onChangeMovimiento(){
+    console.log(this.selectedMov);
+    this._movimientoService.getAllAgentes().subscribe(
+      res => {
+        console.log(res);
+        this.origenes = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalOrigen.id);
+        this.destinos = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalDestino.id);
+      },
+      error => console.log(error)
+    );
+
+  }
 
 
 }

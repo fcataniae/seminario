@@ -7,8 +7,8 @@
 
   <mat-form-field>
     <mat-label>Movimiento</mat-label>
-    <mat-select [(value)]="MovSelected">
-      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento.tipo">
+    <mat-select [(ngModel)]="selectedMov" (ngModelChange)="onChangeMovimiento()">
+      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento">
         {{movimiento.nombre}}
       </mat-option>
     </mat-select>
@@ -16,18 +16,18 @@
 
   <mat-form-field>
     <mat-label>Origen</mat-label>
-    <mat-select [(value)]="OriSelected" [disabled]="MovSelected==null">
+    <mat-select [(value)]="selectedOrig" [disabled]="selectedMov==null">
       <mat-option *ngFor="let origen of origenes" [value]="origen">
-        {{origen.nro}} {{origen.nombre}}
+        {{origen.nro}} - {{origen.nombre}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Destino</mat-label>
-    <mat-select [(value)]="DestSelected" [disabled]="MovSelected==null">
+    <mat-select [(value)]="selectedDest" [disabled]="selectedMov==null">
       <mat-option *ngFor="let destino of destinos" [value]="destino">
-        {{destino.nro}} {{destino.nombre}}
+        {{destino.nro}} - {{destino.nombre}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -41,7 +41,3 @@
     <a *ngIf="!(OriSelected!=null && DestSelected!=null)" class="desactivado"><span>Siguiente</span></a>
   </li>
 </ul>
-
-
-
-
