@@ -18,7 +18,7 @@
     <mat-label>Origen</mat-label>
     <mat-select [(value)]="OriSelected" [disabled]="MovSelected==null">
       <mat-option *ngFor="let origen of origenes" [value]="origen">
-        {{origen}}
+        {{origen.nro}} {{origen.nombre}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -27,7 +27,7 @@
     <mat-label>Destino</mat-label>
     <mat-select [(value)]="DestSelected" [disabled]="MovSelected==null">
       <mat-option *ngFor="let destino of destinos" [value]="destino">
-        {{destino}}
+        {{destino.nro}} {{destino.nombre}}
       </mat-option>
     </mat-select>
   </mat-form-field>

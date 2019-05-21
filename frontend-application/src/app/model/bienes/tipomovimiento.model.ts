@@ -1,4 +1,8 @@
+import {TipoLocal} from "./tipolocal.model";
 export class TipoMovimiento {
+  id: number;
   nombre: string;
-  path: string;
+  tipo: string;
+  tipoLocalDestino: TipoLocal;
+  tipoLocalOrigen: TipoLocal;
 }
