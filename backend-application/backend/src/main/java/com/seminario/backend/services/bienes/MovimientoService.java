@@ -46,7 +46,7 @@ public class MovimientoService {
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo, List<ItemMovimiento> items) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
             if (null != tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
-                    movimientoNuevo.getTipoMovimiento().getNombre(),movimientoNuevo.getTipoMovimiento().getTipoLocalOrigen(), movimientoNuevo.getTipoMovimiento().getTipoLocalDestino())) {
+                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoLocalOrigen(), movimientoNuevo.getTipoMovimiento().getTipoLocalDestino())) {
 
                 movimientoNuevo.setId(null);
                 validarMovimiento(movimientoNuevo);
@@ -132,22 +132,22 @@ public class MovimientoService {
     * */
     private void actualizarStockYDeuda(Movimiento movimiento, List<ItemMovimiento> items) {
         // Decido accion a realiza en base al tipo de movimientoNuevo
-        if (movimiento.getTipoMovimiento().getNombre().equals("ENVIO")) {
+        if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
-        } else if (movimiento.getTipoMovimiento().getNombre().equals("DEVOLUCION")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("DEVOLUCION")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
             // Vales en estado Reservado
-        } else if (movimiento.getTipoMovimiento().getNombre().equals("RECEPCION")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCION")) {
             // Actualizo Stock Origen (+) y Destino (-)
-        } else if (movimiento.getTipoMovimiento().getNombre().equals("INTERCAMBIO")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("INTERCAMBIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
 
         }

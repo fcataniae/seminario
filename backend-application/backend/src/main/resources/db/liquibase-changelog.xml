@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
     <include file="classpath:db/liquibase-output.xml" />
 
     <changeSet author="Franco" id ="1999">
@@ -59,6 +60,20 @@
             <column name="rol_id" type="NUMERIC" />
             <column name="permisos_id" type="NUMERIC" />
         </loadUpdateData>
+        <loadUpdateData tableName="tipolocal"
+                        file="classpath:db/csv/tipo_locales.csv"
+                        primaryKey="id">
+            <column name="id" type="NUMERIC" />
+            <column name="nombre" type="STRING" />
+        </loadUpdateData>
+        <loadUpdateData tableName="tipomovimiento"
+                        file="classpath:db/csv/tipo_movimientos.csv"
+                        primaryKey="id">
+            <column name="id" type="NUMERIC" />
+            <column name="tipo" type="STRING" />
+            <column name="nombre" type="STRING" />
+            <column name="id_tipo_destino" type="NUMERIC" />
+            <column name="id_tipo_origen" type="NUMERIC" />
+        </loadUpdateData>
     </changeSet>
-
 </databaseChangeLog>

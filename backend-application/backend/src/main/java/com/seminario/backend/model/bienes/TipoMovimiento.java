@@ -15,7 +15,10 @@ public class TipoMovimiento {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column
+    private String tipo;
+
+    @Column
     private String nombre;
 
     @JoinColumn(name = "id_tipo_destino")
@@ -23,6 +26,14 @@ public class TipoMovimiento {
 
     @JoinColumn(name = "id_tipo_origen")
     private TipoLocal tipoLocalOrigen;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
     public Long getId() {
         return id;
@@ -32,12 +43,12 @@ public class TipoMovimiento {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public TipoLocal getTipoLocalDestino() {
