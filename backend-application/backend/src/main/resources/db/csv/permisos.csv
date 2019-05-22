@@ -31,10 +31,10 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1026, ,Permite dar de baja movimientos,BAJA-TIPOMOV,1
 1027, ,Permite modificar movimientos,MODI-TIPOMOV,1
 1028, ,Permite consultar movimientos,CONS-TIPOMOV,1
-1029, ,Permite dar de alta agentes,ALTA-LOCAL,1
-1030, ,Permite dar de baja agentes,BAJA-LOCAL,1
-1031, ,Permite modificar agentes,MODI-LOCAL,1
-1032, ,Permite consultar agentes,CONS-LOCAL,1
+1029, ,Permite dar de alta agentes,ALTA-AGENTE,1
+1030, ,Permite dar de baja agentes,BAJA-AGENTE,1
+1031, ,Permite modificar agentes,MODI-AGENTE,1
+1032, ,Permite consultar agentes,CONS-AGENTE,1
 1033, ,Permite dar de alta estados,ALTA-ESTADO,1
 1034, ,Permite dar de baja estados,BAJA-ESTADO,1
 1035, ,Permite modificar estados,MODI-ESTADO,1
