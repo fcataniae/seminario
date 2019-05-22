@@ -1,11 +1,11 @@
 package com.seminario.backend.services.bienes;
 
-import com.seminario.backend.model.bienes.TipoLocal;
+import com.seminario.backend.model.bienes.TipoAgente;
 import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.repository.bienes.LocalRepository;
 import com.seminario.backend.model.bienes.Local;
 import com.seminario.backend.model.abm.Usuario;
-import com.seminario.backend.repository.bienes.TipoLocalRepository;
+import com.seminario.backend.repository.bienes.TipoAgenteRepository;
 import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class LocalService {
     PermisoRepository permisoRepository;
 
     @Autowired
-    TipoLocalRepository tipoLocalRepository;
+    TipoAgenteRepository tipoAgenteRepository;
 
     // quedaria getAgentes en una nueva version.
     public List<Local> getLocales (Usuario usuarioActual){
@@ -36,8 +36,8 @@ public class LocalService {
 
     public List<Local> getTiendas (Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
-            TipoLocal tienda  = tipoLocalRepository.findByNombre("TIENDA");
-            return localRepository.findAllByTipoLocal(tienda);
+            TipoAgente tienda  = tipoAgenteRepository.findByNombre("LOCAL");
+            return localRepository.findAllByTipoAgente(tienda);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar tiendas");
         }
@@ -45,8 +45,8 @@ public class LocalService {
 
     public List<Local> getProveedores (Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
-            TipoLocal tipoProveedor  = tipoLocalRepository.findByNombre("PROVEEDOR");
-            return localRepository.findAllByTipoLocal(tipoProveedor);
+            TipoAgente tipoProveedor  = tipoAgenteRepository.findByNombre("PROVEEDOR");
+            return localRepository.findAllByTipoAgente(tipoProveedor);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar proveedores");
         }
@@ -54,8 +54,8 @@ public class LocalService {
 
     public List<Local> getCDs (Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
-            TipoLocal tipoCD  = tipoLocalRepository.findByNombre("CENTRODISTR");
-            return localRepository.findAllByTipoLocal(tipoCD);
+            TipoAgente tipoCD  = tipoAgenteRepository.findByNombre("CENTRODISTR");
+            return localRepository.findAllByTipoAgente(tipoCD);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar centros de distribucion");
         }

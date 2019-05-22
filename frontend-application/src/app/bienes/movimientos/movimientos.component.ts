@@ -44,8 +44,8 @@ export class MovimientosComponent implements OnInit {
     this._movimientoService.getAllAgentes().subscribe(
       res => {
         console.log(res);
-        this.origenes = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalOrigen.id);
-        this.destinos = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalDestino.id);
+        this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
+        this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
       },
       error => console.log(error)
     );

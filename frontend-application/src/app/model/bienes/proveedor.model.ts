@@ -1,7 +1,7 @@
 import {Agente} from "./agente.model";
-import { TipoLocal } from "./tipolocal.model";
+import { TipoAgente } from "./tipoagente.model";
 export class Proveedor implements Agente{
-  tipoLocal: TipoLocal;
+  tipoAgente: TipoAgente;
   nro: number;
   denominacion: string;
   nombre: string;

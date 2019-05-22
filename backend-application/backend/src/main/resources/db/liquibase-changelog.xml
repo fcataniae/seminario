@@ -60,7 +60,7 @@
             <column name="rol_id" type="NUMERIC" />
             <column name="permisos_id" type="NUMERIC" />
         </loadUpdateData>
-        <loadUpdateData tableName="tipolocal"
+        <loadUpdateData tableName="tipoAgente"
                         file="classpath:db/csv/tipo_locales.csv"
                         primaryKey="id">
             <column name="id" type="NUMERIC" />

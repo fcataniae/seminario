@@ -22,10 +22,10 @@ public class TipoMovimiento {
     private String nombre;
 
     @JoinColumn(name = "id_tipo_destino")
-    private TipoLocal tipoLocalDestino;
+    private TipoAgente tipoAgenteDestino;
 
     @JoinColumn(name = "id_tipo_origen")
-    private TipoLocal tipoLocalOrigen;
+    private TipoAgente tipoAgenteOrigen;
 
     public String getNombre() {
         return nombre;
@@ -51,19 +51,19 @@ public class TipoMovimiento {
         this.tipo = tipo;
     }
 
-    public TipoLocal getTipoLocalDestino() {
-        return tipoLocalDestino;
+    public TipoAgente getTipoAgenteDestino() {
+        return tipoAgenteDestino;
     }
 
-    public void setTipoLocalDestino(TipoLocal tipoLocalDestino) {
-        this.tipoLocalDestino = tipoLocalDestino;
+    public void setTipoAgenteDestino(TipoAgente tipoAgenteDestino) {
+        this.tipoAgenteDestino = tipoAgenteDestino;
     }
 
-    public TipoLocal getTipoLocalOrigen() {
-        return tipoLocalOrigen;
+    public TipoAgente getTipoAgenteOrigen() {
+        return tipoAgenteOrigen;
     }
 
-    public void setTipoLocalOrigen(TipoLocal tipoLocalOrigen) {
-        this.tipoLocalOrigen = tipoLocalOrigen;
+    public void setTipoAgenteOrigen(TipoAgente tipoAgenteOrigen) {
+        this.tipoAgenteOrigen = tipoAgenteOrigen;
     }
 }

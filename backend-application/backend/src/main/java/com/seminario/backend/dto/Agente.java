@@ -1,6 +1,6 @@
 package com.seminario.backend.dto;
 
-import com.seminario.backend.model.bienes.TipoLocal;
+import com.seminario.backend.model.bienes.TipoAgente;
 
 /**
  * User: fcatania
@@ -23,14 +23,14 @@ public class Agente {
 
     private String direccion;
 
-    private TipoLocal tipoLocal;
+    private TipoAgente tipoAgente;
 
-    public TipoLocal getTipoLocal() {
-        return tipoLocal;
+    public TipoAgente getTipoAgente() {
+        return tipoAgente;
     }
 
-    public void setTipoLocal(TipoLocal tipoLocal) {
-        this.tipoLocal = tipoLocal;
+    public void setTipoAgente(TipoAgente tipoAgente) {
+        this.tipoAgente = tipoAgente;
     }
 
     public Agente() {

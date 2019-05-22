@@ -1,5 +1,5 @@
 
-export class TipoLocal{
+export class TipoAgente{
   id : number;
   nombre: string;
 }
