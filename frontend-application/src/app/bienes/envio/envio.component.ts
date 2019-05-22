@@ -1,19 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-
-export class Bien{
-  tipoBien: string;
-  bien: string;
-  tipoDoc: string;
-  nroDoc: number;
-  cantidad: number;
-  vacio: boolean;
-}
-
-export class Recurso{
-  tipoRecurso: string;
-  idRecurso: number;
-}
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { Location } from '@angular/common';
+import { AgregarBienComponent } from '../agregar-bien/agregar-bien.component';
+import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.component';
+import { Bien } from '../../model/bienes/bien.model';
+import { Recurso } from '../../model/bienes/recurso.model';
 
 @Component({
   selector: 'app-envio',
@@ -33,7 +24,10 @@ export class EnvioComponent implements OnInit {
   columnsToDisplayBien = ['tipoBien','bien','tipoDoc','nroDoc','cantidad','vacio'];
   columnsToDisplayRecurso = ['tipoRecurso','idRecurso'];
 
-  constructor() { }
+  constructor(private location: Location,
+              private dialogAgregarBien: MatDialog,
+              private dialogAgregarRecurso: MatDialog,
+              ) { }
 
   ngOnInit() {
 
@@ -49,6 +43,22 @@ export class EnvioComponent implements OnInit {
   this.datosTablaRecursos.sort = this.sortRecursos;
   this.datosTablaRecursos.paginator = this.paginatorRecursos;
 
+  }//END OnInit
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  onAgregarBien() {
+    const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
+      width: '50%'
+    });
+  }
+
+  onAgregarRecurso() {
+    const dialogRef = this.dialogAgregarRecurso.open(AgregarRecursoComponent,{
+      width: '50%'
+    });
   }
 
 }

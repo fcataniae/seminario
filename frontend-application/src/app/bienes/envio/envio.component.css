@@ -1,7 +1,7 @@
 .contenedorEnvio {/*Contiene datosEnvio, datosRecursos, datosBienes, confirmar*/
   display: grid;
-  grid-template-colums: 1fr;
-  grid-template-rows: 1fr 3fr 6fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr 4fr 1fr;
   grid-template-areas: "barraSuperior"
                        "datosEnvio"
                        "datosRecursosYdatosBienes"
@@ -13,7 +13,7 @@
   border-bottom: 1px solid #0055ba;
   grid-area: barraSuperior;
   display: grid;
-  grid-template-colums: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: " atras tituloMovimiento ."
 }
@@ -24,7 +24,7 @@
   border-top: 1px solid #0055ba;
   grid-area: datosEnvio;
   display: grid;
-  grid-template-colums: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: "tituloEnvio tituloEnvio tituloEnvio"
                        "tipoDocEnvio fechaEnvio idTransportista"
@@ -35,7 +35,7 @@
   grid-area: datosRecursosYdatosBienes;
   border-bottom: 1px double #0055ba;
   display: grid;
-  grid-template-colums: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: "datosBienes datosRecursos"
 }
@@ -47,12 +47,10 @@
   border-bottom: 1px double #0055ba;
   grid-area: datosBienes;
   display: grid;
-  grid-template-colums: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 3fr;
-  grid-template-areas: "tituloBien tituloBien agregarBien"
-                       "tipoBien cantidad tipoDocBien"
-                       "bien vacio idDocBien"
-                       "tablaBien tablaBien tablaBien";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas: "tituloBien agregarBien"
+                       "tablaBien tablaBien";
 }
 
 .datosRecursos {
@@ -62,10 +60,9 @@
   border-bottom: 1px double #0055ba;
   grid-area: datosRecursos;
   display: grid;
-  grid-template-colums: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 3fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
   grid-template-areas: "tituloRecurso agregarRecurso"
-                       "tipoRecurso idRecurso"
                        "tablaRecurso tablaRecurso";
 }
 
@@ -126,32 +123,6 @@
   justify-self: center;
 }
 
-.tipoBien {
-  grid-area: tipoBien;
-}
-
-.cantidad {
-  grid-area: cantidad;
-}
-
-.tipoDocBien {
-  grid-area: tipoDocBien;
-}
-
-.bien {
-  grid-area: bien;
-}
-
-.vacio {
-  grid-area: vacio;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.idDocBien {
-  grid-area: idDocBien;
-}
-
 .tablaBien {
   grid-area: tablaBien;
 }
@@ -165,14 +136,6 @@
 .agregarRecurso {
   grid-area: agregarRecurso;
   justify-self: center;
-}
-
-.tipoRecurso {
-  grid-area: tipoRecurso;
-}
-
-.idRecurso {
-  grid-area: idRecurso;
 }
 
 .tablaRecurso {

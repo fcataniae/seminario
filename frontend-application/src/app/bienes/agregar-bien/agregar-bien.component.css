@@ -1,0 +1,76 @@
+
+.formContenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: "tipoBien bien"
+                       "tipoDocBien idDocBien"
+                       "cantidad vacio"
+                       "botones botones";
+}
+
+.botones {
+  grid-area: botones;
+  display: grid;
+  grid-templates-columns: 1fr 1fr;
+  grid-templates-rows: 1fr;
+  grid-templates-areas: "cancel submit";
+}
+
+/*CONTENIDO formContenedor*/
+.tipoBien {
+  grid-area: tipoBien;
+}
+
+.bien {
+  grid-area: bien;
+}
+
+.tipoDocBien {
+  grid-area: tipoDocBien;
+}
+
+.idDocBien {
+  grid-area: idDocBien;
+}
+
+.cantidad {
+  grid-area: cantidad;
+}
+
+.vacio {
+  grid-area: vacio;
+  padding: 5%;
+}
+
+/*CONTENIDO Botones*/
+
+.cancel {
+  grid-area: cancel;
+  justify-self: start;
+}
+
+.submit {
+  grid-area: submit;
+  justify-self: end;
+}
+
+/*OTROS*/
+h2 {
+  border-bottom: 1px solid #0055ba;
+  margin: 10px ;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  width: 90%;
+  padding: 10px;
+  text-align: center;
+  font-family: "Myriad Pro"
+}
+
+mat-form-field, input {
+  max-width: 80%;
+  min-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}

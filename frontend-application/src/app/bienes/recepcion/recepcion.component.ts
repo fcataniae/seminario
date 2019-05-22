@@ -16,8 +16,8 @@ export class RecepcionComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  datosTablaRecursos: Recurso[] = [ {posicion: 0, tipoRecurso: 'Termografo', idRecurso: 0} ];;
-  columnsToDisplay = ['No.', 'Tipo Recurso', 'ID Recurso'];
+  datosTablaRecursos: Recurso[] = [ {tipoRecurso: 'Termografo', idRecurso: 0} ];;
+  columnsToDisplay = ['Tipo Recurso', 'ID Recurso'];
 
   tipoBienes: String[] = ['Termógrafo','Pallet','Cajón','Envase'];
   bienes: String[] = ['ARLOG','CHEP','Descartable','IFCO'];

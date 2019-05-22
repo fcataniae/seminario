@@ -1,0 +1,55 @@
+<h2 mat-dialog-title class="tituloAgregarBien">Agregar Bien</h2>
+
+<form #agregarbien="ngForm" class="formContenedor">
+
+  <mat-form-field class="w70 tipoBien">
+    <mat-label>Tipo Bien</mat-label>
+    <mat-select [(value)]="TipoBienSelected" name="tipoBien" [(ngModel)]="bien.tipoBien" required>
+      <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
+        {{tipoBien}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input mat-input type="number" class="form-control cantidad" name="cantidad" placeholder="Cantidad"
+         pattern="[0-9]+"
+         title="Debe ingresar un número"
+         [(ngModel)]="bien.cantidad"
+         required
+  />
+
+  <mat-form-field class="w70 tipoDocBien">
+    <mat-label>Tipo Documento</mat-label>
+    <mat-select [(value)]="TipoDocBienSelected" name="tipoDocBien" [(ngModel)]="bien.tipoDoc" required>
+      <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
+        {{tipoDocBien}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="w70 bien">
+    <mat-label>Bien</mat-label>
+    <mat-select [(value)]="TipoBienSelected" name="bien" [(ngModel)]="bien.bien" required>
+      <mat-option *ngFor="let bien of bienes" [value]="bien">
+        {{bien}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox class="w70 vacio" name="vacio" [(ngModel)]="bien.vacio">Vacío</mat-checkbox>
+
+  <input mat-input type="number" class="form-control idDocBien" name="idDocBien" placeholder="ID Documento"
+         pattern="[0-9]+"
+         title="Debe ingresar un número"
+         [(ngModel)]="bien.idDoc"
+         required
+  />
+
+  <mat-dialog-actions class="botones">
+    <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
+    <button mat-button class="mat-raised-button mat-primary submit"
+            (click)="onSubmit()"
+            [disabled]="!agregarbien.valid">Alta</button>
+  </mat-dialog-actions>
+
+</form>

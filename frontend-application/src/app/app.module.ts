@@ -41,6 +41,8 @@ import { CustomLocationStrategy } from 'src/app/app.common';
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
 import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
+import { AgregarBienComponent } from './bienes/agregar-bien/agregar-bien.component';
+import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurso.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { EnvioComponent } from './bienes/envio/envio.component';
     ConfirmacionPopupComponent,
     MovimientosComponent,
     RecepcionComponent,
-    EnvioComponent
+    EnvioComponent,
+    AgregarBienComponent,
+    AgregarRecursoComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,9 @@ import { EnvioComponent } from './bienes/envio/envio.component';
     ModificarRolComponent,
     AltaUsuarioComponent,
     AltaPersonaComponent,
-    ModificarPersonaComponent
+    ModificarPersonaComponent,
+    AgregarBienComponent,
+    AgregarRecursoComponent
 ]
 })
 export class AppModule { }

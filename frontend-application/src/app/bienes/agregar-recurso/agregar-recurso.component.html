@@ -1,0 +1,28 @@
+<h2 mat-dialog-title class="tituloAgregarBien">Agregar Recurso</h2>
+
+<form #agregarRecurso="ngForm" class="formContenedor">
+
+  <mat-form-field class="w70 tipoRecurso">
+    <mat-label>Tipo Recurso</mat-label>
+    <mat-select [(value)]="TipoRecursoSelected" name="tipoRecursoSelect"
+                [(ngModel)]="recurso.tipoRecurso" required>
+      <mat-option *ngFor="let tipoRecurso of tipoRecursos" [value]="tipoRecurso">
+        {{tipoRecurso}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input type="number" class="form-control idRecurso" required
+         name="idRecurso" placeholder="ID Recurso"
+         pattern="[0-9]+"
+         title="Debe ingresar un número"
+         [(ngModel)]="recurso.idRecurso"/>
+
+  <mat-dialog-actions class="botones">
+    <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
+    <button mat-button class="mat-raised-button mat-primary submit"
+            (click)="onSubmit()"
+            [disabled]="!agregarRecurso.valid">Alta</button>
+  </mat-dialog-actions>
+
+</form>

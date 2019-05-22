@@ -43,39 +43,6 @@
         <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
       </button>
 
-      <mat-form-field class="tipoBien">
-        <mat-label>Tipo Bien</mat-label>
-        <mat-select [(value)]="TipoBienSelected">
-          <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
-            {{tipoBien}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <input type="number" class="form-control cantidad" name="cantidad" placeholder="Cantidad"/>
-
-      <mat-form-field class="tipoDocBien">
-        <mat-label>Tipo Documento</mat-label>
-        <mat-select [(value)]="TipoDocBienSelected">
-          <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
-            {{tipoDocBien}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="bien">
-        <mat-label>Bien</mat-label>
-        <mat-select [(value)]="TipoBienSelected">
-          <mat-option *ngFor="let bien of bienes" [value]="bien">
-            {{bien}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-checkbox class="vacio">Vacío</mat-checkbox>
-
-      <input type="number" class="form-control idDocBien" name="idDocBien" placeholder="ID Documento"/>
-
       <table class="tablaBien">
         <mat-table [dataSource]="datosTablaBienes" matSort>
 
@@ -128,17 +95,6 @@
       <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
         <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
       </button>
-
-      <mat-form-field class="tipoRecurso">
-        <mat-label>Tipo Recurso</mat-label>
-        <mat-select [(value)]="TipoRecursoSelected">
-          <mat-option *ngFor="let tipoRecurso of tipoRecursos" [value]="tipoRecurso">
-            {{tipoRecurso}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <input type="number" class="form-control idRecurso" name="idRecurso" placeholder="ID Recurso"/>
 
       <table class="tablaRecurso">
         <mat-table [dataSource]="datosTablaRecursos" matSort>
