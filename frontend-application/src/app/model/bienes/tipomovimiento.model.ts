@@ -1,8 +1,8 @@
-import {TipoLocal} from "./tipolocal.model";
+import {TipoAgente} from "./tipoagente.model";
 export class TipoMovimiento {
   id: number;
   nombre: string;
   tipo: string;
-  tipoLocalDestino: TipoLocal;
-  tipoLocalOrigen: TipoLocal;
+  tipoAgenteDestino: TipoAgente;
+  tipoAgenteOrigen: TipoAgente;
 }

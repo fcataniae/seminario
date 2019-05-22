@@ -42,6 +42,10 @@ public class Movimiento {
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Recurso> recursosAsignados;
 
+    @JoinColumn(name = "movimiento_id")
+    @OneToMany
+    private Set<ItemMovimiento> itemMovimientos;
+
     @Column
     private String usuarioAlta;
 

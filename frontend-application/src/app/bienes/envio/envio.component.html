@@ -1,1 +1,176 @@
+<div class="contenedorEnvio">
 
+  <div class="barraSuperior">
+
+    <button class="button-back" mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+    </button>
+
+    <h3 class="tituloMovimiento">Tipo de movimiento > Envío</h3>
+
+  </div>
+
+  <div class="datosEnvio">
+
+    <h4 class="tituloEnvio">Datos Envío</h4>
+
+    <mat-form-field class="tipoDocEnvio">
+      <mat-label>Tipo Documento</mat-label>
+      <mat-select [(value)]="TipoDocumentoSelected">
+        <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento">
+          {{tipoDocumento}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="number" class="form-control nroDocEnvio" name="nroDocEnvio" placeholder="Nro Documento"/>
+
+    <input type="date" class="form-control fechaEnvio" name="fechaEnvio" placeholder="Fecha Envío"/>
+
+    <input type="number" class="form-control idTransportista" name="idTransportista" placeholder="ID Transportista"/>
+
+    <input type="text" class="form-control patenteTransportista" name="patenteTransportista" placeholder="Patente Transportista"/>
+
+  </div>
+
+  <div class="datosRecursosYdatosBienes">
+
+    <div class="datosBienes">
+
+      <h4 class="tituloBien">Datos Bien</h4>
+
+      <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
+        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
+      </button>
+
+      <mat-form-field class="tipoBien">
+        <mat-label>Tipo Bien</mat-label>
+        <mat-select [(value)]="TipoBienSelected">
+          <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
+            {{tipoBien}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input type="number" class="form-control cantidad" name="cantidad" placeholder="Cantidad"/>
+
+      <mat-form-field class="tipoDocBien">
+        <mat-label>Tipo Documento</mat-label>
+        <mat-select [(value)]="TipoDocBienSelected">
+          <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
+            {{tipoDocBien}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="bien">
+        <mat-label>Bien</mat-label>
+        <mat-select [(value)]="TipoBienSelected">
+          <mat-option *ngFor="let bien of bienes" [value]="bien">
+            {{bien}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-checkbox class="vacio">Vacío</mat-checkbox>
+
+      <input type="number" class="form-control idDocBien" name="idDocBien" placeholder="ID Documento"/>
+
+      <table class="tablaBien">
+        <mat-table [dataSource]="datosTablaBienes" matSort>
+
+          <ng-container matColumnDef="tipoBien">
+            <th mat-header-cell *matHeaderCellDef> Tipo bien </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoBien}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="bien">
+            <th mat-header-cell *matHeaderCellDef> Bien </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipoDoc">
+            <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoDoc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nroDoc">
+            <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.nroDoc}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="vacio">
+            <th mat-header-cell *matHeaderCellDef> Vacio </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
+
+        </mat-table>
+
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+        </mat-paginator>
+
+      </table>
+
+    </div>
+
+    <div class="datosRecursos">
+
+      <h4 class="tituloRecurso">Datos Recurso</h4>
+
+      <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
+        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
+      </button>
+
+      <mat-form-field class="tipoRecurso">
+        <mat-label>Tipo Recurso</mat-label>
+        <mat-select [(value)]="TipoRecursoSelected">
+          <mat-option *ngFor="let tipoRecurso of tipoRecursos" [value]="tipoRecurso">
+            {{tipoRecurso}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <input type="number" class="form-control idRecurso" name="idRecurso" placeholder="ID Recurso"/>
+
+      <table class="tablaRecurso">
+        <mat-table [dataSource]="datosTablaRecursos" matSort>
+
+          <ng-container matColumnDef="tipoRecurso">
+            <th mat-header-cell *matHeaderCellDef> Tipo recurso </th>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="idRecurso">
+            <th mat-header-cell *matHeaderCellDef> Recurso </th>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.idRecurso}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayRecurso"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayRecurso"></tr>
+
+        </mat-table>
+
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+        </mat-paginator>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="confirmar">
+
+    <input type="submit" class="btn btn-wlm" (click)="registrar()" id="login-button" value="Confirmar" />
+
+  </div>
+
+</div>

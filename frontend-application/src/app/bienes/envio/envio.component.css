@@ -1,0 +1,212 @@
+.contenedorEnvio {/*Contiene datosEnvio, datosRecursos, datosBienes, confirmar*/
+  display: grid;
+  grid-template-colums: 1fr;
+  grid-template-rows: 1fr 3fr 6fr 1fr;
+  grid-template-areas: "barraSuperior"
+                       "datosEnvio"
+                       "datosRecursosYdatosBienes"
+                       "confirmar";
+}
+
+.barraSuperior {
+  margin: 1px;
+  border-bottom: 1px solid #0055ba;
+  grid-area: barraSuperior;
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: " atras tituloMovimiento ."
+}
+
+.datosEnvio { /*boton-atras, Titulo, tipodoc, nrodoc, fecha, idtransportista, patentetransportista*/
+  margin: 1px;
+  border-bottom: 1px solid #0055ba;
+  border-top: 1px solid #0055ba;
+  grid-area: datosEnvio;
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "tituloEnvio tituloEnvio tituloEnvio"
+                       "tipoDocEnvio fechaEnvio idTransportista"
+                       "nroDocEnvio . patenteTransportista";
+}
+
+.datosRecursosYdatosBienes {
+  grid-area: datosRecursosYdatosBienes;
+  border-bottom: 1px double #0055ba;
+  display: grid;
+  grid-template-colums: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "datosBienes datosRecursos"
+}
+
+.datosBienes {
+  margin: 1px;
+  border-top: 1px solid #0055ba;
+  border-right: 1px solid #0055ba;
+  border-bottom: 1px double #0055ba;
+  grid-area: datosBienes;
+  display: grid;
+  grid-template-colums: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 3fr;
+  grid-template-areas: "tituloBien tituloBien agregarBien"
+                       "tipoBien cantidad tipoDocBien"
+                       "bien vacio idDocBien"
+                       "tablaBien tablaBien tablaBien";
+}
+
+.datosRecursos {
+  margin: 1px;
+  border-top: 1px solid #0055ba;
+  border-left: 1px solid #0055ba;
+  border-bottom: 1px double #0055ba;
+  grid-area: datosRecursos;
+  display: grid;
+  grid-template-colums: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+  grid-template-areas: "tituloRecurso agregarRecurso"
+                       "tipoRecurso idRecurso"
+                       "tablaRecurso tablaRecurso";
+}
+
+.confirmar {
+  grid-area: confirmar;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*CONTENIDO barraSuperior*/
+.button-back{
+  grid-area: atras;
+  left: 1em;
+  width: 30%;
+  text-align: left;
+}
+
+.tituloMovimiento {
+  grid-area: tituloMovimiento;
+  width: 100%;
+  place-self: center stretch;
+}
+
+/*CONTENIDO datosEnvio*/
+.tituloEnvio {
+  grid-area: tituloEnvio;
+}
+
+.tipoDocEnvio {
+  grid-area: tipoDocEnvio;
+}
+
+.fechaEnvio {
+  grid-area: fechaEnvio;
+}
+
+.idTransportista {
+  grid-area: idTransportista;
+}
+
+.nroDocEnvio {
+  grid-area: nroDocEnvio;
+}
+
+.patenteTransportista {
+  grid-area: patenteTransportista;
+}
+
+/*CONTENIDO datosBienes*/
+.tituloBien {
+  grid-area: tituloBien;
+  justify-self: center;
+}
+
+.agregarBien {
+  grid-area: agregarBien;
+  justify-self: center;
+}
+
+.tipoBien {
+  grid-area: tipoBien;
+}
+
+.cantidad {
+  grid-area: cantidad;
+}
+
+.tipoDocBien {
+  grid-area: tipoDocBien;
+}
+
+.bien {
+  grid-area: bien;
+}
+
+.vacio {
+  grid-area: vacio;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.idDocBien {
+  grid-area: idDocBien;
+}
+
+.tablaBien {
+  grid-area: tablaBien;
+}
+
+/*CONTENIDO datosRecursos*/
+.tituloRecurso {
+  grid-area: tituloRecurso;
+  justify-self: center;
+}
+
+.agregarRecurso {
+  grid-area: agregarRecurso;
+  justify-self: center;
+}
+
+.tipoRecurso {
+  grid-area: tipoRecurso;
+}
+
+.idRecurso {
+  grid-area: idRecurso;
+}
+
+.tablaRecurso {
+  grid-area: tablaRecurso;
+}
+
+/*OTROS*/
+h4 {
+  margin: 10px ;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 250px;
+  width: 90%;
+  padding: 10px;
+  text-align: center;
+  font-family: "Myriad Pro"
+}
+
+input {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-self: center;
+}
+
+mat-form-field {
+  min-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  text-align: center;
+  max-width: 98%;
+  min-width: 98%;
+  justify-self:center;
+}
