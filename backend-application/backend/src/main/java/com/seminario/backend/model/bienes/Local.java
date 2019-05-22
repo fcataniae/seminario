@@ -38,8 +38,8 @@ public class Local {
     private String coordenada;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_local")
-    private TipoLocal tipoLocal;
+    @JoinColumn(name = "id_tipo_agente")
+    private TipoAgente tipoAgente;
 
     @Column
     private String usuarioAlta;
@@ -123,12 +123,12 @@ public class Local {
         this.email = email;
     }
 
-    public TipoLocal getTipoLocal() {
-        return tipoLocal;
+    public TipoAgente getTipoAgente() {
+        return tipoAgente;
     }
 
-    public void setTipoLocal(TipoLocal tipoLocal) {
-        this.tipoLocal = tipoLocal;
+    public void setTipoAgente(TipoAgente tipoAgente) {
+        this.tipoAgente = tipoAgente;
     }
 
     public String getUsuarioAlta() {

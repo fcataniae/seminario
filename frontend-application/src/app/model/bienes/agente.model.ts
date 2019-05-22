@@ -1,4 +1,4 @@
-import { TipoLocal } from "./tipolocal.model";
+import { TipoAgente } from "./tipoagente.model";
 
 export interface Agente{
   nro:number;
@@ -6,5 +6,5 @@ export interface Agente{
   nombre:string;
   email:string;
   direccion_nro:number;
-  tipoLocal : TipoLocal;
+  tipoAgente : TipoAgente;
 }

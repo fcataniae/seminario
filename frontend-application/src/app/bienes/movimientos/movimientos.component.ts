@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import {MovimientoService} from "../../services/movimiento.service";
 import {Agente} from "../../model/bienes/agente.model";
+import { Movimiento } from '../../model/bienes/movimiento.model';
 
 
 @Component({
@@ -43,13 +44,22 @@ export class MovimientosComponent implements OnInit {
     this._movimientoService.getAllAgentes().subscribe(
       res => {
         console.log(res);
-        this.origenes = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalOrigen.id);
-        this.destinos = res.filter( a => a.tipoLocal.id === this.selectedMov.tipoLocalDestino.id);
+        this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
+        this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
       },
       error => console.log(error)
     );
 
   }
 
+  onSubmit(){
+    console.log(this.selectedMov);
+    let movimiento = new Movimiento();
+    movimiento.destino = this.selectedDest.nro;
+  //  movimiento.origen = this.selectedOrig.nro;
+    movimiento.tipoMovimiento = this.selectedMov;
+    console.log(btoa(JSON.stringify(movimiento)));
+    this._router.navigate(["/home/movimientos/"+this.selectedMov.tipo.toLowerCase()+"/" + btoa(JSON.stringify(movimiento))]);
+  }
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.*;
  **/
 @Entity
 @Cacheable(false)
-public class TipoLocal {
+public class TipoAgente {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)

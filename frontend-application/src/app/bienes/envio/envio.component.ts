@@ -37,7 +37,7 @@ export class EnvioComponent implements OnInit {
   this.datosTablaBienes.sort = this.sortBienes;
   this.datosTablaBienes.paginator = this.paginatorBienes;
 
-  let recursosAgregados: Recurso[] = [{tipoRecurso: 'Termógrafo', idRecurso: 0}];
+  let recursosAgregados: Recurso[] = [{ posicion: 0, tipoRecurso: 'Termógrafo', idRecurso: 0}];
 
   this.datosTablaRecursos.data = recursosAgregados;
   this.datosTablaRecursos.sort = this.sortRecursos;

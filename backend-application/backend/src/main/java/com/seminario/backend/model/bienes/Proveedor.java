@@ -37,6 +37,17 @@ public class Proveedor {
     @Column
     private String usuarioAlta;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_agente")
+    private TipoAgente tipoAgente;
+
+    public TipoAgente getTipoAgente() {
+        return tipoAgente;
+    }
+
+    public void setTipoAgente(TipoAgente tipoAgente) {
+        this.tipoAgente = tipoAgente;
+    }
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;

@@ -1,43 +1,51 @@
+
+
+<div class="mat-elevation-z8 margin">
+
 <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
   <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
 </button>
 
 <h3>Tipo de movimiento</h3>
-<div class="movimientos">
+  <form #altamovimiento="ngForm">
+    <mat-form-field>
+      <mat-label>Movimiento</mat-label>
+      <mat-select [(ngModel)]="selectedMov"
+                  (ngModelChange)="onChangeMovimiento()"
+                  name="movimiento">
+        <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento">
+          {{movimiento.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Movimiento</mat-label>
-    <mat-select [(ngModel)]="selectedMov" (ngModelChange)="onChangeMovimiento()">
-      <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento">
-        {{movimiento.nombre}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Origen</mat-label>
+      <mat-select [(value)]="selectedOrig"
+                  [disabled]="selectedMov==null"
+                  name="origen">
+        <mat-option *ngFor="let origen of origenes" [value]="origen">
+          {{origen.nro}} - {{origen.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Origen</mat-label>
-    <mat-select [(value)]="selectedOrig" [disabled]="selectedMov==null">
-      <mat-option *ngFor="let origen of origenes" [value]="origen">
-        {{origen.nro}} - {{origen.nombre}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Destino</mat-label>
+      <mat-select [(value)]="selectedDest"
+                  [disabled]="selectedMov==null"
+                  name="destino">
+        <mat-option *ngFor="let destino of destinos" [value]="destino">
+          {{destino.nro}} - {{destino.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Destino</mat-label>
-    <mat-select [(value)]="selectedDest" [disabled]="selectedMov==null">
-      <mat-option *ngFor="let destino of destinos" [value]="destino">
-        {{destino.nro}} - {{destino.nombre}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
+      <button mat-button class="mat-raised-button mat-primary"
+              (click)="onSubmit()"
+              [disabled]="!altamovimiento.valid">Continuar</button>
+
+
+  </form>
 </div>
-
-<ul>
-  <li>
-    <a routerLink="{{MovSelected | lowercase}}" *ngIf="(OriSelected!=null && DestSelected!=null)"><span>Siguiente</span></a>
-  </li>
-  <li>
-    <a *ngIf="!(OriSelected!=null && DestSelected!=null)" class="desactivado"><span>Siguiente</span></a>
-  </li>
-</ul>

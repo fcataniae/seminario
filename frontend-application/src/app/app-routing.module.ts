@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'home/adm/roles', component: EditarRolComponent},
   { path: 'home/movimientos', component: MovimientosComponent},
   { path: 'home/movimientos/recepcion', component: RecepcionComponent},
-  { path: 'home/movimientos/envio', component: EnvioComponent}
+  { path: 'home/movimientos/envio/:mov', component: EnvioComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes, { useHash: true }) ],
