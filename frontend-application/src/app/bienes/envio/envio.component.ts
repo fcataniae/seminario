@@ -1,19 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-
-export class Bien{
-  tipoBien: string;
-  bien: string;
-  tipoDoc: string;
-  nroDoc: number;
-  cantidad: number;
-  vacio: boolean;
-}
-
-export class Recurso{
-  tipoRecurso: string;
-  idRecurso: number;
-}
+import { Recurso } from '../../model/bienes/recurso.model';
+import { Bien } from '../../model/bienes/bien.model';
 
 @Component({
   selector: 'app-envio',
@@ -43,7 +31,7 @@ export class EnvioComponent implements OnInit {
   this.datosTablaBienes.sort = this.sortBienes;
   this.datosTablaBienes.paginator = this.paginatorBienes;
 
-  let recursosAgregados: Recurso[] = [{tipoRecurso: 'Termógrafo', idRecurso: 0}];
+  let recursosAgregados: Recurso[] = [{ posicion: 0, tipoRecurso: 'Termógrafo', idRecurso: 0}];
 
   this.datosTablaRecursos.data = recursosAgregados;
   this.datosTablaRecursos.sort = this.sortRecursos;

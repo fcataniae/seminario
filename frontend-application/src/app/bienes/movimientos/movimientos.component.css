@@ -10,6 +10,8 @@
 mat-form-field{
   margin-bottom: 1em;
   min-width: 250px;
+  width: 40%;
+  margin-left: 30%;
 }
 
 .button-back{
@@ -17,10 +19,12 @@ mat-form-field{
   text-align: left;
 }
 
-.desactivado {
-  background-color: #9494b8;
-  color: white;
-  cursor: default;
-  pointer-events: none;
-  text-decoration: none;
+form{
+  margin: 3%;
+}
+form button{
+  margin-left: 30%;
+  margin-bottom: 1em;
+  min-width: 250px;
+  width: 40%;
 }
