@@ -16,30 +16,30 @@ public class DeudaService {
     EntityManagerFactory emf;
 
     @Autowired
-    TipoAgenteRepository tipoLocalRepository;
+    TipoAgenteRepository tipoAgenteRepository;
 
     public void aumentarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
-        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, false);
+        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("CD");
+        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("PROVEEDOR");
+        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false);
     }
 
     public void restarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
-        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, true);
+        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("CD");
+        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("PROVEEDOR");
+        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true);
     }
 
-    public void aumentarDeudaProveedorACD(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
-        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, false);
+    public void aumentarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva)   {
+        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
+        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false);
     }
 
-    public void restarDeudaProveedorACD(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
-        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, true);
+    public void restarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva)   {
+        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
+        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true);
     }
 
     private void actualizarDeuda(Long AgenteOrigen, Long AgenteDestino,
@@ -62,7 +62,7 @@ public class DeudaService {
 
     private void updateDeuda(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId, Long deudaCant, Double deudaPlata) {
         EntityManager em = emf.createEntityManager();
-        String qry = "UPDATE DEUDA SET d.deuda_cant = ?6, d.deuda_monetaria = ?7" +
+        String qry = "UPDATE DEUDA SET d.deuda_cant = ?6, d.deuda_monetaria = ?7 " +
                 "WHERE d.id_agente_origen = 1? AND d.id_agente_destino = ?2 " +
                 "AND d.tipo_agente_origen = 3? AND d.tipo_agente_destino = ?4 " +
                 "AND d.BI_id = ?5";

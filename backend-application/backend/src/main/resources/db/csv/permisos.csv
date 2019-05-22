@@ -22,7 +22,7 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1017, ,Permite dar de alta recursos,ALTA-RECURSO,1
 1018, ,Permite dar de baja recursos,BAJA-RECURSO,1
 1019, ,Permite modificar recursos,MODI-RECURSO,1
-1020, ,Permite consultar recursos,CONS-RECURSOS,1
+1020, ,Permite consultar recursos,CONS-RECURSO,1
 1021, ,Permite dar de alta movimientos,ALTA-MOVIMIENTO,1
 1022, ,Permite dar de baja movimientos,BAJA-MOVIMIENTO,1
 1023, ,Permite modificar movimientos,MODI-MOVIMIENTO,1

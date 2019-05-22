@@ -24,8 +24,7 @@ public class LocalService {
     @Autowired
     TipoAgenteRepository tipoAgenteRepository;
 
-    // quedaria getAgentes en una nueva version.
-    public List<Local> getLocales (Usuario usuarioActual){
+    public List<Local> getAgentes (Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
             return localRepository.findAll();
         } else {
@@ -54,7 +53,7 @@ public class LocalService {
 
     public List<Local> getCDs (Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
-            TipoAgente tipoCD  = tipoAgenteRepository.findByNombre("CENTRODISTR");
+            TipoAgente tipoCD  = tipoAgenteRepository.findByNombre("CD");
             return localRepository.findAllByTipoAgente(tipoCD);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar centros de distribucion");
