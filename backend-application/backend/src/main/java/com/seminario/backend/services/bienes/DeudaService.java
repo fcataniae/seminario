@@ -1,8 +1,7 @@
 package com.seminario.backend.services.bienes;
 
-import com.seminario.backend.model.bienes.TipoLocal;
-import com.seminario.backend.repository.bienes.CotizacionRepository;
-import com.seminario.backend.repository.bienes.TipoLocalRepository;
+import com.seminario.backend.model.bienes.TipoAgente;
+import com.seminario.backend.repository.bienes.TipoAgenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +13,37 @@ import java.util.List;
 public class DeudaService {
 
     @Autowired
-    CotizacionRepository cotizacionRepository;
-
-    @Autowired
     EntityManagerFactory emf;
 
     @Autowired
-    TipoLocalRepository tipoLocalRepository;
+    TipoAgenteRepository tipoLocalRepository;
 
     public void aumentarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoLocal tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
-        TipoLocal tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
+        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
         actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, false);
     }
 
     public void restarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoLocal tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
-        TipoLocal tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("CD");
+        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("PROVEEDOR");
         actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, true);
     }
 
     public void aumentarDeudaProveedorACD(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoLocal tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
-        TipoLocal tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
+        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
         actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, false);
     }
 
     public void restarDeudaProveedorACD(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
-        TipoLocal tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
-        TipoLocal tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
+        TipoAgente tipoLocalOrigen = tipoLocalRepository.findByNombre("PROVEEDOR");
+        TipoAgente tipoLocalDestino = tipoLocalRepository.findByNombre("CD");
         actualizarDeuda(LocalOrigen, ProveedorDestino, tipoLocalOrigen, tipoLocalDestino, biId, cantNueva, true);
     }
 
     private void actualizarDeuda(Long AgenteOrigen, Long AgenteDestino,
-                                 TipoLocal tipoAgenteOrigen, TipoLocal tipoAgenteDestino,
+                                 TipoAgente tipoAgenteOrigen, TipoAgente tipoAgenteDestino,
                                  Long biId, Long cantNueva, boolean resta){
 
         Double montoNuevo = cantNueva * this.getUltimaCotizacion(biId);
