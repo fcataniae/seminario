@@ -46,7 +46,7 @@ public class UsuarioService{
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-USUARIO")) {
             return usuarioRepository.findAll();
         } else {
-            throw new CustomException("No cuenta con los permisos para consultar personas!");
+            throw new CustomException("No cuenta con los permisos para consultar usuarios!");
         }
     }
 
