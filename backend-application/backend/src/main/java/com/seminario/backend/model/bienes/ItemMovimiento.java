@@ -17,9 +17,6 @@ public class ItemMovimiento {
     private Long Id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Movimiento movimiento;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private BienIntercambiable bienIntercambiable;
 
 
@@ -34,14 +31,6 @@ public class ItemMovimiento {
 
     public ItemMovimiento(){
 
-    }
-
-    public Movimiento getMovimiento() {
-        return movimiento;
-    }
-
-    public void setMovimiento(Movimiento movimiento) {
-        this.movimiento = movimiento;
     }
 
     public BienIntercambiable getBienIntercambiable() {

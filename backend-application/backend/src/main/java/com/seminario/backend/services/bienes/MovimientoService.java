@@ -59,7 +59,6 @@ public class MovimientoService {
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
                 validarItems(items);
-                asignarItemsAMovimientos(movimientoNuevo,items);
                 actualizarStockYDeuda(movimientoNuevo, items);
             } else {
                 throw new CustomException("No se encontró el tipo de movimientoNuevo que desea asignar!");
@@ -121,15 +120,6 @@ public class MovimientoService {
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
         movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
         movimientoNuevo.setFechaAlta(Date.from(ZonedDateTime.now(zoneId).toInstant()));
-    }
-
-    /*
-    *   A cada itemMov le asigna el movimiento
-    * */
-    private void asignarItemsAMovimientos(Movimiento movimiento, List<ItemMovimiento> items) {
-        for (ItemMovimiento item : items) {
-            item.setMovimiento(movimiento);
-        }
     }
 
     /*

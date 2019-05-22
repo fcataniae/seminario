@@ -6,4 +6,5 @@ export class Movimiento{
   origen: number;
   destino: number;
   recursosAsignados: Recurso[];
+  
 }
