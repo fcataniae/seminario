@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,6 +20,8 @@ public class DeudaService {
 
     @Autowired
     TipoAgenteRepository tipoAgenteRepository;
+
+    private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
     public void aumentarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
         TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("CD");
@@ -48,8 +53,16 @@ public class DeudaService {
 
         Double montoNuevo = cantNueva * this.getUltimaCotizacion(biId);
         List<Object>  deudas = findDeudaCantByLocalAndBi( AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
-        Long deudaCant = (Long) deudas.get(0);
-        Double deudaPlata = (Double) deudas.get(1);
+
+        Double deudaPlata = new Double(0);
+        Long deudaCant = new Long(0);
+        if (deudas == null) {
+            insertDeuda(AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
+        } else {
+            deudaPlata = (Double) deudas.get(1);
+            deudaCant = (Long) deudas.get(0);
+        }
+
         if (resta) {
             deudaCant -= cantNueva;
             deudaPlata -= montoNuevo;
@@ -60,14 +73,30 @@ public class DeudaService {
         this.updateDeuda(AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId, deudaCant, deudaPlata);
     }
 
+    private void insertDeuda(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId) {
+        EntityManager em = emf.createEntityManager();
+        String qry = "INSERT INTO DEUDA (deuda_cant, deuda_monetaria, " +
+                "id_agente_origen, id_agente_destino," +
+                "tipo_agente_origen, tipo_agente_destino, BI_id, ultima_fecha_actualizacion)" +
+                "VALUES(0,0.0,?1,?2,?3,?4,?5, ?6)";
+        em.createNativeQuery(qry)
+                .setParameter(1, AgenteOrigen)
+                .setParameter(2, AgenteDestino)
+                .setParameter(3, tipoAgenteOrigen)
+                .setParameter(4, tipoAgenteDestino)
+                .setParameter(5, biId)
+                .setParameter(6, Date.from(ZonedDateTime.now(zoneId).toInstant()));
+
+        em.close();
+    }
+
     private void updateDeuda(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId, Long deudaCant, Double deudaPlata) {
         EntityManager em = emf.createEntityManager();
-        String qry = "UPDATE DEUDA SET d.deuda_cant = ?6, d.deuda_monetaria = ?7 " +
-                "WHERE d.id_agente_origen = 1? AND d.id_agente_destino = ?2 " +
-                "AND d.tipo_agente_origen = 3? AND d.tipo_agente_destino = ?4 " +
-                "AND d.BI_id = ?5";
+        String qry = "UPDATE DEUDA SET deuda_cant = ?6, deuda_monetaria = ?7, ultima_fecha_actualizacion = ?8 " +
+                "WHERE id_agente_origen = 1? AND id_agente_destino = ?2 " +
+                "AND tipo_agente_origen = 3? AND tipo_agente_destino = ?4 " +
+                "AND BI_id = ?5";
         List<Object> d = em.createNativeQuery(qry)
-                .setParameter(1, AgenteOrigen)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
                 .setParameter(3, tipoAgenteOrigen)
@@ -75,6 +104,7 @@ public class DeudaService {
                 .setParameter(5, biId)
                 .setParameter(6, deudaCant)
                 .setParameter(7, deudaPlata)
+                .setParameter(8, Date.from(ZonedDateTime.now(zoneId).toInstant()))
                 .getResultList();
         em.close();
     }
@@ -86,7 +116,6 @@ public class DeudaService {
                      "AND d.tipo_agente_origen = 3? AND d.tipo_agente_destino = ?4 " +
                      "AND d.BI_id = ?5";
         List<Object> d = em.createNativeQuery(qry)
-                .setParameter(1, AgenteOrigen)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
                 .setParameter(3, tipoAgenteOrigen)

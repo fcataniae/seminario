@@ -25,7 +25,7 @@ public class LocalService {
     TipoAgenteRepository tipoAgenteRepository;
 
     public List<Local> getAgentes (Usuario usuarioActual){
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             return localRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar locales");
@@ -34,7 +34,7 @@ public class LocalService {
 
 
     public List<Local> getTiendas (Usuario usuarioActual){
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tienda  = tipoAgenteRepository.findByNombre("LOCAL");
             return localRepository.findAllByTipoAgente(tienda);
         } else {
@@ -43,7 +43,7 @@ public class LocalService {
     }
 
     public List<Local> getProveedores (Usuario usuarioActual){
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tipoProveedor  = tipoAgenteRepository.findByNombre("PROVEEDOR");
             return localRepository.findAllByTipoAgente(tipoProveedor);
         } else {
@@ -52,7 +52,7 @@ public class LocalService {
     }
 
     public List<Local> getCDs (Usuario usuarioActual){
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-LOCAL")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tipoCD  = tipoAgenteRepository.findByNombre("CD");
             return localRepository.findAllByTipoAgente(tipoCD);
         } else {

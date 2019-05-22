@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * Usuario: Franco
@@ -18,9 +21,15 @@ public class StockBienEnLocalService {
     @Autowired
     EntityManagerFactory emf;
 
+    private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
+
     private void actualizarStock(Long localNro, Long biId, Long cantNueva, String tipoStock, boolean resta){
 
-        Long cantActual = findStockByLocalAndBi(tipoStock,  localNro, biId);
+        Long cantActual = findStockByLocalAndBi(tipoStock, localNro, biId);
+        if (cantActual == null) {
+            insertStock(localNro, biId);
+            cantActual = new Long(0);
+        }
         if (resta) {
             cantActual -= cantNueva;
             cantActual = (cantActual < 0) ? 0 : cantActual;
@@ -75,15 +84,31 @@ public class StockBienEnLocalService {
 
     }
 
+    public void insertStock(Long localNro, Long bienIntercambiableId){
+
+        EntityManager em = emf.createEntityManager();
+
+        em.createNativeQuery(" INSERT INTO table_name " +
+                "(LOCAL_NRO, BI_DI, STOCK_LIBRE, STOCK_OCUPADO, STOCK_RESERVADO, STOCK_DESTRUIDO, ULTIMA_FECHA_ACTUALIZACION)" +
+                "VALUES(?1, ?2, 0, 0, 0, 0, ?3)")
+                .setParameter(1,localNro)
+                .setParameter(2,bienIntercambiableId)
+                .setParameter(3, Date.from(ZonedDateTime.now(zoneId).toInstant()))
+                .executeUpdate();
+
+        em.close();
+    }
+
     public void updateStock(String tipoStock, Long cant, Long localNro, Long bienIntercambiableId){
 
         EntityManager em = emf.createEntityManager();
 
         em.createNativeQuery(" update STOCK_BIEN_EN_LOCAL SET "+tipoStock+" = ?1 " +
-                " where LOCAL_NRO = ?2 and BI_ID = ?3")
+                " ULTIMA_FECHA_ACTUALIZACION = ?2 where LOCAL_NRO = ?3 and BI_ID = ?4")
                 .setParameter(1,cant)
-                .setParameter(2,localNro)
-                .setParameter(3,bienIntercambiableId)
+                .setParameter(2,Date.from(ZonedDateTime.now(zoneId).toInstant()))
+                .setParameter(3,localNro)
+                .setParameter(4,bienIntercambiableId)
                 .executeUpdate();
 
         em.close();
