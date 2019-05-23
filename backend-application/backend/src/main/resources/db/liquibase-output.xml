@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet author="Franco (generated)" id="1558487842315-1">
+    <changeSet author="Franco (generated)" id="1558572637518-1">
         <createTable tableName="bienintercambiable">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -13,7 +13,7 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-2">
+    <changeSet author="Franco (generated)" id="1558572637518-2">
         <createTable tableName="cotizacion">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -26,7 +26,7 @@
             <column name="BIENINTERCAMBIABLE_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-3">
+    <changeSet author="Franco (generated)" id="1558572637518-3">
         <createTable tableName="estado">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -34,7 +34,7 @@
             <column name="DESCRIP" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-4">
+    <changeSet author="Franco (generated)" id="1558572637518-4">
         <createTable tableName="estadoviaje">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -42,7 +42,7 @@
             <column name="DESCRIP" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-5">
+    <changeSet author="Franco (generated)" id="1558572637518-5">
         <createTable tableName="intercambioproveedor">
             <column name="ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -56,7 +56,7 @@
             <column name="PROVEEDOR_NRO" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-6">
+    <changeSet author="Franco (generated)" id="1558572637518-6">
         <createTable tableName="itemmovimiento">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -67,7 +67,7 @@
             <column name="MOVIMIENTO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-7">
+    <changeSet author="Franco (generated)" id="1558572637518-7">
         <createTable tableName="itemmovimientotipodoc">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -77,7 +77,7 @@
             <column name="TIPO_DOCUMENTO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-8">
+    <changeSet author="Franco (generated)" id="1558572637518-8">
         <createTable tableName="local">
             <column name="NRO" type="BIGINT">
                 <constraints nullable="false"/>
@@ -94,7 +94,7 @@
             <column name="id_tipo_agente" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-9">
+    <changeSet author="Franco (generated)" id="1558572637518-9">
         <createTable tableName="movimiento">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -111,7 +111,7 @@
             <column name="id_tipo_movimiento" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-10">
+    <changeSet author="Franco (generated)" id="1558572637518-10">
         <createTable tableName="movimiento_recurso">
             <column name="Movimiento_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -121,7 +121,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-11">
+    <changeSet author="Franco (generated)" id="1558572637518-11">
         <createTable tableName="permiso">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -132,7 +132,7 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-12">
+    <changeSet author="Franco (generated)" id="1558572637518-12">
         <createTable tableName="persona">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -146,7 +146,7 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-13">
+    <changeSet author="Franco (generated)" id="1558572637518-13">
         <createTable tableName="proveedor">
             <column name="NRO" type="BIGINT">
                 <constraints nullable="false"/>
@@ -163,7 +163,7 @@
             <column name="id_tipo_proveedor" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-14">
+    <changeSet author="Franco (generated)" id="1558572637518-14">
         <createTable tableName="recurso">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -173,7 +173,7 @@
             <column name="TIPORECURSO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-15">
+    <changeSet author="Franco (generated)" id="1558572637518-15">
         <createTable tableName="rol">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -183,7 +183,7 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-16">
+    <changeSet author="Franco (generated)" id="1558572637518-16">
         <createTable tableName="rol_permiso">
             <column name="Rol_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -193,7 +193,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-17">
+    <changeSet author="Franco (generated)" id="1558572637518-17">
         <createTable tableName="sequence">
             <column name="SEQ_NAME" type="VARCHAR(50)">
                 <constraints nullable="false"/>
@@ -201,7 +201,7 @@
             <column name="SEQ_COUNT" type="DECIMAL(38)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-18">
+    <changeSet author="Franco (generated)" id="1558572637518-18">
         <createTable tableName="tipoagente">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -209,7 +209,7 @@
             <column name="NOMBRE" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-19">
+    <changeSet author="Franco (generated)" id="1558572637518-19">
         <createTable tableName="tipodocumento">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -221,7 +221,17 @@
             <column name="ESTADO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-20">
+    <changeSet author="Franco (generated)" id="1558572637518-20">
+        <createTable tableName="tipodocumento_bien">
+            <column name="BienIntercambiable_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipoDocumento_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1558572637518-21">
         <createTable tableName="tipomovimiento">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -232,7 +242,7 @@
             <column name="id_tipo_origen" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-21">
+    <changeSet author="Franco (generated)" id="1558572637518-22">
         <createTable tableName="tipoproveedor">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -240,14 +250,14 @@
             <column name="DESCRIP" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-22">
+    <changeSet author="Franco (generated)" id="1558572637518-23">
         <createTable tableName="tiporecurso">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-23">
+    <changeSet author="Franco (generated)" id="1558572637518-24">
         <createTable tableName="usuario">
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -258,7 +268,7 @@
             <column name="PERSONA_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-24">
+    <changeSet author="Franco (generated)" id="1558572637518-25">
         <createTable tableName="usuario_rol">
             <column name="Usuario_ID" type="BIGINT">
                 <constraints nullable="false"/>
@@ -268,303 +278,317 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-25">
+    <changeSet author="Franco (generated)" id="1558572637518-26">
         <addPrimaryKey columnNames="ID" tableName="intercambioproveedor"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-26">
+    <changeSet author="Franco (generated)" id="1558572637518-27">
         <addPrimaryKey columnNames="NRO" tableName="local"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-27">
+    <changeSet author="Franco (generated)" id="1558572637518-28">
         <addPrimaryKey columnNames="Movimiento_ID, recursosAsignados_ID" tableName="movimiento_recurso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-28">
+    <changeSet author="Franco (generated)" id="1558572637518-29">
         <addPrimaryKey columnNames="NRO" tableName="proveedor"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-29">
+    <changeSet author="Franco (generated)" id="1558572637518-30">
         <addPrimaryKey columnNames="Rol_ID, permisos_ID" tableName="rol_permiso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-30">
+    <changeSet author="Franco (generated)" id="1558572637518-31">
         <addPrimaryKey columnNames="SEQ_NAME" tableName="sequence"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-31">
+    <changeSet author="Franco (generated)" id="1558572637518-32">
+        <addPrimaryKey columnNames="BienIntercambiable_ID, tipoDocumento_ID" tableName="tipodocumento_bien"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1558572637518-33">
         <addPrimaryKey columnNames="Usuario_ID, roles_ID" tableName="usuario_rol"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-32">
+    <changeSet author="Franco (generated)" id="1558572637518-34">
         <addUniqueConstraint columnNames="DESCRIP" constraintName="DESCRIP" tableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-33">
+    <changeSet author="Franco (generated)" id="1558572637518-35">
         <addUniqueConstraint columnNames="DESCRIP" constraintName="DESCRIP" tableName="estadoviaje"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-34">
+    <changeSet author="Franco (generated)" id="1558572637518-36">
         <addUniqueConstraint columnNames="DESCRIP" constraintName="DESCRIP" tableName="tipoproveedor"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-35">
+    <changeSet author="Franco (generated)" id="1558572637518-37">
         <addUniqueConstraint columnNames="NOMBRE" constraintName="NOMBRE" tableName="permiso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-36">
+    <changeSet author="Franco (generated)" id="1558572637518-38">
         <addUniqueConstraint columnNames="NOMBRE" constraintName="NOMBRE" tableName="rol"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-37">
+    <changeSet author="Franco (generated)" id="1558572637518-39">
         <addUniqueConstraint columnNames="NOMBRE" constraintName="NOMBRE" tableName="tipoagente"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-38">
+    <changeSet author="Franco (generated)" id="1558572637518-40">
         <addUniqueConstraint columnNames="NOMBREUSUARIO" constraintName="NOMBREUSUARIO" tableName="usuario"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-39">
+    <changeSet author="Franco (generated)" id="1558572637518-41">
         <createIndex indexName="FK_BIENINTERCAMBIABLE_ESTADO_ID" tableName="bienintercambiable">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-40">
+    <changeSet author="Franco (generated)" id="1558572637518-42">
         <createIndex indexName="FK_COTIZACION_BIENINTERCAMBIABLE_ID" tableName="cotizacion">
             <column name="BIENINTERCAMBIABLE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-41">
+    <changeSet author="Franco (generated)" id="1558572637518-43">
         <createIndex indexName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLE_ID" tableName="intercambioproveedor">
             <column name="BIENINTERCAMBIABLE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-42">
+    <changeSet author="Franco (generated)" id="1558572637518-44">
         <createIndex indexName="FK_INTERCAMBIOPROVEEDOR_ESTADO_ID" tableName="intercambioproveedor">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-43">
+    <changeSet author="Franco (generated)" id="1558572637518-45">
         <createIndex indexName="FK_INTERCAMBIOPROVEEDOR_PROVEEDOR_NRO" tableName="intercambioproveedor">
             <column name="PROVEEDOR_NRO"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-44">
+    <changeSet author="Franco (generated)" id="1558572637518-46">
         <createIndex indexName="FK_ITEMMOVIMIENTOTIPODOC_ITEM_MOVIMIENTO_ID" tableName="itemmovimientotipodoc">
             <column name="ITEM_MOVIMIENTO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-45">
+    <changeSet author="Franco (generated)" id="1558572637518-47">
         <createIndex indexName="FK_ITEMMOVIMIENTOTIPODOC_TIPO_DOCUMENTO_ID" tableName="itemmovimientotipodoc">
             <column name="TIPO_DOCUMENTO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-46">
+    <changeSet author="Franco (generated)" id="1558572637518-48">
         <createIndex indexName="FK_ITEMMOVIMIENTO_BIENINTERCAMBIABLE_ID" tableName="itemmovimiento">
             <column name="BIENINTERCAMBIABLE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-47">
+    <changeSet author="Franco (generated)" id="1558572637518-49">
         <createIndex indexName="FK_ITEMMOVIMIENTO_MOVIMIENTO_ID" tableName="itemmovimiento">
             <column name="MOVIMIENTO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-48">
+    <changeSet author="Franco (generated)" id="1558572637518-50">
         <createIndex indexName="FK_LOCAL_ESTADO_ID" tableName="local">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-49">
+    <changeSet author="Franco (generated)" id="1558572637518-51">
         <createIndex indexName="FK_LOCAL_id_tipo_agente" tableName="local">
             <column name="id_tipo_agente"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-50">
+    <changeSet author="Franco (generated)" id="1558572637518-52">
         <createIndex indexName="FK_MOVIMIENTO_ESTADOVIAJE_ID" tableName="movimiento">
             <column name="ESTADOVIAJE_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-51">
+    <changeSet author="Franco (generated)" id="1558572637518-53">
         <createIndex indexName="FK_MOVIMIENTO_ESTADO_ID" tableName="movimiento">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-52">
+    <changeSet author="Franco (generated)" id="1558572637518-54">
         <createIndex indexName="FK_MOVIMIENTO_RECURSO_recursosAsignados_ID" tableName="movimiento_recurso">
             <column name="recursosAsignados_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-53">
+    <changeSet author="Franco (generated)" id="1558572637518-55">
         <createIndex indexName="FK_MOVIMIENTO_id_tipo_documento" tableName="movimiento">
             <column name="id_tipo_documento"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-54">
+    <changeSet author="Franco (generated)" id="1558572637518-56">
         <createIndex indexName="FK_MOVIMIENTO_id_tipo_movimiento" tableName="movimiento">
             <column name="id_tipo_movimiento"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-55">
+    <changeSet author="Franco (generated)" id="1558572637518-57">
         <createIndex indexName="FK_PERMISO_ESTADO_ID" tableName="permiso">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-56">
+    <changeSet author="Franco (generated)" id="1558572637518-58">
         <createIndex indexName="FK_PERSONA_ESTADO_ID" tableName="persona">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-57">
+    <changeSet author="Franco (generated)" id="1558572637518-59">
         <createIndex indexName="FK_PROVEEDOR_ESTADO_ID" tableName="proveedor">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-58">
+    <changeSet author="Franco (generated)" id="1558572637518-60">
         <createIndex indexName="FK_PROVEEDOR_id_tipo_agente" tableName="proveedor">
             <column name="id_tipo_agente"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-59">
+    <changeSet author="Franco (generated)" id="1558572637518-61">
         <createIndex indexName="FK_PROVEEDOR_id_tipo_proveedor" tableName="proveedor">
             <column name="id_tipo_proveedor"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-60">
+    <changeSet author="Franco (generated)" id="1558572637518-62">
         <createIndex indexName="FK_RECURSO_ESTADO_ID" tableName="recurso">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-61">
+    <changeSet author="Franco (generated)" id="1558572637518-63">
         <createIndex indexName="FK_RECURSO_TIPORECURSO_ID" tableName="recurso">
             <column name="TIPORECURSO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-62">
+    <changeSet author="Franco (generated)" id="1558572637518-64">
         <createIndex indexName="FK_ROL_ESTADO_ID" tableName="rol">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-63">
+    <changeSet author="Franco (generated)" id="1558572637518-65">
         <createIndex indexName="FK_ROL_PERMISO_permisos_ID" tableName="rol_permiso">
             <column name="permisos_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-64">
+    <changeSet author="Franco (generated)" id="1558572637518-66">
         <createIndex indexName="FK_TIPODOCUMENTO_ESTADO_ID" tableName="tipodocumento">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-65">
+    <changeSet author="Franco (generated)" id="1558572637518-67">
         <createIndex indexName="FK_TIPOMOVIMIENTO_id_tipo_destino" tableName="tipomovimiento">
             <column name="id_tipo_destino"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-66">
+    <changeSet author="Franco (generated)" id="1558572637518-68">
         <createIndex indexName="FK_TIPOMOVIMIENTO_id_tipo_origen" tableName="tipomovimiento">
             <column name="id_tipo_origen"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-67">
+    <changeSet author="Franco (generated)" id="1558572637518-69">
         <createIndex indexName="FK_USUARIO_ESTADO_ID" tableName="usuario">
             <column name="ESTADO_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-68">
+    <changeSet author="Franco (generated)" id="1558572637518-70">
         <createIndex indexName="FK_USUARIO_PERSONA_ID" tableName="usuario">
             <column name="PERSONA_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-69">
+    <changeSet author="Franco (generated)" id="1558572637518-71">
         <createIndex indexName="FK_USUARIO_ROL_roles_ID" tableName="usuario_rol">
             <column name="roles_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-70">
+    <changeSet author="Franco (generated)" id="1558572637518-72">
+        <createIndex indexName="FK_tipodocumento_bien_tipoDocumento_ID" tableName="tipodocumento_bien">
+            <column name="tipoDocumento_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1558572637518-73">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="bienintercambiable" constraintName="FK_BIENINTERCAMBIABLE_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-71">
+    <changeSet author="Franco (generated)" id="1558572637518-74">
         <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLE_ID" baseTableName="cotizacion" constraintName="FK_COTIZACION_BIENINTERCAMBIABLE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-72">
+    <changeSet author="Franco (generated)" id="1558572637518-75">
         <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLE_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-73">
+    <changeSet author="Franco (generated)" id="1558572637518-76">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-74">
+    <changeSet author="Franco (generated)" id="1558572637518-77">
         <addForeignKeyConstraint baseColumnNames="PROVEEDOR_NRO" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_PROVEEDOR_NRO"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="NRO" referencedTableName="proveedor"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-75">
+    <changeSet author="Franco (generated)" id="1558572637518-78">
         <addForeignKeyConstraint baseColumnNames="ITEM_MOVIMIENTO_ID" baseTableName="itemmovimientotipodoc" constraintName="FK_ITEMMOVIMIENTOTIPODOC_ITEM_MOVIMIENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="itemmovimiento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-76">
+    <changeSet author="Franco (generated)" id="1558572637518-79">
         <addForeignKeyConstraint baseColumnNames="TIPO_DOCUMENTO_ID" baseTableName="itemmovimientotipodoc" constraintName="FK_ITEMMOVIMIENTOTIPODOC_TIPO_DOCUMENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-77">
+    <changeSet author="Franco (generated)" id="1558572637518-80">
         <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLE_ID" baseTableName="itemmovimiento" constraintName="FK_ITEMMOVIMIENTO_BIENINTERCAMBIABLE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-78">
+    <changeSet author="Franco (generated)" id="1558572637518-81">
         <addForeignKeyConstraint baseColumnNames="MOVIMIENTO_ID" baseTableName="itemmovimiento" constraintName="FK_ITEMMOVIMIENTO_MOVIMIENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="movimiento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-79">
+    <changeSet author="Franco (generated)" id="1558572637518-82">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="local" constraintName="FK_LOCAL_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-80">
+    <changeSet author="Franco (generated)" id="1558572637518-83">
         <addForeignKeyConstraint baseColumnNames="id_tipo_agente" baseTableName="local" constraintName="FK_LOCAL_id_tipo_agente"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoagente"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-81">
+    <changeSet author="Franco (generated)" id="1558572637518-84">
         <addForeignKeyConstraint baseColumnNames="ESTADOVIAJE_ID" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_ESTADOVIAJE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estadoviaje"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-82">
+    <changeSet author="Franco (generated)" id="1558572637518-85">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-83">
+    <changeSet author="Franco (generated)" id="1558572637518-86">
         <addForeignKeyConstraint baseColumnNames="Movimiento_ID" baseTableName="movimiento_recurso" constraintName="FK_MOVIMIENTO_RECURSO_Movimiento_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="movimiento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-84">
+    <changeSet author="Franco (generated)" id="1558572637518-87">
         <addForeignKeyConstraint baseColumnNames="recursosAsignados_ID" baseTableName="movimiento_recurso" constraintName="FK_MOVIMIENTO_RECURSO_recursosAsignados_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="recurso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-85">
+    <changeSet author="Franco (generated)" id="1558572637518-88">
         <addForeignKeyConstraint baseColumnNames="id_tipo_documento" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_id_tipo_documento"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-86">
+    <changeSet author="Franco (generated)" id="1558572637518-89">
         <addForeignKeyConstraint baseColumnNames="id_tipo_movimiento" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_id_tipo_movimiento"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipomovimiento"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-87">
+    <changeSet author="Franco (generated)" id="1558572637518-90">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="permiso" constraintName="FK_PERMISO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-88">
+    <changeSet author="Franco (generated)" id="1558572637518-91">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="persona" constraintName="FK_PERSONA_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-89">
+    <changeSet author="Franco (generated)" id="1558572637518-92">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="proveedor" constraintName="FK_PROVEEDOR_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-90">
+    <changeSet author="Franco (generated)" id="1558572637518-93">
         <addForeignKeyConstraint baseColumnNames="id_tipo_agente" baseTableName="proveedor" constraintName="FK_PROVEEDOR_id_tipo_agente"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoagente"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-91">
+    <changeSet author="Franco (generated)" id="1558572637518-94">
         <addForeignKeyConstraint baseColumnNames="id_tipo_proveedor" baseTableName="proveedor" constraintName="FK_PROVEEDOR_id_tipo_proveedor"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoproveedor"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-92">
+    <changeSet author="Franco (generated)" id="1558572637518-95">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="recurso" constraintName="FK_RECURSO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-93">
+    <changeSet author="Franco (generated)" id="1558572637518-96">
         <addForeignKeyConstraint baseColumnNames="TIPORECURSO_ID" baseTableName="recurso" constraintName="FK_RECURSO_TIPORECURSO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tiporecurso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-94">
+    <changeSet author="Franco (generated)" id="1558572637518-97">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="rol" constraintName="FK_ROL_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-95">
+    <changeSet author="Franco (generated)" id="1558572637518-98">
         <addForeignKeyConstraint baseColumnNames="Rol_ID" baseTableName="rol_permiso" constraintName="FK_ROL_PERMISO_Rol_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="rol"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-96">
+    <changeSet author="Franco (generated)" id="1558572637518-99">
         <addForeignKeyConstraint baseColumnNames="permisos_ID" baseTableName="rol_permiso" constraintName="FK_ROL_PERMISO_permisos_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="permiso"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-97">
+    <changeSet author="Franco (generated)" id="1558572637518-100">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="tipodocumento" constraintName="FK_TIPODOCUMENTO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-98">
+    <changeSet author="Franco (generated)" id="1558572637518-101">
         <addForeignKeyConstraint baseColumnNames="id_tipo_destino" baseTableName="tipomovimiento" constraintName="FK_TIPOMOVIMIENTO_id_tipo_destino"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoagente"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-99">
+    <changeSet author="Franco (generated)" id="1558572637518-102">
         <addForeignKeyConstraint baseColumnNames="id_tipo_origen" baseTableName="tipomovimiento" constraintName="FK_TIPOMOVIMIENTO_id_tipo_origen"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoagente"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-100">
+    <changeSet author="Franco (generated)" id="1558572637518-103">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="usuario" constraintName="FK_USUARIO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-101">
+    <changeSet author="Franco (generated)" id="1558572637518-104">
         <addForeignKeyConstraint baseColumnNames="PERSONA_ID" baseTableName="usuario" constraintName="FK_USUARIO_PERSONA_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="persona"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-102">
+    <changeSet author="Franco (generated)" id="1558572637518-105">
         <addForeignKeyConstraint baseColumnNames="Usuario_ID" baseTableName="usuario_rol" constraintName="FK_USUARIO_ROL_Usuario_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="usuario"/>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1558487842315-103">
+    <changeSet author="Franco (generated)" id="1558572637518-106">
         <addForeignKeyConstraint baseColumnNames="roles_ID" baseTableName="usuario_rol" constraintName="FK_USUARIO_ROL_roles_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="rol"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1558572637518-107">
+        <addForeignKeyConstraint baseColumnNames="BienIntercambiable_ID" baseTableName="tipodocumento_bien" constraintName="FK_tipodocumento_bien_BienIntercambiable_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
+    </changeSet>
+    <changeSet author="Franco (generated)" id="1558572637518-108">
+        <addForeignKeyConstraint baseColumnNames="tipoDocumento_ID" baseTableName="tipodocumento_bien" constraintName="FK_tipodocumento_bien_tipoDocumento_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
     </changeSet>
 </databaseChangeLog>

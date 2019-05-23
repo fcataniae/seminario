@@ -1,0 +1,10 @@
+id,tipo,subtipo,descripcion,usuarioAlta,ESTADO_ID,fechaAlta
+1,PALLET,CHEP,Pallet chep,system,1,2014-05-05
+2,PALLET,ARLOG,Pallet arlog,system,1,2014-05-05
+3,ENVASE,500cc,Envase de 500CC,system,1,2014-05-05
+4,ENVASE,950cc,Envase de 950CC,system,1,2014-05-05
+5,ENVASE,1L,Envase de 1L,system,1,2014-05-05
+6,ENVASE,2L,Envase de 2L,system,1,2014-05-05
+7,IFCO,GRANDE,Cajon ifco grande,system,1,2014-05-05
+8,IFCO,MEDIANO,Cajon ifco mediano,system,1,2014-05-05
+9,IFCO,PEQUENIO,Cajon ifco pequeño,system,1,2014-05-05

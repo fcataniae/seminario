@@ -31,8 +31,20 @@ public class BienIntercambiable {
     @Column
     private String usuarioAlta;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tipodocumento_bien")
+    private Set<TipoDocumento> tipoDocumento;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
+
+    public Set<TipoDocumento> getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(Set<TipoDocumento> tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
 
     @Column
     @Temporal(TemporalType.DATE)

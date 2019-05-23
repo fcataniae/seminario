@@ -1,0 +1,7 @@
+id,nombredocumento,descripcion,usuarioalta,estado_id,fechaalta
+1,FACTURA,Factura,system,1,2015-05-05
+2,REMITO,Remito,system,1,2015-05-05
+3,ORDENCOMPRA,Orden de compra,system,1,2015-05-05
+4,RECEPCION,Comprobante de recepcion,system,1,2015-05-05
+5,ENVIO,Comprobante de envio,system,1,2015-05-05
+7,REMITOIFCO,Remito IFCO,system,1,2015-05-05

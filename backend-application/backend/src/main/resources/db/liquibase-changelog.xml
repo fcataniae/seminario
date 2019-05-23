@@ -90,5 +90,32 @@
             <column name="ESTADO_ID" type="NUMERIC"/>
             <column name="id_tipo_local" type="NUMERIC"/>
         </loadUpdateData>
+        <loadUpdateData tableName="bienintercambiable"
+                        primaryKey="ID"
+                        file="classpath:db/csv/bienes.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="DESCRIPCION" type="STRING"/>
+            <column name="FECHAALTA" type="date"/>
+            <column name="SUBTIPO" type="STRING"/>
+            <column name="TIPO" type="STRING"/>
+            <column name="USUARIOALTA" type="STRING"/>
+            <column name="ESTADO_ID" type="NUMERIC"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="tipodocumento"
+                        primaryKey="ID"
+                        file="classpath:/db/csv/tipodocumentos.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="DESCRIPCION" type="STRING"/>
+            <column name="FECHAALTA" type="date"/>
+            <column name="NOMBREDOCUMENTO" type="STRING"/>
+            <column name="USUARIOALTA" type="STRING"/>
+            <column name="ESTADO_ID" type="NUMERIC"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="tipodocumento_bien"
+                        primaryKey="BienIntercambiable_ID,tipoDocumento_ID"
+                        file="classpath:/db/csv/tipodocumento_bien.csv">
+            <column name="BienIntercambiable_ID" type="NUMERIC"/>
+            <column name="tipoDocumento_ID" type="NUMERIC"/>
+        </loadUpdateData>
     </changeSet>
 </databaseChangeLog>
