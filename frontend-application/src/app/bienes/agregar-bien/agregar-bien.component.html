@@ -1,86 +1,56 @@
-<h2 mat-dialog-title class="tituloAgregarBien">Agregar Bien</h2>
+<h2 mat-dialog-title >Agregar Bien</h2>
 
-<form #agregarbien="ngForm" class="formContenedor">
+<form #agregarbien="ngForm" >
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field class="w70 tipoBien">
+      <mat-label>Bien</mat-label>
+      <mat-select  name="tipoBien"
+                   [(ngModel)]="selectedBien"
+                  (ngModelChange)="onChangeBien()"
+                   required>
+        <mat-option *ngFor="let bien of bienes" [value]="bien">
+          {{bien.descripcion}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field class="w70 tipoBien">
-    <mat-label>Tipo Bien</mat-label>
-    <mat-select [(value)]="tipoBienSelected" name="tipoBien" [(ngModel)]="bien.tipoBien" required>
-      <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
-        {{tipoBien}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 
-  <input mat-input type="number" class="form-control cantidad" name="cantidad" placeholder="Cantidad"
-         pattern="[0-9]+"
-         title="Debe ingresar un número"
-         [(ngModel)]="bien.cantidad"
-         required
-  />
+    <div *ngIf="selectedBien != null">
+      <mat-form-field>
+        <input matInput
+               type="number"
+               class="w70"
+               name="cantidad"
+               placeholder="Cantidad"
+               pattern="[0-9]+"
+               title="Debe ingresar un número"
+               [(ngModel)]="itemMovimiento.cantidad"
+               required/>
+        </mat-form-field>
+        <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc">
+          <mat-form-field class="w70 tipoDoc">
+            <mat-label>Nro {{doc.tipoDocumento.descripcion}}</mat-label>
+            <input matInput
+                   type="text"
+                   name="nroDocumento"
+                   placeholder="Nro {{doc.tipoDocumento.descripcion}}"
+                   [(ngModel)]="doc.nroDocumento"
+                   required/>
 
-  <mat-form-field class="w70 tipoDocBien">
-    <mat-label>Tipo Documento</mat-label>
-    <mat-select [(value)]="tipoDocBienSelected" name="tipoDocBien" [(ngModel)]="bien.tipoDoc" required>
-      <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
-        {{tipoDocBien}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+          </mat-form-field>
+        </div>
+        <mat-checkbox class="w70 tipoDoc"
+                      name="vacio"
+                      [(ngModel)]="itemMovimiento.vacio">BI vacío
+        </mat-checkbox>
+    </div>
+  </mat-dialog-content>
 
-  <mat-form-field class="w70 bien">
-    <mat-label>Bien</mat-label>
-    <mat-select [(value)]="bienSelected" name="bien" [(ngModel)]="bien.bien" required>
-      <mat-option *ngFor="let bien of bienes" [value]="bien">
-        {{bien}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-checkbox class="w70 vacio" name="vacio" [(ngModel)]="bien.vacio">Vacío</mat-checkbox>
-
-  <input mat-input type="number" class="form-control idDocBien" name="idDocBien" placeholder="ID Documento"
-         pattern="[0-9]+"
-         title="Debe ingresar un número"
-         [(ngModel)]="bien.idDoc"
-         required
-  />
-
-  <!--OPCIONALES-->
-    <!--DE RECEPCION-->
-  <input type="number" class="form-control adicional1"
-         *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' && isRecepcion==true )" name="nroVale"
-         placeholder="Nro Vale" [(ngModel)]="bien.nroVale" required/>
-  <input type="number" class="form-control adicional1"
-         *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='CHEP' && isRecepcion==true)" name="nroRemitoCHEP"
-         placeholder="Nro Remito CHEP" [(ngModel)]="bien.nroRemitoCHEP" required/>
-  <input type="number" class="form-control adicional1"
-         *ngIf="(tipoBienSelected=='Cajón' && bienSelected=='IFCO' && isRecepcion==true)" name="nroRemitoIFCO"
-         placeholder="Nro Remito IFCO" [(ngModel)]="bien.nroRemitoIFCO" required/>
-  <input type="number" class="form-control adicional1"
-         *ngIf="(tipoBienSelected=='Envase' && isRecepcion==true)" name="tipoOC"
-         placeholder="Tipo Orden de Compra" [(ngModel)]="bien.tipoOC" required/>
-  <input type="number" class="form-control adicional2"
-         *ngIf="(tipoBienSelected=='Envase' && isRecepcion==true)" name="nroOC"
-         placeholder="Nro Orden de Compra" [(ngModel)]="bien.nroOC" required/>
-
-    <!--DE DEVOLUCION-->
-  <mat-form-field *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' && isDevolucion==true)"
-                  class="adicional1">
-    <mat-select multiple placeholder="Lista vales pendientes"
-                name="listaVales"
-                [(ngModel)]="valesSelecionados">
-      <mat-option *ngFor="let vale of vales"
-                  (click)="vale.pendiente = !vale.pendiente"
-                  [value]="vale">{{vale.nro}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <!--FIN OPCIONALES-->
-
-  <mat-dialog-actions class="botones">
-    <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
-    <button mat-button class="mat-raised-button mat-primary submit"
-            (click)="onSubmit()"
-            [disabled]="!agregarbien.valid">Alta</button>
-  </mat-dialog-actions>
+    <mat-dialog-actions class="botones">
+      <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
+      <button mat-button class="mat-raised-button mat-primary submit"
+              (click)="onSubmit()"
+              [disabled]="!agregarbien.valid">Agregar Item</button>
+    </mat-dialog-actions>
 
 </form>

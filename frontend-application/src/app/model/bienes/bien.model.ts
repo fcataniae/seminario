@@ -1,14 +1,10 @@
-export class Bien{
-  tipoBien: string;
-  bien: string;
-  tipoDoc: string;
-  idDoc: number;
-  cantidad: number;
-  vacio: boolean;
+import { TipoDocumento } from "./tipodocumento.model";
 
-  nroVale: number;
-  nroRemitoIFCO: number;
-  nroRemitoCHEP: number;
-  tipoOC: string;
-  nroOC: number;
+export class Bien{
+
+  tipoDocumento: TipoDocumento[];
+  id: number;
+  tipo: string;
+  subtipo: string;
+  descripcion: string;
 }

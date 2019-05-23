@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Bien } from '../../model/bienes/bien.model';
+import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Vale } from '../../model/bienes/vale.model';
+import { MovimientoService } from '../../services/movimiento.service';
 
 @Component({
   selector: 'app-agregar-bien',
@@ -10,35 +12,42 @@ import { Vale } from '../../model/bienes/vale.model';
 })
 export class AgregarBienComponent implements OnInit {
 
-  bien: Bien;
+  bienes: Bien[];
+  selectedBien: Bien;
+  itemMovimiento: ItemMovimiento;
 
-  constructor(public dialogRef: MatDialogRef<AgregarBienComponent>) {
-    this.bien = new Bien();
+
+  constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
+              private _movimientoService: MovimientoService) {
+
    }
 
   ngOnInit() {
+    this._movimientoService.getAllBienes().subscribe(
+      res => {
+        console.log(res);
+        this.bienes = res;
+      },
+      error => console.log(error)
+    );
   }
 
+  onChangeBien(){ //TODO IMPLEMENTAR LA FUNCIONALIDAD
+    //cargar los documentos sacados del bien seleccionado
+    //cargar datos para completar
+    this.itemMovimiento = new ItemMovimiento();
+    this.itemMovimiento.bien = this.selectedBien;
+    this.selectedBien.tipoDocumento.forEach(d =>
+      this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
+    );
+
+
+  }
   onCancel(): void {
     this.dialogRef.close();
   }
 
   onSubmit(){
-    this.dialogRef.close(this.bien);
+    this.dialogRef.close(this.itemMovimiento);
   }
-
-  /*BORRAR*/
-  tipoDocumentos: String[] = ['Remito','Factura','Recibo'];
-  tipoRecursos: String[] = ['Termógrafo'];
-  IDRecursos: String[] = ['1','2','3'];
-
-  tipoBienes: String[] = ['Termógrafo','Pallet','Cajón','Envase'];
-  bienes: String[] = ['ARLOG','CHEP','Descartable','IFCO'];
-
-  tipoDocBienes: String[] = ['Remito IFCO'];
-
-  isRecepcion: boolean = false;
-  isDevolucion: boolean = true;
-
-  vales: Vale[] = [{nro: 1, cantidad: 50, pendiente: true},{nro: 2, cantidad: 20, pendiente: true}];
 }
