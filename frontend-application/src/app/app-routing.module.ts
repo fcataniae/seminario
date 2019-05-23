@@ -8,6 +8,7 @@ import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.c
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
 import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
+import { ConfirmarDevolucionComponent } from './bienes/confirmar-devolucion/confirmar-devolucion.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'home/adm/roles', component: EditarRolComponent},
   { path: 'home/movimientos', component: MovimientosComponent},
   { path: 'home/movimientos/recepcion', component: RecepcionComponent},
-  { path: 'home/movimientos/envio/:mov', component: EnvioComponent}
+  { path: 'home/movimientos/envio/:mov', component: EnvioComponent},
+  { path: 'home/confirmar_devolucion', component: ConfirmarDevolucionComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes, { useHash: true }) ],

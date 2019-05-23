@@ -43,6 +43,7 @@ import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
 import { AgregarBienComponent } from './bienes/agregar-bien/agregar-bien.component';
 import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurso.component';
+import { ConfirmarDevolucionComponent } from './bienes/confirmar-devolucion/confirmar-devolucion.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurs
     RecepcionComponent,
     EnvioComponent,
     AgregarBienComponent,
-    AgregarRecursoComponent
+    AgregarRecursoComponent,
+    ConfirmarDevolucionComponent
   ],
   imports: [
     BrowserModule,

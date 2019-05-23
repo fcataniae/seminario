@@ -1,0 +1,89 @@
+<div class="contenedorConfirmarDevolucion">
+
+  <div class="barraSuperior">
+
+    <button class="button-back atras" mat-icon-button color="primary" (click)="redirectToHome()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
+    </button>
+
+    <h3 class="titulo">Confirmar Devolución</h3>
+
+  </div>
+
+  <div class="datosDevolucionAConfirmar">
+
+    <h4 class="tituloDatos">Datos Confirmación</h4>
+
+    <mat-form-field class="tipoDoc">
+      <mat-label>Tipo Documento</mat-label>
+      <mat-select [(value)]="TipoDocumentoSelected">
+        <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento">
+          {{tipoDocumento}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input type="number" class="form-control idDoc" name="idDoc" placeholder="ID Documento"/>
+
+    <input type="date" class="form-control fecha" name="fecha" placeholder="Fecha Confirmación"/>
+
+    <mat-form-field class="estado">
+      <mat-select placeholder="Estado devolución"
+                  name="estado"
+                  [(ngModel)]="estadoElegido">
+        <mat-option *ngFor="let estado of estados"
+                    [value]="estado">{{estado}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="datosConfirmacion">
+
+    <h4 class="tituloTabla">Devoluciones confirmadas</h4>
+
+    <button class="agregarConfirmacion" mat-icon-button color="primary" (click)="onAgregarConfirmacion()">
+      <mat-icon class="mat-18" >library_add</mat-icon> Confirmar devolución
+    </button>
+
+    <table class="tablaConfirmaciones">
+      <mat-table [dataSource]="datosTablaConfirmaciones" matSort>
+
+        <ng-container matColumnDef="tipoDoc">
+          <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+          <td mat-cell *matCellDef="let confirmacionesAgregadas"> {{confirmacionesAgregadas.tipoDoc}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idDoc">
+          <th mat-header-cell *matHeaderCellDef> ID Documento </th>
+          <td mat-cell *matCellDef="let confirmacionesAgregadas"> {{confirmacionesAgregadas.idDoc}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eliminar">
+          <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+          <td mat-cell *matCellDef="let confirmacionesAgregadas">
+            <button mat-icon-button color="primary" (click)="deleteConfirmacion(confirmacionesAgregadas)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+      </mat-table>
+
+      <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+      </mat-paginator>
+
+    </table>
+
+  </div>
+
+  <div class="confirmar">
+
+    <input type="submit" class="btn btn-wlm" (click)="registrar()" id="login-button" value="Confirmar" />
+
+  </div>
+
+</div>
