@@ -162,4 +162,12 @@ public class Movimiento {
     public void setEstadoViaje(EstadoViaje estadoViaje) {
         this.estadoViaje = estadoViaje;
     }
+
+    public Set<ItemMovimiento> getItemMovimientos() {
+        return itemMovimientos;
+    }
+
+    public void setItemMovimientos(Set<ItemMovimiento> itemMovimientos) {
+        this.itemMovimientos = itemMovimientos;
+    }
 }

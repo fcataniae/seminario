@@ -29,7 +29,7 @@ public class RecursoService {
 
     public Recurso getRecursoById(Usuario usuarioActual, Long id) {
         Recurso r;
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-RECUSO")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-RECURSO")) {
             r = recursoRepository.findById(id);
             if (r == null) {
                 throw new CustomException("El recurso no existe!");

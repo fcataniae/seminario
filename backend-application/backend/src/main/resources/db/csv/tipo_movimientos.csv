@@ -1,7 +1,9 @@
 id,tipo,nombre,id_tipo_destino,id_tipo_origen
-1,ENVIO,Envio,1,2
-2,DESTRUCCION,Destruccion,2,2
+1,ENVIO,"Envio a Tienda",1,2
+2,DESTRUCCION,"Destruccion",2,2
 3,RECEPCION,"Recepcion de Proveedor",2,3
 4,RECEPCION,"Recepcion de Tienda",2,1
-5,ENVIOINTERCAMBIO,Intercambio,3,2
+5,ENVIOINTERCAMBIO,"Intercambio",3,2
 6,RECEPCIONINTERCAMBIO,"Recepcion de intercambio",2,3
+7,DEVOLUCION,"Devolucion desde Tienda",3,1
+8,DEVOLUCION,"Devolucion desde Centro de Distribucion",3,2

@@ -11,15 +11,11 @@ public class Agente {
 
     private Long nro;
 
-
     private String email;
-
 
     private String nombre;
 
-
     private String denominacion;
-
 
     private String direccion;
 
