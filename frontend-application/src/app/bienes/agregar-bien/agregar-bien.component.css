@@ -1,11 +1,13 @@
 
 .formContenedor {
+  overflow: auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: "tipoBien bien"
                        "tipoDocBien idDocBien"
                        "cantidad vacio"
+                       "adicional1 adicional2"
                        "botones botones";
 }
 
@@ -73,4 +75,13 @@ mat-form-field, input {
   min-width: 220px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/*ADICIONAL*/
+.adicional1 {
+  grid-area: adicional1;
+}
+
+.adicional2 {
+  grid-area: adicional2;
 }

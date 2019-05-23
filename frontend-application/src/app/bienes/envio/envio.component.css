@@ -27,8 +27,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: "tituloEnvio tituloEnvio tituloEnvio"
-                       "tipoDocEnvio fechaEnvio idTransportista"
-                       "nroDocEnvio . patenteTransportista";
+                       "tipoDocEnvio nroDocEnvio fechaEnvio"
+                       "idTransportista patenteTransportista .";
 }
 
 .datosRecursosYdatosBienes {

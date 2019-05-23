@@ -4,7 +4,7 @@
 
   <mat-form-field class="w70 tipoBien">
     <mat-label>Tipo Bien</mat-label>
-    <mat-select [(value)]="TipoBienSelected" name="tipoBien" [(ngModel)]="bien.tipoBien" required>
+    <mat-select [(value)]="tipoBienSelected" name="tipoBien" [(ngModel)]="bien.tipoBien" required>
       <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
         {{tipoBien}}
       </mat-option>
@@ -20,7 +20,7 @@
 
   <mat-form-field class="w70 tipoDocBien">
     <mat-label>Tipo Documento</mat-label>
-    <mat-select [(value)]="TipoDocBienSelected" name="tipoDocBien" [(ngModel)]="bien.tipoDoc" required>
+    <mat-select [(value)]="tipoDocBienSelected" name="tipoDocBien" [(ngModel)]="bien.tipoDoc" required>
       <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
         {{tipoDocBien}}
       </mat-option>
@@ -29,7 +29,7 @@
 
   <mat-form-field class="w70 bien">
     <mat-label>Bien</mat-label>
-    <mat-select [(value)]="TipoBienSelected" name="bien" [(ngModel)]="bien.bien" required>
+    <mat-select [(value)]="bienSelected" name="bien" [(ngModel)]="bien.bien" required>
       <mat-option *ngFor="let bien of bienes" [value]="bien">
         {{bien}}
       </mat-option>
@@ -44,6 +44,37 @@
          [(ngModel)]="bien.idDoc"
          required
   />
+
+  <!--OPCIONALES-->
+    <!--DE RECEPCION-->
+  <input type="number" class="form-control adicional1"
+         *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' && isRecepcion==true )" name="nroVale"
+         placeholder="Nro Vale" [(ngModel)]="bien.nroVale" required/>
+  <input type="number" class="form-control adicional1"
+         *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='CHEP' && isRecepcion==true)" name="nroRemitoCHEP"
+         placeholder="Nro Remito CHEP" [(ngModel)]="bien.nroRemitoCHEP" required/>
+  <input type="number" class="form-control adicional1"
+         *ngIf="(tipoBienSelected=='Cajón' && bienSelected=='IFCO' && isRecepcion==true)" name="nroRemitoIFCO"
+         placeholder="Nro Remito IFCO" [(ngModel)]="bien.nroRemitoIFCO" required/>
+  <input type="number" class="form-control adicional1"
+         *ngIf="(tipoBienSelected=='Envase' && isRecepcion==true)" name="tipoOC"
+         placeholder="Tipo Orden de Compra" [(ngModel)]="bien.tipoOC" required/>
+  <input type="number" class="form-control adicional2"
+         *ngIf="(tipoBienSelected=='Envase' && isRecepcion==true)" name="nroOC"
+         placeholder="Nro Orden de Compra" [(ngModel)]="bien.nroOC" required/>
+
+    <!--DE DEVOLUCION-->
+  <mat-form-field *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' && isDevolucion==true)"
+                  class="adicional1">
+    <mat-select multiple placeholder="Lista vales pendientes"
+                name="listaVales"
+                [(ngModel)]="valesSelecionados">
+      <mat-option *ngFor="let vale of vales"
+                  (click)="vale.pendiente = !vale.pendiente"
+                  [value]="vale">{{vale.nro}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!--FIN OPCIONALES-->
 
   <mat-dialog-actions class="botones">
     <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>

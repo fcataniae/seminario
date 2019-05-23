@@ -1,55 +1,140 @@
+.contenedorRecepcion {/*Contiene datosRecepcion, datosRecursos, datosBienes, confirmar*/
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr 4fr 1fr;
+  grid-template-areas: "barraSuperior"
+                       "datosRecepcion"
+                       "datosRecursosYdatosBienes"
+                       "confirmar";
+}
+
+.barraSuperior {
+  margin: 1px;
+  border-bottom: 1px solid #0055ba;
+  grid-area: barraSuperior;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: " atras tituloMovimiento ."
+}
+
+.datosRecepcion { /*boton-atras, Titulo, tipodoc, nrodoc, fecha*/
+  margin: 1px;
+  border-bottom: 1px solid #0055ba;
+  border-top: 1px solid #0055ba;
+  grid-area: datosRecepcion;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "tituloRecepcion tituloRecepcion tituloRecepcion"
+                       "tipoDocRecepcion nroDocRecepcion fechaRecepcion";
+}
+
+.datosRecursosYdatosBienes {
+  grid-area: datosRecursosYdatosBienes;
+  border-bottom: 1px double #0055ba;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "datosBienes datosRecursos"
+}
+
+.datosBienes {
+  margin: 1px;
+  border-top: 1px solid #0055ba;
+  border-right: 1px solid #0055ba;
+  border-bottom: 1px double #0055ba;
+  grid-area: datosBienes;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas: "tituloBien agregarBien"
+                       "tablaBien tablaBien";
+}
+
+.datosRecursos {
+  margin: 1px;
+  border-top: 1px solid #0055ba;
+  border-left: 1px solid #0055ba;
+  border-bottom: 1px double #0055ba;
+  grid-area: datosRecursos;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas: "tituloRecurso agregarRecurso"
+                       "tablaRecurso tablaRecurso";
+}
+
+.confirmar {
+  grid-area: confirmar;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*CONTENIDO barraSuperior*/
 .button-back{
+  grid-area: atras;
   left: 1em;
   width: 30%;
   text-align: left;
 }
 
-mat-form-field {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 250px;
-  width: 15%;
-  layout: "column";
-  layout-align: "center center"
+.tituloMovimiento {
+  grid-area: tituloMovimiento;
+  width: 100%;
+  place-self: center stretch;
 }
 
-.medio, .botonRecursosAsignados {
-  margin-left: 42%;
-  margin-right: auto;
-  min-width: 250px;
-  width: 10%;
-  layout: "column";
-  layout-align: "center center"
+/*CONTENIDO datosRecepcion*/
+.tituloRecepcion {
+  grid-area: tituloRecepcion;
 }
 
-.datosRecepcion{
-  display: grid;
-  grid-template-colums: 1fr 1fr 1fr;
+.tipoDocRecepcion {
+  grid-area: tipoDocRecepcion;
 }
 
-.recepcionDocumentos, .confirmar{
-  display: block;
-  grid-colum: 2/3;
+.fechaRecepcion {
+  grid-area: fechaRecepcion;
 }
 
-input, mat-table {
-  margin: 10px ;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 250px;
-  padding: 10px;
+.nroDocRecepcion {
+  grid-area: nroDocRecepcion;
 }
 
-input {
-  width: 20%;
+/*CONTENIDO datosBienes*/
+.tituloBien {
+  grid-area: tituloBien;
+  justify-self: center;
 }
 
-mat-table{
-  width: 40%;
+.agregarBien {
+  grid-area: agregarBien;
+  justify-self: center;
 }
 
+.tablaBien {
+  grid-area: tablaBien;
+}
+
+/*CONTENIDO datosRecursos*/
+.tituloRecurso {
+  grid-area: tituloRecurso;
+  justify-self: center;
+}
+
+.agregarRecurso {
+  grid-area: agregarRecurso;
+  justify-self: center;
+}
+
+.tablaRecurso {
+  grid-area: tablaRecurso;
+}
+
+/*OTROS*/
 h4 {
-  border-top: 1px solid #0055ba;
   margin: 10px ;
   margin-left: auto;
   margin-right: auto;
@@ -60,73 +145,22 @@ h4 {
   font-family: "Myriad Pro"
 }
 
-.datosRecursosAsignados{
-  display: grid;
-  grid-template-colums: 1fr 1fr 1fr;
-}
-
-.recursosAsignados {
-  display: block;
-  grid-colum: 2/3;
-}
-
-.datosBienesIntercambiables {
-  display: grid;
-  grid-template-colums: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: "titulo titulo titulo titulo"
-                    ". tipobien tipodocbien ."
-                      ". idbien iddocbien ."
-                      ". opcional opcional2 ."
-                      ". cantidad vacio ."
-                      ". agregar agregar .";
-}
-
-.bienesIntercambiables {
-  grid-area: titulo;
-}
-
-.bienesIntercambiables1 {
-  grid-area: tipobien;
-}
-
-.bienesIntercambiables2 {
-  grid-area: idbien;
-}
-
-.bienesIntercambiables3 {
-  grid-area: tipodocbien;
-}
-
-.bienesIntercambiables4 {
-  grid-area: iddocbien;
-}
-
-.bienesIntercambiables5 {
-  grid-area: cantidad;
-  justify-self:end;
+input {
+  max-width: 80%;
   margin-left: auto;
-  margin-right: 5%;
-}
-
-.bienesIntercambiables6 {
-  grid-area: vacio;
-  justify-self:start;
   margin-right: auto;
-  margin-left: 5%;
+  justify-self: center;
 }
 
-.botonBienesAsignados {
-  grid-area: agregar;
-  min-width: 250px;
-  width: 10%;
+mat-form-field {
+  min-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  text-align: center;
+  max-width: 98%;
+  min-width: 98%;
   justify-self:center;
-}
-
-.bienesIntercambiablesOpt {
-  grid-area: opcional;
-}
-
-.bienesIntercambiablesOpt2 {
-  grid-area: opcional2;
 }

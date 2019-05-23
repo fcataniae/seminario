@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { AgregarBienComponent } from '../agregar-bien/agregar-bien.component';
+import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.component';
+import { Bien } from '../../model/bienes/bien.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 
 @Component({
@@ -10,35 +13,65 @@ import { Recurso } from '../../model/bienes/recurso.model';
 })
 export class RecepcionComponent implements OnInit {
 
-  tipoDocumentos: String[] = ['Remito','Factura','Recibo'];
-  tipoRecursos: String[] = ['Termógrafo'];
-  IDRecursos: String[] = ['1','2','3'];
+  @ViewChild(MatSort) sortBienes: MatSort;
+  @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
+  datosTablaBienes = new MatTableDataSource<Bien>();
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  datosTablaRecursos: Recurso[] = [ {tipoRecurso: 'Termografo', idRecurso: 0} ];;
-  columnsToDisplay = ['Tipo Recurso', 'ID Recurso'];
+  @ViewChild(MatSort) sortRecursos: MatSort;
+  @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
+  datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  tipoBienes: String[] = ['Termógrafo','Pallet','Cajón','Envase'];
-  bienes: String[] = ['ARLOG','CHEP','Descartable','IFCO'];
+  columnsToDisplayBien = ['tipoBien','bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
+  columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
 
-  tipoDocBienes: String[] = ['Remito IFCO'];
+  constructor(private location: Location,
+                private dialogAgregarBien: MatDialog,
+                private dialogAgregarRecurso: MatDialog,
+                ) { }
 
-  onAgregarRecurso(){
+  ngOnInit() {
+     let bienesAgregados: Bien[] = [{ tipoBien: 'Pallet', bien: 'ARLOG', tipoDoc: 'Recibo',
+                                        idDoc: 0, cantidad: 5, vacio: false,
+                                        nroVale: null, nroRemitoIFCO: null, nroRemitoCHEP: null,
+                                        tipoOC: null, nroOC: null}];
+
+    this.datosTablaBienes.data = bienesAgregados;
+    this.datosTablaBienes.sort = this.sortBienes;
+    this.datosTablaBienes.paginator = this.paginatorBienes;
+
+    let recursosAgregados: Recurso[] = [{ tipoRecurso: 'Termógrafo', idRecurso: 0}];
+
+    this.datosTablaRecursos.data = recursosAgregados;
+    this.datosTablaRecursos.sort = this.sortRecursos;
+    this.datosTablaRecursos.paginator = this.paginatorRecursos;
+
+  }//END OnInit
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  onAgregarBien() {
+    const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
+      width: '50%'
+    });
+  }
+
+  onAgregarRecurso() {
+    const dialogRef = this.dialogAgregarRecurso.open(AgregarRecursoComponent,{
+      width: '50%'
+    });
+  }
+
+  deleteBien() {
+
+  }
+
+  deleteRecurso() {
 
   }
 
   registrar(){
 
   }
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  constructor(private location: Location) { }
-
-  ngOnInit() {
-  }
-
 }

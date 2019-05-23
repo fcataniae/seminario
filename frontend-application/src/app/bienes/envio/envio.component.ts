@@ -21,8 +21,8 @@ export class EnvioComponent implements OnInit {
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  columnsToDisplayBien = ['tipoBien','bien','tipoDoc','nroDoc','cantidad','vacio'];
-  columnsToDisplayRecurso = ['tipoRecurso','idRecurso'];
+  columnsToDisplayBien = ['tipoBien','bien','tipoDoc','idDoc','cantidad','vacio','eliminar'];
+  columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
 
   constructor(private location: Location,
               private dialogAgregarBien: MatDialog,
@@ -31,13 +31,16 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
 
-  let bienesAgregados: Bien[] = [{tipoBien: 'Pallet', bien: 'ARLOG', tipoDoc: 'Recibo', nroDoc: 0, cantidad: 5, vacio: false}];
+  let bienesAgregados: Bien[] = [{ tipoBien: 'Pallet', bien: 'ARLOG', tipoDoc: 'Recibo',
+                                    idDoc: 0, cantidad: 5, vacio: false,
+                                    nroVale: null, nroRemitoIFCO: null, nroRemitoCHEP: null,
+                                    tipoOC: null, nroOC: null}];
 
   this.datosTablaBienes.data = bienesAgregados;
   this.datosTablaBienes.sort = this.sortBienes;
   this.datosTablaBienes.paginator = this.paginatorBienes;
 
-  let recursosAgregados: Recurso[] = [{ posicion: 0, tipoRecurso: 'Termógrafo', idRecurso: 0}];
+  let recursosAgregados: Recurso[] = [{ tipoRecurso: 'Termógrafo', idRecurso: 0}];
 
   this.datosTablaRecursos.data = recursosAgregados;
   this.datosTablaRecursos.sort = this.sortRecursos;
@@ -60,5 +63,20 @@ export class EnvioComponent implements OnInit {
       width: '50%'
     });
   }
+
+  deleteBien() {
+
+  }
+
+  deleteRecurso() {
+
+  }
+
+  registrar() {
+
+  }
+
+  /*BORRAR*/
+  isEnvio: boolean = true;
 
 }

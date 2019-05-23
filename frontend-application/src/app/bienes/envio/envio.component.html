@@ -3,16 +3,16 @@
   <div class="barraSuperior">
 
     <button class="button-back" mat-icon-button color="primary" (click)="goBack()">
-      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
     </button>
 
-    <h3 class="tituloMovimiento">Tipo de movimiento > Envío</h3>
+    <h3 class="tituloMovimiento">Tipo de movimiento > Envío</h3> <!-- {{ movimiento.nombre }} -->
 
   </div>
 
   <div class="datosEnvio">
 
-    <h4 class="tituloEnvio">Datos Envío</h4>
+    <h4 class="tituloEnvio">Datos Envío</h4> <!-- {{ movimiento.nombre }} -->
 
     <mat-form-field class="tipoDocEnvio">
       <mat-label>Tipo Documento</mat-label>
@@ -23,13 +23,17 @@
       </mat-select>
     </mat-form-field>
 
-    <input type="number" class="form-control nroDocEnvio" name="nroDocEnvio" placeholder="Nro Documento"/>
+    <input type="number" class="form-control nroDocEnvio" name="nroDocEnvio" placeholder="ID Documento"/>
 
     <input type="date" class="form-control fechaEnvio" name="fechaEnvio" placeholder="Fecha Envío"/>
 
-    <input type="number" class="form-control idTransportista" name="idTransportista" placeholder="ID Transportista"/>
+    <input type="number" class="form-control idTransportista"
+           name="idTransportista" placeholder="ID Transportista"
+           *ngIf="(isEnvio==true)"/>
 
-    <input type="text" class="form-control patenteTransportista" name="patenteTransportista" placeholder="Patente Transportista"/>
+    <input type="text" class="form-control patenteTransportista"
+           name="patenteTransportista" placeholder="Patente Transportista"
+           *ngIf="(isEnvio==true)"/>
 
   </div>
 
@@ -76,6 +80,15 @@
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let bienesAgregados">
+              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
           <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
           <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
 
@@ -107,6 +120,15 @@
           <ng-container matColumnDef="idRecurso">
             <th mat-header-cell *matHeaderCellDef> Recurso </th>
             <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.idRecurso}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let recursosAgregados">
+              <button mat-icon-button color="primary" (click)="deleteRecurso(recursosAgregados)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplayRecurso"></tr>

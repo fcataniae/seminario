@@ -5,4 +5,10 @@ export class Bien{
   idDoc: number;
   cantidad: number;
   vacio: boolean;
+
+  nroVale: number;
+  nroRemitoIFCO: number;
+  nroRemitoCHEP: number;
+  tipoOC: string;
+  nroOC: number;
 }

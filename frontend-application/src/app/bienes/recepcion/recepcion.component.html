@@ -1,14 +1,20 @@
-<button class="button-back" mat-icon-button color="primary" (click)="goBack()">
-  <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
-</button>
+<div class="contenedorRecepcion">
 
-<h3>Tipo de movimiento > Recepción</h3>
+  <div class="barraSuperior">
 
-<form class="form">
+    <button class="button-back" mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
+    </button>
+
+    <h3 class="tituloMovimiento">Tipo de movimiento > Recepción</h3>
+
+  </div>
 
   <div class="datosRecepcion">
-    <h4 class="recepcionDocumentos">Documentación Recepción</h4>
-    <mat-form-field class="recepcionDocumentos medio">
+
+    <h4 class="tituloRecepcion">Datos Recepción</h4>
+
+    <mat-form-field class="tipoDocRecepcion">
       <mat-label>Tipo Documento</mat-label>
       <mat-select [(value)]="TipoDocumentoSelected">
         <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento">
@@ -17,128 +23,124 @@
       </mat-select>
     </mat-form-field>
 
-    <input type="number" class="form-control recepcionDocumentos" #idDocumento name="idDocumento" placeholder="ID Documento"/>
-    <input type="date" class="form-control recepcionDocumentos" #fechaDocumento name="fechaDocumento" placeholder="Fecha Recepción"/>
-  </div><!--FIN DIV datosRecepcion-->
+    <input type="number" class="form-control nroDocRecepcion" name="nroDocRecepcion" placeholder="ID Documento"/>
 
-  <div class="datosRecursosAsignados">
-    <h4 class="recursosAsignados">Documentación Recursos Asignados</h4>
+    <input type="date" class="form-control fechaRecepcion" name="fechaRecepcion" placeholder="Fecha Recepción"/>
 
-    <mat-form-field class="recursosAsignados medio">
-      <mat-label>Tipo Recurso</mat-label>
-      <mat-select [(value)]="tipoRecursoSelected">
-        <mat-option *ngFor="let tipoRecurso of tipoRecursos" [value]="tipoRecurso">
-          {{tipoRecurso}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  </div>
 
-    <mat-form-field class="recursosAsignados medio">
-      <mat-label>ID Recurso</mat-label>
-      <mat-select [(value)]="IDRecursoSelected" [disabled]="tipoRecursoSelected==null">
-        <mat-option *ngFor="let IDRecurso of IDRecursos" [value]="IDRecurso">
-          {{IDRecurso}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="datosRecursosYdatosBienes">
 
-    <button class="botonRecursosAsignados" mat-icon-button color="primary" (click)="onAgregarRecurso()">
-      <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
-    </button>
-<!--
-    <mat-table [dataSource]="datosTablaRecursos" matSort>
+    <div class="datosBienes">
 
-      <ng-container matColumnDef="posicion">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let recursos"> {{recursos.posicion}} </td>
-      </ng-container>
+      <h4 class="tituloBien">Datos Bien</h4>
 
-      <ng-container matColumnDef="TipoRecurso">
-        <th mat-header-cell *matHeaderCellDef> Tipo Recurso </th>
-        <td mat-cell *matCellDef="let recursos"> {{recursos.tipoRecurso}} </td>
-      </ng-container>
+      <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
+        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
+      </button>
 
-      <ng-container matColumnDef="IDRecurso">
-        <th mat-header-cell *matHeaderCellDef> ID Recurso </th>
-        <td mat-cell *matCellDef="let recursos"> {{recursos.idRecurso}} </td>
-      </ng-container>
+      <table class="tablaBien">
+        <mat-table [dataSource]="datosTablaBienes" matSort>
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-    </mat-table>
--->
-  </div><!--FIN DIV datos Recursos Asignados-->
+          <ng-container matColumnDef="tipoBien">
+            <th mat-header-cell *matHeaderCellDef> Tipo bien </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoBien}} </td>
+          </ng-container>
 
-  <div class="datosBienesIntercambiables">
-    <h4 class="bienesIntercambiables">Documentación Bienes Intercambiables</h4>
+          <ng-container matColumnDef="bien">
+            <th mat-header-cell *matHeaderCellDef> Bien </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien}} </td>
+          </ng-container>
 
-    <mat-form-field class="bienesIntercambiables1">
-      <mat-label>Tipo Bien</mat-label>
-      <mat-select [(value)]="tipoBienSelected">
-        <mat-option *ngFor="let tipoBien of tipoBienes" [value]="tipoBien">
-          {{tipoBien}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+          <ng-container matColumnDef="tipoDoc">
+            <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoDoc}} </td>
+          </ng-container>
 
-    <mat-form-field class="bienesIntercambiables2">
-      <mat-label>Bien</mat-label>
-      <mat-select [(value)]="bienSelected" [disabled]="tipoBienSelected==null">
-        <mat-option *ngFor="let bien of bienes" [value]="bien">
-          {{bien}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+          <ng-container matColumnDef="nroDoc">
+            <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.nroDoc}} </td>
+          </ng-container>
 
-    <mat-form-field class="bienesIntercambiables3">
-      <mat-label>Tipo Documento</mat-label>
-      <mat-select [(value)]="tipoDocBienSelected">
-        <mat-option *ngFor="let tipoDocBien of tipoDocBienes" [value]="tipoDocBien">
-          {{tipoDocBien}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+          <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
+          </ng-container>
 
-    <input type="number" class="form-control bienesIntercambiables4" [disabled]="tipoDocBienSelected==null" name="cantidad" placeholder="ID Document"/>
+          <ng-container matColumnDef="vacio">
+            <th mat-header-cell *matHeaderCellDef> Vacio </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio}} </td>
+          </ng-container>
 
-    <input type="number" class="form-control bienesIntercambiables5" name="cantidad" placeholder="Cantidad"/>
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let bienesAgregados">
+              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-    <mat-checkbox class="bienesIntercambiables6">Vacío</mat-checkbox>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
 
-<!--OPCIONALES-->
-    <input type="number" class="form-control bienesIntercambiablesOpt" *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' )" name="nroVale" placeholder="Nro Vale"/>
-    <input type="number" class="form-control bienesIntercambiablesOpt" *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='CHEP' )" name="nroRemitoCHEP" placeholder="Nro Remito CHEP"/>
-    <input type="number" class="form-control bienesIntercambiablesOpt" *ngIf="(tipoBienSelected=='Cajón' && bienSelected=='IFCO' )" name="nroRemitoIFCO" placeholder="Nro Remito IFCO"/>
-    <input type="number" class="form-control bienesIntercambiablesOpt" *ngIf="(tipoBienSelected=='Envase')" name="tipoOC" placeholder="Tipo Orden de Compra"/>
-    <input type="number" class="form-control bienesIntercambiablesOpt2" *ngIf="(tipoBienSelected=='Envase')" name="nroOC" placeholder="Nro Orden de Compra"/>
-<!--OPCIONALES-->
-    <button class="botonBienesAsignados" mat-icon-button color="primary" (click)="onAgregarRecurso()">
-      <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
-    </button>
+        </mat-table>
 
-    <!--
-    <mat-table [dataSource]="datosTablaBienes" matSort>
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+        </mat-paginator>
 
-      <ng-container matColumnDef="posicion">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let bienes"> {{bienes.posicion}} </td>
-      </ng-container>
+      </table>
 
-      <ng-container matColumnDef="TipoBien">
-        <th mat-header-cell *matHeaderCellDef> Tipo bien </th>
-        <td mat-cell *matCellDef="let bienes"> {{bienes.tipoRecurso}} </td>
-      </ng-container>
+    </div>
 
-      <ng-container matColumnDef="IDRecurso">
-        <th mat-header-cell *matHeaderCellDef> Bien </th>
-        <td mat-cell *matCellDef="let element"> {{bienes.idRecurso}} </td>
-      </ng-container>
+    <div class="datosRecursos">
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-    </mat-table>
--->
-  </div><!--FIN DIV datos Bienes Intercambiables-->
+      <h4 class="tituloRecurso">Datos Recurso</h4>
 
-  <input type="submit" class="btn btn-wlm confirmar" (click)="registrar()" id="login-button" value="Confirmar" />
-</form>
+      <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
+        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
+      </button>
+
+      <table class="tablaRecurso">
+        <mat-table [dataSource]="datosTablaRecursos" matSort>
+
+          <ng-container matColumnDef="tipoRecurso">
+            <th mat-header-cell *matHeaderCellDef> Tipo recurso </th>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="idRecurso">
+            <th mat-header-cell *matHeaderCellDef> Recurso </th>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.idRecurso}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let recursosAgregados">
+              <button mat-icon-button color="primary" (click)="deleteRecurso(recursosAgregados)">
+                <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayRecurso"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayRecurso"></tr>
+
+        </mat-table>
+
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+        </mat-paginator>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="confirmar">
+
+    <input type="submit" class="btn btn-wlm" (click)="registrar()" id="login-button" value="Confirmar" />
+
+  </div>
+
+</div>
