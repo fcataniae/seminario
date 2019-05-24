@@ -61,7 +61,7 @@
             <column name="permisos_id" type="NUMERIC" />
         </loadUpdateData>
         <loadUpdateData tableName="tipoAgente"
-                        file="classpath:db/csv/tipo_locales.csv"
+                        file="classpath:db/csv/tipo_agentes.csv"
                         primaryKey="id">
             <column name="id" type="NUMERIC" />
             <column name="nombre" type="STRING" />
@@ -88,7 +88,7 @@
             <column name="NOMBRE" type="STRING"/>
             <column name="USUARIOALTA" type="STRING"/>
             <column name="ESTADO_ID" type="NUMERIC"/>
-            <column name="id_tipo_local" type="NUMERIC"/>
+            <column name="id_tipo_agente" type="NUMERIC"/>
         </loadUpdateData>
         <loadUpdateData tableName="bienintercambiable"
                         primaryKey="ID"
@@ -116,6 +116,28 @@
                         file="classpath:/db/csv/tipodocumento_bien.csv">
             <column name="BienIntercambiable_ID" type="NUMERIC"/>
             <column name="tipoDocumento_ID" type="NUMERIC"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="TipoProveedor"
+                        file="classpath:db/csv/tipo_proveedor.csv"
+                        primaryKey="id">
+            <column name="id" type="NUMERIC" />
+            <column name="descrip" type="STRING" />
+        </loadUpdateData>
+        <loadUpdateData tableName="proveedor"
+                        primaryKey="nro"
+                        file="classpath:db/csv/proveedores.csv">
+            <column name="NRO" type="NUMERIC"/>
+            <column name="COORDENADA" type="STRING"/>
+            <column name="DENOMINACION" type="STRING"/>
+            <column name="DIRECCION" type="STRING"/>
+            <column name="DIRECCION_NRO" type="NUMERIC"/>
+            <column name="EMAIL" type="STRING"/>
+            <column name="FECHAALTA" type="date"/>
+            <column name="NOMBRE" type="STRING"/>
+            <column name="USUARIOALTA" type="STRING"/>
+            <column name="ESTADO_ID" type="NUMERIC"/>
+            <column name="id_tipo_agente" type="NUMERIC"/>
+            <column name="ID_TIPO_PROVEEDOR" type="NUMERIC"/>
         </loadUpdateData>
     </changeSet>
 </databaseChangeLog>

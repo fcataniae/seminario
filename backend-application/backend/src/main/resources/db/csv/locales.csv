@@ -1,2 +1,6 @@
 nro,nombre,email,denominacion,direccion,direccion_nro,coordenada,id_tipo_agente,usuarioAlta,ESTADO_ID,fechaAlta
-1,"CD Pilar","cdpilar@waltmart.com","Centro de distribucion Pilar","ruta 25",2007,"coordenada",2,"system",1,1947-01-23
+7460,"CD Moreno Secos","cd_Moreno@waltmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
+7459,"CD Moreno Perecederos","cd_Moreno@waltmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
+1023,"San Justo Supercenter","SanJusto@waltmart.com","Tienda San Justo Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
+1024,"Avellaneda Changomas","AvellanedaChangomas@waltmart.com","Tienda Avellaneda Changomas","",2007,"coordenada",1,"system",1,2007-01-23
+1025,"Caseros Changomas","CaserosChangomas@waltmart.com","Tienda Caseros Changomas","",2007,"coordenada",1,"system",1,2007-01-23

@@ -66,7 +66,7 @@ public class Proveedor {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_proveedor")
+    @JoinColumn(name = "ID_TIPO_PROVEEDOR")
     private TipoProveedor tipoProveedor;
 
     @Override
