@@ -15,11 +15,10 @@
     </mat-form-field>
 
 
-    <div *ngIf="selectedBien != null">
+    <div *ngIf="selectedBien != null" class="w70">
       <mat-form-field>
         <input matInput
                type="number"
-               class="w70"
                name="cantidad"
                placeholder="Cantidad"
                pattern="[0-9]+"
@@ -28,7 +27,7 @@
                required/>
         </mat-form-field>
         <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc">
-          <mat-form-field class="w70 tipoDoc">
+          <mat-form-field >
             <mat-label>Nro {{doc.tipoDocumento.descripcion}}</mat-label>
             <input matInput
                    type="text"
@@ -39,7 +38,7 @@
 
           </mat-form-field>
         </div>
-        <mat-checkbox class="w70 tipoDoc"
+        <mat-checkbox
                       name="vacio"
                       [(ngModel)]="itemMovimiento.vacio">BI vacío
         </mat-checkbox>

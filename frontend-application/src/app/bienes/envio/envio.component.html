@@ -50,31 +50,26 @@
       <table class="tablaBien">
         <mat-table [dataSource]="datosTablaBienes" matSort>
 
-          <ng-container matColumnDef="tipoBien">
-            <th mat-header-cell *matHeaderCellDef> Tipo bien </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoBien}} </td>
-          </ng-container>
 
           <ng-container matColumnDef="bien">
             <th mat-header-cell *matHeaderCellDef> Bien </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tipoDoc">
             <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.tipoDoc}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="nroDoc">
             <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.nroDoc}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
           </ng-container>
 
           <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef> Cantidad </th>
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
           </ng-container>
-
           <ng-container matColumnDef="vacio">
             <th mat-header-cell *matHeaderCellDef> Vacio </th>
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio}} </td>

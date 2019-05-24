@@ -3,8 +3,9 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } fr
 import { Location } from '@angular/common';
 import { AgregarBienComponent } from '../agregar-bien/agregar-bien.component';
 import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.component';
-import { Bien } from '../../model/bienes/bien.model';
+import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Recurso } from '../../model/bienes/recurso.model';
+import { Movimiento } from '../../model/bienes/movimiento.model';
 
 @Component({
   selector: 'app-envio',
@@ -15,14 +16,15 @@ export class EnvioComponent implements OnInit {
 
   @ViewChild(MatSort) sortBienes: MatSort;
   @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
-  datosTablaBienes = new MatTableDataSource<Bien>();
+  datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
 
   @ViewChild(MatSort) sortRecursos: MatSort;
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  columnsToDisplayBien = ['tipoBien','bien','tipoDoc','idDoc','cantidad','vacio','eliminar'];
+  columnsToDisplayBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
   columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
+  movimiento: Movimiento;
 
   constructor(private location: Location,
               private dialogAgregarBien: MatDialog,
@@ -31,12 +33,10 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
 
-  let bienesAgregados: Bien[] = [{ tipoBien: 'Pallet', bien: 'ARLOG', tipoDoc: 'Recibo',
-                                    idDoc: 0, cantidad: 5, vacio: false,
-                                    nroVale: null, nroRemitoIFCO: null, nroRemitoCHEP: null,
-                                    tipoOC: null, nroOC: null}];
+  this.movimiento = new Movimiento();
 
-  this.datosTablaBienes.data = bienesAgregados;
+
+  this.datosTablaBienes.data = this.movimiento.items;
   this.datosTablaBienes.sort = this.sortBienes;
   this.datosTablaBienes.paginator = this.paginatorBienes;
 
@@ -56,6 +56,17 @@ export class EnvioComponent implements OnInit {
     const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
       width: '50%'
     });
+
+    dialogRef.afterClosed().subscribe(
+      res=> {
+        console.log(res instanceof ItemMovimiento);
+        if(res instanceof ItemMovimiento){
+          this.movimiento.items.push(res);
+          console.log(this.movimiento.items);
+          this.datosTablaBienes.data = this.movimiento.items;
+        }
+      }
+    );
   }
 
   onAgregarRecurso() {
