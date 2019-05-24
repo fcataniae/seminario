@@ -1,12 +1,27 @@
-
 ## REQUESTS
+
+#### Obtención del TOKEN
+
+Se obtiene el token que luego se utilizará en todas los metodos.
+
+ ```bash
+ TOKEN=$(curl -X POST \
+       http://localhost:9081/auth/login/ \
+       -H 'cache-control: no-cache' \
+       -H 'content-type: application/json' \
+       -H 'postman-token: 59739453-a534-a362-f28d-daefe2d8439a' \
+       -d '{
+         "username": "admin",
+         "password": "admin"
+     }' | jq -r ".token")
+ ```
 
 ##### ALTA DE PERSONA
 
 ```
 curl -X PUT \
   http://localhost:9081/service/alta-persona \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 98f7e7f8-286b-f9b3-cfc3-7d273909f0a1' \
@@ -28,7 +43,7 @@ Ingresar el <id-persona> a la cual estará asociado el nuevo usuario.
 ```
 curl -X POST \
   http://localhost:9081/service/<id-persona>/usuario \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 51ff0bf1-e26c-668d-8e8c-32b3aa62ed08' \
@@ -43,7 +58,7 @@ curl -X POST \
 ```
 curl -X POST \
   http://localhost:9081/service/alta-rol \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 36b5d42b-850e-12b9-3066-e0561436f25b' \
@@ -58,7 +73,7 @@ curl -X POST \
 ```
 curl -X POST \
   http://localhost:9081/service/alta-permiso \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 9c9dbf72-247c-0b56-6e2f-af7738f3c021' \
@@ -76,7 +91,7 @@ curl -X POST \
 ```
 curl -X PUT \
   http://localhost:9081/service/update-persona \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: a2224b17-53db-8de7-614a-431b4102cb9f' \
@@ -103,22 +118,22 @@ Ver que se puede injectar una lista de roles al usuario.
 ```
 curl -X PUT \
   http://localhost:9081/service/update-usuario \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: a96343ae-90af-2722-00b1-e163efcfe6ef' \
   -d '{
-	"nombreUsuario": "reatt", 
+	"nombreUsuario": "reatt",
 	"password": "123"
   }'
 ```
 
-Ejemplo de un usuario al que se le inyecta una lista de 
+Ejemplo de un usuario al que se le inyecta una lista de
 
 ```
 curl -X PUT \
   http://localhost:9081/service/update-usuario \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 703f61bc-090f-7256-1023-263041d70289' \
@@ -135,7 +150,7 @@ Ver que se puede injectar una lista de permisos al rol.
 ```
 curl -X PUT \
   http://localhost:9081/service/update-rol \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: ce1d5c2b-ee97-63b5-0c39-788c11b0c8dc' \
@@ -161,7 +176,7 @@ curl -X PUT \
 ```
 curl -X PUT \
   http://localhost:9081/service/update-permiso \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: a75eb315-1740-49fa-f486-7fae9d4ac3ba' \
@@ -185,8 +200,8 @@ Cambiar en <objeto> por [personas/usuarios/roles/permisos]`
 
 ```
 curl -X GET \
-  http://localhost:9081/service/listar-<objeto> \
-  -H 'authorization: Basic YWRtaW46YWRtaW4=' \
+  http://localhost:9081/service/listar-personas \
+  -H 'Authorization: Bearer '$TOKEN'' \
   -H 'cache-control: o-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: 65dbfc43-39cb-281f-2b3a-f32fc376adac'
