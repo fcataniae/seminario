@@ -3,6 +3,7 @@ package com.seminario.services.rest;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.BienIntercambiable;
+import com.seminario.backend.model.bienes.Movimiento;
 import com.seminario.backend.model.bienes.Recurso;
 import com.seminario.backend.model.bienes.TipoMovimiento;
 import com.seminario.backend.services.abm.CustomException;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,6 +42,19 @@ public class BienesRestController {
     @Autowired
     RecursoService recursoService;
 
+    /**
+     * Crea un nuevo movimiento.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @PostMapping("/alta-movimiento")
+    public void crearMovimiento(@AuthenticationPrincipal UserDetails userDetails,
+                                @RequestBody Movimiento movimiento) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        movimientoService.create(usuarioActual, movimiento);
+    }
 
     /**
      * Lista todos los movimientos.
