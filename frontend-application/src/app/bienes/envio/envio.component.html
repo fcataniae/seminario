@@ -50,35 +50,40 @@
       <table class="tablaBien">
         <mat-table [dataSource]="datosTablaBienes" matSort>
 
+          <ng-container matColumnDef="posicion">
+            <th mat-header-cell *matHeaderCellDef> Pos. </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.posicion}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="bien">
             <th mat-header-cell *matHeaderCellDef> Bien </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien.descripcion}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.bien.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tipoDoc">
             <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="nroDoc">
             <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.itemMovimientoTipoDoc[0].nroDocumento}} </td>
           </ng-container>
 
           <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.cantidad}} </td>
           </ng-container>
+
           <ng-container matColumnDef="vacio">
             <th mat-header-cell *matHeaderCellDef> Vacio </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.vacio}} </td>
           </ng-container>
 
           <ng-container matColumnDef="eliminar">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let bienesAgregados">
-              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
+              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados.posicion)">
                 <mat-icon class="mat-18">delete</mat-icon>
               </button>
             </td>
@@ -142,7 +147,7 @@
 
   <div class="confirmar">
 
-    <input type="submit" class="btn btn-wlm" (click)="registrar()" id="login-button" value="Confirmar" />
+    <input type="submit" class="btn btn-wlm center" (click)="registrar()" id="login-button" value="Confirmar" />
 
   </div>
 

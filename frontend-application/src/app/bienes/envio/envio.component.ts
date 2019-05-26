@@ -6,6 +6,7 @@ import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.comp
 import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
+import { ItemTabla } from '../../model/bienes/itemtabla.model';
 
 @Component({
   selector: 'app-envio',
@@ -16,15 +17,17 @@ export class EnvioComponent implements OnInit {
 
   @ViewChild(MatSort) sortBienes: MatSort;
   @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
-  datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
+  datosTablaBienes = new MatTableDataSource<ItemTabla>();
 
   @ViewChild(MatSort) sortRecursos: MatSort;
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  columnsToDisplayBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
+  columnsToDisplayBien = ['posicion','bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
   columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
   movimiento: Movimiento;
+
+  itemTabla: ItemTabla;
 
   constructor(private location: Location,
               private dialogAgregarBien: MatDialog,
@@ -34,7 +37,6 @@ export class EnvioComponent implements OnInit {
   ngOnInit() {
 
   this.movimiento = new Movimiento();
-
 
   this.datosTablaBienes.data = this.movimiento.items;
   this.datosTablaBienes.sort = this.sortBienes;
@@ -61,7 +63,10 @@ export class EnvioComponent implements OnInit {
       res=> {
         console.log(res instanceof ItemMovimiento);
         if(res instanceof ItemMovimiento){
-          this.movimiento.items.push(res);
+          this.itemTabla = new ItemTabla();
+          this.itemTabla.item = res;
+          this.itemTabla.posicion = this.movimiento.items.length;
+          this.movimiento.items.push(this.itemTabla);
           console.log(this.movimiento.items);
           this.datosTablaBienes.data = this.movimiento.items;
         }
@@ -75,8 +80,16 @@ export class EnvioComponent implements OnInit {
     });
   }
 
-  deleteBien() {
+  deleteBien(posicion: number) {
+    this.movimiento.items = this.movimiento.items.filter(item => item.posicion != posicion);
 
+    this.movimiento.items.forEach( (element) => {
+      if(element.posicion > posicion){
+        element.posicion = element.posicion - 1;
+      }
+    });
+
+    this.datosTablaBienes.data = this.movimiento.items;
   }
 
   deleteRecurso() {

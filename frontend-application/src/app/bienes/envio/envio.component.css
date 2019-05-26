@@ -27,7 +27,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: "tituloEnvio tituloEnvio tituloEnvio"
-                       "tipoDocEnvio nroDocEnvio fechaEnvio"
+                       "fechaEnvio tipoDocEnvio nroDocEnvio"
                        "idTransportista patenteTransportista .";
 }
 
@@ -71,6 +71,7 @@
   width: 30%;
   margin-left: auto;
   margin-right: auto;
+
 }
 
 /*CONTENIDO barraSuperior*/
@@ -172,4 +173,9 @@ table {
   max-width: 98%;
   min-width: 98%;
   justify-self:center;
+}
+
+.center {/*Confirmar boton*/
+display: block;
+margin : 5px auto;
 }

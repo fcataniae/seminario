@@ -30,10 +30,12 @@ export class RecepcionComponent implements OnInit {
                 ) { }
 
   ngOnInit() {
-     let bienesAgregados: Bien[] = [{ tipoBien: 'Pallet', bien: 'ARLOG', tipoDoc: 'Recibo',
-                                        idDoc: 0, cantidad: 5, vacio: false,
-                                        nroVale: null, nroRemitoIFCO: null, nroRemitoCHEP: null,
-                                        tipoOC: null, nroOC: null}];
+     let bienesAgregados: Bien[] = [{ tipo: 'Pallet', subtipo: 'ARLOG',
+                                      tipoDocumento: [{id: 0,
+                                                      nombreDocumento: 'Remito',
+                                                      descripcion: 'Remito desc'}],
+                                        id: 1, descripcion:'Pallet ARLOG'
+                                        }];
 
     this.datosTablaBienes.data = bienesAgregados;
     this.datosTablaBienes.sort = this.sortBienes;

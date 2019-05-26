@@ -36,11 +36,11 @@ export class AgregarBienComponent implements OnInit {
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
+    this.itemMovimiento.vacio = false //Default (sino es null y aparece vacio)
     this.itemMovimiento.bien = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );
-
 
   }
   onCancel(): void {
