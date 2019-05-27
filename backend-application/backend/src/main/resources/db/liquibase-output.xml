@@ -104,7 +104,7 @@
             <column name="IDTRANSPORTISTA" type="BIGINT"/>
             <column name="NRODOCUMENTO" type="VARCHAR(255)"/>
             <column name="ORIGEN" type="BIGINT"/>
-            <column name="USUARIOALTA" type="VARCHAR(255)"/>
+            <column name="USUARIOALTA_ID" type="BIGINT"/>
             <column name="ESTADO_ID" type="BIGINT"/>
             <column name="ESTADOVIAJE_ID" type="BIGINT"/>
             <column name="id_tipo_documento" type="BIGINT"/>

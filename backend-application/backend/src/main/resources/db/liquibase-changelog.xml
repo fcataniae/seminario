@@ -147,7 +147,7 @@
             <column name="STOCK_OCUPADO" type="NUMERIC"/>
             <column name="STOCK_RESERVADO" type="NUMERIC"/>
             <column name="STOCK_DESTRUIDO" type="NUMERIC"/>
-            <column name="ULTIMA_FECHA_ACTUALIZACION" type="DATE"/>
+            <column name="ULTIMA_FECHA_ACTUALIZACION" type="DATETIME"/>
         </createTable>
         <addPrimaryKey catalogName="SEMINARIO"
                        columnNames="LOCAL_NRO,BI_id"
@@ -163,13 +163,19 @@
             <column name="BI_id" type="NUMERIC"/>
             <column name="deuda_cant" type="NUMERIC"/>
             <column name="deuda_monetaria" type="DECIMAL"/>
-            <column name="ultima_fecha_actualizacion" type="DATE"/>
+            <column name="ultima_fecha_actualizacion" type="DATETIME"/>
         </createTable>
         <addPrimaryKey catalogName="SEMINARIO"
                        columnNames="id_agente_origen, id_agente_destino,tipo_agente_origen, tipo_agente_destino,BI_id"
                        constraintName="pk_deuda"
                        schemaName="public"
                        tableName="deuda"/>
+        <loadUpdateData tableName="estadoviaje"
+                        file="classpath:db/csv/estado_viaje.csv"
+                        primaryKey="ID">
+            <column name="id" type="NUMERIC" />
+            <column name = "descrip" type="STRING"/>
+        </loadUpdateData>
     </changeSet>
 
 </databaseChangeLog>

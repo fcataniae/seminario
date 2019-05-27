@@ -2,6 +2,7 @@ package com.seminario.backend.model.bienes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.model.abm.Estado;
+import com.seminario.backend.model.abm.Usuario;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,8 +47,8 @@ public class Movimiento {
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimiento> itemMovimientos;
 
-    @Column
-    private String usuarioAlta;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Usuario usuarioAlta;
 
     @Column
     @Temporal(TemporalType.DATE)
@@ -122,11 +123,11 @@ public class Movimiento {
         this.recursosAsignados = recursosAsignados;
     }
 
-    public String getUsuarioAlta() {
+    public Usuario getUsuarioAlta() {
         return usuarioAlta;
     }
 
-    public void setUsuarioAlta(String usuarioAlta) {
+    public void setUsuarioAlta(Usuario usuarioAlta) {
         this.usuarioAlta = usuarioAlta;
     }
 

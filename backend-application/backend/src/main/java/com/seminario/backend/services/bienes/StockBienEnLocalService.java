@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -30,6 +31,8 @@ public class StockBienEnLocalService {
         if (cantActual == null) {
             insertStock(localNro, biId);
             cantActual = new Long(0);
+        } else {
+            insertStock(localNro, biId);
         }
         if (resta) {
             cantActual -= cantNueva;
@@ -92,7 +95,8 @@ public class StockBienEnLocalService {
     public void insertStock(Long localNro, Long bienIntercambiableId){
 
         EntityManager em = emf.createEntityManager();
-
+        EntityTransaction et = em.getTransaction();
+        et.begin();
         em.createNativeQuery(" INSERT INTO STOCK_BIEN_EN_LOCAL " +
                 "(LOCAL_NRO, BI_ID, STOCK_LIBRE, STOCK_OCUPADO, STOCK_RESERVADO, STOCK_DESTRUIDO, ULTIMA_FECHA_ACTUALIZACION)" +
                 "VALUES(?1, ?2, 0, 0, 0, 0, ?3)")
@@ -100,22 +104,23 @@ public class StockBienEnLocalService {
                 .setParameter(2,bienIntercambiableId)
                 .setParameter(3, Date.from(ZonedDateTime.now(zoneId).toInstant()))
                 .executeUpdate();
-
+        et.commit();
         em.close();
     }
 
     public void updateStock(String tipoStock, Long cant, Long localNro, Long bienIntercambiableId){
 
         EntityManager em = emf.createEntityManager();
-
-        em.createNativeQuery(" update STOCK_BIEN_EN_LOCAL SET "+tipoStock+" = ?1 " +
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.createNativeQuery(" update STOCK_BIEN_EN_LOCAL SET "+tipoStock+" = ?1, " +
                 " ULTIMA_FECHA_ACTUALIZACION = ?2 where LOCAL_NRO = ?3 and BI_ID = ?4")
                 .setParameter(1,cant)
                 .setParameter(2,Date.from(ZonedDateTime.now(zoneId).toInstant()))
                 .setParameter(3,localNro)
                 .setParameter(4,bienIntercambiableId)
                 .executeUpdate();
-
+        et.commit();
         em.close();
     }
 

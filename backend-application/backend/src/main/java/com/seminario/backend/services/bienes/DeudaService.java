@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -79,23 +80,27 @@ public class DeudaService {
                 "id_agente_origen, id_agente_destino," +
                 "tipo_agente_origen, tipo_agente_destino, BI_id, ultima_fecha_actualizacion)" +
                 "VALUES(0,0.0,?1,?2,?3,?4,?5, ?6)";
+        EntityTransaction et = em.getTransaction();
+        et.begin();
         em.createNativeQuery(qry)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
                 .setParameter(3, tipoAgenteOrigen)
                 .setParameter(4, tipoAgenteDestino)
                 .setParameter(5, biId)
-                .setParameter(6, Date.from(ZonedDateTime.now(zoneId).toInstant()));
-
+                .setParameter(6, Date.from(ZonedDateTime.now(zoneId).toInstant()).toString());
+        et.commit();
         em.close();
     }
 
     private void updateDeuda(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId, Long deudaCant, Double deudaPlata) {
         EntityManager em = emf.createEntityManager();
         String qry = "UPDATE DEUDA SET deuda_cant = ?6, deuda_monetaria = ?7, ultima_fecha_actualizacion = ?8 " +
-                "WHERE id_agente_origen = 1? AND id_agente_destino = ?2 " +
-                "AND tipo_agente_origen = 3? AND tipo_agente_destino = ?4 " +
+                "WHERE id_agente_origen = ?1 AND id_agente_destino = ?2 " +
+                "AND tipo_agente_origen = ?3 AND tipo_agente_destino = ?4 " +
                 "AND BI_id = ?5";
+        EntityTransaction et = em.getTransaction();
+        et.begin();
         List<Object> d = em.createNativeQuery(qry)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
@@ -106,14 +111,15 @@ public class DeudaService {
                 .setParameter(7, deudaPlata)
                 .setParameter(8, Date.from(ZonedDateTime.now(zoneId).toInstant()))
                 .getResultList();
+        et.begin();
         em.close();
     }
 
     private List<Object> findDeudaCantByLocalAndBi(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId) {
         EntityManager em = emf.createEntityManager();
         String qry = "SELECT d.deuda_cant, d.deuda_monetaria from DEUDA d" +
-                     "WHERE d.id_agente_origen = 1? AND d.id_agente_destino = ?2 " +
-                     "AND d.tipo_agente_origen = 3? AND d.tipo_agente_destino = ?4 " +
+                     "WHERE d.id_agente_origen = ?1 AND d.id_agente_destino = ?2 " +
+                     "AND d.tipo_agente_origen = ?3 AND d.tipo_agente_destino = ?4 " +
                      "AND d.BI_id = ?5";
         List<Object> d = em.createNativeQuery(qry)
                 .setParameter(1, AgenteOrigen)

@@ -56,11 +56,13 @@ public class MovimientoService {
                     movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre()))) {
                 movimientoNuevo.setTipoMovimiento(ti);
                 movimientoNuevo.setId(null);
+                movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
+                validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
-                validarItems(movimientoNuevo.getItemMovimientos());
+                    
                 actualizarStockYDeuda(movimientoNuevo);
             } else {
                 throw new CustomException("No se encontró el tipo de movimientoNuevo que desea asignar!");
