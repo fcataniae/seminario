@@ -170,11 +170,49 @@
                        constraintName="pk_deuda"
                        schemaName="public"
                        tableName="deuda"/>
+        <createTable tableName="estadorecurso">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIP" type="VARCHAR(255)"/>
+        </createTable>
         <loadUpdateData tableName="estadoviaje"
                         file="classpath:db/csv/estado_viaje.csv"
                         primaryKey="ID">
             <column name="id" type="NUMERIC" />
             <column name = "descrip" type="STRING"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="cotizacion"
+                        primaryKey="ID"
+                        file="classpath:db/csv/cotizacion.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="COTIZACION" type="NUMERIC"/>
+            <column name="FECHAALTA" type="DATE"/>
+            <column name="FECHABAJA" type="DATE"/>
+            <column name="USUARIOALTA" type="STRING"/>
+            <column name="USUARIOBAJA" type="STRING"/>
+            <column name="BIENINTERCAMBIABLE_ID" type="NUMERIC"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="tiporecurso"
+                        primaryKey="ID"
+                        file="classpath:db/csv/tipo_recurso.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="NOMBRE" type="STRING"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="estadorecurso"
+                        primaryKey="ID"
+                        file="classpath:db/csv/estado_recurso.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="NOMBRE" type="STRING"/>
+        </loadUpdateData>
+        <loadUpdateData tableName="recurso"
+                        primaryKey="ID"
+                        file="classpath:db/csv/recurso.csv">
+            <column name="ID" type="NUMERIC"/>
+            <column name="NRORECURSO" type="NUMERIC"/>
+            <column name="ESTADO_ID" type="NUMERIC"/>
+            <column name="ESTADORECURSO_ID" type="NUMERIC"/>
+            <column name="TIPORECURSO_ID" type="NUMERIC"/>
         </loadUpdateData>
     </changeSet>
 

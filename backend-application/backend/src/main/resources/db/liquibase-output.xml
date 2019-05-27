@@ -18,7 +18,7 @@
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="COTIZACION" type="DECIMAL(38)"/>
+            <column name="COTIZACION" type="DECIMAL"/>
             <column name="FECHAALTA" type="date"/>
             <column name="FECHABAJA" type="date"/>
             <column name="USUARIOALTA" type="VARCHAR(255)"/>
@@ -169,6 +169,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="NRORECURSO" type="BIGINT"/>
+            <column name="ESTADORECURSO_ID" type="BIGINT"/>
             <column name="ESTADO_ID" type="BIGINT"/>
             <column name="TIPORECURSO_ID" type="BIGINT"/>
         </createTable>
@@ -255,6 +256,7 @@
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
+            <column name="NOMBRE" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <changeSet author="Franco (generated)" id="1558572637518-24">

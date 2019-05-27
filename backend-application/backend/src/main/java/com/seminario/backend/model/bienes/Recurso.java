@@ -24,6 +24,9 @@ public class Recurso {
     private Long nroRecurso;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private EstadoRecurso estadoRecurso;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Estado estado;
 
     public Recurso() {
@@ -59,5 +62,13 @@ public class Recurso {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public EstadoRecurso getEstadoRecurso() {
+        return estadoRecurso;
+    }
+
+    public void setEstadoRecurso(EstadoRecurso estadoRecurso) {
+        this.estadoRecurso = estadoRecurso;
     }
 }

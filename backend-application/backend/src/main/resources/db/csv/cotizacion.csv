@@ -1,0 +1,10 @@
+ID,COTIZACION,FECHAALTA,FECHABAJA,USUARIOALTA,USUARIOBAJA,BIENINTERCAMBIABLE_ID
+1,120.00,2019-05-27,null,system,null,1
+2,80.00,2019-05-27,null,system,null,2
+3,60.00,2019-05-27,null,system,null,3
+4,40.00,2019-05-27,null,system,null,4
+5,40.00,2019-05-27,null,system,null,5
+6,40.0,2019-05-27,null,system,null,6
+7,4000.0,2019-05-27,null,system,null,7
+8,2000.0,2019-05-27,null,system,null,8
+9,1500.0,2019-05-27,null,system,null,9

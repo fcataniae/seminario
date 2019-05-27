@@ -33,7 +33,7 @@ public class Cotizacion {
     private Date fechaBaja;
 
     @Column
-    private BigDecimal cotizacion;
+    private Double cotizacion;
 
     @Column
     private String usuarioAlta;
@@ -76,11 +76,11 @@ public class Cotizacion {
         this.fechaBaja = fechaBaja;
     }
 
-    public BigDecimal getCotizacion() {
+    public Double getCotizacion() {
         return cotizacion;
     }
 
-    public void setCotizacion(BigDecimal cotizacion) {
+    public void setCotizacion(Double cotizacion) {
         this.cotizacion = cotizacion;
     }
 
