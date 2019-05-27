@@ -20,7 +20,7 @@ public class ItemMovimiento {
     private BienIntercambiable bienIntercambiable;
 
 
-    @OneToMany(mappedBy = "ItemMovimiento", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ItemMovimiento",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
 
     @Column

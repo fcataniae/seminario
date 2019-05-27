@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -73,12 +74,16 @@ public class StockBienEnLocalService {
 
     public Long findStockByLocalAndBi(String tipoStock, Long locaNro, Long biId){
         EntityManager em = emf.createEntityManager();
-
-        Long stock = (Long) em.createNativeQuery("select "+tipoStock+" from STOCK_BIEN_EN_LOCAL " +
-                " where LOCAL_NRO = ?1 and BI_ID = ?2")
-                .setParameter(1,locaNro)
-                .setParameter(2,biId)
-                .getSingleResult();
+        Long stock = null;
+        try {
+            stock = (Long) em.createNativeQuery("select " + tipoStock + " from STOCK_BIEN_EN_LOCAL " +
+                    " where LOCAL_NRO = ?1 and BI_ID = ?2")
+                    .setParameter(1, locaNro)
+                    .setParameter(2, biId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            System.err.println("No se obtuvo resultado.");
+        }
         em.close();
         return stock;
 

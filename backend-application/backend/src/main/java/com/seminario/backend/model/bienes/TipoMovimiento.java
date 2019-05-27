@@ -22,9 +22,11 @@ public class TipoMovimiento {
     private String nombre;
 
     @JoinColumn(name = "id_tipo_destino")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private TipoAgente tipoAgenteDestino;
 
     @JoinColumn(name = "id_tipo_origen")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private TipoAgente tipoAgenteOrigen;
 
     public String getNombre() {

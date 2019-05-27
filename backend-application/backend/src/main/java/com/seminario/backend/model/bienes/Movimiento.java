@@ -27,11 +27,11 @@ public class Movimiento {
     private Long destino;
 
 
-
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_tipo_movimiento")
     private TipoMovimiento tipoMovimiento;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id_tipo_documento")
     private TipoDocumento tipoDocumento;
 
@@ -39,11 +39,11 @@ public class Movimiento {
     private String nroDocumento;
 
     @JoinTable(name = "MOVIMIENTO_RECURSO")
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Recurso> recursosAsignados;
 
     @JoinColumn(name = "movimiento_id")
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimiento> itemMovimientos;
 
     @Column

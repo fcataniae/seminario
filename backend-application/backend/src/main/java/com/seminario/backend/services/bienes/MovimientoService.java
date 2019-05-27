@@ -50,10 +50,11 @@ public class MovimientoService {
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo) throws CustomException {
+        TipoMovimiento ti;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
-            if (null != tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
-                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre())) {
-
+            if (null != (ti = tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
+                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre()))) {
+                movimientoNuevo.setTipoMovimiento(ti);
                 movimientoNuevo.setId(null);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
@@ -74,10 +75,13 @@ public class MovimientoService {
      *
      * */
     public void validarItems(Set<ItemMovimiento> items) throws CustomException {
+        BienIntercambiable bi;
         for (ItemMovimiento item: items) {
             Long id = item.getBienIntercambiable().getId();
-            if (null == bienIntercambiableRepository.findById(id)) {
+            if (null == (bi = bienIntercambiableRepository.findById(id))) {
                 throw new CustomException("ItemMovimiento contiene bien Intercambiable inexistente.");
+            } else {
+                item.setBienIntercambiable(bi);
             }
         }
     }
