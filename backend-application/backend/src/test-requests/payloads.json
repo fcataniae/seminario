@@ -1,0 +1,14 @@
+/* Envio de CD a Tienda */
+/* CD = 7460, Tienda = 1023 */
+
+{
+  "id": null,
+  "origen": 7460,
+  "destino": 1023,
+  "tipoMovimiento": {"tipo":"ENVIO","tipoAgenteDestino":{"nombre":"TIENDA"} ,"tipoAgenteOrigen":{"nombre":"CD"} },
+  "id_tipo_documento": 1,
+  "itemMovimientos": [
+    {"bienIntercambiable":{"id":1},"cantidad":30},
+    {"bienIntercambiable":{"id":2},"cantidad":30}
+  ]
+}
