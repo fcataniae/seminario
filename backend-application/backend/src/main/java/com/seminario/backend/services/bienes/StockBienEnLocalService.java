@@ -88,8 +88,8 @@ public class StockBienEnLocalService {
 
         EntityManager em = emf.createEntityManager();
 
-        em.createNativeQuery(" INSERT INTO table_name " +
-                "(LOCAL_NRO, BI_DI, STOCK_LIBRE, STOCK_OCUPADO, STOCK_RESERVADO, STOCK_DESTRUIDO, ULTIMA_FECHA_ACTUALIZACION)" +
+        em.createNativeQuery(" INSERT INTO STOCK_BIEN_EN_LOCAL " +
+                "(LOCAL_NRO, BI_ID, STOCK_LIBRE, STOCK_OCUPADO, STOCK_RESERVADO, STOCK_DESTRUIDO, ULTIMA_FECHA_ACTUALIZACION)" +
                 "VALUES(?1, ?2, 0, 0, 0, 0, ?3)")
                 .setParameter(1,localNro)
                 .setParameter(2,bienIntercambiableId)
