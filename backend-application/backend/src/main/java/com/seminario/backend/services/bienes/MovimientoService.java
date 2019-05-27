@@ -52,7 +52,7 @@ public class MovimientoService {
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
             if (null != tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
-                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino())) {
+                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre())) {
 
                 movimientoNuevo.setId(null);
                 validarMovimiento(movimientoNuevo);

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.seminario.backend.model.bienes.TipoMovimiento;
 
 public interface TipoMovimientoRepository extends JpaRepository<TipoMovimiento, Long> {
-
-    @Query("SELECT t from TipoMovimiento t " +
-            "WHERE t.nombre = ?1 and t.tipoAgenteOrigen = ?2 and t.tipoAgenteDestino = ?3")
-    TipoMovimiento findByNombreAndTipoOrigenAndTipoDestino(String tipoMovimientoNombre, TipoAgente origen, TipoAgente destino);
+    
+    @Query(value = "SELECT t from TipoMovimiento t " +
+            "WHERE t.tipo = ?1 and t.tipoAgenteOrigen.nombre = ?2 and  t.tipoAgenteDestino.nombre  = ?3")
+    TipoMovimiento findByNombreAndTipoOrigenAndTipoDestino(String tipoMovimientoNombre, String TipoAgenteOrigen, String TipoAgenteDestino);
 }
