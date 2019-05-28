@@ -37,7 +37,7 @@ export class AgregarBienComponent implements OnInit {
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
     this.itemMovimiento.vacio = false //Default (sino es null y aparece vacio)
-    this.itemMovimiento.bien = this.selectedBien;
+    this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );

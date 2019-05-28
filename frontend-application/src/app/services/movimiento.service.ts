@@ -34,13 +34,7 @@ export class MovimientoService {
   return this._http.get<TipoDocumento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-tipomovtipodoc');
   }
   setRegistroMovimiento(movimiento: Movimiento): Observable<string>{
-    let body = JSON.stringify( movimiento);
-    let httpHeaders = new HttpHeaders({
-      	'Content-Type' : 'application/json'
-     });
-     let options = {
-	      headers: httpHeaders
-     };
-    return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', body,options);
+
+    return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', movimiento);
   }
 }

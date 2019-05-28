@@ -46,15 +46,9 @@ export class EnvioComponent implements OnInit {
       {
         console.log(res);
         console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
-        let mov = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+        this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
 
-        this.movimiento.tipoMovimiento = mov.tipoMovimiento;
-        this.movimiento.destino = mov.destino;
-        this.movimiento.origen = mov.origen;
-
-        console.log(this.movimiento);
-
-        this.datosTablaBienes.data = this.movimiento.items;
+        this.datosTablaBienes.data = this.movimiento.itemMovimientos;
         this.datosTablaBienes.sort = this.sortBienes;
         this.datosTablaBienes.paginator = this.paginatorBienes;
         this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
@@ -79,9 +73,9 @@ export class EnvioComponent implements OnInit {
         console.log(res instanceof ItemMovimiento);
         if(res instanceof ItemMovimiento){
 
-          this.movimiento.items.push(res);
-          console.log(this.movimiento.items);
-          this.datosTablaBienes.data = this.movimiento.items;
+          this.movimiento.itemMovimientos.push(res);
+          console.log(this.movimiento.itemMovimientos);
+          this.datosTablaBienes.data = this.movimiento.itemMovimientos;
         }
       }
     );
@@ -107,11 +101,11 @@ export class EnvioComponent implements OnInit {
 
   deleteBien(item: ItemMovimiento) {
 
-    this.movimiento.items = this.movimiento.items.filter(
+    this.movimiento.itemMovimientos = this.movimiento.itemMovimientos.filter(
       i => JSON.stringify(i) != JSON.stringify(item)
     );
     console.log(this.movimiento);
-    this.datosTablaBienes.data = this.movimiento.items;
+    this.datosTablaBienes.data = this.movimiento.itemMovimientos;
   }
 
   deleteRecurso(recurso : Recurso) {

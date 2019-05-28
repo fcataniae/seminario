@@ -8,12 +8,12 @@ export class Movimiento{
   origen: number;
   destino: number;
   recursosAsignados: Recurso[];
-  items : ItemMovimiento[];
+  itemMovimientos : ItemMovimiento[];
   tipoDocumento: TipoDocumento;
 
   constructor(){
     this.recursosAsignados = [];
-    this.items = []
+    this.itemMovimientos = []
     this.tipoMovimiento = new TipoMovimiento();
   }
 
