@@ -66,18 +66,7 @@ public class BienesRestController {
         return movimientoService.getTipoMovimientos(usuarioActual);
     }
 
-    /**
-     * Lista todos los tipoMov-TipoDoc.
-     *
-     * @param    userDetails       Credenciales de usuario.
-     *                             (debe tener los permisos para ejecutar el método).
-     **/
-    @GetMapping("/listar-tipomovtipodoc")
-    public List<TipoMovTipoDoc> getTipoMovTipoDoc(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
-    {
-        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getTipoMovTipoDoc(usuarioActual);
-    }
+
 
     /**
      * Lista todos los bienes intercambiables.
@@ -109,5 +98,21 @@ public class BienesRestController {
     public List<Agente> getAgentes(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllAgentes(usuarioActual);
+    }
+
+    /**
+     * Metodo de la api para listar todos los envios pendientes a una tienda de destino
+     * @param userDetails Credenciales de usuario
+     * @param nroTienda Nro tienda destino
+     * @return List<Movimiento> lista con los movimientos encontrados
+     * @throws CustomException Excepcion custom
+     */
+    @GetMapping("/listar-envios-pendientes/{nro-tienda}")
+    public List<Movimiento> getEnviosPendientesByTienda(@AuthenticationPrincipal UserDetails userDetails,
+                                                @PathVariable("nro-tienda") Long nroTienda)  throws CustomException
+    {
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getEnviosPendientesByTienda(usuarioActual,nroTienda);
     }
 }

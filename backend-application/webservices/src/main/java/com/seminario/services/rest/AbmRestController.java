@@ -339,7 +339,7 @@ public class AbmRestController {
     }
 
     @GetMapping("/get-personas")
-    public List<Persona> getAllPersonas(@AuthenticationPrincipal UserDetails userDetails){
+    public List<Persona> getAllPersonas(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return personaService.getAll(usuarioActual);
     }

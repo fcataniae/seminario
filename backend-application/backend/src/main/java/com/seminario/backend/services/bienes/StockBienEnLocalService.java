@@ -135,16 +135,17 @@ public class StockBienEnLocalService {
                 "SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO " +
                 " from STOCK_BIEN_EN_LOCAL SBL" +
                 "inner join LOCAL L on L.NRO=SBL.LOCAL_NRO and SBL.LOCAL_NRO=?1" +
-                "inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID")
+                "inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID";
         try {
              stockLocal = em.createNativeQuery(qry)
                      .setParameter(1, localNro)
                      .getResultList();
+            em.close();
+            return stockLocal;
         } catch (NoResultException e) {
-            System.err.println("No se obtuvo resultado.");
+            throw new RuntimeException(e);
         }
-        em.close();
-        return stockLocal;
+
     }
 
 }

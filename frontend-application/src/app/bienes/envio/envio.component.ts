@@ -6,7 +6,10 @@ import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.comp
 import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
-import { ItemTabla } from '../../model/bienes/itemtabla.model';
+import { ActivatedRoute } from '@angular/router';
+import { MovimientoService } from '../../services/movimiento.service';
+import { of, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-envio',
@@ -17,36 +20,65 @@ export class EnvioComponent implements OnInit {
 
   @ViewChild(MatSort) sortBienes: MatSort;
   @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
-  datosTablaBienes = new MatTableDataSource<ItemTabla>();
+  datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
 
   @ViewChild(MatSort) sortRecursos: MatSort;
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  columnsToDisplayBien = ['posicion','bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
-  columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
-  movimiento: Movimiento;
+  @ViewChild(MatSort) sortEnviosPendientes: MatSort;
+  @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
+  datosTablaEnvios = new MatTableDataSource<Movimiento>();
 
-  itemTabla: ItemTabla;
+  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
+  columnsRecepcionGenerico = ['bien','cantidad','vacio','eliminar'];
+  columnsRecursoEnvio = ['tipoRecurso','idRecurso','eliminar'];
+  columnsToDisplayBien: String[];
+
+  movimiento: Movimiento = new Movimiento();
+
 
   constructor(private location: Location,
               private dialogAgregarBien: MatDialog,
               private dialogAgregarRecurso: MatDialog,
-              ) { }
+              private route: ActivatedRoute,
+              private _movimientoService: MovimientoService
+              )
+  {
+  }
 
   ngOnInit() {
 
-  this.movimiento = new Movimiento();
 
-  this.datosTablaBienes.data = this.movimiento.items;
-  this.datosTablaBienes.sort = this.sortBienes;
-  this.datosTablaBienes.paginator = this.paginatorBienes;
+    console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
+    this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+    this.datosTablaBienes.data = this.movimiento.itemMovimientos;
+    this.datosTablaBienes.sort = this.sortBienes;
+    this.datosTablaBienes.paginator = this.paginatorBienes;
+    this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+    this.datosTablaRecursos.sort = this.sortRecursos;
+    this.datosTablaRecursos.paginator = this.paginatorRecursos;
 
-  let recursosAgregados: Recurso[] = [{ tipoRecurso: 'Termógrafo', idRecurso: 0}];
+    this.movimiento.tipoMovimiento.tipoDocumentos.forEach( d => this.movimiento.tipoDocumento = d);
 
-  this.datosTablaRecursos.data = recursosAgregados;
-  this.datosTablaRecursos.sort = this.sortRecursos;
-  this.datosTablaRecursos.paginator = this.paginatorRecursos;
+    if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION'){
+      this.columnsToDisplayBien = this.columnsRecepcionBien;
+    }else {
+      this.columnsToDisplayBien = this.columnsRecepcionGenerico;
+    }
+
+    if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
+      this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
+        .subscribe(
+          resEnvio => {
+            this.datosTablaEnvios.data = resEnvio;
+            this.datosTablaEnvios.sort = this.sortEnviosPendientes;
+            this.datosTablaEnvios.paginator = this.paginatorEnvios;
+          },
+          error => console.log(error)
+        );
+    }
+
 
   }//END OnInit
 
@@ -56,19 +88,18 @@ export class EnvioComponent implements OnInit {
 
   onAgregarBien() {
     const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
-      width: '50%'
+      width: '50%',
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento }
     });
 
     dialogRef.afterClosed().subscribe(
       res=> {
         console.log(res instanceof ItemMovimiento);
         if(res instanceof ItemMovimiento){
-          this.itemTabla = new ItemTabla();
-          this.itemTabla.item = res;
-          this.itemTabla.posicion = this.movimiento.items.length;
-          this.movimiento.items.push(this.itemTabla);
-          console.log(this.movimiento.items);
-          this.datosTablaBienes.data = this.movimiento.items;
+
+          this.movimiento.itemMovimientos.push(res);
+          console.log(this.movimiento.itemMovimientos);
+          this.datosTablaBienes.data = this.movimiento.itemMovimientos;
         }
       }
     );
@@ -78,29 +109,47 @@ export class EnvioComponent implements OnInit {
     const dialogRef = this.dialogAgregarRecurso.open(AgregarRecursoComponent,{
       width: '50%'
     });
-  }
 
-  deleteBien(posicion: number) {
-    this.movimiento.items = this.movimiento.items.filter(item => item.posicion != posicion);
+    dialogRef.afterClosed().subscribe(
+      res=>{
+        console.log(res instanceof Recurso);
+        if(res instanceof Recurso){
 
-    this.movimiento.items.forEach( (element) => {
-      if(element.posicion > posicion){
-        element.posicion = element.posicion - 1;
+          this.movimiento.recursosAsignados.push(res);
+          console.log(this.movimiento.recursosAsignados);
+          this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+        }
       }
-    });
-
-    this.datosTablaBienes.data = this.movimiento.items;
+    );
   }
 
-  deleteRecurso() {
+  deleteBien(item: ItemMovimiento) {
 
+    this.movimiento.itemMovimientos = this.movimiento.itemMovimientos.filter(
+      i => JSON.stringify(i) != JSON.stringify(item)
+    );
+    console.log(this.movimiento);
+    this.datosTablaBienes.data = this.movimiento.itemMovimientos;
+  }
+
+  deleteRecurso(recurso : Recurso) {
+
+    this.movimiento.recursosAsignados = this.movimiento.recursosAsignados.filter(
+      r => r.nroRecurso != recurso.nroRecurso
+    );
+
+    console.log(this.movimiento);
+    this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
   }
 
   registrar() {
-
+    console.log(this.movimiento);
+    this._movimientoService.setRegistroMovimiento(this.movimiento).subscribe(
+      res =>{
+        alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
+      },
+      error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
+    );
   }
-
-  /*BORRAR*/
-  isEnvio: boolean = true;
 
 }

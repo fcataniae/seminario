@@ -5,3 +5,8 @@ id,nombredocumento,descripcion,usuarioalta,estado_id,fechaalta
 4,RECEPCION,Comprobante de recepcion,system,1,2015-05-05
 5,ENVIO,Comprobante de envio,system,1,2015-05-05
 7,REMITOIFCO,Remito IFCO,system,1,2015-05-05
+8,REMITOENVIO,Nro de envio,system,1,2015-05-05
+9,REMITORECEPCION,Nro de recepcion,system,1,2015-05-05
+10,REMITOINTERCAMBIO,Nro de intercambio,system,1,2015-05-05
+11,REMITORECEPCIONINT,Nro de recepcion intercambio,system,1,2015-05-05
+12,REMITODEVOLUCION,Nro de devolucion,system,1,2015-05-05

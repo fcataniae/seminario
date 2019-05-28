@@ -1,18 +1,21 @@
 import { TipoMovimiento } from "./tipomovimiento.model";
 import { Recurso } from "./recurso.model";
-//import { ItemMovimiento } from "./itemmovimiento.model";
-import { ItemTabla } from "./itemtabla.model";
+import { ItemMovimiento } from "./itemmovimiento.model";
+import { TipoDocumento } from "./tipodocumento.model";
 
 export class Movimiento{
   tipoMovimiento : TipoMovimiento;
   origen: number;
   destino: number;
   recursosAsignados: Recurso[];
-  items : ItemTabla[];
-  //items : ItemMovimiento[];
+  itemMovimientos : ItemMovimiento[];
+  tipoDocumento: TipoDocumento;
+  nroDocumento: number;
+
   constructor(){
     this.recursosAsignados = [];
-    this.items = []
+    this.itemMovimientos = []
+    this.tipoMovimiento = new TipoMovimiento();
   }
 
 }

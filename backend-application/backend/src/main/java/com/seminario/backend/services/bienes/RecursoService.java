@@ -19,7 +19,7 @@ public class RecursoService {
     @Autowired
     PermisoRepository permisoRepository;
 
-    public List<Recurso> getRecursos(Usuario usuarioActual) {
+    public List<Recurso> getRecursos(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-RECURSO")) {
             return recursoRepository.findAll();
         } else {
@@ -27,7 +27,7 @@ public class RecursoService {
         }
     }
 
-    public Recurso getRecursoById(Usuario usuarioActual, Long id) {
+    public Recurso getRecursoById(Usuario usuarioActual, Long id) throws CustomException {
         Recurso r;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-RECURSO")) {
             r = recursoRepository.findById(id);

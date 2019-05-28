@@ -5,6 +5,9 @@ import { TipoMovimiento } from '../model/bienes/tipomovimiento.model';
 import { Bien } from '../model/bienes/bien.model';
 import { environment } from '../../environments/environment';
 import {Agente} from "../model/bienes/agente.model";
+import { Recurso } from '../model/bienes/recurso.model';
+import { Movimiento } from '../model/bienes/movimiento.model';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +25,15 @@ export class MovimientoService {
   }
   getAllBienes(): Observable<Bien[]>{
     return this._http.get<Bien[]>(environment.serviceUrl.replace('service','bienes') + 'listar-bi');
+  }
+  getAllRecursos() : Observable<Recurso[]>{
+    return this._http.get<Recurso[]>(environment.serviceUrl.replace('service','bienes') + 'listar-recursos');
+  }
+  getEnviosPendientesByTienda(nroDestino: number) : Observable<Movimiento[]>{
+    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-envios-pendientes/'+nroDestino);
+  }
+  setRegistroMovimiento(movimiento: Movimiento): Observable<string>{
+
+    return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', movimiento);
   }
 }

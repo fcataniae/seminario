@@ -6,9 +6,7 @@ import { GestionPersonasComponent } from './adm-usuarios/personas/gestion-person
 import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/editar-usuario.component';
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
-import { RecepcionComponent } from './bienes/recepcion/recepcion.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
-import { ConfirmarDevolucionComponent } from './bienes/confirmar-devolucion/confirmar-devolucion.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,9 +16,8 @@ const routes: Routes = [
   { path: 'home/adm/usuarios', component: EditarUsuarioComponent},
   { path: 'home/adm/roles', component: EditarRolComponent},
   { path: 'home/movimientos', component: MovimientosComponent},
-  { path: 'home/movimientos/recepcion', component: RecepcionComponent},
   { path: 'home/movimientos/envio', component: EnvioComponent},
-  { path: 'home/confirmar_devolucion', component: ConfirmarDevolucionComponent}
+  { path: 'home/movimientos/registrar/:mov', component: EnvioComponent}
 
 ];
 @NgModule({

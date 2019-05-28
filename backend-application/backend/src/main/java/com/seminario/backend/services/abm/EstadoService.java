@@ -25,7 +25,7 @@ public class EstadoService {
         return estadoRepository.findByDescrip(nombre);
     }
 
-    public List<Estado> getAllEstados(Usuario usuarioActual){
+    public List<Estado> getAllEstados(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADO")) {
             return estadoRepository.findAll();
         } else {

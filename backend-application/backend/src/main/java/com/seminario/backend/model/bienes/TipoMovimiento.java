@@ -1,6 +1,7 @@
 package com.seminario.backend.model.bienes;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Usuario: Franco
@@ -28,6 +29,12 @@ public class TipoMovimiento {
     @JoinColumn(name = "id_tipo_origen")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private TipoAgente tipoAgenteOrigen;
+
+
+
+    @JoinTable(name = "TipoMovTipoDoc")
+    @ManyToMany
+    private Set<TipoDocumento> tipoDocumentos;
 
     public String getNombre() {
         return nombre;
@@ -67,5 +74,13 @@ public class TipoMovimiento {
 
     public void setTipoAgenteOrigen(TipoAgente tipoAgenteOrigen) {
         this.tipoAgenteOrigen = tipoAgenteOrigen;
+    }
+
+    public Set<TipoDocumento> getTipoDocumentos() {
+        return tipoDocumentos;
+    }
+
+    public void setTipoDocumentos(Set<TipoDocumento> tipoDocumentos) {
+        this.tipoDocumentos = tipoDocumentos;
     }
 }

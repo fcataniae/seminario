@@ -24,7 +24,7 @@ public class LocalService {
     @Autowired
     TipoAgenteRepository tipoAgenteRepository;
 
-    public List<Local> getAgentes (Usuario usuarioActual){
+    public List<Local> getAgentes (Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             return localRepository.findAll();
         } else {
@@ -33,7 +33,7 @@ public class LocalService {
     }
 
 
-    public List<Local> getTiendas (Usuario usuarioActual){
+    public List<Local> getTiendas (Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tienda  = tipoAgenteRepository.findByNombre("LOCAL");
             return localRepository.findAllByTipoAgente(tienda);
@@ -42,7 +42,7 @@ public class LocalService {
         }
     }
 
-    public List<Local> getProveedores (Usuario usuarioActual){
+    public List<Local> getProveedores (Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tipoProveedor  = tipoAgenteRepository.findByNombre("PROVEEDOR");
             return localRepository.findAllByTipoAgente(tipoProveedor);
@@ -51,7 +51,7 @@ public class LocalService {
         }
     }
 
-    public List<Local> getCDs (Usuario usuarioActual){
+    public List<Local> getCDs (Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             TipoAgente tipoCD  = tipoAgenteRepository.findByNombre("CD");
             return localRepository.findAllByTipoAgente(tipoCD);

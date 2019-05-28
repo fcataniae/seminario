@@ -19,7 +19,7 @@ public class BienIntercambiableService {
     @Autowired
     PermisoRepository permisoRepository;
 
-    public List<BienIntercambiable> getBienesIntercambiables(Usuario usuarioActual){
+    public List<BienIntercambiable> getBienesIntercambiables(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-BI")) {
             return bienIntercambiableRepository.findAll();
         } else {
@@ -27,7 +27,7 @@ public class BienIntercambiableService {
         }
     }
 
-    public BienIntercambiable getBieneIntercambiableById(Usuario usuarioActual, Long id){
+    public BienIntercambiable getBieneIntercambiableById(Usuario usuarioActual, Long id) throws CustomException {
         BienIntercambiable bi = null;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-BI")) {
             bi = bienIntercambiableRepository.findById(id);

@@ -1,4 +1,10 @@
+import { TipoRecurso } from "./tiporecurso.model";
+import { Estado } from "./estado.model";
+
 export class Recurso {
-  tipoRecurso: string;
-  idRecurso: number;
+  id: number;
+  nroRecurso: number;
+  tipoRecurso: TipoRecurso;
+  estadoRecurso: Estado;
+  
 }
