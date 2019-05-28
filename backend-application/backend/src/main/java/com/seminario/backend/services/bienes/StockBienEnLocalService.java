@@ -1,6 +1,7 @@
 package com.seminario.backend.services.bienes;
 
 
+import com.seminario.backend.dto.StockBienEnLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import javax.persistence.NoResultException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Usuario: Franco
@@ -122,6 +124,27 @@ public class StockBienEnLocalService {
                 .executeUpdate();
         et.commit();
         em.close();
+    }
+
+
+    public List<Object> getStockLocal(Long localNro){
+
+        EntityManager em = emf.createEntityManager();
+        List<Object> stockLocal;
+        String qry ="select SBL.LOCAL_NRO, L.DENOMINACION, SBL.BI_ID, BI.DESCRIPCION, " +
+                "SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO " +
+                " from STOCK_BIEN_EN_LOCAL SBL" +
+                "inner join LOCAL L on L.NRO=SBL.LOCAL_NRO and SBL.LOCAL_NRO=?1" +
+                "inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID")
+        try {
+             stockLocal = em.createNativeQuery(qry)
+                     .setParameter(1, localNro)
+                     .getResultList();
+        } catch (NoResultException e) {
+            System.err.println("No se obtuvo resultado.");
+        }
+        em.close();
+        return stockLocal;
     }
 
 }
