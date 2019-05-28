@@ -3,20 +3,27 @@
 <form #agregarRecurso="ngForm" class="formContenedor">
 
   <mat-form-field class="w70 tipoRecurso">
-    <mat-label>Tipo Recurso</mat-label>
-    <mat-select [(value)]="TipoRecursoSelected" name="tipoRecursoSelect"
-                [(ngModel)]="recurso.tipoRecurso" required>
-      <mat-option *ngFor="let tipoRecurso of tipoRecursos" [value]="tipoRecurso">
-        {{tipoRecurso}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <mat-label>Tipo recurso</mat-label>
+      <mat-select [(ngModel)]="tipoRecurso"
+                  (ngModelChange)="onChangeTipoRecurso()"
+                  name="tipor">
+        <mat-option *ngFor="let tipor of tipoRecursos" [value]="tipor">
+          {{tipor.nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <input type="number" class="form-control idRecurso" required
-         name="idRecurso" placeholder="ID Recurso"
-         pattern="[0-9]+"
-         title="Debe ingresar un número"
-         [(ngModel)]="recurso.idRecurso"/>
+    <mat-form-field>
+      <mat-label>Recurso</mat-label>
+      <mat-select [(value)]="recurso.nroRecurso"
+                  [disabled]="tipoRecurso == null"
+                  name="recur">
+        <mat-option *ngFor="let recur of recursosFiltrados" [value]="recur.nroRecurso">
+          {{recur.nroRecurso}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
 
   <mat-dialog-actions class="botones">
     <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>

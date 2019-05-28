@@ -6,7 +6,7 @@
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
     </button>
 
-    <h3 class="tituloMovimiento">Tipo de movimiento > Envío</h3> <!-- {{ movimiento.nombre }} -->
+    <h3 class="tituloMovimiento">Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h3> <!-- {{ movimiento.nombre }} -->
 
   </div>
 
@@ -50,40 +50,35 @@
       <table class="tablaBien">
         <mat-table [dataSource]="datosTablaBienes" matSort>
 
-          <ng-container matColumnDef="posicion">
-            <th mat-header-cell *matHeaderCellDef> Pos. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.posicion}} </td>
-          </ng-container>
-
           <ng-container matColumnDef="bien">
             <th mat-header-cell *matHeaderCellDef> Bien </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.bien.descripcion}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bien.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tipoDoc">
             <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="nroDoc">
             <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.itemMovimientoTipoDoc[0].nroDocumento}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
           </ng-container>
 
           <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.cantidad}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
           </ng-container>
 
           <ng-container matColumnDef="vacio">
             <th mat-header-cell *matHeaderCellDef> Vacio </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.item.vacio}} </td>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio ? 'Si' : 'No'}} </td>
           </ng-container>
 
           <ng-container matColumnDef="eliminar">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
             <td mat-cell *matCellDef="let bienesAgregados">
-              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados.posicion)">
+              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
                 <mat-icon class="mat-18">delete</mat-icon>
               </button>
             </td>
@@ -114,12 +109,12 @@
 
           <ng-container matColumnDef="tipoRecurso">
             <th mat-header-cell *matHeaderCellDef> Tipo recurso </th>
-            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso}} </td>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso.nombre}} </td>
           </ng-container>
 
           <ng-container matColumnDef="idRecurso">
             <th mat-header-cell *matHeaderCellDef> Recurso </th>
-            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.idRecurso}} </td>
+            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.nroRecurso}} </td>
           </ng-container>
 
           <ng-container matColumnDef="eliminar">

@@ -39,3 +39,4 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1034, ,Permite dar de baja estados,BAJA-ESTADO,1
 1035, ,Permite modificar estados,MODI-ESTADO,1
 1036, ,Permite consultar estados,CONS-ESTADO,1
+1037, ,Permite consultar tipo docs,CONS-TIPOMOVTIPODOC,1

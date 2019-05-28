@@ -38,35 +38,11 @@
 
           </mat-form-field>
         </div>
-
-        <!--Condicion: solo recepcion-->
         <mat-checkbox
                       name="vacio"
                       [(ngModel)]="itemMovimiento.vacio">BI vacío
         </mat-checkbox>
 
-        <!--Condicion: devolucion
-        <mat-form-field *ngIf="(tipoBienSelected=='Pallet' && bienSelected=='ARLOG' && isDevolucion==true)">
-          <mat-select multiple placeholder="Lista vales pendientes"
-                      name="listaVales"
-                      [(ngModel)]="valesSelecionados">
-            <mat-option *ngFor="let vale of vales"
-                        (click)="vale.pendiente = !vale.pendiente"
-                        [value]="vale">{{vale.nro}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      -->
-
-      <!--Condicion: destruccion
-        <mat-form-field *ngIf="isDestruccion==true)"
-          <mat-select placeholder="Estado previo"
-                      name="estadosPrevios"
-                      [(ngModel)]="estadoPrevio">
-            <mat-option *ngFor="let estado of estadosPrevios"
-                        [value]="vale">{{estado}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      -->
 
     </div>
 

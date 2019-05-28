@@ -6,7 +6,8 @@ import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.comp
 import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
-import { ItemTabla } from '../../model/bienes/itemtabla.model';
+import { ActivatedRoute } from '@angular/router';
+import { MovimientoService } from '../../services/movimiento.service';
 
 @Component({
   selector: 'app-envio',
@@ -17,37 +18,51 @@ export class EnvioComponent implements OnInit {
 
   @ViewChild(MatSort) sortBienes: MatSort;
   @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
-  datosTablaBienes = new MatTableDataSource<ItemTabla>();
+  datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
 
   @ViewChild(MatSort) sortRecursos: MatSort;
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  columnsToDisplayBien = ['posicion','bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
+  columnsToDisplayBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
   columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
-  movimiento: Movimiento;
+  movimiento: Movimiento = new Movimiento();
 
-  itemTabla: ItemTabla;
 
   constructor(private location: Location,
               private dialogAgregarBien: MatDialog,
               private dialogAgregarRecurso: MatDialog,
-              ) { }
+              private route: ActivatedRoute,
+              private _movimientoService: MovimientoService
+              )
+  {
+  }
 
   ngOnInit() {
 
-  this.movimiento = new Movimiento();
 
-  this.datosTablaBienes.data = this.movimiento.items;
-  this.datosTablaBienes.sort = this.sortBienes;
-  this.datosTablaBienes.paginator = this.paginatorBienes;
+    this._movimientoService.getAllTipoDocMovimientos().subscribe(
+      res=>
+      {
+        console.log(res);
+        console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
+        let mov = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
 
-  let recursosAgregados: Recurso[] = [{ tipoRecurso: 'Termógrafo', idRecurso: 0}];
+        this.movimiento.tipoMovimiento = mov.tipoMovimiento;
+        this.movimiento.destino = mov.destino;
+        this.movimiento.origen = mov.origen;
 
-  this.datosTablaRecursos.data = recursosAgregados;
-  this.datosTablaRecursos.sort = this.sortRecursos;
-  this.datosTablaRecursos.paginator = this.paginatorRecursos;
+        console.log(this.movimiento);
 
+        this.datosTablaBienes.data = this.movimiento.items;
+        this.datosTablaBienes.sort = this.sortBienes;
+        this.datosTablaBienes.paginator = this.paginatorBienes;
+        this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+        this.datosTablaRecursos.sort = this.sortRecursos;
+        this.datosTablaRecursos.paginator = this.paginatorRecursos;
+      },
+      error => console.log(error)
+    );
   }//END OnInit
 
   goBack(): void {
@@ -63,10 +78,8 @@ export class EnvioComponent implements OnInit {
       res=> {
         console.log(res instanceof ItemMovimiento);
         if(res instanceof ItemMovimiento){
-          this.itemTabla = new ItemTabla();
-          this.itemTabla.item = res;
-          this.itemTabla.posicion = this.movimiento.items.length;
-          this.movimiento.items.push(this.itemTabla);
+
+          this.movimiento.items.push(res);
           console.log(this.movimiento.items);
           this.datosTablaBienes.data = this.movimiento.items;
         }
@@ -78,29 +91,47 @@ export class EnvioComponent implements OnInit {
     const dialogRef = this.dialogAgregarRecurso.open(AgregarRecursoComponent,{
       width: '50%'
     });
+
+    dialogRef.afterClosed().subscribe(
+      res=>{
+        console.log(res instanceof Recurso);
+        if(res instanceof Recurso){
+
+          this.movimiento.recursosAsignados.push(res);
+          console.log(this.movimiento.recursosAsignados);
+          this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+        }
+      }
+    );
   }
 
-  deleteBien(posicion: number) {
-    this.movimiento.items = this.movimiento.items.filter(item => item.posicion != posicion);
+  deleteBien(item: ItemMovimiento) {
 
-    this.movimiento.items.forEach( (element) => {
-      if(element.posicion > posicion){
-        element.posicion = element.posicion - 1;
-      }
-    });
-
+    this.movimiento.items = this.movimiento.items.filter(
+      i => JSON.stringify(i) != JSON.stringify(item)
+    );
+    console.log(this.movimiento);
     this.datosTablaBienes.data = this.movimiento.items;
   }
 
-  deleteRecurso() {
+  deleteRecurso(recurso : Recurso) {
 
+    this.movimiento.recursosAsignados = this.movimiento.recursosAsignados.filter(
+      r => r.nroRecurso != recurso.nroRecurso
+    );
+
+    console.log(this.movimiento);
+    this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
   }
 
   registrar() {
-
+    console.log(this.movimiento);
+    this._movimientoService.setRegistroMovimiento(this.movimiento).subscribe(
+      res =>{
+        alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
+      },
+      error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
+    );
   }
-
-  /*BORRAR*/
-  isEnvio: boolean = true;
 
 }
