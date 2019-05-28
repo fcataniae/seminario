@@ -7,5 +7,5 @@ export class TipoMovimiento {
   tipo: string;
   tipoAgenteDestino: TipoAgente;
   tipoAgenteOrigen: TipoAgente;
-  tipoDocumento: TipoDocumento[];
+  tipoDocumentos: TipoDocumento[];
 }

@@ -59,14 +59,14 @@ export class EnvioComponent implements OnInit {
     this.datosTablaRecursos.sort = this.sortRecursos;
     this.datosTablaRecursos.paginator = this.paginatorRecursos;
 
-    this.movimiento.tipoMovimiento.tipoDocumento.forEach( d => this.movimiento.tipoDocumento = d);
+    this.movimiento.tipoMovimiento.tipoDocumentos.forEach( d => this.movimiento.tipoDocumento = d);
 
     if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION'){
       this.columnsToDisplayBien = this.columnsRecepcionBien;
     }else {
       this.columnsToDisplayBien = this.columnsRecepcionGenerico;
     }
-    
+
     if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
       this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
         .subscribe(
@@ -88,7 +88,8 @@ export class EnvioComponent implements OnInit {
 
   onAgregarBien() {
     const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
-      width: '50%'
+      width: '50%',
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento }
     });
 
     dialogRef.afterClosed().subscribe(

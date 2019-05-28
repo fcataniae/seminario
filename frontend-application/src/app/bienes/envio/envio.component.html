@@ -15,7 +15,6 @@
     <h4 class="tituloEnvio">Datos del movimiento</h4> <!-- {{ movimiento.nombre }} -->
 
     <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
-      <mat-label>{{movimiento.tipoDocumento.descripcion}}</mat-label><!-- agregar mat form -->
       <input matInput
              type="text"
              name="nroDocumento"
@@ -24,22 +23,22 @@
              required/>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Fecha</mat-label>
-      <input type="date"
+      <input matInput
+             type="date"
              class="fechaEnvio"
              name="fechaEnvio"
              placeholder="Fecha"/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
-      <mat-label>Id Transportista</mat-label>
-      <input type="number"
+      <input matInput
+             type="number"
              class="idTransportista"
              name="idTransportista"
              placeholder="ID Transportista"/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
-      <mat-label>Patente Transportista</mat-label>
-      <input type="text"
+      <input matInput
+             type="text"
              class="patenteTransportista"
              name="patenteTransportista"
              placeholder="Patente Transportista"/>

@@ -30,7 +30,7 @@ export class MovimientoService {
     return this._http.get<Recurso[]>(environment.serviceUrl.replace('service','bienes') + 'listar-recursos');
   }
   getEnviosPendientesByTienda(nroDestino: number) : Observable<Movimiento[]>{
-    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-envios-pendientes'+nroDestino);
+    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-envios-pendientes/'+nroDestino);
   }
   setRegistroMovimiento(movimiento: Movimiento): Observable<string>{
 
