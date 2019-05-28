@@ -12,3 +12,18 @@
     {"bienIntercambiable":{"id":2},"cantidad":30}
   ]
 }
+
+/* Recepcion (Proveedor a CD) */
+/* Proveedor=2, CD = 7460 */
+
+{
+  "id": null,
+  "origen": 2,
+  "destino": 7460,
+  "tipoMovimiento": {"tipo":"RECEPCION","tipoAgenteDestino":{"nombre":"CD"} ,"tipoAgenteOrigen":{"nombre":"PROVEEDOR"} },
+  "id_tipo_documento": 1,
+  "itemMovimientos": [
+    {"bienIntercambiable":{"id":1},"cantidad":30},
+    {"bienIntercambiable":{"id":2},"cantidad":30}
+  ]
+}
