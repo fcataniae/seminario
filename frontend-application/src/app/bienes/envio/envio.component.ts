@@ -30,8 +30,11 @@ export class EnvioComponent implements OnInit {
   @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
   datosTablaEnvios = new MatTableDataSource<Movimiento>();
 
-  columnsToDisplayBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
-  columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
+  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
+  columnsRecepcionGenerico = ['bien','cantidad','vacio','eliminar'];
+  columnsRecursoEnvio = ['tipoRecurso','idRecurso','eliminar'];
+  columnsToDisplayBien: String[];
+
   movimiento: Movimiento = new Movimiento();
 
 
@@ -58,6 +61,12 @@ export class EnvioComponent implements OnInit {
 
     this.movimiento.tipoMovimiento.tipoDocumento.forEach( d => this.movimiento.tipoDocumento = d);
 
+    if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION'){
+      this.columnsToDisplayBien = this.columnsRecepcionBien;
+    }else {
+      this.columnsToDisplayBien = this.columnsRecepcionGenerico;
+    }
+    
     if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
       this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
         .subscribe(

@@ -15,7 +15,7 @@
     <h4 class="tituloEnvio">Datos Envío</h4> <!-- {{ movimiento.nombre }} -->
 
     <mat-form-field class="tipoDocEnvio">
-      <mat-label>Tipo Documento</mat-label>
+      <mat-label>Tipo Documento</mat-label><!-- agregar mat form -->
       <mat-select [(value)]="TipoDocumentoSelected">
         <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento">
           {{tipoDocumento}}
@@ -29,11 +29,11 @@
 
     <input type="number" class="form-control idTransportista"
            name="idTransportista" placeholder="ID Transportista"
-           *ngIf="(isEnvio==true)"/>
+           *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'"/>
 
     <input type="text" class="form-control patenteTransportista"
            name="patenteTransportista" placeholder="Patente Transportista"
-           *ngIf="(isEnvio==true)"/>
+           *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'"/>
 
   </div>
 
@@ -127,7 +127,7 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="columnsToDisplayRecurso"></tr>
-          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayRecurso"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsRecursoEnvio"></tr>
 
         </mat-table>
 
