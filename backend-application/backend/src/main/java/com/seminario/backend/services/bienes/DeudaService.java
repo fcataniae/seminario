@@ -53,6 +53,7 @@ public class DeudaService {
                                  Long biId, Long cantNueva, boolean resta){
 
         Double montoNuevo = cantNueva * this.getUltimaCotizacion(biId);
+        montoNuevo = (montoNuevo == null) ? 0: montoNuevo;
         List<Object>  deudas = findDeudaCantByLocalAndBi( AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
 
         Double deudaPlata = new Double(0);
@@ -88,7 +89,8 @@ public class DeudaService {
                 .setParameter(3, tipoAgenteOrigen)
                 .setParameter(4, tipoAgenteDestino)
                 .setParameter(5, biId)
-                .setParameter(6, Date.from(ZonedDateTime.now(zoneId).toInstant()).toString());
+                .setParameter(6, Date.from(ZonedDateTime.now(zoneId).toInstant()))
+                .executeUpdate();
         et.commit();
         em.close();
     }
@@ -101,7 +103,7 @@ public class DeudaService {
                 "AND BI_id = ?5";
         EntityTransaction et = em.getTransaction();
         et.begin();
-        List<Object> d = em.createNativeQuery(qry)
+        em.createNativeQuery(qry)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
                 .setParameter(3, tipoAgenteOrigen)
@@ -110,7 +112,7 @@ public class DeudaService {
                 .setParameter(6, deudaCant)
                 .setParameter(7, deudaPlata)
                 .setParameter(8, Date.from(ZonedDateTime.now(zoneId).toInstant()))
-                .getResultList();
+                .executeUpdate();
         et.begin();
         em.close();
     }

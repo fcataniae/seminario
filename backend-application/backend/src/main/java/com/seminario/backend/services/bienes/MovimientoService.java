@@ -36,6 +36,8 @@ public class MovimientoService {
     LocalRepository localRepository;
     @Autowired
     ProveedorRepository proveedorRepository;
+    @Autowired
+    TipoMovTipoDocRepository tipoMovTipoDocRepository;
 
     @Autowired
     StockBienEnLocalService stockBienEnLocalService;
@@ -59,6 +61,7 @@ public class MovimientoService {
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
+                //cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados());
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
@@ -174,6 +177,14 @@ public class MovimientoService {
     public List<TipoMovimiento> getTipoMovimientos(Usuario usuarioActual){
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV")) {
             return tipoMovimientoRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar recursos");
+        }
+    }
+
+    public List<TipoMovTipoDoc> getTipoMovTipoDoc(Usuario usuarioActual){
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOVTIPODOC")) {
+            return tipoMovTipoDocRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar recursos");
         }
