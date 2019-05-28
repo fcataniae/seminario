@@ -593,4 +593,44 @@
     <changeSet author="Franco (generated)" id="1558572637518-108">
         <addForeignKeyConstraint baseColumnNames="tipoDocumento_ID" baseTableName="tipodocumento_bien" constraintName="FK_tipodocumento_bien_tipoDocumento_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
     </changeSet>
+    <changeSet id="12345678" author="System(?">
+        <createTable catalogName="SEMINARIO"
+                     tableName="STOCK_BIEN_EN_LOCAL">
+            <column name="LOCAL_NRO" type="NUMERIC"/>
+            <column name="BI_ID" type="NUMERIC"/>
+            <column name="STOCK_LIBRE" type="NUMERIC"/>
+            <column name="STOCK_OCUPADO" type="NUMERIC"/>
+            <column name="STOCK_RESERVADO" type="NUMERIC"/>
+            <column name="STOCK_DESTRUIDO" type="NUMERIC"/>
+            <column name="ULTIMA_FECHA_ACTUALIZACION" type="DATETIME"/>
+        </createTable>
+        <addPrimaryKey catalogName="SEMINARIO"
+                       columnNames="LOCAL_NRO,BI_id"
+                       constraintName="pk_STOCK_BIEN_EN_LOCAL"
+                       schemaName="public"
+                       tableName="STOCK_BIEN_EN_LOCAL"/>
+        <createTable catalogName="SEMINARIO"
+                     tableName="DEUDA">
+            <column name="id_agente_origen" type="NUMERIC"/>
+            <column name="id_agente_destino" type="NUMERIC"/>
+            <column name="tipo_agente_origen" type="NUMERIC"/>
+            <column name="tipo_agente_destino" type="NUMERIC"/>
+            <column name="BI_id" type="NUMERIC"/>
+            <column name="deuda_cant" type="NUMERIC"/>
+            <column name="deuda_monetaria" type="DECIMAL"/>
+            <column name="ultima_fecha_actualizacion" type="DATETIME"/>
+        </createTable>
+        <addPrimaryKey catalogName="SEMINARIO"
+                       columnNames="id_agente_origen, id_agente_destino,tipo_agente_origen, tipo_agente_destino,BI_id"
+                       constraintName="pk_deuda"
+                       schemaName="public"
+                       tableName="deuda"/>
+        <createTable tableName="estadorecurso">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="DESCRIP" type="VARCHAR(255)"/>
+        </createTable>
+
+    </changeSet>
 </databaseChangeLog>
