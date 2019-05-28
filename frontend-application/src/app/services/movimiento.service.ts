@@ -33,6 +33,9 @@ export class MovimientoService {
   getAllTipoDocMovimientos() : Observable<TipoDocumento[]>{
   return this._http.get<TipoDocumento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-tipomovtipodoc');
   }
+  getEnviosPendientesByTienda(nroDestino: number) : Observable<Movimiento[]>{
+    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-envios-pendientes'+nroDestino);
+  }
   setRegistroMovimiento(movimiento: Movimiento): Observable<string>{
 
     return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', movimiento);

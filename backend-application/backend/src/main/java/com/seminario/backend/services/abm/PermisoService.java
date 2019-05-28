@@ -18,7 +18,7 @@ public class PermisoService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    public List<Permiso> getAll(Usuario usuarioActual) {
+    public List<Permiso> getAll(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-PERMISO")) {
             return permisoRepository.findAll();
         }else {

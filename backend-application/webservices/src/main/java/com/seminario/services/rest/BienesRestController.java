@@ -110,4 +110,20 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllAgentes(usuarioActual);
     }
+
+    /**
+     * Metodo de la api para listar todos los envios pendientes a una tienda de destino
+     * @param userDetails Credenciales de usuario
+     * @param nroTienda Nro tienda destino
+     * @return List<Movimiento> lista con los movimientos encontrados
+     * @throws CustomException Excepcion custom
+     */
+    @GetMapping("/listar-envios-pendientes/{nro-tienda}")
+    public List<Movimiento> getEnviosPendientesByTienda(@AuthenticationPrincipal UserDetails userDetails,
+                                                @PathVariable("nro-tienda") Long nroTienda)  throws CustomException
+    {
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getEnviosPendientesByTienda(usuarioActual,nroTienda);
+    }
 }

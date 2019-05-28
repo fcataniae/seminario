@@ -2,6 +2,7 @@ package com.seminario.services.auth.service;
 
 
 import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.services.abm.CustomException;
 import com.seminario.backend.services.abm.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +21,12 @@ public class AuthService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Usuario u = usuarioService.getUsuarioByNombre(username);
+        Usuario u = null;
+        try {
+            u = usuarioService.getUsuarioByNombre(username);
+        } catch (CustomException e) {
+            e.printStackTrace();
+        }
 
         if(u == null){
             throw new UsernameNotFoundException("Not valid user!");
