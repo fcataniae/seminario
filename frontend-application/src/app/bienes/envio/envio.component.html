@@ -12,34 +12,44 @@
 
   <div class="datosEnvio">
 
-    <h4 class="tituloEnvio">Datos Envío</h4> <!-- {{ movimiento.nombre }} -->
+    <h4 class="tituloEnvio">Datos del movimiento</h4> <!-- {{ movimiento.nombre }} -->
 
-    <mat-form-field class="tipoDocEnvio">
-      <mat-label>Tipo Documento</mat-label><!-- agregar mat form -->
-      <mat-select [(value)]="TipoDocumentoSelected">
-        <mat-option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento">
-          {{tipoDocumento}}
-        </mat-option>
-      </mat-select>
+    <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
+      <mat-label>{{movimiento.tipoDocumento.descripcion}}</mat-label><!-- agregar mat form -->
+      <input matInput
+             type="text"
+             name="nroDocumento"
+             placeholder="{{movimiento.tipoDocumento.descripcion}}"
+             [(ngModel)]="movimiento.nroDocumento"
+             required/>
     </mat-form-field>
-
-    <input type="number" class="form-control nroDocEnvio" name="nroDocEnvio" placeholder="ID Documento"/>
-
-    <input type="date" class="form-control fechaEnvio" name="fechaEnvio" placeholder="Fecha Envío"/>
-
-    <input type="number" class="form-control idTransportista"
-           name="idTransportista" placeholder="ID Transportista"
-           *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'"/>
-
-    <input type="text" class="form-control patenteTransportista"
-           name="patenteTransportista" placeholder="Patente Transportista"
-           *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'"/>
+    <mat-form-field>
+      <mat-label>Fecha</mat-label>
+      <input type="date"
+             class="fechaEnvio"
+             name="fechaEnvio"
+             placeholder="Fecha"/>
+    </mat-form-field>
+    <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
+      <mat-label>Id Transportista</mat-label>
+      <input type="number"
+             class="idTransportista"
+             name="idTransportista"
+             placeholder="ID Transportista"/>
+    </mat-form-field>
+    <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
+      <mat-label>Patente Transportista</mat-label>
+      <input type="text"
+             class="patenteTransportista"
+             name="patenteTransportista"
+             placeholder="Patente Transportista"/>
+    </mat-form-field>
 
   </div>
 
   <div class="datosRecursosYdatosBienes">
 
-    <div class="datosBienes">
+    <div class="datosBienes" *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
       <h4 class="tituloBien">Datos Bien</h4>
 
@@ -55,12 +65,12 @@
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bienIntercambiable.descripcion}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="tipoDoc">
+          <ng-container matColumnDef="tipoDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION' && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
             <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="nroDoc">
+          <ng-container matColumnDef="nroDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION'  && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
             <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
           </ng-container>
@@ -96,7 +106,7 @@
 
     </div>
 
-    <div class="datosRecursos">
+    <div class="datosRecursos" *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
 
       <h4 class="tituloRecurso">Datos Recurso</h4>
 
