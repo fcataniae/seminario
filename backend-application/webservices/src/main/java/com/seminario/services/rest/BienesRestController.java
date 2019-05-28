@@ -2,10 +2,7 @@ package com.seminario.services.rest;
 
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
-import com.seminario.backend.model.bienes.BienIntercambiable;
-import com.seminario.backend.model.bienes.Movimiento;
-import com.seminario.backend.model.bienes.Recurso;
-import com.seminario.backend.model.bienes.TipoMovimiento;
+import com.seminario.backend.model.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
 import com.seminario.backend.services.abm.UsuarioService;
 import com.seminario.backend.services.bienes.BienIntercambiableService;
@@ -67,6 +64,19 @@ public class BienesRestController {
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getTipoMovimientos(usuarioActual);
+    }
+
+    /**
+     * Lista todos los tipoMov-TipoDoc.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @GetMapping("/listar-tipomovtipodoc")
+    public List<TipoMovTipoDoc> getTipoMovTipoDoc(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getTipoMovTipoDoc(usuarioActual);
     }
 
     /**
