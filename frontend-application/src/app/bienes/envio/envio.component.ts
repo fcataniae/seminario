@@ -8,6 +8,8 @@ import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { ActivatedRoute } from '@angular/router';
 import { MovimientoService } from '../../services/movimiento.service';
+import { of, forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-envio',
@@ -23,6 +25,10 @@ export class EnvioComponent implements OnInit {
   @ViewChild(MatSort) sortRecursos: MatSort;
   @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
+
+  @ViewChild(MatSort) sortEnviosPendientes: MatSort;
+  @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
+  datosTablaEnvios = new MatTableDataSource<Movimiento>();
 
   columnsToDisplayBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
   columnsToDisplayRecurso = ['tipoRecurso','idRecurso','eliminar'];
@@ -41,22 +47,39 @@ export class EnvioComponent implements OnInit {
   ngOnInit() {
 
 
-    this._movimientoService.getAllTipoDocMovimientos().subscribe(
-      res=>
-      {
-        console.log(res);
-        console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
-        this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+    console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
+    this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+    this.datosTablaBienes.data = this.movimiento.itemMovimientos;
+    this.datosTablaBienes.sort = this.sortBienes;
+    this.datosTablaBienes.paginator = this.paginatorBienes;
+    this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+    this.datosTablaRecursos.sort = this.sortRecursos;
+    this.datosTablaRecursos.paginator = this.paginatorRecursos;
 
-        this.datosTablaBienes.data = this.movimiento.itemMovimientos;
-        this.datosTablaBienes.sort = this.sortBienes;
-        this.datosTablaBienes.paginator = this.paginatorBienes;
-        this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
-        this.datosTablaRecursos.sort = this.sortRecursos;
-        this.datosTablaRecursos.paginator = this.paginatorRecursos;
-      },
-      error => console.log(error)
-    );
+    let consDocs = this._movimientoService.getAllTipoDocMovimientos();
+    let consEnvios = of([]);
+    if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
+      consEnvios = this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino);
+    }
+
+    forkJoin(consDocs,consEnvios)
+      .pipe(
+        map( ([resDoc,resEnvio]) =>
+          {
+              let tip = resDoc.filter(d => d.tipoMovimiento.id === this.movimiento.tipoMovimiento.id);
+
+              tip[0].tipoDocumento.forEach( d => this.movimiento.tipoDocumento = d);
+
+              if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
+                  this.datosTablaEnvios.data = resEnvio;
+                  this.datosTablaEnvios.sort = this.sortEnviosPendientes;
+                  this.datosTablaEnvios.paginator = this.paginatorEnvios;
+              }
+
+          }
+        )
+      );
+    
   }//END OnInit
 
   goBack(): void {

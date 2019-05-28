@@ -10,6 +10,7 @@ export class Movimiento{
   recursosAsignados: Recurso[];
   itemMovimientos : ItemMovimiento[];
   tipoDocumento: TipoDocumento;
+  nroDocumento: number;
 
   constructor(){
     this.recursosAsignados = [];
