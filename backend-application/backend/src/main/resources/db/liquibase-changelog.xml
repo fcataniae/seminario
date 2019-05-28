@@ -6,11 +6,11 @@
         <createTable catalogName="SEMINARIO"
                      tableName="STOCK_BIEN_EN_LOCAL">
             <column name="LOCAL_NRO" type="NUMERIC"/>
-            <column name="BI_ID" type="NUMERIC"/>
-            <column name="STOCK_LIBRE" type="NUMERIC"/>
-            <column name="STOCK_OCUPADO" type="NUMERIC"/>
-            <column name="STOCK_RESERVADO" type="NUMERIC"/>
-            <column name="STOCK_DESTRUIDO" type="NUMERIC"/>
+            <column name="BI_ID" type="BIGINT"/>
+            <column name="STOCK_LIBRE" type="BIGINT"/>
+            <column name="STOCK_OCUPADO" type="BIGINT"/>
+            <column name="STOCK_RESERVADO" type="BIGINT"/>
+            <column name="STOCK_DESTRUIDO" type="BIGINT"/>
             <column name="ULTIMA_FECHA_ACTUALIZACION" type="DATETIME"/>
         </createTable>
         <addPrimaryKey catalogName="SEMINARIO"
@@ -20,13 +20,13 @@
                        tableName="STOCK_BIEN_EN_LOCAL"/>
         <createTable catalogName="SEMINARIO"
                      tableName="DEUDA">
-            <column name="id_agente_origen" type="NUMERIC"/>
-            <column name="id_agente_destino" type="NUMERIC"/>
-            <column name="tipo_agente_origen" type="NUMERIC"/>
-            <column name="tipo_agente_destino" type="NUMERIC"/>
-            <column name="BI_id" type="NUMERIC"/>
-            <column name="deuda_cant" type="NUMERIC"/>
-            <column name="deuda_monetaria" type="DECIMAL"/>
+            <column name="id_agente_origen" type="BIGINT"/>
+            <column name="id_agente_destino" type="BIGINT"/>
+            <column name="tipo_agente_origen" type="BIGINT"/>
+            <column name="tipo_agente_destino" type="BIGINT"/>
+            <column name="BI_id" type="BIGINT"/>
+            <column name="deuda_cant" type="BIGINT"/>
+            <column name="deuda_monetaria" type="DOUBLE"/>
             <column name="ultima_fecha_actualizacion" type="DATETIME"/>
         </createTable>
         <addPrimaryKey catalogName="SEMINARIO"

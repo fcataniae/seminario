@@ -54,15 +54,15 @@ public class DeudaService {
 
         Double montoNuevo = cantNueva * this.getUltimaCotizacion(biId);
         montoNuevo = (montoNuevo == null) ? 0: montoNuevo;
-        List<Object>  deudas = findDeudaCantByLocalAndBi( AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
+        Object[]  deudas = findDeudaCantByLocalAndBi( AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
 
         Double deudaPlata = new Double(0);
         Long deudaCant = new Long(0);
         if (deudas == null) {
             insertDeuda(AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
         } else {
-            deudaPlata = (Double) deudas.get(1);
-            deudaCant = (Long) deudas.get(0);
+            deudaPlata = (Double) deudas[1];
+            deudaCant = (Long) deudas[0];
         }
 
         if (resta) {
@@ -79,7 +79,7 @@ public class DeudaService {
         EntityManager em = emf.createEntityManager();
         String qry = "INSERT INTO DEUDA (deuda_cant, deuda_monetaria, " +
                 "id_agente_origen, id_agente_destino," +
-                "tipo_agente_origen, tipo_agente_destino, BI_id, ultima_fecha_actualizacion)" +
+                "tipo_agente_origen, tipo_agente_destino, BI_id, ultima_fecha_actualizacion) " +
                 "VALUES(0,0.0,?1,?2,?3,?4,?5, ?6)";
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -113,35 +113,36 @@ public class DeudaService {
                 .setParameter(7, deudaPlata)
                 .setParameter(8, Date.from(ZonedDateTime.now(zoneId).toInstant()))
                 .executeUpdate();
-        et.begin();
+        et.commit();
         em.close();
     }
 
-    private List<Object> findDeudaCantByLocalAndBi(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId) {
+    private Object[] findDeudaCantByLocalAndBi(Long AgenteOrigen, Long AgenteDestino, Long tipoAgenteOrigen, Long tipoAgenteDestino, Long biId) {
         EntityManager em = emf.createEntityManager();
-        String qry = "SELECT d.deuda_cant, d.deuda_monetaria from DEUDA d" +
+        String qry = "SELECT d.deuda_cant, d.deuda_monetaria from DEUDA d " +
                      "WHERE d.id_agente_origen = ?1 AND d.id_agente_destino = ?2 " +
                      "AND d.tipo_agente_origen = ?3 AND d.tipo_agente_destino = ?4 " +
                      "AND d.BI_id = ?5";
-        List<Object> d = em.createNativeQuery(qry)
+        List<Object[]> d = em.createNativeQuery(qry)
                 .setParameter(1, AgenteOrigen)
                 .setParameter(2, AgenteDestino)
                 .setParameter(3, tipoAgenteOrigen)
                 .setParameter(4, tipoAgenteDestino)
                 .setParameter(5, biId)
                 .getResultList();
+        Object [] r = (!d.isEmpty()) ? d.get(0): null;
         em.close();
-        return d;
+        return r;
     }
 
 
     private Double getUltimaCotizacion(Long BI_id){
         EntityManager em = emf.createEntityManager();
-        String qry = "SELECT first c.precio FROM COTIZACION c " +
-                     "WHERE c.BI_ID = ?1 ORDER BY fecha_alta desc";
+        String qry = "SELECT COTIZACION FROM COTIZACION " +
+                "c WHERE c.BIENINTERCAMBIABLE_ID = ?1 " +
+                "ORDER BY fechaalta desc LIMIT 1";
         Double d = (Double) em.createNativeQuery(qry)
                 .setParameter(1, BI_id).getSingleResult();
-
         em.close();
         return d;
     }

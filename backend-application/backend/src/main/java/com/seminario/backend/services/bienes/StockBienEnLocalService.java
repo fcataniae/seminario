@@ -33,8 +33,6 @@ public class StockBienEnLocalService {
         if (cantActual == null) {
             insertStock(localNro, biId);
             cantActual = new Long(0);
-        } else {
-            insertStock(localNro, biId);
         }
         if (resta) {
             cantActual -= cantNueva;
