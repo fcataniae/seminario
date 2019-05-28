@@ -6,7 +6,6 @@ import { Bien } from '../model/bienes/bien.model';
 import { environment } from '../../environments/environment';
 import {Agente} from "../model/bienes/agente.model";
 import { Recurso } from '../model/bienes/recurso.model';
-import { TipoMovDoc } from '../model/bienes/tipodocmov.model';
 import { Movimiento } from '../model/bienes/movimiento.model';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -29,9 +28,6 @@ export class MovimientoService {
   }
   getAllRecursos() : Observable<Recurso[]>{
     return this._http.get<Recurso[]>(environment.serviceUrl.replace('service','bienes') + 'listar-recursos');
-  }
-  getAllTipoDocMovimientos() : Observable<TipoMovDoc[]>{
-  return this._http.get<TipoMovDoc[]>(environment.serviceUrl.replace('service','bienes') + 'listar-tipomovtipodoc');
   }
   getEnviosPendientesByTienda(nroDestino: number) : Observable<Movimiento[]>{
     return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-envios-pendientes'+nroDestino);

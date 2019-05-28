@@ -213,10 +213,9 @@
         </loadUpdateData>
         <loadUpdateData tableName="tipomovtipodoc"
                         file="classpath:db/csv/tipomov_tipodoc.csv"
-                        primaryKey="id">
-            <column name="id" type="NUMERIC" />
-            <column name="TIPO_MOVIMIENTO_ID" type="NUMERIC" />
-            <column name="TIPO_DOCUMENTO_ID" type="NUMERIC" />
+                        primaryKey="TIPOMOVIMIENTO_ID,TIPODOCUMENTOS_ID ">
+            <column name="TIPOMOVIMIENTO_ID" type="NUMERIC" />
+            <column name="TIPODOCUMENTOS_ID" type="NUMERIC" />
         </loadUpdateData>
     </changeSet>
 

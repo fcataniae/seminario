@@ -66,18 +66,7 @@ public class BienesRestController {
         return movimientoService.getTipoMovimientos(usuarioActual);
     }
 
-    /**
-     * Lista todos los tipoMov-TipoDoc.
-     *
-     * @param    userDetails       Credenciales de usuario.
-     *                             (debe tener los permisos para ejecutar el método).
-     **/
-    @GetMapping("/listar-tipomovtipodoc")
-    public List<TipoMovTipoDoc> getTipoMovTipoDoc(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
-    {
-        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getTipoMovTipoDoc(usuarioActual);
-    }
+
 
     /**
      * Lista todos los bienes intercambiables.

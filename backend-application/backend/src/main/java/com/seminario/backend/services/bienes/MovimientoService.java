@@ -37,9 +37,6 @@ public class MovimientoService {
     @Autowired
     ProveedorRepository proveedorRepository;
     @Autowired
-    TipoMovTipoDocRepository tipoMovTipoDocRepository;
-
-    @Autowired
     StockBienEnLocalService stockBienEnLocalService;
 
     @Autowired
@@ -182,13 +179,7 @@ public class MovimientoService {
         }
     }
 
-    public List<TipoMovTipoDoc> getTipoMovTipoDoc(Usuario usuarioActual) throws CustomException {
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOVTIPODOC")) {
-            return tipoMovTipoDocRepository.findAll();
-        } else {
-            throw new CustomException("No cuenta con los permisos para consultar recursos");
-        }
-    }
+
 
 
     public List<Agente> getAllAgentes(Usuario usuarioActual) {

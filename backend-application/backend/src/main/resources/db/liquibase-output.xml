@@ -256,8 +256,8 @@
             <column autoIncrement="true" name="ID" type="BIGINT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="TIPO_DOCUMENTO_ID" type="BIGINT"/>
-            <column name="TIPO_MOVIMIENTO_ID" type="BIGINT"/>
+            <column name="TIPODOCUMENTOS_ID" type="BIGINT"/>
+            <column name="TIPOMOVIMIENTO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-24">
@@ -500,12 +500,12 @@
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-75">
         <createIndex indexName="FK_TIPOMOVTIPODOC_TIPO_DOCUMENTO_ID" tableName="tipomovtipodoc">
-            <column name="TIPO_DOCUMENTO_ID"/>
+            <column name="TIPODOCUMENTOS_ID"/>
         </createIndex>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-76">
         <createIndex indexName="FK_TIPOMOVTIPODOC_TIPO_MOVIMIENTO_ID" tableName="tipomovtipodoc">
-            <column name="TIPO_MOVIMIENTO_ID"/>
+            <column name="TIPOMOVIMIENTO_ID"/>
         </createIndex>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-77">
@@ -625,10 +625,10 @@
         <addForeignKeyConstraint baseColumnNames="id_tipo_origen" baseTableName="tipomovimiento" constraintName="FK_TIPOMOVIMIENTO_id_tipo_origen"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipoagente"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-113">
-        <addForeignKeyConstraint baseColumnNames="TIPO_DOCUMENTO_ID" baseTableName="tipomovtipodoc" constraintName="FK_TIPOMOVTIPODOC_TIPO_DOCUMENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
+        <addForeignKeyConstraint baseColumnNames="TIPODOCUMENTOS_ID" baseTableName="tipomovtipodoc" constraintName="FK_TIPOMOVTIPODOC_TIPO_DOCUMENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-114">
-        <addForeignKeyConstraint baseColumnNames="TIPO_MOVIMIENTO_ID" baseTableName="tipomovtipodoc" constraintName="FK_TIPOMOVTIPODOC_TIPO_MOVIMIENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipomovimiento"/>
+        <addForeignKeyConstraint baseColumnNames="TIPOMOVIMIENTO_ID" baseTableName="tipomovtipodoc" constraintName="FK_TIPOMOVTIPODOC_TIPO_MOVIMIENTO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipomovimiento"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-115">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="usuario" constraintName="FK_USUARIO_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>

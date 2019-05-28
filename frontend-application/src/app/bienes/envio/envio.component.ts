@@ -56,30 +56,21 @@ export class EnvioComponent implements OnInit {
     this.datosTablaRecursos.sort = this.sortRecursos;
     this.datosTablaRecursos.paginator = this.paginatorRecursos;
 
-    let consDocs = this._movimientoService.getAllTipoDocMovimientos();
-    let consEnvios = of([]);
+    this.movimiento.tipoMovimiento.tipoDocumento.forEach( d => this.movimiento.tipoDocumento = d);
+
     if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
-      consEnvios = this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino);
+      this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
+        .subscribe(
+          resEnvio => {
+            this.datosTablaEnvios.data = resEnvio;
+            this.datosTablaEnvios.sort = this.sortEnviosPendientes;
+            this.datosTablaEnvios.paginator = this.paginatorEnvios;
+          },
+          error => console.log(error)
+        );
     }
 
-    forkJoin(consDocs,consEnvios)
-      .pipe(
-        map( ([resDoc,resEnvio]) =>
-          {
-              let tip = resDoc.filter(d => d.tipoMovimiento.id === this.movimiento.tipoMovimiento.id);
 
-              tip[0].tipoDocumento.forEach( d => this.movimiento.tipoDocumento = d);
-
-              if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
-                  this.datosTablaEnvios.data = resEnvio;
-                  this.datosTablaEnvios.sort = this.sortEnviosPendientes;
-                  this.datosTablaEnvios.paginator = this.paginatorEnvios;
-              }
-
-          }
-        )
-      );
-    
   }//END OnInit
 
   goBack(): void {
