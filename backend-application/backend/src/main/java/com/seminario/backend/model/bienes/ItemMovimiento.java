@@ -24,6 +24,9 @@ public class ItemMovimiento {
     private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
 
     @Column
+    private boolean vacio;
+
+    @Column
     private Long cantidad;
 
     @Column
@@ -63,5 +66,13 @@ public class ItemMovimiento {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public boolean isVacio() {
+        return vacio;
+    }
+
+    public void setVacio(boolean vacio) {
+        this.vacio = vacio;
     }
 }

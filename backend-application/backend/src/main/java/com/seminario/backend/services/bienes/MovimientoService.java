@@ -156,12 +156,12 @@ public class MovimientoService {
         } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCION")) {
             // Actualizo Stock Origen (+) y Destino (-)
             for (ItemMovimiento item: items) {
-                stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                if (item.isVacio()) stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                else stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
 
                 if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().equals("TIENDA")) {
-
-                    stockBienEnLocalService.aumentarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
-
+                    if (item.isVacio()) stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                    else stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 } else if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().equals("PROVEEDOR")) {
                     // TODO: CREAR VALES
                     deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(),item.getCantidad());
