@@ -11,8 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Usuario: Franco
@@ -125,25 +124,38 @@ public class StockBienEnLocalService {
     }
 
 
-    public List<Object> getStockLocal(Long localNro){
+    public List<StockBienEnLocal> getStockLocal(Long localNro){
 
         EntityManager em = emf.createEntityManager();
-        List<Object> stockLocal;
-        String qry ="select SBL.LOCAL_NRO, L.DENOMINACION, SBL.BI_ID, BI.DESCRIPCION, " +
+        List<StockBienEnLocal> listStockLocal = new ArrayList<StockBienEnLocal>(); // resultado final
+
+        String qry ="select SBL.LOCAL_NRO, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION, " +
                 "SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO " +
                 " from STOCK_BIEN_EN_LOCAL SBL" +
                 "inner join LOCAL L on L.NRO=SBL.LOCAL_NRO and SBL.LOCAL_NRO=?1" +
                 "inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID";
+
         try {
-             stockLocal = em.createNativeQuery(qry)
-                     .setParameter(1, localNro)
-                     .getResultList();
+            List<Object[]> stockLocal = em.createNativeQuery(qry)
+                                        .setParameter(1, localNro)
+                                        .getResultList();
             em.close();
-            return stockLocal;
+            stockLocal.forEach(tupla->{
+                StockBienEnLocal bien = new StockBienEnLocal();
+                bien.setNroLocal((long)tupla[0]);
+                bien.setNombreLocal((String)tupla[1]);
+                bien.setIdBI((long) tupla[2]);
+                bien.setDescripcionBI((String)tupla[4]);
+                bien.setStock_libre((long) tupla[5]);
+                bien.setStock_ocupado((long)tupla[6]);
+                bien.setStock_reservado((long)tupla[7]);
+                bien.setStock_destruido((long)tupla[8]);
+                listStockLocal.add(bien);
+            });
         } catch (NoResultException e) {
             throw new RuntimeException(e);
         }
-
+        return listStockLocal;
     }
 
 }
