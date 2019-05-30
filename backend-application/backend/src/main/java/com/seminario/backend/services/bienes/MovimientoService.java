@@ -38,10 +38,10 @@ public class MovimientoService {
     ProveedorRepository proveedorRepository;
     @Autowired
     StockBienEnLocalService stockBienEnLocalService;
-
+    @Autowired
+    EstadoRecursoRepository estadoRecursoRepository;
     @Autowired
     TipoAgenteRepository tipoAgenteRepository;
-
     @Autowired
     DeudaService deudaService;
 
@@ -78,13 +78,27 @@ public class MovimientoService {
      * */
     public void validarItems(Set<ItemMovimiento> items) throws CustomException {
         BienIntercambiable bi;
+        EstadoRecurso eim;
+        int i=0;
         for (ItemMovimiento item: items) {
+            if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
+
             Long id = item.getBienIntercambiable().getId();
             if (null == (bi = bienIntercambiableRepository.findById(id))) {
                 throw new CustomException("ItemMovimiento contiene bien Intercambiable inexistente.");
             } else {
                 item.setBienIntercambiable(bi);
             }
+
+            if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene EstadoRecurso en NULL.");
+
+            String descripEstado = item.getEstadoRecurso().getDescrip();
+            if (null == (eim = estadoRecursoRepository.findByDescrip(descripEstado))) {
+                throw new CustomException("ItemMovimiento contiene EstadoRecurso inexistente.");
+            } else {
+                item.setEstadoRecurso(eim);
+            }
+            i++;
         }
     }
 
@@ -153,19 +167,34 @@ public class MovimientoService {
         } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCION")) {
             // Actualizo Stock Origen (+) y Destino (-)
             for (ItemMovimiento item: items) {
-                if (item.isVacio()) stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                else stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")){
+                    stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                } else if (item.getEstadoRecurso().getDescrip().equals("OCUPADO")) {
+                    stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                }
 
                 if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equals("TIENDA")) {
-                    if (item.isVacio()) stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
-                    else stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                    if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
+                        stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                    } else if (item.getEstadoRecurso().getDescrip().equals("OCUPADO")) {
+                        stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                    }
                 } else if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equals("PROVEEDOR")) {
                     // TODO: CREAR VALES
                     deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(),item.getCantidad());
                 }
             }
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("INTERCAMBIO")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
+
+            for (ItemMovimiento item: items) {
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")){
+                    stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                } else if (item.getEstadoRecurso().getDescrip().equals("DESTRUIDO")) {
+                    stockBienEnLocalService.restarStockDestruido(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                }
+                deudaService.aumentarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+            }
 
         }
 

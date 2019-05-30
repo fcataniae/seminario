@@ -71,7 +71,7 @@
             </column>
             <column name="CANTIDAD" type="BIGINT"/>
             <column name="PRECIO" type="DOUBLE"/>
-            <column name="VACIO" type="BOOL"/>
+            <column name="ESTADORECURSO_ID" type="BIGINT"/>
             <column name="BIENINTERCAMBIABLE_ID" type="BIGINT"/>
             <column name="movimiento_id" type="BIGINT"/>
         </createTable>

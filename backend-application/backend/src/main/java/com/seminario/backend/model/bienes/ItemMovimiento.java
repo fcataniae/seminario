@@ -23,8 +23,8 @@ public class ItemMovimiento {
     @OneToMany(mappedBy = "ItemMovimiento",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
 
-    @Column
-    private boolean vacio;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private EstadoRecurso estadoRecurso;
 
     @Column
     private Long cantidad;
@@ -68,11 +68,11 @@ public class ItemMovimiento {
         this.precio = precio;
     }
 
-    public boolean isVacio() {
-        return vacio;
+    public EstadoRecurso getEstadoRecurso() {
+        return estadoRecurso;
     }
 
-    public void setVacio(boolean vacio) {
-        this.vacio = vacio;
+    public void setEstadoRecurso(EstadoRecurso estadoRecurso) {
+        this.estadoRecurso = estadoRecurso;
     }
 }

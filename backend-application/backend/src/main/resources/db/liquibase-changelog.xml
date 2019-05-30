@@ -34,8 +34,6 @@
                        constraintName="pk_deuda"
                        schemaName="public"
                        tableName="deuda"/>
-
-
     </changeSet>
     <changeSet author="Franco" id ="1999">
         <loadUpdateData tableName="estado"
