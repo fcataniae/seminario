@@ -128,7 +128,7 @@ curl -X PUT \
   }'
 ```
 
-Ejemplo de un usuario al que se le inyecta una lista de
+Ejemplo de un usuario al que se le inyecta una lista de roles
 
 ```
 curl -X PUT \
