@@ -154,13 +154,13 @@ public class StockBienEnLocalService {
                        StockBienEnLocal bien = new StockBienEnLocal();
 
                        bien.setNombreLocal((String) tupla[1]);
-                      // bien.setIdBI(new Long((Long) tupla[2]));
+                       bien.setIdBI((Long) tupla[2]);
                        bien.setDescripcionBI((String) tupla[3]);
-                       //bien.setStock_libre(new Long((Long) tupla[4]));
-                       //bien.setStock_ocupado(new Long((Long) tupla[5]));
-                       //bien.setStock_reservado(new Long((Long) tupla[6]));
-                       //bien.setStock_destruido(new Long((Long) tupla[7]));
-                       bien.setNroLocal(new Long((Long) tupla[0]));
+                       bien.setStock_libre((Long) tupla[4]);
+                       bien.setStock_ocupado((Long) tupla[5]);
+                       bien.setStock_reservado((Long) tupla[6]);
+                       bien.setStock_destruido((Long)  tupla[7]);
+                       bien.setNroLocal((Long) tupla[0]);
                        System.out.println("Respuesta final el local es el nro :" + tupla[0]);
                        listStockLocal.add(bien);
                    }

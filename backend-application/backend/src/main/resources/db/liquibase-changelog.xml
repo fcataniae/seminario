@@ -5,7 +5,7 @@
     <changeSet id="12345678" author="System(?">
         <createTable catalogName="SEMINARIO"
                      tableName="STOCK_BIEN_EN_LOCAL">
-            <column name="LOCAL_NRO" type="NUMERIC"/>
+            <column name="LOCAL_NRO" type="BIGINT"/>
             <column name="BI_ID" type="BIGINT"/>
             <column name="STOCK_LIBRE" type="BIGINT"/>
             <column name="STOCK_OCUPADO" type="BIGINT"/>
