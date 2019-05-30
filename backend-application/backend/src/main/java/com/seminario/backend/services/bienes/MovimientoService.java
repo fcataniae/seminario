@@ -41,8 +41,6 @@ public class MovimientoService {
     @Autowired
     EstadoRecursoRepository estadoRecursoRepository;
     @Autowired
-    TipoAgenteRepository tipoAgenteRepository;
-    @Autowired
     DeudaService deudaService;
 
 
@@ -71,6 +69,48 @@ public class MovimientoService {
             }
         } else {
             throw new CustomException("No cuenta con permisos para dar de alta movimientos nuevos!");
+        }
+    }
+
+
+    public void confirmar(Usuario usuarioActual, Long idMov) throws CustomException{
+        Movimiento m;
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-MOVIMIENTO")) {
+            if (null != (m = movimientoRepository.findById(idMov))){
+                if (m.getEstadoViaje().getDescrip().equals("PENDIENTE")) {
+                    m.setEstadoViaje(estadoViajeRepository.findByDescrip("ENTREGADO"));
+                    confimarMovimiento(m);
+                } else {
+                    throw new CustomException("El movimiento no esta en estado " + m.getEstadoViaje().getDescrip());
+                }
+            } else {
+                throw new CustomException("No se encontró el movimiento que desea confirmar!");
+            }
+        } else {
+            throw new CustomException("No cuenta con permisos para modificar movimientos!");
+        }
+    }
+
+    private void confimarMovimiento(Movimiento movimiento) {
+        Local cd = localRepository.findByNro(new Long(7460));
+        Set<ItemMovimiento> items = movimiento.getItemMovimientos();
+        String tipoMov = movimiento.getTipoMovimiento().getTipo();
+        if (tipoMov.equals("DEVOLUCION")) {
+            // Actualizo StockReservado
+            for (ItemMovimiento item: items) {
+                stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+                    deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+                } else {
+                    deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+                }
+            }
+            // Vales en estado Reservado
+        } else if (tipoMov.equals("ENVIOINTERCAMBIO")) {
+            for (ItemMovimiento item: items) {
+                stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+            }
         }
     }
 
@@ -183,21 +223,35 @@ public class MovimientoService {
                     }
                 } else if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equals("PROVEEDOR")) {
                     // TODO: CREAR VALES
-                    deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(),item.getCantidad());
+
+                    // SOLO aumentamos la DEUDA del CD al Proveedor cuando NO se trata de ENVASES,
+                    // ya que los envases se cobran con el producto, a diferencia de los PALLETS que
+                    // se "adeudan" al momento que el proveedor realiza una entrega (o RECEPCION del punto de vista del CD).
+                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                    }
                 }
             }
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("ENVIOINTERCAMBIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
 
             for (ItemMovimiento item: items) {
-                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")){
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                     stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 } else if (item.getEstadoRecurso().getDescrip().equals("DESTRUIDO")) {
                     stockBienEnLocalService.restarStockDestruido(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 }
-                deudaService.aumentarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+                stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
 
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
+
+            for (ItemMovimiento item: items) {
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
+                    stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                }
+                deudaService.restarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+            }
         }
 
     }
@@ -258,7 +312,7 @@ public class MovimientoService {
         EstadoViaje estadoPendiente = estadoViajeRepository.findByDescrip("PENDIENTE");
         Local localDestino = localRepository.findByNro(nroTienda);
         if(tipoEnvio == null || estadoPendiente == null || localDestino == null)
-            throw new CustomException("No se encotro el tipo de envio y/o estado y/o local destino");
+            throw new CustomException("No se encontró el tipo de envio y/o estado y/o local destino");
 
 
         return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio,estadoPendiente,localDestino.getNro());

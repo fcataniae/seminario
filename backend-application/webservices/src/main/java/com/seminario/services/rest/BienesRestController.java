@@ -58,6 +58,21 @@ public class BienesRestController {
     }
 
     /**
+     * Confirmar un movimiento.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     * @param    id                Id del movimiento a confirmar.
+     **/
+    @GetMapping("/confirmar-movimiento/{id}")
+    public void confirmarMovimiento(@AuthenticationPrincipal UserDetails userDetails,
+                                    @PathVariable("id") Long id) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        movimientoService.confirmar(usuarioActual,id);
+    }
+
+    /**
      * Lista todos los movimientos.
      *
      * @param    userDetails       Credenciales de usuario.
