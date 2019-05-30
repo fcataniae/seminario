@@ -8,8 +8,9 @@
   "tipoMovimiento": {"tipo":"ENVIO","tipoAgenteDestino":{"nombre":"TIENDA"} ,"tipoAgenteOrigen":{"nombre":"CD"} },
   "id_tipo_documento": 1,
   "itemMovimientos": [
-    {"bienIntercambiable":{"id":1},"cantidad":30},
-    {"bienIntercambiable":{"id":2},"cantidad":30}
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
   ]
 }
 
@@ -18,12 +19,37 @@
 
 {
   "id": null,
-  "origen": 2,
+  "origen": 1023,
   "destino": 7460,
-  "tipoMovimiento": {"tipo":"RECEPCION","tipoAgenteDestino":{"nombre":"CD"} ,"tipoAgenteOrigen":{"nombre":"PROVEEDOR"} },
-  "id_tipo_documento": 1,
+  "tipoMovimiento": {"tipo":"RECEPCION","tipoAgenteDestino":{"nombre":"CD"} ,"tipoAgenteOrigen":{"nombre":"TIENDA"} },
+  "id_tipo_documento": 4,
+  "nroDocumento": 8432904234,
   "itemMovimientos": [
-    {"bienIntercambiable":{"id":1},"cantidad":30},
-    {"bienIntercambiable":{"id":2},"cantidad":30}
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
+
   ]
 }
+
+/* Recepcion (Tienda a CD) */
+/* Proveedor=1023, CD = 7460 */
+
+{
+  "id": null,
+  "origen": 1023,
+  "destino": 7460,
+  "tipoMovimiento": {"tipo":"RECEPCION","tipoAgenteDestino":{"nombre":"CD"} ,"tipoAgenteOrigen":{"nombre":"TIENDA"} },
+  "id_tipo_documento": 1,
+  "nroDocumento": 34342423442,
+  "itemMovimientos": [
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
+
+  ]
+}
+
+/* IntercambioRecepcion (CD a Palletera) */
+-> Dar de alta correspondiente parametria
+-> Dar de alta correspondiente parametria

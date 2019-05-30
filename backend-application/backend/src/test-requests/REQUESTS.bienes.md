@@ -43,7 +43,9 @@ curl -X POST \
 
 - Verificar Stock bien en local.
 
-#### Recepción ✅ - WORKING
+#### Recepción PROVEEDOR - CD | ✅ - WORKING
+
+Recepción (Origen: Proveedor = 2, Destino: CD = 7460)
 
 ```bash
 curl -X POST \
@@ -60,6 +62,31 @@ curl -X POST \
   "itemMovimientos": [
     {"bienIntercambiable":{"id":1},"cantidad":30},
     {"bienIntercambiable":{"id":2},"cantidad":30}
+  ]
+}'
+```
+
+#### Recepción TIENDA - CD | ✅ - WORKING
+
+Recepción (Origen: Tienda = 1024, Destino: CD = 7460)
+
+```bash
+curl -X POST \
+  http://localhost:9081/bienes/alta-movimiento \
+  -H 'Authorization: Bearer '$TOKEN'' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+  "id": null,
+  "origen": 2,
+  "destino": 7460,
+  "tipoMovimiento": {"tipo":"RECEPCION","tipoAgenteDestino":{"nombre":"CD"} ,"tipoAgenteOrigen":{"nombre":"PROVEEDOR"} },
+  "id_tipo_documento": 3,
+  "nroDocumento": 201923032133,
+  "itemMovimientos": [
+    {"bienIntercambiable":{"id":4},"cantidad":300,"vacio":true},
+    {"bienIntercambiable":{"id":2},"cantidad":30,"vacio":true},
+    {"bienIntercambiable":{"id":5},"cantidad":30,"vacio":true}
   ]
 }'
 ```
