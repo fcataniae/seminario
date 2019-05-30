@@ -184,11 +184,11 @@ public class MovimientoService {
                     deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(),item.getCantidad());
                 }
             }
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("ENVIOINTERCAMBIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
 
             for (ItemMovimiento item: items) {
-                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")){
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                     stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 } else if (item.getEstadoRecurso().getDescrip().equals("DESTRUIDO")) {
                     stockBienEnLocalService.restarStockDestruido(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
@@ -196,6 +196,14 @@ public class MovimientoService {
                 deudaService.aumentarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
             }
 
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
+
+            for (ItemMovimiento item: items) {
+                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
+                    stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                }
+                deudaService.restarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
+            }
         }
 
     }
