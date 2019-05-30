@@ -127,6 +127,7 @@ public class BienesRestController {
      * @return List<Movimiento> lista con los movimientos encontrados
      * @throws CustomException Excepcion custom
      */
+
     @GetMapping("/listar-envios-pendientes/{nro-tienda}")
     public List<Movimiento> getEnviosPendientesByTienda(@AuthenticationPrincipal UserDetails userDetails,
                                                 @PathVariable("nro-tienda") Long nroTienda)  throws CustomException

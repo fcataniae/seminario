@@ -65,10 +65,12 @@ public class MovimientoService {
                     
                 actualizarStockYDeuda(movimientoNuevo);
             } else {
-                throw new CustomException("No se encontró el tipo de movimientoNuevo que desea asignar!");
+                throw new CustomException("No se encontró el tipo de movimiento asignado. " +
+                        "No se puede realizar un "+  movimientoNuevo.getTipoMovimiento().getTipo()+
+                        " de "+ movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre() +" a "+ movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre());
             }
         } else {
-            throw new CustomException("No cuenta con permisos para dar de alta movimientoNuevos!");
+            throw new CustomException("No cuenta con permisos para dar de alta movimientos nuevos!");
         }
     }
 
@@ -85,16 +87,16 @@ public class MovimientoService {
 
             Long id = item.getBienIntercambiable().getId();
             if (null == (bi = bienIntercambiableRepository.findById(id))) {
-                throw new CustomException("ItemMovimiento contiene bien Intercambiable inexistente.");
+                throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
             } else {
                 item.setBienIntercambiable(bi);
             }
 
-            if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene EstadoRecurso en NULL.");
+            if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
 
             String descripEstado = item.getEstadoRecurso().getDescrip();
             if (null == (eim = estadoRecursoRepository.findByDescrip(descripEstado))) {
-                throw new CustomException("ItemMovimiento contiene EstadoRecurso inexistente.");
+                throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
             } else {
                 item.setEstadoRecurso(eim);
             }
