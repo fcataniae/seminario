@@ -159,8 +159,12 @@ public class MovimientoService {
                 throw  new CustomException("Proveedor origen no encontrado.");
             }
         } else if (tipoAgenteOrigen.getNombre().equals("TIENDA") || tipoAgenteOrigen.getNombre().equals("CD")) {
-            if (null == localRepository.findByNro(movimiento.getOrigen())){
-                throw new CustomException("Local origen no encontrado.");
+            Local l = localRepository.findByNro(movimiento.getOrigen());
+            if (l != null) {
+                if (l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
+                throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
+            } else {
+                throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
             }
         }
         // Valido Nros de Destino
@@ -169,8 +173,12 @@ public class MovimientoService {
                 throw  new CustomException("Proveedor destino no encontrado.");
             }
         } else if (tipoAgenteDestino.getNombre().equals("TIENDA") || tipoAgenteDestino.getNombre().equals("CD")) {
-            if (null == localRepository.findByNro(movimiento.getDestino())){
-                throw new CustomException("Local destino no encontrado.");
+            Local l = localRepository.findByNro(movimiento.getDestino());
+            if (l != null) {
+                if (l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
+                throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
+            } else {
+                throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             }
         }
     }
@@ -257,6 +265,7 @@ public class MovimientoService {
         }
 
     }
+
 
     public List<TipoMovimiento> getTipoMovimientos(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV")) {
