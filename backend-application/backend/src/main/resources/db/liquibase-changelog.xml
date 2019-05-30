@@ -135,6 +135,17 @@
             <column name="USUARIOALTA" type="STRING"/>
             <column name="ESTADO_ID" type="NUMERIC"/>
         </loadUpdateData>
+        <loadUpdateData tableName="stock_bien_en_local"
+                        file="classpath:db/csv/stock_bien_en_local.csv"
+                        primaryKey="local_nro,bi_id">
+            <column name="local_nro" type="NUMERIC" />
+            <column name="bi_id" type="NUMERIC" />
+            <column name="stock_libre" type="NUMERIC" />
+            <column name="stock_ocupado" type="NUMERIC" />
+            <column name="stock_reservado" type="NUMERIC" />
+            <column name="stock_destruido" type="NUMERIC" />
+            <column name="ultima_fecha_actualizacion" type="DATE" />
+        </loadUpdateData>
         <loadUpdateData tableName="tipodocumento"
                         primaryKey="ID"
                         file="classpath:/db/csv/tipodocumentos.csv">

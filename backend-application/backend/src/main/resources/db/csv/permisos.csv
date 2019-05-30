@@ -40,3 +40,8 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1035, ,Permite modificar estados,MODI-ESTADO,1
 1036, ,Permite consultar estados,CONS-ESTADO,1
 1037, ,Permite consultar tipo docs,CONS-TIPOMOVTIPODOC,1
+1038, ,Permite dar de alta el stock de todos los locales,ALTA-STOCK-TOTAL,1
+1039, ,Permite dar de baja el stock de todos los locales,BAJA-STOCK-TOTAL,1
+1040, ,Permite modificar el stock de todos los locales,MODI-STOCK-TOTAL,1
+1041, ,Permite consultar el stock de todos los locales,CONS-STOCK-TOTAL,1
+1042, ,Permite consultar el stock de una tienda,CONS-STOCK-TIENDA,1

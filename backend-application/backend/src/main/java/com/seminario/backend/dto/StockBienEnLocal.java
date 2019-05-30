@@ -16,13 +16,13 @@ public class StockBienEnLocal {
 
     private String descripcionBI;
 
-    private long stock_ocupado;
+    private Long stock_ocupado;
 
-    private long stock_libre;
+    private Long stock_libre;
 
-    private long stock_reservado;
+    private Long stock_reservado;
 
-    private long stock_destruido;
+    private Long stock_destruido;
 
 
     public StockBienEnLocal() {
@@ -41,13 +41,13 @@ public class StockBienEnLocal {
 
     public String getDescripcionBI() { return descripcionBI; }
 
-    public long getStock_ocupado() { return stock_ocupado; }
+    public Long getStock_ocupado() { return stock_ocupado; }
 
-    public long getStock_libre() { return stock_libre; }
+    public Long getStock_libre() { return stock_libre; }
 
-    public long getStock_reservado() { return stock_reservado; }
+    public Long getStock_reservado() { return stock_reservado; }
 
-    public long getStock_destruido() { return stock_destruido; }
+    public Long getStock_destruido() { return stock_destruido; }
 
     //setters
     public void setNroLocal(Long nroLocal) { this.nroLocal = nroLocal; }
@@ -62,12 +62,12 @@ public class StockBienEnLocal {
 
     public void setDescripcionBI(String descripcionBI) { this.descripcionBI = descripcionBI; }
 
-    public void setStock_ocupado(long stock_ocupado) { this.stock_ocupado = stock_ocupado; }
+    public void setStock_ocupado(Long stock_ocupado) { this.stock_ocupado = stock_ocupado; }
 
-    public void setStock_libre(long stock_libre) { this.stock_libre = stock_libre; }
+    public void setStock_libre(Long stock_libre) { this.stock_libre = stock_libre; }
 
-    public void setStock_reservado(long stock_reservado) { this.stock_reservado = stock_reservado; }
+    public void setStock_reservado(Long stock_reservado) { this.stock_reservado = stock_reservado; }
 
-    public void setStock_destruido(long stock_destruido) { this.stock_destruido = stock_destruido; }
+    public void setStock_destruido(Long stock_destruido) { this.stock_destruido = stock_destruido; }
 }
 

@@ -8,6 +8,7 @@ import com.seminario.backend.services.abm.UsuarioService;
 import com.seminario.backend.services.bienes.BienIntercambiableService;
 import com.seminario.backend.services.bienes.MovimientoService;
 import com.seminario.backend.services.bienes.RecursoService;
+import com.seminario.backend.services.bienes.StockBienEnLocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,6 +39,9 @@ public class BienesRestController {
     BienIntercambiableService bienIntercambiableService;
     @Autowired
     RecursoService recursoService;
+    @Autowired
+    StockBienEnLocalService stockBienEnLocalService;
+
 
     /**
      * Crea un nuevo movimiento.
@@ -80,6 +84,22 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return bienIntercambiableService.getBienesIntercambiables(usuarioActual);
     }
+
+    /**
+     * Lista el stock (ocupado, libre, destruido, reservado) de todos los bienes de un Local
+     * @param userDetails Credenciales de usuario
+     * @param nroLocal Nro local
+     * @return List<StockBienEnLocal> Todos los bienes del local con su stock
+     * @throws CustomException Excepcion custom
+     */
+    @GetMapping("/stock-local/{nro-local}")
+    public List<com.seminario.backend.dto.StockBienEnLocal> getStockLocal(@AuthenticationPrincipal UserDetails userDetails,
+                                                @PathVariable("nro-local") Long nroLocal)  throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return stockBienEnLocalService.getStockLocal(nroLocal,usuarioActual);
+    }
+
+
 
     /**
      * Lista todos los recursos.

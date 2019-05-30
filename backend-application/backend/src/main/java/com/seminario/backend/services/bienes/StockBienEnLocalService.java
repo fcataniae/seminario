@@ -1,7 +1,11 @@
 package com.seminario.backend.services.bienes;
 
 
+import ch.qos.logback.core.CoreConstants;
 import com.seminario.backend.dto.StockBienEnLocal;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.repository.abm.PermisoRepository;
+import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,8 @@ public class StockBienEnLocalService {
 
     @Autowired
     EntityManagerFactory emf;
+    @Autowired
+    PermisoRepository permisoRepository;
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -124,38 +130,48 @@ public class StockBienEnLocalService {
     }
 
 
-    public List<StockBienEnLocal> getStockLocal(Long localNro){
+       public List<StockBienEnLocal> getStockLocal(Long localNro, Usuario usuarioActual)throws CustomException{
 
-        EntityManager em = emf.createEntityManager();
-        List<StockBienEnLocal> listStockLocal = new ArrayList<StockBienEnLocal>(); // resultado final
+           if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-STOCK-TIENDA")) {
+               //&& (usuarioActual.getLocal()== localNro)){
 
-        String qry ="select SBL.LOCAL_NRO, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION, " +
-                "SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO " +
-                " from STOCK_BIEN_EN_LOCAL SBL" +
-                "inner join LOCAL L on L.NRO=SBL.LOCAL_NRO and SBL.LOCAL_NRO=?1" +
-                "inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID";
+               EntityManager em = emf.createEntityManager();
+               List<StockBienEnLocal> listStockLocal = new ArrayList<StockBienEnLocal>(); // resultado final
 
-        try {
-            List<Object[]> stockLocal = em.createNativeQuery(qry)
-                                        .setParameter(1, localNro)
-                                        .getResultList();
-            em.close();
-            stockLocal.forEach(tupla->{
-                StockBienEnLocal bien = new StockBienEnLocal();
-                bien.setNroLocal((long)tupla[0]);
-                bien.setNombreLocal((String)tupla[1]);
-                bien.setIdBI((long) tupla[2]);
-                bien.setDescripcionBI((String)tupla[4]);
-                bien.setStock_libre((long) tupla[5]);
-                bien.setStock_ocupado((long)tupla[6]);
-                bien.setStock_reservado((long)tupla[7]);
-                bien.setStock_destruido((long)tupla[8]);
-                listStockLocal.add(bien);
-            });
-        } catch (NoResultException e) {
-            throw new RuntimeException(e);
-        }
-        return listStockLocal;
+               String qry = "select SBL.LOCAL_NRO, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION," +
+                       " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO" +
+                       " from STOCK_BIEN_EN_LOCAL SBL" +
+                       " inner join LOCAL L on L.NRO=SBL.LOCAL_NRO and SBL.LOCAL_NRO=?1" +
+                       " inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID";
+
+               try {
+                   List<Object[]> stockLocal = em.createNativeQuery(qry)
+                           .setParameter(1, localNro)
+                           .getResultList();
+                   em.close();
+                  // System.out.println("Respuesta objeto bien 1:" + stockLocal.get(0).toString();
+                   for (Object[] tupla : stockLocal) {
+                       StockBienEnLocal bien = new StockBienEnLocal();
+
+                       bien.setNombreLocal((String) tupla[1]);
+                      // bien.setIdBI(new Long((Long) tupla[2]));
+                       bien.setDescripcionBI((String) tupla[3]);
+                       //bien.setStock_libre(new Long((Long) tupla[4]));
+                       //bien.setStock_ocupado(new Long((Long) tupla[5]));
+                       //bien.setStock_reservado(new Long((Long) tupla[6]));
+                       //bien.setStock_destruido(new Long((Long) tupla[7]));
+                       bien.setNroLocal(new Long((Long) tupla[0]));
+                       System.out.println("Respuesta final el local es el nro :" + tupla[0]);
+                       listStockLocal.add(bien);
+                   }
+               } catch (NoResultException e) {
+                   throw new RuntimeException(e);
+               }
+               System.out.println("Respuesta final bien 1:" + listStockLocal.get(0).getDescripcionBI());
+               return listStockLocal;
+           }else{
+               throw new CustomException("No cuenta con los permisos para consultar el stock de este Local.");
+           }
     }
 
 }
