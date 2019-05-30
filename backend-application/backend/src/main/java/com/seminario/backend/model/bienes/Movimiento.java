@@ -64,6 +64,11 @@ public class Movimiento {
     @Column
     private Long idTransportista;
 
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date fechaSalida;
+
     public Movimiento() {
     }
 
@@ -170,5 +175,13 @@ public class Movimiento {
 
     public void setItemMovimientos(Set<ItemMovimiento> itemMovimientos) {
         this.itemMovimientos = itemMovimientos;
+    }
+
+    public Date getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(Date fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 }

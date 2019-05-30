@@ -178,9 +178,11 @@ public class MovimientoService {
      *
      * */
     private void sanitizarMovimiento(Movimiento movimientoNuevo) {
+        Date today = Date.from(ZonedDateTime.now(zoneId).toInstant());
+        if (movimientoNuevo.getFechaSalida() == null) movimientoNuevo.setFechaSalida(today);
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
         movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
-        movimientoNuevo.setFechaAlta(Date.from(ZonedDateTime.now(zoneId).toInstant()));
+        movimientoNuevo.setFechaAlta(today);
     }
 
     /*

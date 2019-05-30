@@ -110,6 +110,7 @@
             </column>
             <column name="DESTINO" type="BIGINT"/>
             <column name="FECHAALTA" type="date"/>
+            <column name="FECHASALIDA" type="date"/>
             <column name="IDTRANSPORTISTA" type="BIGINT"/>
             <column name="NRODOCUMENTO" type="VARCHAR(255)"/>
             <column name="ORIGEN" type="BIGINT"/>
