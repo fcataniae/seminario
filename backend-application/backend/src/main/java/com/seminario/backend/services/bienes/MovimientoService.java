@@ -75,13 +75,15 @@ public class MovimientoService {
     public void cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
         EstadoRecurso e = estadoRecursoRepository.findByDescrip(estadoRecurso);
         int i = 1;
-        for (Recurso r: recursos) {
-            if (!r.getEstado().getDescrip().equals("LIBRE")) {
-                throw new CustomException("El recurso ["+i+"] se encruentra en estado "+r.getEstado().getDescrip()+"!");
-            } else {
-                r.setEstadoRecurso(e);
+        if (recursos != null) {
+            for (Recurso r : recursos) {
+                if (!r.getEstado().getDescrip().equals("LIBRE")) {
+                    throw new CustomException("El recurso [" + i + "] se encruentra en estado " + r.getEstado().getDescrip() + "!");
+                } else {
+                    r.setEstadoRecurso(e);
+                }
+                i++;
             }
-            i++;
         }
     }
 
@@ -140,25 +142,29 @@ public class MovimientoService {
         BienIntercambiable bi;
         EstadoRecurso eim;
         int i=0;
-        for (ItemMovimiento item: items) {
-            if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
+        if (items != null) {
+            for (ItemMovimiento item: items) {
+                if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
 
-            Long id = item.getBienIntercambiable().getId();
-            if (null == (bi = bienIntercambiableRepository.findById(id))) {
-                throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
-            } else {
-                item.setBienIntercambiable(bi);
+                Long id = item.getBienIntercambiable().getId();
+                if (null == (bi = bienIntercambiableRepository.findById(id))) {
+                    throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
+                } else {
+                    item.setBienIntercambiable(bi);
+                }
+
+                if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
+
+
+                if (null == (eim = estadoRecursoRepository.findByDescrip(item.getEstadoRecurso().getDescrip()))) {
+                    throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
+                } else {
+                    item.setEstadoRecurso(eim);
+                }
+                i++;
             }
-
-            if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
-
-
-            if (null == (eim = estadoRecursoRepository.findOne(item.getEstadoRecurso().getId()))) {
-                throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
-            } else {
-                item.setEstadoRecurso(eim);
-            }
-            i++;
+        } else {
+            throw new CustomException("El movimiento NO contiene items.");
         }
     }
 
@@ -221,7 +227,7 @@ public class MovimientoService {
     /*
     *   Actualiza el stock dependiendo el tipodeMovimiento
     * */
-    private void actualizarStockYDeuda(Movimiento movimiento) {
+    private void actualizarStockYDeuda(Movimiento movimiento) throws CustomException {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         Local cd = localRepository.findByNro(new Long(7460));
         Proveedor ifco = proveedorRepository.findByNombre("IFCO");
@@ -230,12 +236,14 @@ public class MovimientoService {
         if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
         } else if (movimiento.getTipoMovimiento().getTipo().equals("DEVOLUCION")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
                 // TODO: ACTUALIZAR VALES
@@ -251,6 +259,7 @@ public class MovimientoService {
                 }
 
                 if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equals("TIENDA")) {
+                    validarStock(item, movimiento.getOrigen());
                     if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                         stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                     } else if (item.getEstadoRecurso().getDescrip().equals("OCUPADO")) {
@@ -277,6 +286,7 @@ public class MovimientoService {
             // Actualizo Stock Origen (-) y Destino (+)
 
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                     stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 } else if (item.getEstadoRecurso().getDescrip().equals("DESTRUIDO")) {
@@ -306,6 +316,19 @@ public class MovimientoService {
         }
     }
 
+
+    public void validarStock(ItemMovimiento item, Long localOrigen) throws CustomException {
+        String stk = "STOCK_";
+        stk += item.getEstadoRecurso().getDescrip();
+        if (stk.equals("STOCK_OCUPADO") ||stk.equals("STOCK_LIBRE") || stk.equals("STOCK_DESTRUIDO") ||stk.equals("STOCK_RESERVADO")) {
+            Long cant = stockBienEnLocalService.findStockByLocalAndBi(stk, localOrigen, item.getBienIntercambiable().getId());
+            if (cant < item.getCantidad()) {
+                throw new CustomException(stk+" insuficiente para " + item.getBienIntercambiable().getTipo() + "-" + item.getBienIntercambiable().getSubtipo());
+            }
+        } else  {
+            throw new CustomException(stk+" inexistente");
+        }
+    }
 
 
 
