@@ -23,10 +23,31 @@ public class IntercambioProveedor {
     private Proveedor proveedor;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private BienIntercambiable bienIntercambiable;
+    private BienIntercambiable bienIntercambiableEntregado;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private BienIntercambiable bienIntercambiableRecibido;
+
+    @Column
+    private Long cantidadRecibida;
 
     @Column
     private Long cantidadEntregada;
+
+    @Column
+    private String nombreIntercambio;
+
+    @Column
+    private String usuarioAlta;
+
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Estado estado;
+
+    @Column
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date fechaAlta;
 
     public IntercambioProveedor() {
     }
@@ -45,14 +66,6 @@ public class IntercambioProveedor {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
-    }
-
-    public BienIntercambiable getBienIntercambiable() {
-        return bienIntercambiable;
-    }
-
-    public void setBienIntercambiable(BienIntercambiable bienIntercambiable) {
-        this.bienIntercambiable = bienIntercambiable;
     }
 
     public Long getCantidadEntregada() {
@@ -95,19 +108,27 @@ public class IntercambioProveedor {
         this.fechaAlta = fechaAlta;
     }
 
-    @Column
-    private Long cantidadRecibida;
+    public String getNombreIntercambio() {
+        return nombreIntercambio;
+    }
 
+    public void setNombreIntercambio(String nombreIntercambio) {
+        this.nombreIntercambio = nombreIntercambio;
+    }
 
-    @Column
-    private String usuarioAlta;
+    public BienIntercambiable getBienIntercambiableEntregado() {
+        return bienIntercambiableEntregado;
+    }
 
+    public void setBienIntercambiableEntregado(BienIntercambiable bienIntercambiableEntrega) {
+        this.bienIntercambiableEntregado = bienIntercambiableEntrega;
+    }
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Estado estado;
+    public BienIntercambiable getBienIntercambiableRecibido() {
+        return bienIntercambiableRecibido;
+    }
 
-    @Column
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date fechaAlta;
+    public void setBienIntercambiableRecibido(BienIntercambiable bienIntercambiableRecibe) {
+        this.bienIntercambiableRecibido = bienIntercambiableRecibe;
+    }
 }

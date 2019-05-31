@@ -8,3 +8,4 @@ id,tipo,subtipo,descripcion,usuarioAlta,ESTADO_ID,fechaAlta
 7,IFCO,GRANDE,Cajon ifco grande,system,1,2014-05-05
 8,IFCO,MEDIANO,Cajon ifco mediano,system,1,2014-05-05
 9,IFCO,PEQUENIO,Cajon ifco pequeño,system,1,2014-05-05
+10,PALLET,DESCARTABLE,Pallet descartable,system,1,2014-05-05

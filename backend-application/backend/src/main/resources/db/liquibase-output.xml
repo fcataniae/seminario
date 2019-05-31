@@ -59,7 +59,9 @@
             <column name="CANTIDADRECIBIDA" type="BIGINT"/>
             <column name="FECHAALTA" type="date"/>
             <column name="USUARIOALTA" type="VARCHAR(255)"/>
-            <column name="BIENINTERCAMBIABLE_ID" type="BIGINT"/>
+            <column name="NOMBRE" type="VARCHAR(50)"/>
+            <column name="BIENINTERCAMBIABLEENTREGADO_ID" type="BIGINT"/>
+            <column name="BIENINTERCAMBIABLERECIBIDO_ID" type="BIGINT"/>
             <column name="ESTADO_ID" type="BIGINT"/>
             <column name="PROVEEDOR_NRO" type="BIGINT"/>
         </createTable>
@@ -363,7 +365,8 @@
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-47">
         <createIndex indexName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLE_ID" tableName="intercambioproveedor">
-            <column name="BIENINTERCAMBIABLE_ID"/>
+            <column name="BIENINTERCAMBIABLEENTREGADO_ID"/>
+            <column name="BIENINTERCAMBIABLERECIBIDO_ID"/>
         </createIndex>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-48">
@@ -538,7 +541,8 @@
         <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLE_ID" baseTableName="cotizacion" constraintName="FK_COTIZACION_BIENINTERCAMBIABLE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-83">
-        <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLE_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLE_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
+        <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLEENTREGADO_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLEENTREGADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
+        <addForeignKeyConstraint baseColumnNames="BIENINTERCAMBIABLERECIBIDO_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_BIENINTERCAMBIABLERECIBIDO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="bienintercambiable"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-84">
         <addForeignKeyConstraint baseColumnNames="ESTADO_ID" baseTableName="intercambioproveedor" constraintName="FK_INTERCAMBIOPROVEEDOR_ESTADO_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="estado"/>

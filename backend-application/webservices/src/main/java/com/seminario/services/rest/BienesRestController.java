@@ -170,4 +170,11 @@ public class BienesRestController {
         return movimientoService.getAllEstadoBien(usuarioActual);
 
     }
+
+    @GetMapping("/intercambio_proveedor")
+    public List<IntercambioProveedor> getAllIntercambioProveedor(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllIntercambioProveedor(usuarioActual);
+
+    }
 }

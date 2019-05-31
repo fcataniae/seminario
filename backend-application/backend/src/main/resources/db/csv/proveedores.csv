@@ -4,3 +4,4 @@ nro,nombre,email,denominacion,direccion,direccion_nro,id_tipo_agente,usuarioAlta
 3,"Pastas Rodriguez","pastas@gmail.com.ar","","",2007,3,"system",1,1947-01-23,1
 4,"CHEP","info@chep.com.ar","CHEP SA","Garín - Bs. As. Argentina",2007,3,"system",1,1998-01-23,2
 5,"IFCO","info@chep.com.ar","IFCO SA","Pilar - Bs. As. Argentina",2007,3,"system",1,1998-01-23,2
+6,"PALLETERA JOSE","pj@pj.com.ar","Palletera Jose & Hermanos SA","Pilar - Bs. As. Argentina",2007,3,"system",1,1998-01-23,2
