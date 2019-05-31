@@ -56,4 +56,5 @@ public class AuthController {
     public void logout(@AuthenticationPrincipal UserDetails userDetails){
 
     }
+
 }

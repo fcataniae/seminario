@@ -222,6 +222,13 @@ public class AbmRestController {
         return permisoService.getAll(usuarioActual);
     }
 
+    @GetMapping("/get-permisos/{nombre-usuario}-{pass-usuario}")
+    public List<Permiso> getPermisos(@PathVariable("nombre-usuario") String nombreUsuario,
+                                     @PathVariable("pass-usuario") String passUsuario) throws CustomException
+    {
+        return permisoService.getUserAllpermisos(nombreUsuario, passUsuario);
+    }
+
     /**
      * Baja de persona.
      *

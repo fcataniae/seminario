@@ -1,19 +1,22 @@
 <div class="container">
   <ul>
-    <li>
-      <a [routerLink]="['adm/personas']"><span>Gestionar Personas</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['adm/usuarios']"><span>Gestionar Usuarios</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['adm/roles']"><span>Gestionar Roles</span></a>
-    </li>
+    <ng-container *ngIf="permisoPersona">
+      <li>
+        <a [routerLink]="['adm/personas']"><span>Gestionar Personas</span></a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="permisoUsuario">
+      <li>
+        <a [routerLink]="['adm/usuarios']"><span>Gestionar Usuarios</span></a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="permisoRol">
+      <li>
+        <a [routerLink]="['adm/roles']"><span>Gestionar Roles</span></a>
+      </li>
+    </ng-container>
     <li>
       <a [routerLink]="['movimientos']"><span>Movimientos</span></a>
-    </li>
-    <li>
-      <a [routerLink]="['confirmar_devolucion']"><span>Confirmar Devolución</span></a>
     </li>
     <li>
       <a (click)="logOut($event)"><span>Log out</span></a>

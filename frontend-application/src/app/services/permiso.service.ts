@@ -16,4 +16,8 @@ export class PermisoService {
     return this._http.get<Permiso[]>(environment.serviceUrl + 'listar-permisos');
   }
 
+  getUserAllPermisos(nombreUsuario: string, passUsuario: string): Observable<Permiso[]>{
+    return this._http.get<Permiso[]>(environment.serviceUrl + 'get-permisos/' + nombreUsuario, passUsuario);
+  }
+
 }

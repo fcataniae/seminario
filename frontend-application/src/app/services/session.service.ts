@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Token } from '../model/token.model'
+import { Token } from '../model/token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +37,5 @@ export class SessionService {
     sessionStorage.setItem('logedIn','false');
     sessionStorage.setItem('currentUser', JSON.stringify(token));
   }
+
 }
