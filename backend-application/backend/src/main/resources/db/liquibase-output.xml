@@ -187,6 +187,14 @@
             <column name="TIPORECURSO_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
+    <changeSet author="liquibase-docs" id="addUniqueConstraint-example">
+        <addUniqueConstraint catalogName="seminario"
+                             columnNames="nrorecurso"
+                             constraintName="const_name"
+                             schemaName="seminario"
+                             tableName="recurso"
+                             tablespace="A String"/>
+    </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-16">
         <createTable tableName="rol">
             <column autoIncrement="true" name="ID" type="BIGINT">

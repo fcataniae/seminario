@@ -6,13 +6,13 @@
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
     </button>
 
-    <h3 class="tituloMovimiento">Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h3> <!-- {{ movimiento.nombre }} -->
+    <h4 class="tituloMovimiento">Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h4> <!-- {{ movimiento.nombre }} -->
 
   </div>
 
   <div class="datosEnvio"  *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
-    <h4 class="tituloEnvio">Datos del movimiento</h4> <!-- {{ movimiento.nombre }} -->
+    <h5 class="tituloEnvio">Datos del movimiento</h5> <!-- {{ movimiento.nombre }} -->
 
     <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
       <input matInput
@@ -55,6 +55,10 @@
       <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
         <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
       </button>
+
+      <mat-form-field class= "input-search" >
+        <input matInput type="text" (keyup)="doFilterBienes($event.target.value)" placeholder="Buscar Item">
+      </mat-form-field>
 
       <table class="tablaBien">
         <mat-table [dataSource]="datosTablaBienes" matSort>
@@ -109,6 +113,10 @@
 
       <h4 class="tituloRecurso">Datos Recurso</h4>
 
+
+      <mat-form-field class= "input-search" >
+        <input matInput type="text" (keyup)="doFilterRecursos($event.target.value)" placeholder="Buscar Recurso">
+      </mat-form-field>
       <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
         <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
       </button>
@@ -158,6 +166,9 @@
 
 
 
+    <mat-form-field class= "input-search" >
+      <input matInput type="text" (keyup)="doFilterEnvios($event.target.value)" placeholder="Buscar Envio">
+    </mat-form-field>
     <table class="tablaEnvio">
       <mat-table [dataSource]="datosTablaEnvios" matSort>
 

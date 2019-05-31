@@ -95,7 +95,7 @@ export class EnvioComponent implements OnInit {
       result =>{
         if (result && result == "true")
             this.location.back();
-        
+
       }
     );
 
@@ -183,5 +183,15 @@ export class EnvioComponent implements OnInit {
         }
       );
 
+  }
+
+  doFilterBienes (value: string)  {
+      this.datosTablaBienes.filter = value.trim().toLocaleLowerCase();
+  }
+  doFilterRecursos (value: string)  {
+      this.datosTablaRecursos.filter = value.trim().toLocaleLowerCase();
+  }
+  doFilterEnvios (value: string)  {
+      this.datosTablaEnvios.filter = value.trim().toLocaleLowerCase();
   }
 }

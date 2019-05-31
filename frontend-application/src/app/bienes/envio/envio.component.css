@@ -1,0 +1,16 @@
+mat-form-field{
+  display: inline-block;
+  width: 40%;
+  margin-left: 2.5%;
+  min-width: 200px;
+}
+table{
+  width: 90%;
+  min-width: 500px;
+  margin-left: 4%;
+  text-align: center;
+}
+.input-search{
+  width: 40%;
+  display: block;
+}

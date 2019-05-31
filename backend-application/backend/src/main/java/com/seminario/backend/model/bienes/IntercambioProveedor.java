@@ -19,13 +19,13 @@ public class IntercambioProveedor {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private Proveedor proveedor;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private BienIntercambiable bienIntercambiableEntregado;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private BienIntercambiable bienIntercambiableRecibido;
 
     @Column
@@ -41,7 +41,7 @@ public class IntercambioProveedor {
     private String usuarioAlta;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private Estado estado;
 
     @Column
