@@ -303,8 +303,15 @@ public class MovimientoService {
                 }
                 deudaService.restarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
             }
+        } else if (movimiento.getTipoMovimiento().getTipo().equals("DESTRUCCION")) {
+            for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
+                String stk = "STOCK_" + item.getEstadoRecurso().getDescrip();
+                if (stk.equals("STOCK_OCUPADO") ||stk.equals("STOCK_LIBRE") || stk.equals("STOCK_DESTRUIDO")){
+                    stockBienEnLocalService.actualizarStock(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad(), stk, true);
+                }
+            }
         }
-
     }
 
 
@@ -333,34 +340,33 @@ public class MovimientoService {
 
 
 
-    public List<Agente> getAllAgentes(Usuario usuarioActual) {
+    public List<Agente> getAllAgentes(Usuario usuarioActual) throws CustomException {
+        List<Agente> agentes;
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
 
-       // if (null == permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV"))
-
-        List<Agente> agentes = new ArrayList<>();
-
-
-        proveedorRepository.findAll().forEach( p -> {
-            Agente a = new Agente();
-            a.setDenominacion(p.getDenominacion());
-            a.setDireccion(p.getDireccion());
-            a.setNro(p.getNro());
-            a.setNombre(p.getNombre());
-            a.setTipoAgente(p.getTipoAgente());
-            agentes.add(a);
-        });
-
-        localRepository.findAll().forEach( l -> {
-            Agente a = new Agente();
-            a.setDenominacion(l.getDenominacion());
-            a.setDireccion(l.getDireccion());
-            a.setNro(l.getNro());
-            a.setNombre(l.getNombre());
-            a.setTipoAgente(l.getTipoAgente());
-            agentes.add(a);
-        });
-
-        return agentes;
+            agentes= new ArrayList<>();
+            proveedorRepository.findAll().forEach(p -> {
+                Agente a = new Agente();
+                a.setDenominacion(p.getDenominacion());
+                a.setDireccion(p.getDireccion());
+                a.setNro(p.getNro());
+                a.setNombre(p.getNombre());
+                a.setTipoAgente(p.getTipoAgente());
+                agentes.add(a);
+            });
+            localRepository.findAll().forEach(l -> {
+                Agente a = new Agente();
+                a.setDenominacion(l.getDenominacion());
+                a.setDireccion(l.getDireccion());
+                a.setNro(l.getNro());
+                a.setNombre(l.getNombre());
+                a.setTipoAgente(l.getTipoAgente());
+                agentes.add(a);
+            });
+            return agentes;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar agentes!");
+        }
     }
 
     /**
@@ -371,31 +377,35 @@ public class MovimientoService {
      * @throws CustomException Excepcion custom si no se encuentra parametrizada la tienda, local y/o tipomovimiento
      */
     public List<Movimiento> getEnviosPendientesByTienda(Usuario usuarioActual, Long nroTienda) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
 
-        //TODO VALIDAR USUARIO
+            TipoMovimiento tipoEnvio = tipoMovimientoRepository.findByTipo("ENVIO");
+            EstadoViaje estadoPendiente = estadoViajeRepository.findByDescrip("PENDIENTE");
+            Local localDestino = localRepository.findByNro(nroTienda);
+            if (tipoEnvio == null || estadoPendiente == null || localDestino == null)
+                throw new CustomException("No se encontró el tipo de envio y/o estado y/o local destino");
 
-        TipoMovimiento tipoEnvio = tipoMovimientoRepository.findByTipo("ENVIO");
-        EstadoViaje estadoPendiente = estadoViajeRepository.findByDescrip("PENDIENTE");
-        Local localDestino = localRepository.findByNro(nroTienda);
-        if(tipoEnvio == null || estadoPendiente == null || localDestino == null)
-            throw new CustomException("No se encontró el tipo de envio y/o estado y/o local destino");
-
-
-        return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio,estadoPendiente,localDestino.getNro());
+            return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio, estadoPendiente, localDestino.getNro());
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar agentes");
+        }
     }
 
     public List<EstadoViaje> getAllEstadosViajes(Usuario usuarioActual) throws CustomException{
-        List<EstadoViaje> estados = new ArrayList<>();
-
-        //TODO VALIDAR USUARIO
-
-        estados = estadoViajeRepository.findAll();
-
-        return  estados;
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADOVIAJE")) {
+            List<EstadoViaje> estados = new ArrayList<>();
+            estados = estadoViajeRepository.findAll();
+            return estados;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar estado de viajes!");
+        }
     }
 
-    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual) {
-        //TODO VALIDAR USUARIO
-        return estadoRecursoRepository.findAll();
+    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADORECURSO")) {
+            return estadoRecursoRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar estado de recursos!");
+        }
     }
 }

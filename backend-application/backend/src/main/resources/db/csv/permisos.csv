@@ -45,3 +45,11 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1040, ,Permite modificar el stock de todos los locales,MODI-STOCK-TOTAL,1
 1041, ,Permite consultar el stock de todos los locales,CONS-STOCK-TOTAL,1
 1042, ,Permite consultar el stock de una tienda,CONS-STOCK-TIENDA,1
+1043, ,Permite dar de alta estados de viajes,ALTA-ESTADOVIAJE,1
+1044, ,Permite dar de baja estados de viajes,BAJA-ESTADOVIAJE,1
+1045, ,Permite modificar los estados de viajes,MODI-ESTADOVIAJE,1
+1046, ,Permite consultar los estados de viaje,CONS-ESTADOVIAJE,1
+1047, ,Permite dar de alta estados de recursos,ALTA-ESTADORECURSO,1
+1048, ,Permite dar de baja estados de recursos,BAJA-ESTADORECURSO,1
+1049, ,Permite modificar los estados de recursos,MODI-ESTADORECURSO,1
+1050, ,Permite consultar los estados de recursos,CONS-ESTADORECURSO,1
