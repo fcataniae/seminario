@@ -11,6 +11,7 @@ import { MovimientoService } from '../../services/movimiento.service';
 import { of, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 @Component({
   selector: 'app-envio',
@@ -87,7 +88,18 @@ export class EnvioComponent implements OnInit {
   }//END OnInit
 
   goBack(): void {
-    this.location.back();
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      data: {mensaje:"Desea volver atras?"}
+    });
+    dialog.afterClosed().subscribe(
+      result =>{
+        if (result && result == "true")
+            this.location.back();
+        
+      }
+    );
+
+
   }
 
   onAgregarBien() {
