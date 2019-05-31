@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       this.token = this._sessionService.getUserLoggedIn();
       this.username = this.token.username;
 
-      this._permisoService.getUserAllPermisos(this.username, this.token.token)
+      this._permisoService.getUserAllPermisos(this.username)
       .subscribe(
              res => {
                console.log(res);

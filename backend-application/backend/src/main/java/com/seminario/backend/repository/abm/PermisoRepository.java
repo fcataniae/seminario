@@ -30,6 +30,6 @@ public interface PermisoRepository extends JpaRepository<Permiso,Long> {
     @Query("SELECT p FROM Usuario u " +
             "JOIN u.roles r " +
             "JOIN r.permisos p " +
-            "WHERE u.nombreUsuario = ?1 and u.password = ?2")
-    List<Permiso> findAllPermisosWhereUsuarioYpass(String nombre, String pass);
+            "WHERE u.nombreUsuario = ?1")
+    List<Permiso> findAllPermisosWhereUsuarioYpass(String nombre);
 }

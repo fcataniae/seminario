@@ -26,8 +26,8 @@ public class PermisoService {
         }
     }
 
-    public List<Permiso> getUserAllpermisos(String nombreUsuario, String passUsuario) {
-            return permisoRepository.findAllPermisosWhereUsuarioYpass(nombreUsuario, passUsuario);
+    public List<Permiso> getUserAllpermisos(String nombreUsuario) {
+            return permisoRepository.findAllPermisosWhereUsuarioYpass(nombreUsuario);
     }
 
     public List<Permiso> getAllPermisosWhereUsuario(Usuario usuario){
