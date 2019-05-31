@@ -113,6 +113,7 @@
             <column name="FECHASALIDA" type="date"/>
             <column name="IDTRANSPORTISTA" type="BIGINT"/>
             <column name="NRODOCUMENTO" type="VARCHAR(255)"/>
+            <column name="PATENTETRANSPORTE" type="VARCHAR(50)"/>
             <column name="ORIGEN" type="BIGINT"/>
             <column name="ESTADO_ID" type="BIGINT"/>
             <column name="ESTADOVIAJE_ID" type="BIGINT"/>

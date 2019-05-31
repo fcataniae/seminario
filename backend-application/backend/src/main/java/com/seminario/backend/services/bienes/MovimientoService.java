@@ -75,7 +75,7 @@ public class MovimientoService {
     public void cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
         EstadoRecurso e = estadoRecursoRepository.findByDescrip(estadoRecurso);
         int i = 1;
-        if (recursos != null) {
+        if (!recursos.isEmpty()) {
             for (Recurso r : recursos) {
                 if (!r.getEstado().getDescrip().equals("LIBRE")) {
                     throw new CustomException("El recurso [" + i + "] se encruentra en estado " + r.getEstado().getDescrip() + "!");
@@ -142,13 +142,13 @@ public class MovimientoService {
         BienIntercambiable bi;
         EstadoRecurso eim;
         int i=0;
-        if (items != null) {
+        if (!items.isEmpty()) {
             for (ItemMovimiento item: items) {
                 if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
 
                 Long id = item.getBienIntercambiable().getId();
                 if (null == (bi = bienIntercambiableRepository.findById(id))) {
-                    throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
+                    throw new CustomException("ItemMovimiento [" +i+ "] contiene un bien Intercambiable inexistente.");
                 } else {
                     item.setBienIntercambiable(bi);
                 }
@@ -157,7 +157,7 @@ public class MovimientoService {
 
 
                 if (null == (eim = estadoRecursoRepository.findByDescrip(item.getEstadoRecurso().getDescrip()))) {
-                    throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
+                    throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso inexistente.");
                 } else {
                     item.setEstadoRecurso(eim);
                 }
@@ -322,6 +322,7 @@ public class MovimientoService {
         stk += item.getEstadoRecurso().getDescrip();
         if (stk.equals("STOCK_OCUPADO") ||stk.equals("STOCK_LIBRE") || stk.equals("STOCK_DESTRUIDO") ||stk.equals("STOCK_RESERVADO")) {
             Long cant = stockBienEnLocalService.findStockByLocalAndBi(stk, localOrigen, item.getBienIntercambiable().getId());
+            cant = (cant == null) ? 0:cant;
             if (cant < item.getCantidad()) {
                 throw new CustomException(stk+" insuficiente para " + item.getBienIntercambiable().getTipo() + "-" + item.getBienIntercambiable().getSubtipo());
             }
