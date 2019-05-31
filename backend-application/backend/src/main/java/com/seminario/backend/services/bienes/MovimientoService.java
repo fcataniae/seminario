@@ -161,7 +161,7 @@ public class MovimientoService {
         } else if (tipoAgenteOrigen.getNombre().equals("TIENDA") || tipoAgenteOrigen.getNombre().equals("CD")) {
             Local l = localRepository.findByNro(movimiento.getOrigen());
             if (l != null) {
-                if (l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
+                if (!l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
                 throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
             } else {
                 throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
@@ -175,7 +175,7 @@ public class MovimientoService {
         } else if (tipoAgenteDestino.getNombre().equals("TIENDA") || tipoAgenteDestino.getNombre().equals("CD")) {
             Local l = localRepository.findByNro(movimiento.getDestino());
             if (l != null) {
-                if (l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
+                if (!l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
                 throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             } else {
                 throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
@@ -201,6 +201,8 @@ public class MovimientoService {
     private void actualizarStockYDeuda(Movimiento movimiento) {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         Local cd = localRepository.findByNro(new Long(7460));
+        Proveedor ifco = proveedorRepository.findByNombre("IFCO");
+        Proveedor chep = proveedorRepository.findByNombre("CHEP");
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
@@ -237,8 +239,14 @@ public class MovimientoService {
                     // SOLO aumentamos la DEUDA del CD al Proveedor cuando NO se trata de ENVASES,
                     // ya que los envases se cobran con el producto, a diferencia de los PALLETS que
                     // se "adeudan" al momento que el proveedor realiza una entrega (o RECEPCION del punto de vista del CD).
+                    Long ProveedorId = movimiento.getOrigen();
+                    if (item.getBienIntercambiable().getTipo().equals("IFCO")) {
+                        ProveedorId = ifco.getNro();
+                    } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
+                        ProveedorId = chep.getNro();
+                    }
                     if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad());
                     }
                 }
             }

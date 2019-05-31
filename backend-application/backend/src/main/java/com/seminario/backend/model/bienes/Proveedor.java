@@ -22,7 +22,7 @@ public class Proveedor {
     @Column
     private String email;
 
-    @Column
+    @Column(unique = true)
     private String nombre;
 
     @Column
