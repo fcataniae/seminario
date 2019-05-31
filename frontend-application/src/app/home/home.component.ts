@@ -5,7 +5,6 @@ import { LoginService } from "../services/login.service";
 
 import { Permiso }  from '../model/abm/permiso.model';
 import { PermisoService } from './../services/permiso.service';
-import { Token } from '../model/token.model';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
+    this.permisoMovimiento = false;
     this.permisoRol = false;
     this.permisoUsuario = false;
     this.permisoPersona = false;
@@ -29,8 +29,9 @@ export class HomeComponent implements OnInit {
     if(!this._sessionService.isUserLoggedIn()){
         this._router.navigate(['/login']);
     }else{
-      this.token = this._sessionService.getUserLoggedIn();
-      this.username = this.token.username;
+      this.username = this._sessionService.getUserLoggedIn().username;
+
+      console.log(this.username);
 
       this._permisoService.getUserAllPermisos(this.username)
       .subscribe(
@@ -49,6 +50,9 @@ export class HomeComponent implements OnInit {
                 if (this.permisos[i].nombre.includes('PERSONA')) {
                   this.permisoPersona = true;
                 }
+                if (this.permisos[i].nombre.includes('MOVIMIENTO')) {
+                  this.permisoMovimiento = true;
+                }
               }
 
              },
@@ -57,10 +61,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+permisoMovimiento: boolean;
 permisoRol: boolean;
 permisoUsuario: boolean;
 permisoPersona: boolean;
-token: Token;
 username: string;
 permisos: Permiso[];
 
