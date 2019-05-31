@@ -41,6 +41,8 @@ public class MovimientoService {
     @Autowired
     EstadoRecursoRepository estadoRecursoRepository;
     @Autowired
+    IntercambioProveedorRepository intercambioProveedorRepository;
+    @Autowired
     DeudaService deudaService;
 
 
@@ -406,6 +408,14 @@ public class MovimientoService {
             return estadoRecursoRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar estado de recursos!");
+        }
+    }
+
+    public List<IntercambioProveedor> getAllIntercambioProveedor(Usuario usuarioActual) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTES")) {
+            return intercambioProveedorRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
         }
     }
 }
