@@ -1,0 +1,4 @@
+id_agente_origen, id_agente_destino,tipo_agente_origen,tipo_agente_destino,BI_id,deuda_cant,deuda_monetaria,ultima_fecha_actualizacion
+7460,1,2,3,5,25,1000,2019-05-29
+7460,2,2,3,2,15,1200,2019-05-29
+

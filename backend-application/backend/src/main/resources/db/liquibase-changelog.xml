@@ -35,6 +35,7 @@
                        schemaName="public"
                        tableName="deuda"/>
     </changeSet>
+
     <changeSet author="Franco" id ="1999">
         <loadUpdateData tableName="estado"
                         file="classpath:db/csv/estados.csv"
@@ -42,6 +43,22 @@
             <column name="id" type="NUMERIC" />
             <column name = "descrip" type="STRING"/>
         </loadUpdateData>
+
+
+        <loadUpdateData tableName="DEUDA"
+                        file="classpath:db/csv/deuda.csv"
+                        primaryKey="id_agente_origen, id_agente_destino,tipo_agente_origen, tipo_agente_destino,BI_id">
+            <column name="id_agente_origen" type="NUMERIC"/>
+            <column name="id_agente_destino" type="NUMERIC"/>
+            <column name="tipo_agente_origen" type="NUMERIC"/>
+            <column name="tipo_agente_destino" type="NUMERIC"/>
+            <column name="BI_id" type="NUMERIC"/>
+            <column name="deuda_cant" type="NUMERIC"/>
+            <column name="deuda_monetaria" type="NUMERIC"/>
+            <column name="ultima_fecha_actualizacion" type="DATE"/>
+        </loadUpdateData>
+
+
         <loadUpdateData tableName="persona"
                         file="classpath:db/csv/personas.csv"
                         primaryKey="ID">

@@ -1,2 +1,5 @@
 local_nro,bi_id,stock_libre,stock_ocupado,stock_reservado,stock_destruido,ultima_fecha_actualizacion
-1023,2,100,25,10,3,2019-05-14
+7460,2,15,0,0,0,2019-05-14
+7460,5,25,0,0,0,2019-05-14
+1023,3,0,50,0,0,2019-05-14
+
