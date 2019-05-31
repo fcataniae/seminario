@@ -28,11 +28,11 @@ public class Movimiento {
     private Long destino;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_tipo_movimiento")
     private TipoMovimiento tipoMovimiento;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_tipo_documento")
     private TipoDocumento tipoDocumento;
 
@@ -40,14 +40,14 @@ public class Movimiento {
     private String nroDocumento;
 
     @JoinTable(name = "MOVIMIENTO_RECURSO")
-    @OneToMany(fetch = FetchType.EAGER,  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<Recurso> recursosAsignados;
 
     @JoinColumn(name = "movimiento_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<ItemMovimiento> itemMovimientos;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Usuario usuarioAlta;
 
     @Column
@@ -55,10 +55,10 @@ public class Movimiento {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaAlta;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Estado estado;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.MERGE)
     private EstadoViaje estadoViaje;
 
     @Column

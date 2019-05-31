@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MovimientoService } from '../../services/movimiento.service';
 import { of, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 @Component({
   selector: 'app-envio',
@@ -32,8 +34,8 @@ export class EnvioComponent implements OnInit {
 
 
 
-  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
-  columnsRecepcionGenerico = ['bien','cantidad','vacio','eliminar'];
+  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','estado','eliminar'];
+  columnsRecepcionGenerico = ['bien','cantidad','estado','eliminar'];
   columnsRecursoEnvio = ['tipoRecurso','idRecurso','eliminar'];
   columnsMovimientosEnvio = ['nro','estado','tipoDoc','nroDoc','cantidadItems','origen','confirmar'];
 
@@ -44,10 +46,9 @@ export class EnvioComponent implements OnInit {
 
 
   constructor(private location: Location,
-              private dialogAgregarBien: MatDialog,
-              private dialogAgregarRecurso: MatDialog,
+              private _dialog: MatDialog,
               private route: ActivatedRoute,
-              private _movimientoService: MovimientoService
+              private _movimientoService: MovimientoService,
               )
   {
   }
@@ -65,7 +66,7 @@ export class EnvioComponent implements OnInit {
 
     this.movimiento.tipoMovimiento.tipoDocumentos.forEach( d => this.movimiento.tipoDocumento = d);
 
-    if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION'){
+    if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION' && this.movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'){
       this.columnsToDisplayBien = this.columnsRecepcionBien;
     }else {
       this.columnsToDisplayBien = this.columnsRecepcionGenerico;
@@ -87,11 +88,22 @@ export class EnvioComponent implements OnInit {
   }//END OnInit
 
   goBack(): void {
-    this.location.back();
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      data: {mensaje:"Desea volver atras?"}
+    });
+    dialog.afterClosed().subscribe(
+      result =>{
+        if (result && result == "true")
+            this.location.back();
+        
+      }
+    );
+
+
   }
 
   onAgregarBien() {
-    const dialogRef = this.dialogAgregarBien.open(AgregarBienComponent,{
+    const dialogRef = this._dialog.open(AgregarBienComponent,{
       width: '50%',
       data: { tipoMovimiento: this.movimiento.tipoMovimiento }
     });
@@ -110,7 +122,7 @@ export class EnvioComponent implements OnInit {
   }
 
   onAgregarRecurso() {
-    const dialogRef = this.dialogAgregarRecurso.open(AgregarRecursoComponent,{
+    const dialogRef = this._dialog.open(AgregarRecursoComponent,{
       width: '50%'
     });
 
@@ -155,5 +167,21 @@ export class EnvioComponent implements OnInit {
       error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
     );
   }
+  confirmarMovimientoEnvio(element : Movimiento){
+    let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
+      width: '50%',
+      data : { movimiento : element}
+    });
 
+    dialog.afterClosed()
+      .subscribe(
+        res => {
+          console.log('instance '+ (res != null));
+          if (res != null){
+            this.datosTablaEnvios.data = this.datosTablaEnvios.data.filter(m => m.id !== res.id);
+          }
+        }
+      );
+
+  }
 }
