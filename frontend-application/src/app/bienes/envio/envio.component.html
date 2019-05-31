@@ -10,7 +10,7 @@
 
   </div>
 
-  <div class="datosEnvio" >
+  <div class="datosEnvio"  *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
     <h4 class="tituloEnvio">Datos del movimiento</h4> <!-- {{ movimiento.nombre }} -->
 
@@ -79,9 +79,9 @@
             <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="vacio">
-            <th mat-header-cell *matHeaderCellDef> Vacio </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.vacio ? 'Si' : 'No'}} </td>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
           </ng-container>
 
           <ng-container matColumnDef="eliminar">
@@ -125,6 +125,10 @@
             <th mat-header-cell *matHeaderCellDef> Recurso </th>
             <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.nroRecurso}} </td>
           </ng-container>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="eliminar">
             <th mat-header-cell *matHeaderCellDef> Eliminar </th>
@@ -152,9 +156,7 @@
 
     <h4 class="tituloEnvio">Datos de Envios en tienda nro {{movimiento.destino}}</h4>
 
-    <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
-      <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
-    </button>
+
 
     <table class="tablaEnvio">
       <mat-table [dataSource]="datosTablaEnvios" matSort>
@@ -170,7 +172,7 @@
         </ng-container>
         <ng-container matColumnDef="origen">
           <th mat-header-cell *matHeaderCellDef> Estado </th>
-          <td mat-cell *matCellDef="let element">{{element.tipomovimiento.tipoAgenteOrigen.nombre}} - {{element.origen}} </td>
+          <td mat-cell *matCellDef="let element">{{element.tipoMovimiento.tipoAgenteOrigen.nombre}} - {{element.origen}} </td>
         </ng-container>
         <ng-container matColumnDef="tipoDoc">
           <th mat-header-cell *matHeaderCellDef> Documento </th>
