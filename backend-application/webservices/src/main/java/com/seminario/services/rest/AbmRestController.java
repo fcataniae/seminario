@@ -5,6 +5,7 @@ import com.seminario.backend.model.abm.Persona;
 import com.seminario.backend.model.abm.Rol;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.services.abm.*;
+import com.seminario.services.auth.cipher.EncryptManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -65,6 +66,7 @@ public class AbmRestController {
                               @RequestBody Usuario usuario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        usuario.setPassword(EncryptManager.encryptWord(usuario.getPassword()));
         usuarioService.create(usuarioActual, usuario);
     }
 
