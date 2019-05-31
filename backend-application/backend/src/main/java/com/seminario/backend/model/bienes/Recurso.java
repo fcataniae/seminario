@@ -17,16 +17,16 @@ public class Recurso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private TipoRecurso tipoRecurso;
 
     @Column
     private Long nroRecurso;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private EstadoRecurso estadoRecurso;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Estado estado;
 
     public Recurso() {

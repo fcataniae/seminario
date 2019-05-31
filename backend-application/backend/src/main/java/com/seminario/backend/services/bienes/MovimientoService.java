@@ -134,8 +134,8 @@ public class MovimientoService {
 
             if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
 
-            String descripEstado = item.getEstadoRecurso().getDescrip();
-            if (null == (eim = estadoRecursoRepository.findByDescrip(descripEstado))) {
+
+            if (null == (eim = estadoRecursoRepository.findOne(item.getEstadoRecurso().getId()))) {
                 throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
             } else {
                 item.setEstadoRecurso(eim);

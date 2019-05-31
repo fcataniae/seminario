@@ -16,14 +16,14 @@ public class ItemMovimiento {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = { CascadeType.MERGE})
     private BienIntercambiable bienIntercambiable;
 
 
     @OneToMany(mappedBy = "ItemMovimiento",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private EstadoRecurso estadoRecurso;
 
     @Column

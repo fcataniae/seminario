@@ -40,11 +40,19 @@
             </mat-form-field>
           </div>
         </div>
-        <mat-checkbox *ngIf="tipoMovimiento.tipo === 'RECEPCION'"
-                      name="vacio"
-                      [(ngModel)]="itemMovimiento.vacio">BI vacío
-        </mat-checkbox>
+        <mat-form-field class="tipoEstado">
+          <mat-label>Estado</mat-label>
+          <mat-select  name="estadoBien"
+                       [(ngModel)]="itemMovimiento.estadoRecurso"
+                       [value]= "itemMovimiento.estadoRecurso"
+                       required>
+            <mat-option *ngFor="let estado of estados" [value]="estado">
+              {{estado.descrip}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
+
 
   </mat-dialog-content>
 

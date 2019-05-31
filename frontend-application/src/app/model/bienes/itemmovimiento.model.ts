@@ -6,7 +6,7 @@ export class ItemMovimiento{
   bienIntercambiable: Bien;
   cantidad: number;
   itemMovimientoTipoDoc: TipoDocumentoBien[];
-  estadoItem: Estado;
+  estadoRecurso: Estado;
 
   constructor(){
     this.bienIntercambiable = new Bien();
