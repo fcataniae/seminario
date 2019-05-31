@@ -32,7 +32,7 @@ public class StockBienEnLocalService {
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
-    private void actualizarStock(Long localNro, Long biId, Long cantNueva, String tipoStock, boolean resta){
+    public void actualizarStock(Long localNro, Long biId, Long cantNueva, String tipoStock, boolean resta){
 
         Long cantActual = findStockByLocalAndBi(tipoStock, localNro, biId);
         if (cantActual == null) {

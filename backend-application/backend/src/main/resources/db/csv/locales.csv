@@ -1,6 +1,10 @@
 nro,nombre,email,denominacion,direccion,direccion_nro,coordenada,id_tipo_agente,usuarioAlta,ESTADO_ID,fechaAlta
-7460,"CD Moreno Secos","cd_Moreno@waltmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
-7459,"CD Moreno Perecederos","cd_Moreno@waltmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
-1023,"San Justo Supercenter","SanJusto@waltmart.com","Tienda San Justo Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
-1024,"Avellaneda Changomas","AvellanedaChangomas@waltmart.com","Tienda Avellaneda Changomas","",2007,"coordenada",1,"system",1,2007-01-23
-1025,"Caseros Changomas","CaserosChangomas@waltmart.com","Tienda Caseros Changomas","",2007,"coordenada",1,"system",1,2007-01-23
+7460,"CD Moreno Secos","cd_Moreno@walmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
+1002,"Rio Cuarto (CB) Supercenter","Rio4@walmart.com","Tienda Rio Cuarto (Córdoba) Supercenter","Rio Cuarto Cordoba",2007,"coordenada",1,"system",1,2007-01-23
+1003,"San Luis (SL) Supercenter","sl@walmart.com","Tienda San Luis (SL) Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
+1004,"San Fernando (PBA) Supercenter","sa@walmart.com","Tienda San Fernando (PBA) Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
+1005,"San Juan (SJ) Supercenter","ss@walmart.com","Tienda San Juan (SJ) Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
+1006,"La Rioja (LR) Changomás","ss@walmart.com","Tienda La Rioja (LR) Changomas","",2007,"coordenada",1,"system",1,2007-01-23
+1023,"San Justo (PBA) Supercenter","SanJusto@walmart.com","Tienda San Justo Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
+1024,"Avellaneda (PBA) Changomas","AvellanedaChangomas@walmart.com","Tienda Avellaneda Changomas","",2007,"coordenada",1,"system",1,2007-01-23
+1025,"Caseros (PBA) Changomas","CaserosChangomas@walmart.com","Tienda Caseros Changomas","",2007,"coordenada",1,"system",1,2007-01-23

@@ -69,6 +69,9 @@ public class Movimiento {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaSalida;
 
+    @Column
+    private String patenteTransporte;
+
     public Movimiento() {
     }
 
