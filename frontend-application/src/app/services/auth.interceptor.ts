@@ -29,8 +29,10 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(catchError((err, caught) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 500) {0
+            console.log(err);
+            console.log(caught);
             let dialog = this._matdialog.open(ConfirmacionPopupComponent,{
-              data: {mensaje:"ERROR: " + err.message}
+              data: {mensaje:"ERROR: " + err.error.message}
             });
             dialog.afterClosed().subscribe();
           }
