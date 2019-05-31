@@ -60,7 +60,7 @@ public class MovimientoService {
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
-                    
+
                 actualizarStockYDeuda(movimientoNuevo);
             } else {
                 throw new CustomException("No se encontró el tipo de movimiento asignado. " +
@@ -73,7 +73,7 @@ public class MovimientoService {
     }
 
 
-    public void confirmar(Usuario usuarioActual, Long idMov) throws CustomException{
+    public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
         Movimiento m;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-MOVIMIENTO")) {
             if (null != (m = movimientoRepository.findById(idMov))){
@@ -155,11 +155,11 @@ public class MovimientoService {
         TipoAgente tipoAgenteDestino = movimiento.getTipoMovimiento().getTipoAgenteDestino();
         // Valido Nros de Origen
         if (tipoAgenteOrigen.getNombre().equals("PROVEEDOR")){
-            if (null == proveedorRepository.findByNro(movimiento.getOrigen())){
+            if (null == proveedorRepository.findOne(movimiento.getOrigen())){
                 throw  new CustomException("Proveedor origen no encontrado.");
             }
         } else if (tipoAgenteOrigen.getNombre().equals("TIENDA") || tipoAgenteOrigen.getNombre().equals("CD")) {
-            Local l = localRepository.findByNro(movimiento.getOrigen());
+            Local l = localRepository.findOne(movimiento.getOrigen());
             if (l != null) {
                 if (!l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
                 throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
@@ -176,7 +176,7 @@ public class MovimientoService {
             Local l = localRepository.findByNro(movimiento.getDestino());
             if (l != null) {
                 if (!l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
-                throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
+                    throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             } else {
                 throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             }
@@ -335,5 +335,20 @@ public class MovimientoService {
 
 
         return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio,estadoPendiente,localDestino.getNro());
+    }
+
+    public List<EstadoViaje> getAllEstadosViajes(Usuario usuarioActual) throws CustomException{
+        List<EstadoViaje> estados = new ArrayList<>();
+
+        //TODO VALIDAR USUARIO
+
+        estados = estadoViajeRepository.findAll();
+
+        return  estados;
+    }
+
+    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual) {
+        //TODO VALIDAR USUARIO
+        return estadoRecursoRepository.findAll();
     }
 }

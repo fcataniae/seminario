@@ -6,6 +6,7 @@ import { Vale } from '../../model/bienes/vale.model';
 import { MovimientoService } from '../../services/movimiento.service';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Inject } from '@angular/core';
+import { Estado } from '../../model/bienes/estado.model';
 
 
 export interface Data{
@@ -45,7 +46,7 @@ export class AgregarBienComponent implements OnInit {
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
-    this.itemMovimiento.vacio = false //Default (sino es null y aparece vacio)
+    this.itemMovimiento.estadoItem = new Estado(); //Default (sino es null y aparece vacio)
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})

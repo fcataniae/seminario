@@ -30,9 +30,14 @@ export class EnvioComponent implements OnInit {
   @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
   datosTablaEnvios = new MatTableDataSource<Movimiento>();
 
+
+
   columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','vacio','eliminar'];
   columnsRecepcionGenerico = ['bien','cantidad','vacio','eliminar'];
   columnsRecursoEnvio = ['tipoRecurso','idRecurso','eliminar'];
+  columnsMovimientosEnvio = ['nro','estado','tipoDoc','nroDoc','cantidadItems','origen','confirmar'];
+
+
   columnsToDisplayBien: String[];
 
   movimiento: Movimiento = new Movimiento();
@@ -48,7 +53,6 @@ export class EnvioComponent implements OnInit {
   }
 
   ngOnInit() {
-
 
     console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
     this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
@@ -67,7 +71,7 @@ export class EnvioComponent implements OnInit {
       this.columnsToDisplayBien = this.columnsRecepcionGenerico;
     }
 
-    if(this.movimiento.tipoMovimiento.tipo === 'ENVIO'){
+    if(this.movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP'){
       this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
         .subscribe(
           resEnvio => {

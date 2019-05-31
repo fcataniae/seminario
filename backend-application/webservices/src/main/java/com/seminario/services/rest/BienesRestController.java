@@ -1,6 +1,7 @@
 package com.seminario.services.rest;
 
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.model.abm.Estado;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
@@ -64,12 +65,13 @@ public class BienesRestController {
      *                             (debe tener los permisos para ejecutar el método).
      * @param    id                Id del movimiento a confirmar.
      **/
-    @GetMapping("/confirmar-movimiento/{id}")
+    @PutMapping("/confirmar-movimiento/{id}")
     public void confirmarMovimiento(@AuthenticationPrincipal UserDetails userDetails,
-                                    @PathVariable("id") Long id) throws CustomException
+                                    @PathVariable("id") Long id,
+                                    @RequestBody String comentario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        movimientoService.confirmar(usuarioActual,id);
+        movimientoService.confirmar(usuarioActual,id,comentario);
     }
 
     /**
@@ -114,7 +116,17 @@ public class BienesRestController {
         return stockBienEnLocalService.getStockLocal(nroLocal,usuarioActual);
     }
 
-
+    /**
+     * Metodo que devuelve todos los estados posibles de los viajes para seleccionar al confirmar la recepcion de un envio
+     * @param userDetails detalles de iusuario
+     * @return List con todos los estados posibles
+     * @throws CustomException excepcion custom
+     */
+    @GetMapping("/estado-viaje")
+    public List<EstadoViaje> getAllEstadosViajes(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllEstadosViajes(usuarioActual);
+    }
 
     /**
      * Lista todos los recursos.
@@ -150,5 +162,12 @@ public class BienesRestController {
 
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getEnviosPendientesByTienda(usuarioActual,nroTienda);
+    }
+
+    @GetMapping("/estado-bien")
+    public List<EstadoRecurso> getAllEstadoBien(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllEstadoBien(usuarioActual);
+
     }
 }
