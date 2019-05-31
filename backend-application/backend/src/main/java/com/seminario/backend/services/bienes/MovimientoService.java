@@ -73,7 +73,7 @@ public class MovimientoService {
     }
 
 
-    public void confirmar(Usuario usuarioActual, Long idMov) throws CustomException{
+    public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
         Movimiento m;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-MOVIMIENTO")) {
             if (null != (m = movimientoRepository.findById(idMov))){
@@ -327,5 +327,15 @@ public class MovimientoService {
 
 
         return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio,estadoPendiente,localDestino.getNro());
+    }
+
+    public List<EstadoViaje> getAllEstadosViajes(Usuario usuarioActual) throws CustomException{
+        List<EstadoViaje> estados = new ArrayList<>();
+
+        //TODO VALIDAR USUARIO
+
+        estados = estadoViajeRepository.findAll();
+
+        return  estados;
     }
 }
