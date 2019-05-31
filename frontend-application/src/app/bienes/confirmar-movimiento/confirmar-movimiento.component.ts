@@ -23,6 +23,7 @@ export class ConfirmarMovimientoComponent implements OnInit {
 
   movimiento: Movimiento;
   estados: Estado[];
+  estado:Estado;
   comentario: string;
   ngOnInit() {
     this.movimiento = this.data.movimiento;

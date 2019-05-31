@@ -56,7 +56,7 @@ public class MovimientoService {
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
-                //cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados());
+                cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO");
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
@@ -72,6 +72,20 @@ public class MovimientoService {
         }
     }
 
+    public void cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
+        EstadoRecurso e = estadoRecursoRepository.findByDescrip(estadoRecurso);
+        int i = 1;
+        if (recursos != null) {
+            for (Recurso r : recursos) {
+                if (!r.getEstado().getDescrip().equals("LIBRE")) {
+                    throw new CustomException("El recurso [" + i + "] se encruentra en estado " + r.getEstado().getDescrip() + "!");
+                } else {
+                    r.setEstadoRecurso(e);
+                }
+                i++;
+            }
+        }
+    }
 
     public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
         Movimiento m;
@@ -79,6 +93,7 @@ public class MovimientoService {
             if (null != (m = movimientoRepository.findById(idMov))){
                 if (m.getEstadoViaje().getDescrip().equals("PENDIENTE")) {
                     m.setEstadoViaje(estadoViajeRepository.findByDescrip("ENTREGADO"));
+                    cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE");
                     confimarMovimiento(m);
                 } else {
                     throw new CustomException("El movimiento no esta en estado " + m.getEstadoViaje().getDescrip());
@@ -92,7 +107,7 @@ public class MovimientoService {
     }
 
     private void confimarMovimiento(Movimiento movimiento) {
-        Local cd = localRepository.findByNro(new Long(7460));
+        Local cd = localRepository.findByNro(new Long("7460"));
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         String tipoMov = movimiento.getTipoMovimiento().getTipo();
         if (tipoMov.equals("DEVOLUCION")) {
@@ -111,6 +126,11 @@ public class MovimientoService {
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
                 deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad());
             }
+        } else if (tipoMov.equals("ENVIO")){
+            for (ItemMovimiento item: items) {
+                stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+            }
         }
     }
 
@@ -122,25 +142,29 @@ public class MovimientoService {
         BienIntercambiable bi;
         EstadoRecurso eim;
         int i=0;
-        for (ItemMovimiento item: items) {
-            if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
+        if (items != null) {
+            for (ItemMovimiento item: items) {
+                if (item.getBienIntercambiable() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene BienIntercambiable en NULL.");
 
-            Long id = item.getBienIntercambiable().getId();
-            if (null == (bi = bienIntercambiableRepository.findById(id))) {
-                throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
-            } else {
-                item.setBienIntercambiable(bi);
+                Long id = item.getBienIntercambiable().getId();
+                if (null == (bi = bienIntercambiableRepository.findById(id))) {
+                    throw new CustomException("ItemMovimiento contiene un bien Intercambiable inexistente.");
+                } else {
+                    item.setBienIntercambiable(bi);
+                }
+
+                if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
+
+
+                if (null == (eim = estadoRecursoRepository.findByDescrip(item.getEstadoRecurso().getDescrip()))) {
+                    throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
+                } else {
+                    item.setEstadoRecurso(eim);
+                }
+                i++;
             }
-
-            if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
-
-
-            if (null == (eim = estadoRecursoRepository.findOne(item.getEstadoRecurso().getId()))) {
-                throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
-            } else {
-                item.setEstadoRecurso(eim);
-            }
-            i++;
+        } else {
+            throw new CustomException("El movimiento NO contiene items.");
         }
     }
 
@@ -191,14 +215,19 @@ public class MovimientoService {
         Date today = Date.from(ZonedDateTime.now(zoneId).toInstant());
         if (movimientoNuevo.getFechaSalida() == null) movimientoNuevo.setFechaSalida(today);
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
-        movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
+        String m = movimientoNuevo.getTipoMovimiento().getNombre();
+        if (m.equals("ENVIO") || m.equals("DEVOLUCION") || m.equals("ENVIOINTERCAMBIO")){
+            movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
+        } else {
+            movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("ENTREGADO"));
+        }
         movimientoNuevo.setFechaAlta(today);
     }
 
     /*
     *   Actualiza el stock dependiendo el tipodeMovimiento
     * */
-    private void actualizarStockYDeuda(Movimiento movimiento) {
+    private void actualizarStockYDeuda(Movimiento movimiento) throws CustomException {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         Local cd = localRepository.findByNro(new Long(7460));
         Proveedor ifco = proveedorRepository.findByNombre("IFCO");
@@ -207,12 +236,14 @@ public class MovimientoService {
         if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 stockBienEnLocalService.restarStockOcupado(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
-                stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
         } else if (movimiento.getTipoMovimiento().getTipo().equals("DEVOLUCION")) {
             // Actualizo Stock Origen (-) y Destino (+)
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
                 // TODO: ACTUALIZAR VALES
@@ -228,6 +259,7 @@ public class MovimientoService {
                 }
 
                 if (movimiento.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equals("TIENDA")) {
+                    validarStock(item, movimiento.getOrigen());
                     if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                         stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                     } else if (item.getEstadoRecurso().getDescrip().equals("OCUPADO")) {
@@ -254,6 +286,7 @@ public class MovimientoService {
             // Actualizo Stock Origen (-) y Destino (+)
 
             for (ItemMovimiento item: items) {
+                validarStock(item, movimiento.getOrigen());
                 if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
                     stockBienEnLocalService.restarStockLibre(movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
                 } else if (item.getEstadoRecurso().getDescrip().equals("DESTRUIDO")) {
@@ -283,6 +316,19 @@ public class MovimientoService {
         }
     }
 
+
+    public void validarStock(ItemMovimiento item, Long localOrigen) throws CustomException {
+        String stk = "STOCK_";
+        stk += item.getEstadoRecurso().getDescrip();
+        if (stk.equals("STOCK_OCUPADO") ||stk.equals("STOCK_LIBRE") || stk.equals("STOCK_DESTRUIDO") ||stk.equals("STOCK_RESERVADO")) {
+            Long cant = stockBienEnLocalService.findStockByLocalAndBi(stk, localOrigen, item.getBienIntercambiable().getId());
+            if (cant < item.getCantidad()) {
+                throw new CustomException(stk+" insuficiente para " + item.getBienIntercambiable().getTipo() + "-" + item.getBienIntercambiable().getSubtipo());
+            }
+        } else  {
+            throw new CustomException(stk+" inexistente");
+        }
+    }
 
 
 

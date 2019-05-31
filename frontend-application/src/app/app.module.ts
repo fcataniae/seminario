@@ -113,7 +113,8 @@ import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/conf
     AltaPersonaComponent,
     ModificarPersonaComponent,
     AgregarBienComponent,
-    AgregarRecursoComponent
+    AgregarRecursoComponent,
+    ConfirmarMovimientoComponent
 ]
 })
 export class AppModule { }
