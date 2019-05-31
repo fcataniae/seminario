@@ -6,6 +6,9 @@ import { Vale } from '../../model/bienes/vale.model';
 import { MovimientoService } from '../../services/movimiento.service';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Inject } from '@angular/core';
+import { Estado } from '../../model/bienes/estado.model';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 export interface Data{
@@ -22,6 +25,8 @@ export class AgregarBienComponent implements OnInit {
   selectedBien: Bien;
   itemMovimiento: ItemMovimiento;
   tipoMovimiento: TipoMovimiento;
+  estados : Estado[];
+
 
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
@@ -31,11 +36,15 @@ export class AgregarBienComponent implements OnInit {
    }
 
   ngOnInit() {
-    this._movimientoService.getAllBienes().subscribe(
-      res => {
-        console.log(this.tipoMovimiento);
-        console.log(res);
-        this.bienes = res;
+    let consultaBienes = this._movimientoService.getAllBienes();
+    let consultaEstados = this._movimientoService.getAllEstadosBien();
+    this.estados = [];
+    this.bienes = [];
+    forkJoin(consultaBienes,consultaEstados)
+      .subscribe(results=>{
+        console.log(results);
+        this.bienes = results[0];
+        this.estados = results[1];
       },
       error => console.log(error)
     );
@@ -45,7 +54,7 @@ export class AgregarBienComponent implements OnInit {
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
-    this.itemMovimiento.vacio = false //Default (sino es null y aparece vacio)
+    this.itemMovimiento.estadoRecurso = new Estado(); //Default (sino es null y aparece vacio)
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})

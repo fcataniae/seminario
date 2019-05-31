@@ -60,7 +60,7 @@ public class MovimientoService {
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
-                    
+
                 actualizarStockYDeuda(movimientoNuevo);
             } else {
                 throw new CustomException("No se encontró el tipo de movimiento asignado. " +
@@ -73,7 +73,7 @@ public class MovimientoService {
     }
 
 
-    public void confirmar(Usuario usuarioActual, Long idMov) throws CustomException{
+    public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
         Movimiento m;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-MOVIMIENTO")) {
             if (null != (m = movimientoRepository.findById(idMov))){
@@ -134,8 +134,8 @@ public class MovimientoService {
 
             if (item.getEstadoRecurso() == null) throw new CustomException("ItemMovimiento [" +i+ "] contiene un EstadoRecurso en NULL.");
 
-            String descripEstado = item.getEstadoRecurso().getDescrip();
-            if (null == (eim = estadoRecursoRepository.findByDescrip(descripEstado))) {
+
+            if (null == (eim = estadoRecursoRepository.findOne(item.getEstadoRecurso().getId()))) {
                 throw new CustomException("ItemMovimiento contiene un EstadoRecurso inexistente.");
             } else {
                 item.setEstadoRecurso(eim);
@@ -155,13 +155,13 @@ public class MovimientoService {
         TipoAgente tipoAgenteDestino = movimiento.getTipoMovimiento().getTipoAgenteDestino();
         // Valido Nros de Origen
         if (tipoAgenteOrigen.getNombre().equals("PROVEEDOR")){
-            if (null == proveedorRepository.findByNro(movimiento.getOrigen())){
+            if (null == proveedorRepository.findOne(movimiento.getOrigen())){
                 throw  new CustomException("Proveedor origen no encontrado.");
             }
         } else if (tipoAgenteOrigen.getNombre().equals("TIENDA") || tipoAgenteOrigen.getNombre().equals("CD")) {
-            Local l = localRepository.findByNro(movimiento.getOrigen());
+            Local l = localRepository.findOne(movimiento.getOrigen());
             if (l != null) {
-                if (l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
+                if (!l.getTipoAgente().getNombre().equals(tipoAgenteOrigen.getNombre()))
                 throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
             } else {
                 throw new CustomException(tipoAgenteOrigen.getNombre() + " origen no encontrado.");
@@ -175,8 +175,8 @@ public class MovimientoService {
         } else if (tipoAgenteDestino.getNombre().equals("TIENDA") || tipoAgenteDestino.getNombre().equals("CD")) {
             Local l = localRepository.findByNro(movimiento.getDestino());
             if (l != null) {
-                if (l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
-                throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
+                if (!l.getTipoAgente().getNombre().equals(tipoAgenteDestino.getNombre()))
+                    throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             } else {
                 throw new CustomException(tipoAgenteDestino.getNombre() + " origen no encontrado.");
             }
@@ -201,6 +201,8 @@ public class MovimientoService {
     private void actualizarStockYDeuda(Movimiento movimiento) {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         Local cd = localRepository.findByNro(new Long(7460));
+        Proveedor ifco = proveedorRepository.findByNombre("IFCO");
+        Proveedor chep = proveedorRepository.findByNombre("CHEP");
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
@@ -237,8 +239,14 @@ public class MovimientoService {
                     // SOLO aumentamos la DEUDA del CD al Proveedor cuando NO se trata de ENVASES,
                     // ya que los envases se cobran con el producto, a diferencia de los PALLETS que
                     // se "adeudan" al momento que el proveedor realiza una entrega (o RECEPCION del punto de vista del CD).
+                    Long ProveedorId = movimiento.getOrigen();
+                    if (item.getBienIntercambiable().getTipo().equals("IFCO")) {
+                        ProveedorId = ifco.getNro();
+                    } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
+                        ProveedorId = chep.getNro();
+                    }
                     if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad());
                     }
                 }
             }
@@ -327,5 +335,20 @@ public class MovimientoService {
 
 
         return movimientoRepository.findByTipoMovimientoAndEstadoViajeAndDestino(tipoEnvio,estadoPendiente,localDestino.getNro());
+    }
+
+    public List<EstadoViaje> getAllEstadosViajes(Usuario usuarioActual) throws CustomException{
+        List<EstadoViaje> estados = new ArrayList<>();
+
+        //TODO VALIDAR USUARIO
+
+        estados = estadoViajeRepository.findAll();
+
+        return  estados;
+    }
+
+    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual) {
+        //TODO VALIDAR USUARIO
+        return estadoRecursoRepository.findAll();
     }
 }

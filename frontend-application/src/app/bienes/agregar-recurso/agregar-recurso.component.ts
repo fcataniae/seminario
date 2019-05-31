@@ -17,7 +17,7 @@ export class AgregarRecursoComponent implements OnInit {
   recursosFiltrados: Recurso[];
   tipoRecurso: TipoRecurso;
 
-  constructor(public dialogRef: MatDialogRef<AgregarRecursoComponent>,
+  constructor(private dialogRef: MatDialogRef<AgregarRecursoComponent>,
               private _movimientoService: MovimientoService) {
 
    }

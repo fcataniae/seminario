@@ -4,6 +4,7 @@ import { ItemMovimiento } from "./itemmovimiento.model";
 import { TipoDocumento } from "./tipodocumento.model";
 
 export class Movimiento{
+  id: number;
   tipoMovimiento : TipoMovimiento;
   origen: number;
   destino: number;

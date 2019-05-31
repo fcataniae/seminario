@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Time: 19:15
  */
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
-    List<Proveedor> findByNombre(String nombre);
+    Proveedor findByNombre(String nombre);
     Proveedor findByNro(Long nro);
 }

@@ -8,6 +8,7 @@ import {Agente} from "../model/bienes/agente.model";
 import { Recurso } from '../model/bienes/recurso.model';
 import { Movimiento } from '../model/bienes/movimiento.model';
 import { HttpHeaders } from '@angular/common/http';
+import { Estado } from '../model/bienes/estado.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,9 @@ export class MovimientoService {
 
   getAllTipoMovimientos() : Observable<TipoMovimiento[]>{
     return this._http.get<TipoMovimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-movimientos');
+  }
+  getAllEstadosBien() : Observable<Estado[]>{
+    return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') + 'estado-bien');
   }
 
   getAllAgentes() : Observable<Agente[]>{
@@ -35,5 +39,11 @@ export class MovimientoService {
   setRegistroMovimiento(movimiento: Movimiento): Observable<string>{
 
     return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', movimiento);
+  }
+  setConfirmacionEnvio(idmov: number, comentario: string): Observable<string>{
+    return this._http.put<string>(environment.serviceUrl.replace('service','bienes') + "confirmar-movimiento/" + idmov,comentario);
+  }
+  getAllEstadosViaje(): Observable<Estado[]>{
+    return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') +'estado-viaje');
   }
 }
