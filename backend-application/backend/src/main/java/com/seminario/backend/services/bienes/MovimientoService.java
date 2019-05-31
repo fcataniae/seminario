@@ -60,7 +60,7 @@ public class MovimientoService {
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
-                    
+
                 actualizarStockYDeuda(movimientoNuevo);
             } else {
                 throw new CustomException("No se encontró el tipo de movimiento asignado. " +
@@ -201,6 +201,8 @@ public class MovimientoService {
     private void actualizarStockYDeuda(Movimiento movimiento) {
         // Decido accion a realiza en base al tipo de movimientoNuevo
         Local cd = localRepository.findByNro(new Long(7460));
+        Proveedor ifco = proveedorRepository.findByNombre("IFCO");
+        Proveedor chep = proveedorRepository.findByNombre("CHEP");
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         if (movimiento.getTipoMovimiento().getTipo().equals("ENVIO")) {
             // Actualizo Stock Origen (-) y Destino (+)
@@ -237,8 +239,14 @@ public class MovimientoService {
                     // SOLO aumentamos la DEUDA del CD al Proveedor cuando NO se trata de ENVASES,
                     // ya que los envases se cobran con el producto, a diferencia de los PALLETS que
                     // se "adeudan" al momento que el proveedor realiza una entrega (o RECEPCION del punto de vista del CD).
+                    Long ProveedorId = movimiento.getOrigen();
+                    if (item.getBienIntercambiable().getTipo().equals("IFCO")) {
+                        ProveedorId = ifco.getNro();
+                    } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
+                        ProveedorId = chep.getNro();
+                    }
                     if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(), movimiento.getOrigen(), item.getBienIntercambiable().getId(), item.getCantidad());
+                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad());
                     }
                 }
             }

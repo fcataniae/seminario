@@ -34,6 +34,7 @@
                        constraintName="pk_deuda"
                        schemaName="public"
                        tableName="deuda"/>
+        <addUniqueConstraint columnNames="NOMBRE" constraintName="proveedor_nombre" tableName="proveedor"/>
     </changeSet>
     <changeSet author="Franco" id ="1999">
         <loadUpdateData tableName="estado"
