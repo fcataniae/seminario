@@ -163,4 +163,11 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getEnviosPendientesByTienda(usuarioActual,nroTienda);
     }
+
+    @GetMapping("/estado-bien")
+    public List<EstadoRecurso> getAllEstadoBien(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllEstadoBien(usuarioActual);
+
+    }
 }
