@@ -43,6 +43,7 @@ import { EnvioComponent } from './bienes/envio/envio.component';
 import { AgregarBienComponent } from './bienes/agregar-bien/agregar-bien.component';
 import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurso.component';
 import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/confirmar-movimiento.component';
+import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/conf
     AgregarBienComponent,
     AgregarRecursoComponent,
     ConfirmarMovimientoComponent,
+    GestionMovimientosComponent,
   ],
   imports: [
     BrowserModule,

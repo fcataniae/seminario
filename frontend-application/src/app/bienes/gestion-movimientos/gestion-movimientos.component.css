@@ -1,0 +1,36 @@
+table{
+  text-align: left;
+  width: 100%;
+  min-width: 100px;
+}
+/*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
+.button-back{
+  width: 30%;
+  text-align: left;
+}
+
+.input-search{
+  width: 40%;
+
+}
+
+.button-alta{
+  width: 20%;
+  text-align: right;
+}
+.mat-row,
+.mat-header-row {
+  min-width: 1123px;
+  width: 100%;
+  width: max-content;
+}
+
+.mat-table {
+  overflow: scroll;
+  max-height: 500px;
+}
+
+.mat-cell,
+.mat-header-cell {
+  min-width: 90px;
+}

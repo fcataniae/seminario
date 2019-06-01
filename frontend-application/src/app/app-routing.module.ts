@@ -7,6 +7,7 @@ import { EditarUsuarioComponent } from './adm-usuarios/usuarios/editar-usuario/e
 import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.component';
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
+import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path: 'home/adm/personas', component: GestionPersonasComponent},
   { path: 'home/adm/usuarios', component: EditarUsuarioComponent},
   { path: 'home/adm/roles', component: EditarRolComponent},
-  { path: 'home/movimientos', component: MovimientosComponent},
-  { path: 'home/movimientos/envio', component: EnvioComponent},
+  { path: 'home/movimientos', component: GestionMovimientosComponent},
+  { path: 'home/movimientos/registrar', component: MovimientosComponent},
   { path: 'home/movimientos/registrar/:mov', component: EnvioComponent}
 
 ];

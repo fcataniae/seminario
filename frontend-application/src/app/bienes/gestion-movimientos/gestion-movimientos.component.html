@@ -1,0 +1,75 @@
+
+<div class="mat-elevation-z8 margin">
+  <h3>Administracion de Movimientos</h3>
+  <div fxLayout fxLayoutAlign="left center">
+    <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+    </button>
+    <mat-form-field class= "input-search" >
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+    <button class="button-alta" mat-icon-button color="primary" (click)="onAltaMov()">
+      <mat-icon class="mat-18" >library_add</mat-icon> Alta
+    </button>
+  </div>
+ <table mat-table [dataSource]="dataSource" matSort >
+  <ng-container matColumnDef="nro">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro Movimiento </th>
+    <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tipo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
+    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+  </ng-container>
+
+
+   <ng-container matColumnDef="destino">
+     <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
+     <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+   </ng-container>
+
+   <ng-container matColumnDef="origen">
+     <th mat-header-cell *matHeaderCellDef mat-sort-header> Origen </th>
+     <td mat-cell *matCellDef="let element"> {{element.origen}} </td>
+   </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.estadoViaje}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nrodocumento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro documento </th>
+      <td mat-cell *matCellDef="let element"> {{element.nroDocumento}} </td>
+    </ng-container>
+
+
+     <ng-container matColumnDef="modificar">
+         <th mat-header-cell *matHeaderCellDef> Modificar </th>
+         <td mat-cell *matCellDef="let element">
+           <button mat-icon-button color="primary" (click)="modificarMovimiento(element)">
+             <mat-icon class="mat-18" >system_update</mat-icon>
+           </button>
+         </td>
+       </ng-container>
+    <ng-container matColumnDef="cancelar">
+        <th mat-header-cell *matHeaderCellDef> Cancelar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="cancelarMovimiento(element)">
+              <mat-icon class="mat-18">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+</mat-paginator>
+
+
+</div>
