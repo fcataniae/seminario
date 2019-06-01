@@ -46,6 +46,7 @@ public class AuthController {
             Token tk = new Token();
             tk.setToken(token);
             tk.setUsername(username);
+            u.getRoles().forEach( r -> r.getPermisos().forEach(p -> tk.getPermisos().add(p)));
 
             return tk;
         } catch (AuthenticationException e) {

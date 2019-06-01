@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class MovimientoService {
@@ -45,6 +42,8 @@ public class MovimientoService {
     @Autowired
     DeudaService deudaService;
 
+    @Autowired
+    RecursoRepository recursoRepository;
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -70,7 +69,7 @@ public class MovimientoService {
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
-                cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO");
+                movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO"));
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
@@ -86,19 +85,45 @@ public class MovimientoService {
         }
     }
 
-    public void cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
+    public Set<Recurso> cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
         EstadoRecurso e = estadoRecursoRepository.findByDescrip(estadoRecurso);
         int i = 1;
+        Set<Recurso> set = new HashSet<>();
         if (!recursos.isEmpty()) {
-            for (Recurso r : recursos) {
-                if (!r.getEstado().getDescrip().equals("LIBRE")) {
+
+            Iterator<Recurso> itr = recursos.iterator();
+
+            while(itr.hasNext()){
+                Recurso r = itr.next();
+
+                Recurso rDB  = recursoRepository.findByNroRecurso(r.getNroRecurso());
+
+                if(rDB == null)
+                    throw new CustomException("No existe el recurso en la base");
+
+                if(!rDB.getEstadoRecurso().getDescrip().equalsIgnoreCase("libre"))
+                    throw new CustomException("El recurso " + rDB.getNroRecurso() + " se encuentra en estado " + rDB.getEstadoRecurso().getDescrip());
+
+                itr.remove();
+                rDB.setEstadoRecurso(e);
+                set.add(rDB);
+            }
+
+          /*  for (Recurso r : recursos) {
+                Recurso rBd = recursoRepository.findByNroRecurso(r.getNroRecurso());
+                if (rBd == null || !rBd.getEstadoRecurso().getDescrip().equalsIgnoreCase("LIBRE")) {
                     throw new CustomException("El recurso [" + i + "] se encruentra en estado " + r.getEstado().getDescrip() + "!");
                 } else {
-                    r.setEstadoRecurso(e);
+                    rBd.setEstadoRecurso(e);
+                    r = rBd;
                 }
                 i++;
             }
+
+           */
         }
+
+        return set;
     }
 
     public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
@@ -229,7 +254,7 @@ public class MovimientoService {
         Date today = Date.from(ZonedDateTime.now(zoneId).toInstant());
         if (movimientoNuevo.getFechaSalida() == null) movimientoNuevo.setFechaSalida(today);
         movimientoNuevo.setEstado(estadoRepository.findByDescrip("ACTIVO"));
-        String m = movimientoNuevo.getTipoMovimiento().getNombre();
+        String m = movimientoNuevo.getTipoMovimiento().getTipo();
         if (m.equals("ENVIO") || m.equals("DEVOLUCION") || m.equals("ENVIOINTERCAMBIO")){
             movimientoNuevo.setEstadoViaje(estadoViajeRepository.findByDescrip("PENDIENTE"));
         } else {

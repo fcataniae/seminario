@@ -13,6 +13,15 @@ import { map } from 'rxjs/operators';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
+export class Movi{
+  nro: number;
+  estado: string;
+  origen: string;
+  tipoDoc: string;
+  nroDoc: number;
+  cantBienes: number;
+}
+
 @Component({
   selector: 'app-envio',
   templateUrl: './envio.component.html',
@@ -20,17 +29,17 @@ import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popu
 })
 export class EnvioComponent implements OnInit {
 
-  @ViewChild(MatSort) sortBienes: MatSort;
-  @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
+  @ViewChild("sortBienes") sortBienes: MatSort;
+  @ViewChild("paginatorBienes") paginatorBienes: MatPaginator;
   datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
 
-  @ViewChild(MatSort) sortRecursos: MatSort;
-  @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
+  @ViewChild("sortRecursos") sortRecursos: MatSort;
+  @ViewChild("paginatorRecursos") paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  @ViewChild(MatSort) sortEnviosPendientes: MatSort;
-  @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
-  datosTablaEnvios = new MatTableDataSource<Movimiento>();
+  @ViewChild("sortEnvio") sortEnviosPendientes: MatSort;
+  @ViewChild("paginatorEnvio") paginatorEnvios: MatPaginator;
+  datosTablaEnvios = new MatTableDataSource<Movi>();
 
 
 
@@ -43,7 +52,7 @@ export class EnvioComponent implements OnInit {
   columnsToDisplayBien: String[];
 
   movimiento: Movimiento = new Movimiento();
-
+  movimientosEnvio: Movimiento[] = [];
 
   constructor(private location: Location,
               private _dialog: MatDialog,
@@ -55,11 +64,12 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
     this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+
     this.datosTablaBienes.data = this.movimiento.itemMovimientos;
     this.datosTablaBienes.sort = this.sortBienes;
     this.datosTablaBienes.paginator = this.paginatorBienes;
+
     this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
     this.datosTablaRecursos.sort = this.sortRecursos;
     this.datosTablaRecursos.paginator = this.paginatorRecursos;
@@ -76,9 +86,12 @@ export class EnvioComponent implements OnInit {
       this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
         .subscribe(
           resEnvio => {
-            this.datosTablaEnvios.data = resEnvio;
+            console.log(resEnvio);
+            this.movimientosEnvio = resEnvio;
+            this.datosTablaEnvios.data = this.movimientoToMovi();
             this.datosTablaEnvios.sort = this.sortEnviosPendientes;
             this.datosTablaEnvios.paginator = this.paginatorEnvios;
+            console.log(this.datosTablaEnvios);
           },
           error => console.log(error)
         );
@@ -89,13 +102,14 @@ export class EnvioComponent implements OnInit {
 
   goBack(): void {
     let dialog = this._dialog.open(ConfirmacionPopupComponent,{
-      data: {mensaje:"Desea volver atras?"}
+      data: {mensaje:"Desea volver atras?"},
+      width: '50%'
     });
     dialog.afterClosed().subscribe(
       result =>{
         if (result && result == "true")
             this.location.back();
-        
+
       }
     );
 
@@ -167,10 +181,11 @@ export class EnvioComponent implements OnInit {
       error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
     );
   }
-  confirmarMovimientoEnvio(element : Movimiento){
+  confirmarMovimientoEnvio(element : Movi){
+    let movimiento = this.movimientosEnvio.filter(m => m.id = element.nro)[0];
     let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
       width: '50%',
-      data : { movimiento : element}
+      data : { movimiento : movimiento}
     });
 
     dialog.afterClosed()
@@ -178,10 +193,56 @@ export class EnvioComponent implements OnInit {
         res => {
           console.log('instance '+ (res != null));
           if (res != null){
-            this.datosTablaEnvios.data = this.datosTablaEnvios.data.filter(m => m.id !== res.id);
+            this.movimientosEnvio = this.movimientosEnvio.filter(m => m.id != res.id);
+            this.datosTablaEnvios.data = this.movimientoToMovi();
           }
         }
       );
 
+  }
+
+  doFilterBienes (value: string)  {
+      console.log(value);
+      this.datosTablaBienes.filter = value.trim().toLocaleLowerCase();
+  }
+  doFilterRecursos (value: string)  {
+      console.log(value);
+      this.datosTablaRecursos.filter = value.trim().toLocaleLowerCase();
+  }
+  doFilterEnvios (value: string)  {
+      console.log(value);
+      this.datosTablaEnvios.filter = value.trim().toLocaleLowerCase();
+
+      console.log(this.datosTablaEnvios);
+  }
+  setDataSource(indexNumber) {
+    setTimeout(() => {
+      switch (indexNumber) {
+        case 0:
+          !this.datosTablaBienes.paginator ? this.datosTablaBienes.paginator = this.paginatorBienes : null;
+          break;
+        case 1:
+          !this.datosTablaRecursos.paginator ? this.datosTablaRecursos.paginator = this.paginatorRecursos : null;
+      }
+    });
+  }
+
+
+  movimientoToMovi() : Movi[]{
+
+    let movis:Movi[] = [];
+    console.log(this.movimientosEnvio);
+    this.movimientosEnvio.forEach(m => {
+       let movi: Movi = new Movi();
+       movi.nro = m.id;
+       movi.tipoDoc = m.tipoDocumento.descripcion;
+       movi.estado = m.estado.descrip;
+       movi.nroDoc = m.nroDocumento;
+       movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
+       movi.cantBienes = m.itemMovimientos.length;
+       movis.push(movi);
+    });
+
+    return movis;
   }
 }

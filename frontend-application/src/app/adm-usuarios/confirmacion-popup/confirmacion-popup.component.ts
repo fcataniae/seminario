@@ -3,6 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface Data{
   mensaje: string;
+  titulo: string;
 }
 
 @Component({
@@ -14,7 +15,9 @@ export class ConfirmacionPopupComponent {
 
   constructor(public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Data) {
-
+          if(this.data.titulo === null || this.data.titulo === ""){
+            this.data.titulo = "Confirmar accion";
+          }
       }
 
     onCancel(): void {

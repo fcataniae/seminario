@@ -20,7 +20,7 @@ public class Recurso {
     @ManyToOne(cascade = { CascadeType.MERGE})
     private TipoRecurso tipoRecurso;
 
-    @Column
+    @Column(unique = true)
     private Long nroRecurso;
 
     @ManyToOne(cascade = { CascadeType.MERGE})

@@ -8,6 +8,7 @@ import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -21,7 +22,12 @@ public class RecursoService {
 
     public List<Recurso> getRecursos(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-RECURSO")) {
-            return recursoRepository.findAll();
+            List<Recurso> r = recursoRepository.findAll();
+
+            r.removeIf(r3 -> !r3.getEstadoRecurso().getDescrip().equalsIgnoreCase("LIBRE"));
+
+            return r;
+
         } else {
             throw new CustomException("No cuenta con los permisos para consultar recursos");
         }

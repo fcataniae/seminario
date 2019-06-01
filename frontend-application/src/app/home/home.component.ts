@@ -5,6 +5,7 @@ import { LoginService } from "../services/login.service";
 
 import { Permiso }  from '../model/abm/permiso.model';
 import { PermisoService } from './../services/permiso.service';
+import { Token } from '../model/token.model';
 
 @Component({
   selector: 'app-home',
@@ -29,38 +30,22 @@ export class HomeComponent implements OnInit {
     if(!this._sessionService.isUserLoggedIn()){
         this._router.navigate(['/login']);
     }else{
-      this.username = this._sessionService.getUserLoggedIn().username;
+      let token = this._sessionService.getUserLoggedIn();
+      console.log(token);
 
-      console.log(this.username);
-
-      this._permisoService.getUserAllPermisos(this.username)
-      .subscribe(
-             res => {
-               console.log(res);
-               this.permisos = res;
-
-               for(let i=0; i<this.permisos.length; i++){
-
-                if (this.permisos[i].nombre.includes('ROL')) {
-                  this.permisoRol = true;
-                }
-                if (this.permisos[i].nombre.includes('USUARIO')) {
-                  this.permisoUsuario = true;
-                }
-                if (this.permisos[i].nombre.includes('PERSONA')) {
-                  this.permisoPersona = true;
-                }
-                if (this.permisos[i].nombre.includes('MOVIMIENTO')) {
-                  this.permisoMovimiento = true;
-                }
-              }
-
-             },
-             error => console.log(error)
-       );
-    }
+      token.permisos.forEach( p => {
+        if(p.nombre.includes('ROL')){
+          this.permisoRol = true;
+        }else if(p.nombre.includes('PERSONA')){
+          this.permisoPersona = true;
+        }else if(p.nombre.includes('USUARIO')){
+          this.permisoUsuario = true;
+        }else if(p.nombre.includes('MOVIMIENTO')){
+          this.permisoMovimiento = true;
+        }
+      });
   }
-
+}
 permisoMovimiento: boolean;
 permisoRol: boolean;
 permisoUsuario: boolean;

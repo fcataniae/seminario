@@ -6,13 +6,13 @@
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
     </button>
 
-    <h3 class="tituloMovimiento">Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h3> <!-- {{ movimiento.nombre }} -->
+    <h4 class="tituloMovimiento">Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h4> <!-- {{ movimiento.nombre }} -->
 
   </div>
 
   <div class="datosEnvio"  *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
-    <h4 class="tituloEnvio">Datos del movimiento</h4> <!-- {{ movimiento.nombre }} -->
+    <h5 class="tituloEnvio">Datos del movimiento</h5> <!-- {{ movimiento.nombre }} -->
 
     <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
       <input matInput
@@ -46,169 +46,154 @@
 
   </div>
 
-  <div class="datosRecursosYdatosBienes">
 
+  <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
     <div class="datosBienes" *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
-      <h4 class="tituloBien">Datos Bien</h4>
+    <mat-tab label="Bienes">
+        <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
+          <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
+        </button>
+        <mat-form-field class= "input-search" >
+          <input matInput type="text" (keyup)="doFilterBienes($event.target.value)" placeholder="Buscar Item">
+        </mat-form-field>
+        <table mat-table #sortBienes="matSort" [dataSource]="datosTablaBienes" matSort>
+            <ng-container matColumnDef="bien">
+              <th mat-header-cell *matHeaderCellDef> Bien </th>
+              <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bienIntercambiable.descripcion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tipoDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION' && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
+              <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
+              <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nroDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION'  && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
+              <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
+              <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cantidad">
+              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+              <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
+            </ng-container>
 
-      <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
-        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Bien
-      </button>
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef> Estado </th>
+              <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
+            </ng-container>
 
-      <table class="tablaBien">
-        <mat-table [dataSource]="datosTablaBienes" matSort>
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+              <td mat-cell *matCellDef="let bienesAgregados">
+                <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="bien">
-            <th mat-header-cell *matHeaderCellDef> Bien </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.bienIntercambiable.descripcion}} </td>
-          </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
 
-          <ng-container matColumnDef="tipoDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION' && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
-            <th mat-header-cell *matHeaderCellDef> Tipo Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} </td>
-          </ng-container>
 
-          <ng-container matColumnDef="nroDoc" *ngIf="movimiento.tipoMovimiento.tipo === 'RECEPCION'  && movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'">
-            <th mat-header-cell *matHeaderCellDef> No.Doc. </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.itemMovimientoTipoDoc[0].nroDocumento}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="cantidad">
-            <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.cantidad}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> Estado </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="eliminar">
-            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-            <td mat-cell *matCellDef="let bienesAgregados">
-              <button mat-icon-button color="primary" (click)="deleteBien(bienesAgregados)">
-                <mat-icon class="mat-18">delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
-          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
-
-        </mat-table>
-
-        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
-        </mat-paginator>
-
-      </table>
-
-    </div>
+                </table>
+          <mat-paginator #paginatorBienes="matPaginator" [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+          </mat-paginator>
+    </mat-tab>
+  </div>
 
     <div class="datosRecursos" *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
-
-      <h4 class="tituloRecurso">Datos Recurso</h4>
-
-      <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
-        <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
-      </button>
-
-      <table class="tablaRecurso">
-        <mat-table [dataSource]="datosTablaRecursos" matSort>
-
-          <ng-container matColumnDef="tipoRecurso">
-            <th mat-header-cell *matHeaderCellDef> Tipo recurso </th>
-            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso.nombre}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="idRecurso">
-            <th mat-header-cell *matHeaderCellDef> Recurso </th>
-            <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.nroRecurso}} </td>
-          </ng-container>
-          <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> Estado </th>
-            <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="eliminar">
-            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-            <td mat-cell *matCellDef="let recursosAgregados">
-              <button mat-icon-button color="primary" (click)="deleteRecurso(recursosAgregados)">
-                <mat-icon class="mat-18">delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="columnsRecursoEnvio"></tr>
-          <tr mat-row *matRowDef="let myRowData; columns: columnsRecursoEnvio"></tr>
-
-        </mat-table>
-
-        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
-        </mat-paginator>
-
-      </table>
-
-    </div>
-
-  </div>
-  <div class="datosMoviEnvios" *ngIf="movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP'">
-
-    <h4 class="tituloEnvio">Datos de Envios en tienda nro {{movimiento.destino}}</h4>
-
-
-
-    <table class="tablaEnvio">
-      <mat-table [dataSource]="datosTablaEnvios" matSort>
-
-        <ng-container matColumnDef="nro">
-          <th mat-header-cell *matHeaderCellDef> Nro Envio </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef> Estado </th>
-          <td mat-cell *matCellDef="let element"> {{element.estado.descrip}} </td>
-        </ng-container>
-        <ng-container matColumnDef="origen">
-          <th mat-header-cell *matHeaderCellDef> Estado </th>
-          <td mat-cell *matCellDef="let element">{{element.tipoMovimiento.tipoAgenteOrigen.nombre}} - {{element.origen}} </td>
-        </ng-container>
-        <ng-container matColumnDef="tipoDoc">
-          <th mat-header-cell *matHeaderCellDef> Documento </th>
-          <td mat-cell *matCellDef="let element"> {{element.tipoDocumento.nombre}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="nroDoc">
-          <th mat-header-cell *matHeaderCellDef> Recurso </th>
-          <td mat-cell *matCellDef="let element"> {{element.nroDocumento}} </td>
-        </ng-container>
-        <ng-container matColumnDef="cantidadItems">
-          <th mat-header-cell *matHeaderCellDef> Cantidad de bienes </th>
-          <td mat-cell *matCellDef="let element"> {{element.itemMovimientos.length}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="confirmar">
-          <th mat-header-cell *matHeaderCellDef> Confirmar </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" (click)="confirmarMovimientoEnvio(element)">
-              <mat-icon class="mat-18">check</mat-icon>
+      <mat-tab label="Recursos">
+            <mat-form-field class= "input-search" >
+              <input matInput type="text" (keyup)="doFilterRecursos($event.target.value)" placeholder="Buscar Recurso">
+            </mat-form-field>
+            <button class="agregarRecurso" mat-icon-button color="primary" (click)="onAgregarRecurso()">
+              <mat-icon class="mat-18" >library_add</mat-icon> Agregar Recurso
             </button>
-          </td>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnsMovimientosEnvio"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: columnsMovimientosEnvio"></tr>
+              <table mat-table #sortRecursos="matSort" [dataSource]="datosTablaRecursos" matSort>
 
-      </mat-table>
+                <ng-container matColumnDef="tipoRecurso">
+                  <th mat-header-cell *matHeaderCellDef> Tipo recurso </th>
+                  <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.tipoRecurso.nombre}} </td>
+                </ng-container>
 
-      <mat-paginator [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
-      </mat-paginator>
+                <ng-container matColumnDef="idRecurso">
+                  <th mat-header-cell *matHeaderCellDef> Recurso </th>
+                  <td mat-cell *matCellDef="let recursosAgregados"> {{recursosAgregados.nroRecurso}} </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef> Estado </th>
+                  <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
+                </ng-container>
 
+                <ng-container matColumnDef="eliminar">
+                  <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                  <td mat-cell *matCellDef="let recursosAgregados">
+                    <button mat-icon-button color="primary" (click)="deleteRecurso(recursosAgregados)">
+                      <mat-icon class="mat-18">delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsRecursoEnvio"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: columnsRecursoEnvio"></tr>
+
+
+                    </table>
+              <mat-paginator #paginatorRecursos="matPaginator" [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+              </mat-paginator>
+
+      </mat-tab>
+    </div>
+</mat-tab-group>
+<div class="datosMoviEnvios" *ngIf="movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP'">
+  <label>Envios </label>
+  <mat-form-field class= "input-search" >
+    <input matInput type="text" (keyup)="doFilterEnvios($event.target.value)" placeholder="Buscar Envio">
+  </mat-form-field>
+
+    <table mat-table #sortEnvio="matSort" [dataSource]="datosTablaEnvios" matSort>
+
+      <ng-container matColumnDef="nro">
+        <th mat-header-cell *matHeaderCellDef> Nro Envio </th>
+        <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      </ng-container>
+      <ng-container matColumnDef="origen">
+        <th mat-header-cell *matHeaderCellDef> Origen </th>
+        <td mat-cell *matCellDef="let element">{{element.origen}} </td>
+      </ng-container>
+      <ng-container matColumnDef="tipoDoc">
+        <th mat-header-cell *matHeaderCellDef> Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.tipoDoc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nroDoc">
+        <th mat-header-cell *matHeaderCellDef> Nro Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.nroDoc}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cantidadItems">
+        <th mat-header-cell *matHeaderCellDef> Cantidad de bienes </th>
+        <td mat-cell *matCellDef="let element"> {{element.cantBienes}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="confirmar">
+        <th mat-header-cell *matHeaderCellDef> Confirmar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="confirmarMovimientoEnvio(element)">
+            <mat-icon class="mat-18">check</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsMovimientosEnvio"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsMovimientosEnvio"></tr>
     </table>
-
-  </div>
-
+    <mat-paginator #paginatorEnvio="matPaginator" [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
+    </mat-paginator>
+</div>
 
   <div class="confirmar">
 
