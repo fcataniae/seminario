@@ -50,8 +50,20 @@ public class MovimientoService {
     public void create(Usuario usuarioActual, Movimiento movimientoNuevo) throws CustomException {
         TipoMovimiento ti;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
+
+            if (movimientoNuevo.getTipoMovimiento() == null)
+                throw new CustomException("Error el movimiento NO tiene un Tipo Movimiento!");
+
+            if (movimientoNuevo.getOrigen() == null)
+                throw new CustomException("Error el movimiento NO contiene agente origen!");
+
+            if (movimientoNuevo.getDestino() == null)
+                throw new CustomException("Error el movimiento NO contiene agente destino!");
+
             if (null != (ti = tipoMovimientoRepository.findByNombreAndTipoOrigenAndTipoDestino(
-                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(), movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre()))) {
+                    movimientoNuevo.getTipoMovimiento().getTipo(),movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre(),
+                    movimientoNuevo.getTipoMovimiento().getTipoAgenteDestino().getNombre()))) {
+
                 movimientoNuevo.setTipoMovimiento(ti);
                 movimientoNuevo.setId(null);
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
