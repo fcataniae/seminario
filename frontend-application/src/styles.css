@@ -35,6 +35,8 @@ header{
   width: 100%;
   max-width: 140px;
   height: auto;
+  margin: 0px;
+  padding: 0px;
 }
 
 .w70{

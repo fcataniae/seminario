@@ -4,7 +4,7 @@
       <li>
         <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
       </li>
-      
+
     </div>
     <div *ngIf="loggedIn">
             <li *ngIf="permisoPersona">
@@ -22,8 +22,8 @@
     <li>
       <a (click)="logOut($event)">Log out</a>
     </li>
-</div>
-  </ul>
+  </div>
+</ul>
 
 </header>
   <div class="flotante" *ngIf="username !==''">Usuario: {{username}}</div>
