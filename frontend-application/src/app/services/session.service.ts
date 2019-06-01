@@ -16,11 +16,10 @@ export class SessionService {
   }
 
   isUserLoggedIn(): boolean{
-    let logedin = sessionStorage.getItem('logedIn');
-    return logedin === 'true';
+    let token: Token = JSON.parse(sessionStorage.getItem('currentUser'));
+    return token.username !== '';
   }
   setUserLoggedIn(token: Token) {
-    sessionStorage.setItem('logedIn','true');
     sessionStorage.setItem('currentUser', JSON.stringify(token));
     sessionStorage.setItem('Auth', 'Bearer ' + token.token);
 
@@ -34,7 +33,6 @@ export class SessionService {
     let token = new Token();
     token.token ='';
     token.username ='';
-    sessionStorage.setItem('logedIn','false');
     sessionStorage.setItem('currentUser', JSON.stringify(token));
   }
 

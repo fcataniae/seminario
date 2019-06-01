@@ -57,7 +57,7 @@ public class MovimientoService {
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
-                movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO"));
+                movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
                 validarItems(movimientoNuevo.getItemMovimientos());
                 if (movimientoRepository.save(movimientoNuevo) == null)
                     throw new CustomException("Error al dar de alta la persona!");
@@ -73,7 +73,7 @@ public class MovimientoService {
         }
     }
 
-    public Set<Recurso> cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso) throws CustomException {
+    public Set<Recurso> cambiarEstadoRecursosAsignados(Set<Recurso> recursos, String estadoRecurso, String estadoExcepcion) throws CustomException {
         EstadoRecurso e = estadoRecursoRepository.findByDescrip(estadoRecurso);
         int i = 1;
         Set<Recurso> set = new HashSet<>();
@@ -89,7 +89,7 @@ public class MovimientoService {
                 if(rDB == null)
                     throw new CustomException("No existe el recurso en la base");
 
-                if(!rDB.getEstadoRecurso().getDescrip().equalsIgnoreCase("libre"))
+                if(!rDB.getEstadoRecurso().getDescrip().equalsIgnoreCase(estadoExcepcion))
                     throw new CustomException("El recurso " + rDB.getNroRecurso() + " se encuentra en estado " + rDB.getEstadoRecurso().getDescrip());
 
                 itr.remove();
@@ -120,8 +120,9 @@ public class MovimientoService {
             if (null != (m = movimientoRepository.findById(idMov))){
                 if (m.getEstadoViaje().getDescrip().equals("PENDIENTE")) {
                     m.setEstadoViaje(estadoViajeRepository.findByDescrip("ENTREGADO"));
-                    cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE");
+                    cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE","OCUPADO");
                     confimarMovimiento(m);
+                    movimientoRepository.save(m);
                 } else {
                     throw new CustomException("El movimiento no esta en estado " + m.getEstadoViaje().getDescrip());
                 }

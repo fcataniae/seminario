@@ -13,7 +13,7 @@ export class Movimiento{
   itemMovimientos : ItemMovimiento[];
   tipoDocumento: TipoDocumento;
   nroDocumento: number;
-  estado: Estado;
+  estadoViaje: Estado;
 
   constructor(){
     this.recursosAsignados = [];

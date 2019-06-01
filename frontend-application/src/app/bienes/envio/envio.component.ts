@@ -174,15 +174,18 @@ export class EnvioComponent implements OnInit {
 
   registrar() {
     console.log(this.movimiento);
+    if(this.movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP')
+      this.location.back();
     this._movimientoService.setRegistroMovimiento(this.movimiento).subscribe(
       res =>{
         alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
+        this.location.back();
       },
       error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
     );
   }
   confirmarMovimientoEnvio(element : Movi){
-    let movimiento = this.movimientosEnvio.filter(m => m.id = element.nro)[0];
+    let movimiento = this.movimientosEnvio.filter(m => m.id === element.nro)[0];
     let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
       width: '50%',
       data : { movimiento : movimiento}
@@ -192,7 +195,9 @@ export class EnvioComponent implements OnInit {
       .subscribe(
         res => {
           console.log('instance '+ (res != null));
+          console.log(res);
           if (res != null){
+            console.log(this.movimientosEnvio);
             this.movimientosEnvio = this.movimientosEnvio.filter(m => m.id != res.id);
             this.datosTablaEnvios.data = this.movimientoToMovi();
           }
@@ -236,7 +241,7 @@ export class EnvioComponent implements OnInit {
        let movi: Movi = new Movi();
        movi.nro = m.id;
        movi.tipoDoc = m.tipoDocumento.descripcion;
-       movi.estado = m.estado.descrip;
+       movi.estado = m.estadoViaje.descrip;
        movi.nroDoc = m.nroDocumento;
        movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
        movi.cantBienes = m.itemMovimientos.length;
