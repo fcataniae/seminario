@@ -8,9 +8,9 @@
   "tipoMovimiento": {"tipo":"ENVIO","tipoAgenteDestino":{"nombre":"TIENDA"} ,"tipoAgenteOrigen":{"nombre":"CD"} },
   "id_tipo_documento": 1,
   "itemMovimientos": [
-    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
-    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
-    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30}
   ]
 }
 
@@ -33,9 +33,9 @@
   "id_tipo_documento": 4,
   "nroDocumento": 8432904234,
   "itemMovimientos": [
-    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
-    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
-    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30}
 
   ]
 }
@@ -51,9 +51,9 @@
   "id_tipo_documento": 1,
   "nroDocumento": 34342423442,
   "itemMovimientos": [
-    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300,"vacio":true},
-    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true},
-    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30,"vacio":true}
+    {"bienIntercambiable":{"id":4},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":300},
+    {"bienIntercambiable":{"id":2},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30},
+    {"bienIntercambiable":{"id":5},"estadoRecurso":{"descrip":"LIBRE"},"cantidad":30}
 
   ]
 }
