@@ -33,7 +33,9 @@ export class SessionService {
     let token = new Token();
     token.token ='';
     token.username ='';
+    token.permisos = [];
     sessionStorage.setItem('currentUser', JSON.stringify(token));
+    sessionStorage.setItem('Auth','');
   }
 
 }
