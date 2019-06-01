@@ -8,9 +8,20 @@ table{
   width: 90%;
   min-width: 500px;
   margin-left: 4%;
-  text-align: center;
+  text-align: left;
 }
 .input-search{
   width: 40%;
   display: block;
+}
+
+mat-paginator{
+  width: 90%;
+  min-width: 500px;
+  margin-left: 4%;
+}
+.center{
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 40%;
 }

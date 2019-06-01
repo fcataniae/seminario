@@ -34,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatNativeDateModule,
   MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-  MatSelectModule, MatCheckboxModule, MatDatepickerModule
+  MatSelectModule, MatCheckboxModule, MatDatepickerModule, MatTabsModule
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { CustomLocationStrategy } from 'src/app/app.common';
@@ -68,6 +68,7 @@ import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/conf
   imports: [
     BrowserModule,
     FormsModule,
+    MatTabsModule ,
     HttpClientModule,
     CommonModule,
     AppRoutingModule,

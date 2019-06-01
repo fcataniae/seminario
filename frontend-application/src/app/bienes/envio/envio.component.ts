@@ -20,16 +20,16 @@ import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popu
 })
 export class EnvioComponent implements OnInit {
 
-  @ViewChild(MatSort) sortBienes: MatSort;
-  @ViewChild(MatPaginator) paginatorBienes: MatPaginator;
+  @ViewChild("sortBienes") sortBienes: MatSort;
+  @ViewChild("paginatorBienes") paginatorBienes: MatPaginator;
   datosTablaBienes = new MatTableDataSource<ItemMovimiento>();
 
-  @ViewChild(MatSort) sortRecursos: MatSort;
-  @ViewChild(MatPaginator) paginatorRecursos: MatPaginator;
+  @ViewChild("sortRecursos") sortRecursos: MatSort;
+  @ViewChild("paginatorRecursos") paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  @ViewChild(MatSort) sortEnviosPendientes: MatSort;
-  @ViewChild(MatPaginator) paginatorEnvios: MatPaginator;
+  @ViewChild("sortEnvio") sortEnviosPendientes: MatSort;
+  @ViewChild("paginatorEnvio") paginatorEnvios: MatPaginator;
   datosTablaEnvios = new MatTableDataSource<Movimiento>();
 
 
@@ -55,11 +55,12 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(JSON.parse(atob(this.route.snapshot.paramMap.get('mov'))));
     this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+
     this.datosTablaBienes.data = this.movimiento.itemMovimientos;
     this.datosTablaBienes.sort = this.sortBienes;
     this.datosTablaBienes.paginator = this.paginatorBienes;
+
     this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
     this.datosTablaRecursos.sort = this.sortRecursos;
     this.datosTablaRecursos.paginator = this.paginatorRecursos;
@@ -76,9 +77,11 @@ export class EnvioComponent implements OnInit {
       this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
         .subscribe(
           resEnvio => {
+            console.log(resEnvio);
             this.datosTablaEnvios.data = resEnvio;
             this.datosTablaEnvios.sort = this.sortEnviosPendientes;
             this.datosTablaEnvios.paginator = this.paginatorEnvios;
+            console.log(this.datosTablaEnvios);
           },
           error => console.log(error)
         );
@@ -89,7 +92,8 @@ export class EnvioComponent implements OnInit {
 
   goBack(): void {
     let dialog = this._dialog.open(ConfirmacionPopupComponent,{
-      data: {mensaje:"Desea volver atras?"}
+      data: {mensaje:"Desea volver atras?"},
+      width: '50%'
     });
     dialog.afterClosed().subscribe(
       result =>{
@@ -186,12 +190,28 @@ export class EnvioComponent implements OnInit {
   }
 
   doFilterBienes (value: string)  {
+      console.log(value);
       this.datosTablaBienes.filter = value.trim().toLocaleLowerCase();
   }
   doFilterRecursos (value: string)  {
+      console.log(value);
       this.datosTablaRecursos.filter = value.trim().toLocaleLowerCase();
   }
   doFilterEnvios (value: string)  {
+      console.log(value);
       this.datosTablaEnvios.filter = value.trim().toLocaleLowerCase();
+
+      console.log(this.datosTablaEnvios);
+  }
+  setDataSource(indexNumber) {
+    setTimeout(() => {
+      switch (indexNumber) {
+        case 0:
+          !this.datosTablaBienes.paginator ? this.datosTablaBienes.paginator = this.paginatorBienes : null;
+          break;
+        case 1:
+          !this.datosTablaRecursos.paginator ? this.datosTablaRecursos.paginator = this.paginatorRecursos : null;
+      }
+    });
   }
 }
