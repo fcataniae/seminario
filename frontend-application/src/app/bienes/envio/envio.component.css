@@ -41,3 +41,7 @@ button.agregarBien {
 button.agregarRecurso{
   margin-left: 10%;
 }
+mat-tab-group{
+  width: 90%;
+  margin-left: 4%
+}

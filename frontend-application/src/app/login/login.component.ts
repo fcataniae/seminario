@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
         this._loginService.login(username, password).subscribe(
 
           res => {
-           console.log(res);
            this.isLoggedIn = true;
            this._sessionService.setUserLoggedIn(res);
            this._router.navigate(['/home']);

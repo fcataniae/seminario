@@ -1,5 +1,30 @@
 <header>
-  <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
+  <ul >
+    <div class="">
+      <li>
+        <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
+      </li>
+      
+    </div>
+    <div *ngIf="loggedIn">
+            <li *ngIf="permisoPersona">
+        <a [routerLink]="['home/adm/personas']">Gestionar Personas</a>
+      </li>
+      <li *ngIf="permisoUsuario">
+        <a [routerLink]="['home/adm/usuarios']">Gestionar Usuarios</a>
+      </li>
+      <li *ngIf="permisoRol">
+        <a [routerLink]="['home/adm/roles']">Gestionar Roles</a>
+      </li>
+    <li *ngIf="permisoMovimiento">
+      <a [routerLink]="['home/movimientos']">Movimientos</a>
+    </li>
+    <li>
+      <a (click)="logOut($event)">Log out</a>
+    </li>
+</div>
+  </ul>
+
 </header>
   <div class="flotante" *ngIf="username !==''">Usuario: {{username}}</div>
 <router-outlet></router-outlet>
