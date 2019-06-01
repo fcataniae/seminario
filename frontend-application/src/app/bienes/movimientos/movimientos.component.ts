@@ -36,7 +36,7 @@ export class MovimientosComponent implements OnInit {
   }
 
   redirectToHome(){
-    this._router.navigate(['home']);
+    this._router.navigate(['home/movimientos']);
   }
 
   onChangeMovimiento(){
