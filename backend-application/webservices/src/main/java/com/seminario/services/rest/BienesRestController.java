@@ -80,7 +80,7 @@ public class BienesRestController {
      * @param    userDetails       Credenciales de usuario.
      *                             (debe tener los permisos para ejecutar el método).
      **/
-    @GetMapping("/listar-movimientos")
+    @GetMapping("/listar-tipomovimientos")
     public List<TipoMovimiento> getTipoMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
@@ -145,6 +145,12 @@ public class BienesRestController {
     public List<Agente> getAgentes(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllAgentes(usuarioActual);
+    }
+
+    @GetMapping("/listar-movimientos")
+    public List<Movimiento> getMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllMovimientos(usuarioActual);
     }
 
     /**
