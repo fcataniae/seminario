@@ -365,6 +365,14 @@ public class MovimientoService {
     }
 
 
+    public List<Movimiento> getAllMovimientos(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO")) {
+            return movimientoRepository.findAll();
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar recursos");
+        }
+    }
+
     public void validarStock(ItemMovimiento item, Long localOrigen) throws CustomException {
         String stk = "STOCK_";
         stk += item.getEstadoRecurso().getDescrip();
