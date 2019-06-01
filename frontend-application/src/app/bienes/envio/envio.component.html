@@ -154,29 +154,29 @@
 
       <ng-container matColumnDef="nro">
         <th mat-header-cell *matHeaderCellDef> Nro Envio </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
       </ng-container>
 
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.estado.descrip}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
       </ng-container>
       <ng-container matColumnDef="origen">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element">{{element.tipoMovimiento.tipoAgenteOrigen.nombre}} - {{element.origen}} </td>
+        <th mat-header-cell *matHeaderCellDef> Origen </th>
+        <td mat-cell *matCellDef="let element">{{element.origen}} </td>
       </ng-container>
       <ng-container matColumnDef="tipoDoc">
         <th mat-header-cell *matHeaderCellDef> Documento </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoDocumento.descripcion}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.tipoDoc}} </td>
       </ng-container>
 
       <ng-container matColumnDef="nroDoc">
-        <th mat-header-cell *matHeaderCellDef> Recurso </th>
-        <td mat-cell *matCellDef="let element"> {{element.nroDocumento}} </td>
+        <th mat-header-cell *matHeaderCellDef> Nro Documento </th>
+        <td mat-cell *matCellDef="let element"> {{element.nroDoc}} </td>
       </ng-container>
       <ng-container matColumnDef="cantidadItems">
         <th mat-header-cell *matHeaderCellDef> Cantidad de bienes </th>
-        <td mat-cell *matCellDef="let element"> {{element.itemMovimientos.length}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.cantBienes}} </td>
       </ng-container>
 
       <ng-container matColumnDef="confirmar">

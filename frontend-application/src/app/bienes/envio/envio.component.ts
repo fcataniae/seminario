@@ -13,6 +13,15 @@ import { map } from 'rxjs/operators';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
+export class Movi{
+  nro: number;
+  estado: string;
+  origen: string;
+  tipoDoc: string;
+  nroDoc: number;
+  cantBienes: number;
+}
+
 @Component({
   selector: 'app-envio',
   templateUrl: './envio.component.html',
@@ -30,7 +39,7 @@ export class EnvioComponent implements OnInit {
 
   @ViewChild("sortEnvio") sortEnviosPendientes: MatSort;
   @ViewChild("paginatorEnvio") paginatorEnvios: MatPaginator;
-  datosTablaEnvios = new MatTableDataSource<Movimiento>();
+  datosTablaEnvios = new MatTableDataSource<Movi>();
 
 
 
@@ -43,7 +52,7 @@ export class EnvioComponent implements OnInit {
   columnsToDisplayBien: String[];
 
   movimiento: Movimiento = new Movimiento();
-
+  movimientosEnvio: Movimiento[] = [];
 
   constructor(private location: Location,
               private _dialog: MatDialog,
@@ -78,7 +87,8 @@ export class EnvioComponent implements OnInit {
         .subscribe(
           resEnvio => {
             console.log(resEnvio);
-            this.datosTablaEnvios.data = resEnvio;
+            this.movimientosEnvio = resEnvio;
+            this.datosTablaEnvios.data = this.movimientoToMovi();
             this.datosTablaEnvios.sort = this.sortEnviosPendientes;
             this.datosTablaEnvios.paginator = this.paginatorEnvios;
             console.log(this.datosTablaEnvios);
@@ -171,10 +181,11 @@ export class EnvioComponent implements OnInit {
       error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
     );
   }
-  confirmarMovimientoEnvio(element : Movimiento){
+  confirmarMovimientoEnvio(element : Movi){
+    let movimiento = this.movimientosEnvio.filter(m => m.id = element.nro)[0];
     let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
       width: '50%',
-      data : { movimiento : element}
+      data : { movimiento : movimiento}
     });
 
     dialog.afterClosed()
@@ -182,7 +193,8 @@ export class EnvioComponent implements OnInit {
         res => {
           console.log('instance '+ (res != null));
           if (res != null){
-            this.datosTablaEnvios.data = this.datosTablaEnvios.data.filter(m => m.id !== res.id);
+            this.movimientosEnvio = this.movimientosEnvio.filter(m => m.id != res.id);
+            this.datosTablaEnvios.data = this.movimientoToMovi();
           }
         }
       );
@@ -213,5 +225,24 @@ export class EnvioComponent implements OnInit {
           !this.datosTablaRecursos.paginator ? this.datosTablaRecursos.paginator = this.paginatorRecursos : null;
       }
     });
+  }
+
+
+  movimientoToMovi() : Movi[]{
+
+    let movis:Movi[] = [];
+    console.log(this.movimientosEnvio);
+    this.movimientosEnvio.forEach(m => {
+       let movi: Movi = new Movi();
+       movi.nro = m.id;
+       movi.tipoDoc = m.tipoDocumento.descripcion;
+       movi.estado = m.estado.descrip;
+       movi.nroDoc = m.nroDocumento;
+       movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
+       movi.cantBienes = m.itemMovimientos.length;
+       movis.push(movi);
+    });
+
+    return movis;
   }
 }
