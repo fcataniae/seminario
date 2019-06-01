@@ -169,7 +169,8 @@ public class MovimientoService {
         } else if (tipoMov.equals("ENVIO")){
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                //# TODO: ATENCION! cambiar linea de abaja por : stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
+                stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
         }
     }
