@@ -6,13 +6,13 @@
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atrás
     </button>
 
-    <h4 >Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h4> <!-- {{ movimiento.nombre }} -->
+    <h4 >Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h4>
 
   </div>
 
   <div class="datosEnvio"  *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
 
-    <h5 >Datos del movimiento</h5> <!-- {{ movimiento.nombre }} -->
+    <h5 >Datos del movimiento</h5>
 
     <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
       <input matInput

@@ -1,4 +1,57 @@
 <div class="container">
-  
 
+  <form class="form">
+    <mat-form-field class="w70 mat-local"><!--Locales-->
+      <input type="text" placeholder="Local" aria-label="Number" matInput [formControl]="myControlLocales"
+             [matAutocomplete]="autoLocal" name="nroLocal" [(ngModel)]="selectedLocal" (ngModelChange)="onChangeLocal()">
+      <mat-autocomplete #autoLocal="matAutocomplete">
+        <mat-option *ngFor="let local of filteredLocales | async" [value]="local.nombre">
+          {{local.nombre}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="w70 mat-bien"><!--Bienes intercambiables-->
+      <input type="text" placeholder="Bien" aria-label="Number" matInput [formControl]="myControlBienes"
+             [matAutocomplete]="autoBien" name="tipoBien" [(ngModel)]="selectedBien" (ngModelChange)="onChangeBien()">
+      <mat-autocomplete #autoBien="matAutocomplete">
+        <mat-option *ngFor="let bien of filteredBienes | async" [value]="bien.descripcion">
+          {{bien.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
+  <div class="grafico">
+    <canvas id="doughnutChart"></canvas>
+  </div>
+
+  <div *ngIf="bienElegido">
+    <table mat-table #sortBienes="matSort" [dataSource]="datosTablaBienes" matSort>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let bien"> {{bien.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef> Tipo </th>
+        <td mat-cell *matCellDef="let bien"> {{bien.tipo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="subtipo">
+        <th mat-header-cell *matHeaderCellDef> Subtipo </th>
+        <td mat-cell *matCellDef="let bien"> {{bien.subtipo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+        <td mat-cell *matCellDef="let bien"> {{bien.descripcion}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayBien"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayBien"></tr>
+
+    </table>
+  </div>
 </div>

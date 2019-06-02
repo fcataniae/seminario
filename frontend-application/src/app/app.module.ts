@@ -34,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatNativeDateModule,
   MatButtonModule, MatTableModule, MatIconModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-  MatSelectModule, MatCheckboxModule, MatDatepickerModule, MatTabsModule
+  MatSelectModule, MatCheckboxModule, MatDatepickerModule, MatTabsModule, MatAutocompleteModule
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
 import { CustomLocationStrategy } from 'src/app/app.common';
@@ -87,7 +87,11 @@ import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestio
     MatSelectModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule
   ],
   providers: [
     LoginService,
