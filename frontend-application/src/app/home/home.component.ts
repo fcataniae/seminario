@@ -116,6 +116,10 @@ export class HomeComponent implements OnInit {
     let bien = this.bienes.filter(bien => bien.descripcion === this.selectedBien);
     if(bien.length && this.localElegido){
 
+      //Buscar en el array de stockBienLocal el stock del bien elegido (selectedBien)
+      let bienElegido = this.bienes.filter(b => b.descripcion === this.selectedBien)[0];
+      let stockBienElegido = this.stockBienLocal.filter(stockbien => stockbien.idBI === bienElegido.id)[0];
+
       // doughnut chart:
       this.chart = new Chart('doughnutChart', {
         type: 'pie',
@@ -123,7 +127,8 @@ export class HomeComponent implements OnInit {
        labels: ["Ocupado", "Libre", "Reservado", "Destruido"],
        datasets: [{
            label: '# of Votes',
-           data: [this.stockBienLocal.ocupado, this.stockBienLocal.libre, this.stockBienLocal.reservado, this.stockBienLocal.destruido],
+           data: [stockBienElegido.stock_ocupado, stockBienElegido.stock_libre,
+                  stockBienElegido.stock_reservado, stockBienElegido.stock_destruido],
            backgroundColor: [
                'rgba(255, 206, 86, 1)',
                'rgba(75, 192, 192, 1)',
