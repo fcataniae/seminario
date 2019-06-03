@@ -1,15 +1,19 @@
 <header>
   <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
-  <ul *ngIf="loggedIn">
-      <li *ngIf="permisoPersona">
-        <a [routerLink]="['home/adm/personas']">Gestionar Personas</a>
-      </li>
-      <li *ngIf="permisoUsuario">
-        <a [routerLink]="['home/adm/usuarios']">Gestionar Usuarios</a>
-      </li>
-      <li *ngIf="permisoRol">
-        <a [routerLink]="['home/adm/roles']">Gestionar Roles</a>
-      </li>
+  <ul id="menu" *ngIf="loggedIn">
+    <li clas="sub"><a>Administracion</a>
+      <ul>
+        <li *ngIf="permisoPersona">
+          <a [routerLink]="['home/adm/personas']">Personas</a>
+        </li>
+        <li *ngIf="permisoUsuario">
+          <a [routerLink]="['home/adm/usuarios']">Usuarios</a>
+        </li>
+        <li *ngIf="permisoRol">
+          <a [routerLink]="['home/adm/roles']">Roles</a>
+        </li>
+      </ul>
+    </li>
     <li *ngIf="permisoMovimiento">
       <a [routerLink]="['home/movimientos']">Movimientos</a>
     </li>

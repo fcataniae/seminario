@@ -1,4 +1,4 @@
-ul {
+ul#menu {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -8,11 +8,11 @@ ul {
 text-align: right;
 }
 
-li {
+#menu li {
   float: left;
 }
 
-li a {
+#menu li a {
   display: block;
   color: white;
   text-align: center;
@@ -23,9 +23,42 @@ li a {
   cursor: pointer;
   color: white;
 }
-li a:hover{
+#menu li a:hover{
   background-color: #D5D4CD;
 }
+
+#menu li{
+  height: auto;
+  min-height: 52px;
+  vertical-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+ul#menu li ul{
+  display: none;
+  position: absolute;
+  top: 0px;
+  background-color: #0055ba;
+  color: white;
+  padding: 0px 0px 5px 5px;
+  margin: 0;
+}
+ul#menu li.sub a:hover {
+  display: none;
+}
+#menu li ul:hover{
+  display: block;
+}
+ul#menu li:hover ul,ul#menu li:hover ul li, ul#menu li:hover ul li a{
+  display :block;
+  cursor: pointer;
+}
+
+ul#menu li:hover ul li a:hover{
+    background-color: #D5D4CD;
+}
+
 header {
   display :flex;
 }
