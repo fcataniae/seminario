@@ -4,6 +4,9 @@ import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import {MovimientoService} from "../../services/movimiento.service";
 import {Agente} from "../../model/bienes/agente.model";
 import { Movimiento } from '../../model/bienes/movimiento.model';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 
 @Component({
@@ -13,12 +16,27 @@ import { Movimiento } from '../../model/bienes/movimiento.model';
 })
 export class MovimientosComponent implements OnInit {
 
+
+
+  formMovs = new FormControl();
+  formOrig = new FormControl();
+  formDest = new FormControl();
+
+  movsFilter = new Observable<TipoMovimiento[]>();
+  destFilter = new Observable<Agente[]>();
+  origFilter = new Observable<Agente[]>();
+
   movimientos: TipoMovimiento[];
   origenes: Agente[];
   destinos: Agente[];
+
   selectedMov: TipoMovimiento;
   selectedDest: Agente;
   selectedOrig: Agente;
+
+  select1: string;
+  select2: string;
+  select3: string;
   disable: boolean = true;
 
   constructor(private _router : Router,
@@ -29,26 +47,66 @@ export class MovimientosComponent implements OnInit {
       res => {
         console.log(res);
         this.movimientos = res;
+
+        this.movsFilter = this.formMovs.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this.filterMovs(value))
+        );
+
       },
       error => console.log(error)
-
     );
+
   }
 
+  filterMovs(value : string): TipoMovimiento[] {
+    return this.movimientos.filter(mov => mov.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
+  filterDest(value : string): Agente[] {
+    return this.destinos.filter(dest => dest.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
+  filterOrig(value : string): Agente[] {
+    return this.origenes.filter(dest => dest.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
   redirectToHome(){
     this._router.navigate(['home/movimientos']);
   }
 
   onChangeMovimiento(){
-    console.log(this.selectedMov);
-    this._movimientoService.getAllAgentes().subscribe(
-      res => {
-        console.log(res);
-        this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
-        this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
-      },
-      error => console.log(error)
-    );
+    if(this.movimientos){
+      this.selectedMov = this.movimientos.filter(m => m.nombre === this.select1)[0];
+      if(this.selectedMov)
+        this._movimientoService.getAllAgentes().subscribe(
+          res => {
+            console.log(res);
+            this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
+            this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
+
+            this.destFilter = this.formDest.valueChanges
+            .pipe(
+              startWith(''),
+              map(value => this.filterDest(value))
+            );
+            this.origFilter = this.formOrig.valueChanges
+            .pipe(
+              startWith(''),
+              map(value => this.filterOrig(value))
+            );
+          },
+          error => console.log(error)
+        );
+      }
+  }
+
+  onChangeDestino(){
+    if(this.destinos)
+      this.selectedDest = this.destinos.filter(d => d.nombre === this.select3)[0];
+
+  }
+  onChangeOrigen(){
+    if(this.origenes)
+      this.selectedOrig = this.origenes.filter(o => o.nombre === this.select2)[0];
 
   }
 

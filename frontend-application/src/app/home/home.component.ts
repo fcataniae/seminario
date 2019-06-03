@@ -51,6 +51,8 @@ export class HomeComponent implements OnInit {
               private _stockbienlocalService: StockBienLocalService) { }
 
   ngOnInit() {
+
+    //TODO hacer un forkjoin, porque sino asumis que todo va a ser sincrono! y ver el scope
     this.bienes = [];
     this._movimientoService.getAllBienes()
     .subscribe(res=>{

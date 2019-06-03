@@ -6,6 +6,7 @@ ul#menu {
   background-color: #0055ba;
   height: auto;
 text-align: right;
+margin-left: 20%;
 }
 
 #menu li {

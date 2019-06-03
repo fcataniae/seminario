@@ -6,40 +6,34 @@
 
 <h3>Tipo de movimiento</h3>
   <form #altamovimiento="ngForm">
-    <mat-form-field>
-      <mat-label>Movimiento</mat-label>
-      <mat-select [(ngModel)]="selectedMov"
-                  (ngModelChange)="onChangeMovimiento()"
-                  name="movimiento">
-        <mat-option *ngFor="let movimiento of movimientos" [value]="movimiento">
-          {{movimiento.nombre}}
+    <mat-form-field class="w70 mat-local">
+      <input type="text" placeholder="Tipo movimiento" aria-label="Number" matInput [formControl]="formMovs"
+             [matAutocomplete]="autoTipoMov" name="tipoMov" [(ngModel)]="select1" (ngModelChange)="onChangeMovimiento()">
+      <mat-autocomplete #autoTipoMov="matAutocomplete">
+        <mat-option *ngFor="let mov of movsFilter | async" [value]="mov.nombre">
+          {{mov.nombre}}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Origen</mat-label>
-      <mat-select [(value)]="selectedOrig"
-                  [disabled]="selectedMov==null"
-                  name="origen">
-        <mat-option *ngFor="let origen of origenes" [value]="origen">
-          {{origen.nro}} - {{origen.nombre}}
+    <mat-form-field class="w70 mat-local">
+      <input type="text" placeholder="Origen" aria-label="Number" matInput [formControl]="formOrig"
+             [matAutocomplete]="autoOrig" name="orig" [(ngModel)]="select2" (ngModelChange)="onChangeOrigen()">
+      <mat-autocomplete #autoOrig="matAutocomplete">
+        <mat-option *ngFor="let orig of origFilter | async" [value]="orig.nombre">
+          {{orig.nombre}}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Destino</mat-label>
-      <mat-select [(value)]="selectedDest"
-                  [disabled]="selectedMov==null"
-                  name="destino">
-        <mat-option *ngFor="let destino of destinos" [value]="destino">
-          {{destino.nro}} - {{destino.nombre}}
+    <mat-form-field class="w70 mat-local">
+      <input type="text" placeholder="Destino" aria-label="Number" matInput [formControl]="formDest"
+             [matAutocomplete]="autoDest" name="destino" [(ngModel)]="select3"  (ngModelChange)="onChangeDestino()">
+      <mat-autocomplete #autoDest="matAutocomplete">
+        <mat-option *ngFor="let dest of destFilter | async" [value]="dest.nombre">
+          {{dest.nombre}}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
-
-
       <button mat-button class="mat-raised-button mat-primary"
               (click)="onSubmit()"
               [disabled]="!altamovimiento.valid">Continuar</button>
