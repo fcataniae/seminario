@@ -4,6 +4,8 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #0055ba;
+  height: auto;
+text-align: right;
 }
 
 li {
@@ -16,4 +18,14 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+.logout{
+  cursor: pointer;
+  color: white;
+}
+li a:hover{
+  background-color: #D5D4CD;
+}
+header {
+  display :flex;
 }

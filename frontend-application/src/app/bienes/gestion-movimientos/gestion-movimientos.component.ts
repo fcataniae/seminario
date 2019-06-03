@@ -9,8 +9,8 @@ export class Movi{
   nro: string;
   origen: string;
   destino: string;
-  cantBienes: number;
-  cantRecursos: number;
+  cantBienes: string;
+  cantRecursos: string;
   nroDocumento: string;
   tipoDocumento: string;
   estadoViaje: string;
@@ -50,8 +50,8 @@ export class GestionMovimientosComponent implements OnInit {
     this.movimientos.forEach(m => {
       let movi = new Movi();
       movi.nro = m.id.toString();
-      movi.cantBienes = m.itemMovimientos.length;
-      movi.cantRecursos = m.recursosAsignados.length;
+      movi.cantBienes = m.itemMovimientos.length.toString();
+      movi.cantRecursos = m.recursosAsignados.length.toString();
       movi.destino = m.tipoMovimiento.tipoAgenteDestino.nombre + " - " + m.destino;
       movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
       movi.estadoViaje = m.estadoViaje.descrip;
