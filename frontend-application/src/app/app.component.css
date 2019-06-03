@@ -55,6 +55,11 @@ ul#menu li:hover ul,ul#menu li:hover ul li, ul#menu li:hover ul li a{
   cursor: pointer;
 }
 
+strong{
+  color: white;
+  font-family: 'Bogle';
+}
+
 ul#menu li:hover ul li a:hover{
     background-color: #D5D4CD;
 }

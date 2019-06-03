@@ -1,8 +1,10 @@
-table{
-  text-align: left;
+table {
   width: 100%;
-  min-width: 100px;
+  table-layout: fixed;
+  overflow-x: hidden;
 }
+
+
 /*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
 .button-back{
   width: 30%;
@@ -17,4 +19,29 @@ table{
 .button-alta{
   width: 20%;
   text-align: right;
+}
+
+.mat-column-nro{
+  width: 12vw;
+  max-width: 12vw;
+}
+.mat-column-tipo{
+  width: 15vw;
+  max-width: 15vw;
+}
+.mat-column-origen{
+  max-width: 15vw;
+  width: 15vw;
+}
+.mat-column-destino{
+  max-width: 15vw;
+  width: 15vw;
+}
+.mat-column-estado{
+  max-width: 15vw;
+  width: 15vw;
+}
+.mat-column-nrodocumento{
+  max-width: 15vw;
+  width: 15vw;
 }

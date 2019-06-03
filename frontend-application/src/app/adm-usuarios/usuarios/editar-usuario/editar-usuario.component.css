@@ -18,3 +18,28 @@ table{
   width: 20%;
   text-align: right;
 }
+
+.mat-column-nombreUsuario{
+  width: 20vw;
+  max-width: 20vw;
+}
+.mat-column-apellido{
+  width: 20vw;
+  max-width: 20vw;
+}
+.mat-column-email{
+  width: 30vw;
+  max-width: 30vw;
+}
+.mat-column-nombre{
+  width: 14vw;
+  max-width: 14vw;
+}
+.mat-column-modificar{
+  width: 8vw;
+  max-width: 8vw;
+}
+.mat-column-eliminar{
+  width: 8vw;
+  max-width: 8vw;
+}

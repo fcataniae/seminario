@@ -22,7 +22,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   usuarios: Usuario[];
   public dataSource = new MatTableDataSource<Usuario>();
-  public displayedColumns = ['nombreUsuario', /*'nombre',*/ 'apellido','email', /*'nroDoc',*/ 'modificar', 'eliminar'];
+  public displayedColumns = ['nombreUsuario', 'nombre', 'apellido','email', /*'nroDoc',*/ 'modificar', 'eliminar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
