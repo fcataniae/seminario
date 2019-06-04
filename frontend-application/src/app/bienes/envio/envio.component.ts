@@ -3,6 +3,7 @@ import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } fr
 import { Location } from '@angular/common';
 import { AgregarBienComponent } from '../agregar-bien/agregar-bien.component';
 import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.component';
+import { ModificarBienComponent } from '../modificar-bien/modificar-bien.component';
 import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
@@ -144,9 +145,6 @@ export class EnvioComponent implements OnInit {
   }
 
   registrar() {
-    console.log(this.movimiento);
-    if(this.movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP')
-      this.location.back();
     this._movimientoService.setRegistroMovimiento(this.movimiento).subscribe(
       res =>{
         alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
@@ -178,9 +176,9 @@ export class EnvioComponent implements OnInit {
   }
 
   updateBien(itemMov: ItemMovimiento){
-    const dialogRef = this._dialog.open(AgregarBienComponent,{
+    const dialogRef = this._dialog.open(ModificarBienComponent,{
       width: '50%',
-      data: { tipoMovimiento: this.movimiento.tipoMovimiento, bien: itemMov, modi: true }
+      data: { tipo: this.movimiento.tipoMovimiento, item: itemMov }
     });
     let index = this.movimiento.itemMovimientos.indexOf(itemMov);
     dialogRef.afterClosed().subscribe(

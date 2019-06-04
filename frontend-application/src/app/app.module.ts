@@ -45,6 +45,7 @@ import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurs
 import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/confirmar-movimiento.component';
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 import { ValidpatentePipe } from './utils/validpatente.pipe';
+import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
 
 
 
@@ -69,7 +70,8 @@ import { ValidpatentePipe } from './utils/validpatente.pipe';
     AgregarRecursoComponent,
     ConfirmarMovimientoComponent,
     GestionMovimientosComponent,
-    ValidpatentePipe
+    ValidpatentePipe,
+    ModificarBienComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,8 @@ import { ValidpatentePipe } from './utils/validpatente.pipe';
     ModificarPersonaComponent,
     AgregarBienComponent,
     AgregarRecursoComponent,
-    ConfirmarMovimientoComponent
+    ConfirmarMovimientoComponent,
+    ModificarBienComponent
   ],
   exports: [
     ValidpatentePipe
