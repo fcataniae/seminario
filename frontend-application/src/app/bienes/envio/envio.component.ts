@@ -13,14 +13,6 @@ import { map } from 'rxjs/operators';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
-export class Movi{
-  nro: number;
-  estado: string;
-  origen: string;
-  tipoDoc: string;
-  nroDoc: number;
-  cantBienes: number;
-}
 
 @Component({
   selector: 'app-envio',
@@ -37,22 +29,16 @@ export class EnvioComponent implements OnInit {
   @ViewChild("paginatorRecursos") paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-  @ViewChild("sortEnvio") sortEnviosPendientes: MatSort;
-  @ViewChild("paginatorEnvio") paginatorEnvios: MatPaginator;
-  datosTablaEnvios = new MatTableDataSource<Movi>();
 
 
-
-  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','estado','eliminar'];
-  columnsRecepcionGenerico = ['bien','cantidad','estado','eliminar'];
-  columnsRecursoEnvio = ['tipoRecurso','idRecurso','eliminar'];
-  columnsMovimientosEnvio = ['nro','estado','tipoDoc','nroDoc','cantidadItems','origen','confirmar'];
+  columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','estado','modificar','eliminar'];
+  columnsRecepcionGenerico = ['bien','cantidad','estado','modificar','eliminar'];
+  columnsRecursoEnvio = ['tipoRecurso','idRecurso','modificar','eliminar'];
 
 
   columnsToDisplayBien: String[];
 
   movimiento: Movimiento = new Movimiento();
-  movimientosEnvio: Movimiento[] = [];
 
   constructor(private location: Location,
               private _dialog: MatDialog,
@@ -82,21 +68,6 @@ export class EnvioComponent implements OnInit {
       this.columnsToDisplayBien = this.columnsRecepcionGenerico;
     }
 
-    if(this.movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP'){
-      this._movimientoService.getEnviosPendientesByTienda(this.movimiento.destino)
-        .subscribe(
-          resEnvio => {
-            console.log(resEnvio);
-            this.movimientosEnvio = resEnvio;
-            this.datosTablaEnvios.data = this.movimientoToMovi();
-            this.datosTablaEnvios.sort = this.sortEnviosPendientes;
-            this.datosTablaEnvios.paginator = this.paginatorEnvios;
-            console.log(this.datosTablaEnvios);
-          },
-          error => console.log(error)
-        );
-    }
-
 
   }//END OnInit
 
@@ -119,7 +90,7 @@ export class EnvioComponent implements OnInit {
   onAgregarBien() {
     const dialogRef = this._dialog.open(AgregarBienComponent,{
       width: '50%',
-      data: { tipoMovimiento: this.movimiento.tipoMovimiento }
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento, modi: false}
     });
 
     dialogRef.afterClosed().subscribe(
@@ -184,27 +155,6 @@ export class EnvioComponent implements OnInit {
       error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
     );
   }
-  confirmarMovimientoEnvio(element : Movi){
-    let movimiento = this.movimientosEnvio.filter(m => m.id === element.nro)[0];
-    let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
-      width: '50%',
-      data : { movimiento : movimiento}
-    });
-
-    dialog.afterClosed()
-      .subscribe(
-        res => {
-          console.log('instance '+ (res != null));
-          console.log(res);
-          if (res != null){
-            console.log(this.movimientosEnvio);
-            this.movimientosEnvio = this.movimientosEnvio.filter(m => m.id != res.id);
-            this.datosTablaEnvios.data = this.movimientoToMovi();
-          }
-        }
-      );
-
-  }
 
   doFilterBienes (value: string)  {
       console.log(value);
@@ -214,12 +164,7 @@ export class EnvioComponent implements OnInit {
       console.log(value);
       this.datosTablaRecursos.filter = value.trim().toLocaleLowerCase();
   }
-  doFilterEnvios (value: string)  {
-      console.log(value);
-      this.datosTablaEnvios.filter = value.trim().toLocaleLowerCase();
 
-      console.log(this.datosTablaEnvios);
-  }
   setDataSource(indexNumber) {
     setTimeout(() => {
       switch (indexNumber) {
@@ -232,22 +177,23 @@ export class EnvioComponent implements OnInit {
     });
   }
 
-
-  movimientoToMovi() : Movi[]{
-
-    let movis:Movi[] = [];
-    console.log(this.movimientosEnvio);
-    this.movimientosEnvio.forEach(m => {
-       let movi: Movi = new Movi();
-       movi.nro = m.id;
-       movi.tipoDoc = m.tipoDocumento.descripcion;
-       movi.estado = m.estadoViaje.descrip;
-       movi.nroDoc = m.nroDocumento;
-       movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
-       movi.cantBienes = m.itemMovimientos.length;
-       movis.push(movi);
+  updateBien(itemMov: ItemMovimiento){
+    const dialogRef = this._dialog.open(AgregarBienComponent,{
+      width: '50%',
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento, bien: itemMov, modi: true }
     });
+    let index = this.movimiento.itemMovimientos.indexOf(itemMov);
+    dialogRef.afterClosed().subscribe(
+      res=> {
+        console.log(res instanceof ItemMovimiento);
+        if(res instanceof ItemMovimiento){
 
-    return movis;
+          this.movimiento.itemMovimientos[index] = res;
+          console.log(this.movimiento.itemMovimientos);
+          this.datosTablaBienes.data = this.movimiento.itemMovimientos;
+        }
+      }
+    );
   }
+
 }

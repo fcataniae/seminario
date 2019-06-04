@@ -82,6 +82,14 @@
               <th mat-header-cell *matHeaderCellDef> Estado </th>
               <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
             </ng-container>
+            <ng-container matColumnDef="modificar">
+              <th mat-header-cell *matHeaderCellDef> Modificar </th>
+              <td mat-cell *matCellDef="let bienesAgregados">
+                <button mat-icon-button color="primary" (click)="updateBien(bienesAgregados)">
+                  <mat-icon class="mat-18">system_update</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="eliminar">
               <th mat-header-cell *matHeaderCellDef> Eliminar </th>
@@ -122,6 +130,15 @@
                 <ng-container matColumnDef="estado">
                   <th mat-header-cell *matHeaderCellDef> Estado </th>
                   <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="modificar">
+                  <th mat-header-cell *matHeaderCellDef> Modificar </th>
+                  <td mat-cell *matCellDef="let recursosAgregados">
+                    <button mat-icon-button color="primary" (click)="updateRecurso(recursosAgregados)">
+                      <mat-icon class="mat-18">system_update</mat-icon>
+                    </button>
+                  </td>
                 </ng-container>
 
                 <ng-container matColumnDef="eliminar">
