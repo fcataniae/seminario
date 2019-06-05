@@ -30,8 +30,6 @@ export class EnvioComponent implements OnInit {
   @ViewChild("paginatorRecursos") paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
 
-
-
   columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','estado','modificar','eliminar'];
   columnsRecepcionGenerico = ['bien','cantidad','estado','modificar','eliminar'];
   columnsRecursoEnvio = ['tipoRecurso','idRecurso','modificar','eliminar'];

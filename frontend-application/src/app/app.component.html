@@ -2,7 +2,7 @@
   <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
   <strong>Sector Bienes <br>Intercambiables</strong>
   <ul id="menu" *ngIf="loggedIn">
-    <li clas="sub"><a>Administracion</a>
+    <li class="sub"><a>Administracion</a>
       <ul>
         <li *ngIf="permisoPersona">
           <a [routerLink]="['home/adm/personas']">Personas</a>
@@ -17,6 +17,9 @@
     </li>
     <li *ngIf="permisoMovimiento">
       <a [routerLink]="['home/movimientos']">Movimientos</a>
+    </li>
+    <li *ngIf="permisoInforme">
+      <a [routerLink]="['home/informes']">Informes</a>
     </li>
     <li>
       <a class="logout" (click)="logOut($event)"><mat-icon>exit_to_app</mat-icon></a>

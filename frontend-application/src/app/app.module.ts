@@ -46,6 +46,7 @@ import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/conf
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 import { ValidpatentePipe } from './utils/validpatente.pipe';
 import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
+import { InformeComponent } from './bienes/informe/informe.component';
 
 
 
@@ -71,7 +72,8 @@ import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.c
     ConfirmarMovimientoComponent,
     GestionMovimientosComponent,
     ValidpatentePipe,
-    ModificarBienComponent
+    ModificarBienComponent,
+    InformeComponent
   ],
   imports: [
     BrowserModule,

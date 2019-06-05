@@ -8,6 +8,7 @@ import { EditarRolComponent } from './adm-usuarios/roles/editar-rol/editar-rol.c
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
+import { InformeComponent } from './bienes/informe/informe.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'home/adm/roles', component: EditarRolComponent},
   { path: 'home/movimientos', component: GestionMovimientosComponent},
   { path: 'home/movimientos/registrar', component: MovimientosComponent},
-  { path: 'home/movimientos/registrar/:mov', component: EnvioComponent}
+  { path: 'home/movimientos/registrar/:mov', component: EnvioComponent},
+  { path: 'home/informes', component: InformeComponent}
 
 ];
 @NgModule({

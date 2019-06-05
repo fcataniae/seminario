@@ -53,3 +53,4 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1048, ,Permite dar de baja estados de recursos,BAJA-ESTADORECURSO,1
 1049, ,Permite modificar los estados de recursos,MODI-ESTADORECURSO,1
 1050, ,Permite consultar los estados de recursos,CONS-ESTADORECURSO,1
+1051, ,Permite consultar los informes, CONS-INFORME,1
