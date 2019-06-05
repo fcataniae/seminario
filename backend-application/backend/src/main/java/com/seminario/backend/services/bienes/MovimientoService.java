@@ -487,9 +487,9 @@ public class MovimientoService {
             List<Object[]> obj = new ArrayList<>();
             if (fechaDesde != null && fechaHasta != null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida();
-            } else if (fechaDesde != null) {
+            } else if (fechaDesde == null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida("\'1900-01-01\'", dateFormat.format(fechaHasta));
-            } else if (fechaHasta != null) {
+            } else if (fechaHasta == null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida(dateFormat.format(fechaHasta), "\'today\'");
             }
             obj.forEach(p->{
