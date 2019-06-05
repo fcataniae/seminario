@@ -41,6 +41,8 @@ public class MovimientoService {
     IntercambioProveedorRepository intercambioProveedorRepository;
     @Autowired
     DeudaService deudaService;
+    @Autowired
+    SecondaryDbService secondaryDbService;
 
     @Autowired
     RecursoRepository recursoRepository;
@@ -68,6 +70,7 @@ public class MovimientoService {
                 movimientoNuevo.setId(null);
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
+                validarTransportista(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
                 movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
                 validarItems(movimientoNuevo.getItemMovimientos());
@@ -82,6 +85,13 @@ public class MovimientoService {
             }
         } else {
             throw new CustomException("No cuenta con permisos para dar de alta movimientos nuevos!");
+        }
+    }
+
+    private void validarTransportista(Movimiento movimientoNuevo) throws CustomException {
+        // Valida transportista
+        if (null == secondaryDbService.findTransportistaById(movimientoNuevo.getIdTransportista())) {
+            throw new CustomException("El transportista (id:"+movimientoNuevo.getIdTransportista()+") NO existe!");
         }
     }
 
