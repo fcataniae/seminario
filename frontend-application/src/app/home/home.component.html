@@ -1,3 +1,18 @@
 <div class="container">
-  <p>home</p>
+
+  <form class="form">
+    <mat-form-field>
+      <input matInput
+             type="date"
+             class="fecha"
+             name="fecha"
+             [(ngModel)]="fecha"
+             placeholder="Fecha"/>
+    </mat-form-field>
+  </form>
+
+  <div class="grafico">
+    <canvas id="barChart"></canvas>
+  </div>
+
 </div>

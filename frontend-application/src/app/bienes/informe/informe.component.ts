@@ -11,6 +11,11 @@ import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Agente } from '../../model/bienes/agente.model';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
 import { Chart } from 'chart.js';
+import { SessionService } from '../../services/session.service';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { FormControl } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-informe',
@@ -30,10 +35,6 @@ export class InformeComponent implements OnInit {
   selectedLocal: string;
   bienElegido: boolean;
   localElegido: boolean;
-  columnsToDisplayBien = ['id', 'tipo', 'subtipo', 'descripcion'];
-
-  @ViewChild("sortBienes") sortBienes: MatSort;
-  datosTablaBienes = new MatTableDataSource<Bien>();
 
   chart:Chart;
 
@@ -48,19 +49,15 @@ export class InformeComponent implements OnInit {
 
     //TODO hacer un forkjoin, porque sino asumis que todo va a ser sincrono! y ver el scope
     this.bienes = [];
-    this._movimientoService.getAllBienes()
+    this.locales = [];
+    let consultaBienes = this._movimientoService.getAllBienes();
+    let consultaAgentes = this._movimientoService.getAllAgentes();
+
+    forkJoin(consultaBienes, consultaAgentes)
     .subscribe(res=>{
         console.log(res);
-        this.bienes = res;
-      },
-      error => console.log(error)
-    );
-
-    this.locales = [];
-    this._movimientoService.getAllAgentes()
-    .subscribe(res=>{
-        this.locales = res.filter( a => a.tipoAgente.id !== 3);
-        console.log(this.locales);
+        this.bienes = res[0];
+        this.locales = res[1].filter( a => a.tipoAgente.id !== 3);
       },
       error => console.log(error)
     );
@@ -109,42 +106,48 @@ export class InformeComponent implements OnInit {
 
   onChangeBien(){
     //crea grafico con stock del bien en el local antes elegido
-    let bien = this.bienes.filter(bien => bien.descripcion === this.selectedBien);
-    if(bien.length && this.localElegido){
+    let bienElegido = this.bienes.filter(bien => bien.descripcion === this.selectedBien)[0];
+    if(bienElegido && this.localElegido){//Si ya se eligio un local y bien valido
 
       //Buscar en el array de stockBienLocal el stock del bien elegido (selectedBien)
-      let bienElegido = this.bienes.filter(b => b.descripcion === this.selectedBien)[0];
       let stockBienElegido = this.stockBienLocal.filter(stockbien => stockbien.idBI === bienElegido.id)[0];
 
-      // doughnut chart:
-      this.chart = new Chart('doughnutChart', {
-        type: 'pie',
-      data: {
-       labels: ["Ocupado", "Libre", "Reservado", "Destruido"],
-       datasets: [{
-           label: '# of Votes',
-           data: [stockBienElegido.stock_ocupado, stockBienElegido.stock_libre,
-                  stockBienElegido.stock_reservado, stockBienElegido.stock_destruido],
-           backgroundColor: [
-               'rgba(255, 206, 86, 1)',
-               'rgba(75, 192, 192, 1)',
-               'rgba(54, 162, 235, 1)',
-               'rgba(255, 99, 132, 1)'
-           ]
-       }]
-      },
-      options: {
-       title:{
-           text:"Stock "+this.selectedBien+" en "+this.selectedLocal,
-           display:true
-       },
-       cutoutPercentage: 50
-      }
-      });
+      if(stockBienElegido){
 
-      this.datosTablaBienes.data = bien;
-      this.datosTablaBienes.sort = this.sortBienes;
-      this.bienElegido = true;
+        let ocupado = "Ocupado: " + stockBienElegido.stock_ocupado;
+        let libre = "Libre: " + stockBienElegido.stock_libre;
+        let reservado = "Reservado: " + stockBienElegido.stock_reservado;
+        let destruido = "Destruido: " + stockBienElegido.stock_destruido;
+
+        // doughnut chart:
+        this.chart = new Chart('doughnutChart', {
+          type: 'pie',
+        data: {
+         labels: [ocupado, libre, reservado, destruido],
+         datasets: [{
+             label: '# of Votes',
+             data: [stockBienElegido.stock_ocupado, stockBienElegido.stock_libre,
+                    stockBienElegido.stock_reservado, stockBienElegido.stock_destruido],
+             backgroundColor: [
+                 'rgba(255, 206, 86, 1)',
+                 'rgba(75, 192, 192, 1)',
+                 'rgba(54, 162, 235, 1)',
+                 'rgba(255, 99, 132, 1)'
+             ]
+         }]
+        },
+        options: {
+          title:{
+             text:"Stock "+this.selectedBien+" en "+this.selectedLocal,
+             display:true
+          },
+          cutoutPercentage: 50,
+          tooltips: {enabled: false},
+          hover: {mode: null},
+        }
+        });
+
+      }
     }
   }
 
