@@ -35,8 +35,17 @@
                        schemaName="public"
                        tableName="deuda"/>
         <addUniqueConstraint columnNames="NOMBRE" constraintName="proveedor_nombre" tableName="proveedor"/>
+        <createTable catalogName="WALMART"
+                     tableName="TRANSPORTISTA">
+            <column name="ID" type="BIGINT"/>
+            <column name="NOMBRE" type="VARCHAR(100)"/>
+        </createTable>
+        <addPrimaryKey catalogName="WALMART"
+                       columnNames="id"
+                       constraintName="pk_transportista"
+                       schemaName="public"
+                       tableName="TRANSPORTISTA"/>
     </changeSet>
-
     <changeSet author="Franco" id ="1999">
         <loadUpdateData tableName="estado"
                         file="classpath:db/csv/estados.csv"
@@ -257,6 +266,13 @@
             <column name="BIENINTERCAMBIABLERECIBIDO_ID" type="NUMERIC"/>
             <column name="ESTADO_ID" type="NUMERIC"/>
             <column name="PROVEEDOR_NRO" type="NUMERIC"/>
+        </loadUpdateData>
+        <loadUpdateData
+                        catalogName="WALMART" tableName="TRANSPORTISTA"
+                        file="classpath:db/csv-bases-externas/transportista.csv"
+                        primaryKey="ID">
+            <column name="ID" type="NUMERIC"/>
+            <column name="NOMBRE" type="STRING"/>
         </loadUpdateData>
     </changeSet>
 

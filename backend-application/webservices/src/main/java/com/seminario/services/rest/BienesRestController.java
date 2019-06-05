@@ -1,15 +1,13 @@
 package com.seminario.services.rest;
 
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.Transportista;
 import com.seminario.backend.model.abm.Estado;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
 import com.seminario.backend.services.abm.UsuarioService;
-import com.seminario.backend.services.bienes.BienIntercambiableService;
-import com.seminario.backend.services.bienes.MovimientoService;
-import com.seminario.backend.services.bienes.RecursoService;
-import com.seminario.backend.services.bienes.StockBienEnLocalService;
+import com.seminario.backend.services.bienes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -42,7 +40,8 @@ public class BienesRestController {
     RecursoService recursoService;
     @Autowired
     StockBienEnLocalService stockBienEnLocalService;
-
+    @Autowired
+    SecondaryDbService secondaryDbService;
 
     /**
      * Crea un nuevo movimiento.
@@ -182,5 +181,18 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllIntercambioProveedor(usuarioActual);
 
+    }
+
+    /**
+     * Lista todos los transportistas.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @GetMapping("/listar-transportistas")
+    public List<Transportista> getAllTransportista(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return secondaryDbService.getAllTransportista(usuarioActual);
     }
 }
