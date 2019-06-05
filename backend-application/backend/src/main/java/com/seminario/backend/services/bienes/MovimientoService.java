@@ -1,6 +1,7 @@
 package com.seminario.backend.services.bienes;
 
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
 import com.seminario.backend.repository.abm.PermisoRepository;
@@ -10,6 +11,8 @@ import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -469,10 +472,36 @@ public class MovimientoService {
     }
 
     public List<IntercambioProveedor> getAllIntercambioProveedor(Usuario usuarioActual) throws CustomException{
-        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTES")) {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             return intercambioProveedorRepository.findAll();
         } else {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
+        }
+    }
+
+
+    public List<TiendaCant> getAllCantidades(Usuario usuarioActual, Date fechaDesde, Date fechaHasta) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            List<TiendaCant> listTc = new ArrayList<>();
+            List<Object[]> obj = new ArrayList<>();
+            if (fechaDesde != null && fechaHasta != null) {
+                obj = localRepository.findAllCantidadEnviadaYRecibida();
+            } else if (fechaDesde != null) {
+                obj = localRepository.findAllCantidadEnviadaYRecibida("\'1900-01-01\'", dateFormat.format(fechaHasta));
+            } else if (fechaHasta != null) {
+                obj = localRepository.findAllCantidadEnviadaYRecibida(dateFormat.format(fechaHasta), "\'today\'");
+            }
+            obj.forEach(p->{
+                TiendaCant tc = new TiendaCant();
+                tc.setTiendaId((Long) p[0]);
+                tc.setCantRecibida((Long) p[1]);
+                tc.setCantEnviada((Long) p[2]);
+                listTc.add(tc);
+            });
+            return listTc;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar agentes!");
         }
     }
 }
