@@ -13,6 +13,7 @@ export class AppComponent {
   username : string = '';
   loggedIn: boolean = false;
 
+  permisoInforme: boolean = true;
   permisoMovimiento: boolean = false;
   permisoRol: boolean = false;
   permisoUsuario: boolean = false;
@@ -45,6 +46,8 @@ export class AppComponent {
                this.permisoUsuario = true;
              }else if(p.nombre.includes('MOVIMIENTO')){
                this.permisoMovimiento = true;
+             }else if(p.nombre.includes('INFORME')){
+               this.permisoInforme = true;
              }
            });
          }

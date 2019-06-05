@@ -9,6 +9,9 @@ export class Movimiento{
   tipoMovimiento : TipoMovimiento;
   origen: number;
   destino: number;
+  fechaSalida: Date;
+  idTransportista:number;
+  patenteTransporte: string;
   recursosAsignados: Recurso[];
   itemMovimientos : ItemMovimiento[];
   tipoDocumento: TipoDocumento;

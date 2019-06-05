@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 
 export interface Data{
   tipoMovimiento: TipoMovimiento;
-}
+  }
 @Component({
   selector: 'app-agregar-bien',
   templateUrl: './agregar-bien.component.html',
@@ -45,7 +45,7 @@ export class AgregarBienComponent implements OnInit {
         console.log(results);
         this.bienes = results[0];
         this.estados = results[1];
-      },
+    },
       error => console.log(error)
     );
   }

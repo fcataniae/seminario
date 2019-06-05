@@ -4,10 +4,6 @@ import com.seminario.backend.model.bienes.TipoAgente;
 
 public class StockBienEnLocal {
 
-    private Long nroLocal;
-
-    private String nombreLocal;
-
     private Long idBI;
 
     private String tipoBI;
@@ -29,9 +25,6 @@ public class StockBienEnLocal {
     }
 
     //getters
-    public Long getNroLocal() {return nroLocal; }
-
-    public String getNombreLocal() { return nombreLocal; }
 
     public Long getIdBI() { return idBI; }
 
@@ -50,9 +43,6 @@ public class StockBienEnLocal {
     public Long getStock_destruido() { return stock_destruido; }
 
     //setters
-    public void setNroLocal(Long nroLocal) { this.nroLocal = nroLocal; }
-
-    public void setNombreLocal(String nombreLocal) { this.nombreLocal = nombreLocal; }
 
     public void setIdBI(Long idBI) { this.idBI = idBI; }
 

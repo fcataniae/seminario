@@ -1,0 +1,60 @@
+<h2 mat-dialog-title >Modificar Bien</h2>
+
+<form #modificar="ngForm" >
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field class="w70 tipoBien">
+      <input matInput
+             type="text"
+             name="bien"
+             placeholder="Bien"
+             [(ngModel)]="item.bienIntercambiable.descripcion"
+             disabled
+             required/>
+    </mat-form-field>
+
+
+    <mat-form-field class="w70">
+      <input matInput
+             type="number"
+             name="cantidad"
+             placeholder="Cantidad"
+             pattern="[0-9]+"
+             title="Debe ingresar un número"
+             [(ngModel)]="item.cantidad"
+             required/>
+      </mat-form-field>
+      <div *ngIf="tipo.tipo === 'RECEPCION'">
+        <div *ngFor="let doc of item.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->
+          <mat-form-field class="w70">
+            <mat-label>Nro {{doc.tipoDocumento.descripcion}}</mat-label>
+            <input matInput
+                   type="text"
+                   name="nroDocumento"
+                   placeholder="Nro {{doc.tipoDocumento.descripcion}}"
+                   [(ngModel)]="doc.nroDocumento"
+
+                   required/>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-form-field class="w70">
+        <input matInput
+               type="text"
+               name="estadobien"
+               placeholder="Estado"
+               [(ngModel)]="item.estadoRecurso.descrip"
+               disabled
+               required/>
+        </mat-form-field>
+
+
+  </mat-dialog-content>
+
+    <mat-dialog-actions class="botones">
+      <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
+      <button mat-button class="mat-raised-button mat-primary submit"
+              (click)="onSubmit()"
+              [disabled]="!modificar.valid">Modificar</button>
+    </mat-dialog-actions>
+
+</form>

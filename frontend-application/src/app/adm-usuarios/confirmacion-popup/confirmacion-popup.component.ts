@@ -15,7 +15,7 @@ export class ConfirmacionPopupComponent {
 
   constructor(public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Data) {
-          if(this.data.titulo === null || this.data.titulo === ""){
+          if(this.data.titulo == null || this.data.titulo == "" || !data.titulo){
             this.data.titulo = "Confirmar accion";
           }
       }

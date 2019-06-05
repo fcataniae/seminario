@@ -1,29 +1,30 @@
 <header>
-  <ul >
-    <div class="">
-      <li>
-        <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
-      </li>
-
-    </div>
-    <div *ngIf="loggedIn">
-            <li *ngIf="permisoPersona">
-        <a [routerLink]="['home/adm/personas']">Gestionar Personas</a>
-      </li>
-      <li *ngIf="permisoUsuario">
-        <a [routerLink]="['home/adm/usuarios']">Gestionar Usuarios</a>
-      </li>
-      <li *ngIf="permisoRol">
-        <a [routerLink]="['home/adm/roles']">Gestionar Roles</a>
-      </li>
+  <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
+  <strong>Sector Bienes <br>Intercambiables</strong>
+  <ul id="menu" *ngIf="loggedIn">
+    <li class="sub"><a>Administracion</a>
+      <ul>
+        <li *ngIf="permisoPersona">
+          <a [routerLink]="['home/adm/personas']">Personas</a>
+        </li>
+        <li *ngIf="permisoUsuario">
+          <a [routerLink]="['home/adm/usuarios']">Usuarios</a>
+        </li>
+        <li *ngIf="permisoRol">
+          <a [routerLink]="['home/adm/roles']">Roles</a>
+        </li>
+      </ul>
+    </li>
     <li *ngIf="permisoMovimiento">
       <a [routerLink]="['home/movimientos']">Movimientos</a>
     </li>
-    <li>
-      <a (click)="logOut($event)">Log out</a>
+    <li *ngIf="permisoInforme">
+      <a [routerLink]="['home/informes']">Informes</a>
     </li>
-  </div>
-</ul>
+    <li>
+      <a class="logout" (click)="logOut($event)"><mat-icon>exit_to_app</mat-icon></a>
+    </li>
+</ul >
 
 </header>
   <div class="flotante" *ngIf="username !==''">Usuario: {{username}}</div>

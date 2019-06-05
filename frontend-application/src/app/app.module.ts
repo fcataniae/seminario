@@ -44,6 +44,11 @@ import { AgregarBienComponent } from './bienes/agregar-bien/agregar-bien.compone
 import { AgregarRecursoComponent } from './bienes/agregar-recurso/agregar-recurso.component';
 import { ConfirmarMovimientoComponent } from './bienes/confirmar-movimiento/confirmar-movimiento.component';
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
+import { ValidpatentePipe } from './utils/validpatente.pipe';
+import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
+import { InformeComponent } from './bienes/informe/informe.component';
+
+
 
 @NgModule({
   declarations: [
@@ -66,6 +71,9 @@ import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestio
     AgregarRecursoComponent,
     ConfirmarMovimientoComponent,
     GestionMovimientosComponent,
+    ValidpatentePipe,
+    ModificarBienComponent,
+    InformeComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +129,11 @@ import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestio
     ModificarPersonaComponent,
     AgregarBienComponent,
     AgregarRecursoComponent,
-    ConfirmarMovimientoComponent
-]
+    ConfirmarMovimientoComponent,
+    ModificarBienComponent
+  ],
+  exports: [
+    ValidpatentePipe
+  ]
 })
 export class AppModule { }

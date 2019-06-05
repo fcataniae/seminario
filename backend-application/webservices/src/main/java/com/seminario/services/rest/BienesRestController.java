@@ -115,6 +115,20 @@ public class BienesRestController {
         return stockBienEnLocalService.getStockLocal(nroLocal,usuarioActual);
     }
 
+
+    /**
+     * Lista el stock (ocupado, libre, destruido, reservado) de todos los bienes de TODOS los locales
+     * @param userDetails Credenciales de usuario
+     * @return List<Agente> Todos los bienes con su stock
+     * @throws CustomException Excepcion custom
+     */
+    @GetMapping("/stock-locales/")
+    public List<com.seminario.backend.dto.Agente> getDistribucionBienes(@AuthenticationPrincipal UserDetails userDetails)  throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return stockBienEnLocalService.getDistribucionBienes(usuarioActual);
+    }
+
+
     /**
      * Metodo que devuelve todos los estados posibles de los viajes para seleccionar al confirmar la recepcion de un envio
      * @param userDetails detalles de iusuario

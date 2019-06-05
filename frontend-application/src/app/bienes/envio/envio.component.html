@@ -10,7 +10,7 @@
 
   </div>
 
-  <div class="datosEnvio"  *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
+  <div class="datosEnvio">
 
     <h5 >Datos del movimiento</h5>
 
@@ -27,6 +27,7 @@
              type="date"
              class="fechaEnvio"
              name="fechaEnvio"
+             [(ngModel)]="movimiento.fechaSalida"
              placeholder="Fecha"/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
@@ -34,6 +35,7 @@
              type="number"
              class="idTransportista"
              name="idTransportista"
+             [(ngModel)]="movimiento.idTransportista"
              placeholder="ID Transportista"/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
@@ -41,6 +43,9 @@
              type="text"
              class="patenteTransportista"
              name="patenteTransportista"
+             [ngModel]="movimiento.patenteTransporte | validpatente"
+             maxlength="9"
+             (ngModelChange)="movimiento.patenteTransporte=$event"
              placeholder="Patente Transportista"/>
     </mat-form-field>
 
@@ -48,7 +53,7 @@
 
 
   <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
-    <div class="datosBienes" *ngIf="movimiento.tipoMovimiento.tipo !== 'CONFIRMARRECEP'">
+    <div class="datosBienes" >
 
     <mat-tab label="Bienes">
         <button class="agregarBien" mat-icon-button color="primary" (click)="onAgregarBien()">
@@ -76,6 +81,14 @@
             <ng-container matColumnDef="estado">
               <th mat-header-cell *matHeaderCellDef> Estado </th>
               <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
+            </ng-container>
+            <ng-container matColumnDef="modificar">
+              <th mat-header-cell *matHeaderCellDef> Modificar </th>
+              <td mat-cell *matCellDef="let bienesAgregados">
+                <button mat-icon-button color="primary" (click)="updateBien(bienesAgregados)">
+                  <mat-icon class="mat-18">system_update</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="eliminar">
@@ -119,6 +132,15 @@
                   <td mat-cell *matCellDef="let bienesAgregados"> {{bienesAgregados.estadoRecurso.descrip}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="modificar">
+                  <th mat-header-cell *matHeaderCellDef> Modificar </th>
+                  <td mat-cell *matCellDef="let recursosAgregados">
+                    <button mat-icon-button color="primary" (click)="updateRecurso(recursosAgregados)">
+                      <mat-icon class="mat-18">system_update</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
                 <ng-container matColumnDef="eliminar">
                   <th mat-header-cell *matHeaderCellDef> Eliminar </th>
                   <td mat-cell *matCellDef="let recursosAgregados">
@@ -139,56 +161,6 @@
       </mat-tab>
     </div>
 </mat-tab-group>
-<div class="datosMoviEnvios" *ngIf="movimiento.tipoMovimiento.tipo === 'CONFIRMARRECEP'">
-
-  <mat-form-field class= "input-search" >
-    <input matInput type="text" (keyup)="doFilterEnvios($event.target.value)" placeholder="Buscar Envio">
-  </mat-form-field>
-
-    <table mat-table #sortEnvio="matSort" [dataSource]="datosTablaEnvios" matSort>
-
-      <ng-container matColumnDef="nro">
-        <th mat-header-cell *matHeaderCellDef> Nro Envio </th>
-        <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-      </ng-container>
-      <ng-container matColumnDef="origen">
-        <th mat-header-cell *matHeaderCellDef> Origen </th>
-        <td mat-cell *matCellDef="let element">{{element.origen}} </td>
-      </ng-container>
-      <ng-container matColumnDef="tipoDoc">
-        <th mat-header-cell *matHeaderCellDef> Documento </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoDoc}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="nroDoc">
-        <th mat-header-cell *matHeaderCellDef> Nro Documento </th>
-        <td mat-cell *matCellDef="let element"> {{element.nroDoc}} </td>
-      </ng-container>
-      <ng-container matColumnDef="cantidadItems">
-        <th mat-header-cell *matHeaderCellDef> Cantidad de bienes </th>
-        <td mat-cell *matCellDef="let element"> {{element.cantBienes}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="confirmar">
-        <th mat-header-cell *matHeaderCellDef> Confirmar </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="confirmarMovimientoEnvio(element)">
-            <mat-icon class="mat-18">check</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columnsMovimientosEnvio"></tr>
-      <tr mat-row *matRowDef="let myRowData; columns: columnsMovimientosEnvio"></tr>
-    </table>
-    <mat-paginator #paginatorEnvio="matPaginator" [pageSize]="4" [pageSizeOptions]="[2,4,6,10,20]">
-    </mat-paginator>
-</div>
 
   <div class="confirmar">
 
