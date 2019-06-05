@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -208,5 +209,20 @@ public class BienesRestController {
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return secondaryDbService.getAllTransportista(usuarioActual);
+    }
+
+    /**
+     * Obtiene cantidad total de bienes recibidos y enviados agrupados por tienda entre fechas.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @PostMapping("/cantidades-total")
+    public void getAllCantidades(@AuthenticationPrincipal UserDetails userDetails,
+                                 @RequestBody Date fechaDesde,
+                                 @RequestBody Date fechaHasta) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
     }
 }
