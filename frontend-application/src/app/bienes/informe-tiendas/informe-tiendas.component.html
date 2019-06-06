@@ -1,5 +1,7 @@
 <div class="container">
 
+  <h3>Informe tiendas</h3>
+
   <form class="form">
     <mat-form-field>
       <input matInput
@@ -28,6 +30,61 @@
   <div class="grafico">
     <canvas id="barRecibidoChart"></canvas>
   </div>
+
+  <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
+
+    <div class="tab">
+
+      <mat-tab label="Envios">
+
+        <table mat-table #sortEnvios="matSort" [dataSource]="datosTablaEnvios" matSort>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID tienda </th>
+            <td mat-cell *matCellDef="let envios"> {{envios.nro}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let envios"> {{envios.nombre}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayTiendas"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayTiendas"></tr>
+
+        </table>
+        <mat-paginator #paginatorEnvios="matPaginator" [pageSize]="5" [pageSizeOptions]="[3,5]">
+        </mat-paginator>
+
+      </mat-tab>
+
+    </div>
+
+    <div class="tab">
+
+      <mat-tab label="Recepciones">
+
+        <table mat-table #sortRecepciones="matSort" [dataSource]="datosTablaRecepciones" matSort>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID tienda </th>
+            <td mat-cell *matCellDef="let recepciones"> {{recepciones.nro}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let recepciones"> {{recepciones.nombre}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayTiendas"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplayTiendas"></tr>
+
+        </table>
+        <mat-paginator #paginatorRecepciones="matPaginator" [pageSize]="5" [pageSizeOptions]="[3,5]">
+        </mat-paginator>
+
+      </mat-tab>
+
+    </div>
+  </mat-tab-group>
 
   <div class="totales">
     <h2 class="mat-h2 total mat-elevation-z2">Total Enviado: {{totalEnviado}}</h2>

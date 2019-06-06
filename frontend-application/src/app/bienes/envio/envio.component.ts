@@ -17,7 +17,6 @@ import { FormControl } from '@angular/forms';
 import { Transportista } from '../../model/bienes/transportista.model';
 import { startWith } from 'rxjs/internal/operators/startWith';
 
-
 @Component({
   selector: 'app-envio',
   templateUrl: './envio.component.html',

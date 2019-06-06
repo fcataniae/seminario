@@ -20,7 +20,7 @@
 .totales{
   text-align:center;
   position:relative;
-  margin-top:5%;
+  margin-top:2%;
 }
 
 .total {
@@ -33,3 +33,15 @@
 .margen{
   margin-left: 5%;
 }
+
+mat-tab-group{
+  width: 40%;
+  margin-top:2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab, table, mat-paginator{
+  width: 100%;
+}
+
