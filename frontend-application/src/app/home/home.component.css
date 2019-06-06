@@ -15,6 +15,15 @@
   height: auto !important;
 }
 
-.totales {
-  text-align: center;
+.totales{
+  text-align:center;
+  position:relative;
 }
+
+.total {
+  text-align: center;
+  display: inline-block;
+  padding: 2%;
+  margin-left: 5%;
+}
+
