@@ -50,7 +50,7 @@ export class EnvioComponent implements OnInit {
   ngOnInit() {
 
     this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
-
+    console.log(this.movimiento);
     this.datosTablaBienes.data = this.movimiento.itemMovimientos;
     this.datosTablaBienes.sort = this.sortBienes;
     this.datosTablaBienes.paginator = this.paginatorBienes;
