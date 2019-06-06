@@ -13,7 +13,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
     List<Local> findAllByTipoAgente(TipoAgente tipoAgente);
 
 
-    @Query(value = "SELECT aux.TIENDA, aux.CANT_RECIBIDA, aux2.CANT_ENVIADA FROM (\n" +
+    @Query(value = "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA, IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -29,7 +29,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\tGROUP BY TIENDA\n" +
             ") aux2 on aux.TIENDA = aux2.TIENDA\n" +
             "UNION\n" +
-            "SELECT aux.TIENDA, aux.CANT_RECIBIDA, aux2.CANT_ENVIADA FROM (\n" +
+            "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA , IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -43,10 +43,10 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\tWHERE m.id_tipo_movimiento = 7 -- DEVOLUCION desde Tienda\n" +
             "\tAND FECHASALIDA BETWEEN ?1 AND ?2\n" +
             "\tGROUP BY TIENDA\n" +
-            ") aux2 on aux.TIENDA = aux2.TIENDA\n", nativeQuery = true)
+            ") aux2 on aux.TIENDA = aux2.TIENDA", nativeQuery = true)
     List<Object[]> findAllCantidadEnviadaYRecibida(String fechaDesde, String fechaHasta);
 
-    @Query(value = "SELECT aux.TIENDA, aux.CANT_RECIBIDA, aux2.CANT_ENVIADA FROM (\n" +
+    @Query(value = "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA, IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -60,7 +60,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\tGROUP BY TIENDA\n" +
             ") aux2 on aux.TIENDA = aux2.TIENDA\n" +
             "UNION\n" +
-            "SELECT aux.TIENDA, aux.CANT_RECIBIDA, aux2.CANT_ENVIADA FROM (\n" +
+            "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA , IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -77,7 +77,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
 
 
 
-    @Query(value = "SELECT aux.TIENDA, aux.COSTO_CANT_RECIBIDA, aux2.COSTO_CANT_ENVIADA FROM (\n" +
+    @Query(value = "SELECT aux.TIENDA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -93,7 +93,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\tGROUP BY TIENDA\n" +
             ") aux2 on aux.TIENDA = aux2.TIENDA\n" +
             "UNION\n" +
-            "SELECT aux.TIENDA, aux.COSTO_CANT_RECIBIDA, aux2.COSTO_CANT_ENVIADA FROM (\n" +
+            "SELECT aux.TIENDA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA, IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -111,7 +111,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
     List<Object[]> findAllCantidadEnviadaYRecibidaMonetaria(String fechaDesde, String fechaHasta);
 
 
-    @Query(value = "SELECT aux.TIENDA, aux.COSTO_CANT_RECIBIDA, aux2.COSTO_CANT_ENVIADA FROM (\n" +
+    @Query(value = "SELECT aux.TIENDA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
@@ -125,7 +125,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\tGROUP BY TIENDA\n" +
             ") aux2 on aux.TIENDA = aux2.TIENDA\n" +
             "UNION\n" +
-            "SELECT aux.TIENDA, aux.COSTO_CANT_RECIBIDA, aux2.COSTO_CANT_ENVIADA FROM (\n" +
+            "SELECT aux.TIENDA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA, IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM (\n" +
             "\tSELECT m.DESTINO AS TIENDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA \n" +
             "\tFROM seminario.movimiento m\n" +
             "\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +

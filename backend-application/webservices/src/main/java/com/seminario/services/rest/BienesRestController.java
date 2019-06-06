@@ -1,10 +1,8 @@
 package com.seminario.services.rest;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.dto.Agente;
-import com.seminario.backend.dto.FechaIntervalo;
+import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.dto.Transportista;
-import com.seminario.backend.model.abm.Estado;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
@@ -12,7 +10,6 @@ import com.seminario.backend.services.abm.UsuarioService;
 import com.seminario.backend.services.bienes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -220,19 +217,11 @@ public class BienesRestController {
      * @param    userDetails       Credenciales de usuario.
      *                             (debe tener los permisos para ejecutar el método).
      **/
-    @PostMapping("/cantidades-total")
-    public void getAllCantidades(@AuthenticationPrincipal UserDetails userDetails,
-                                 @RequestBody Date[] fechas) throws CustomException
+    @PostMapping("/cantidades-totales-por-tienda")
+    public List<TiendaCant> getAllCantidades(@AuthenticationPrincipal UserDetails userDetails,
+                                             @RequestBody Date[] fechas) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        movimientoService.getAllCantidades(usuarioActual, fechas[0], fechas[1]);
-    }
-
-    @PostMapping("/cantidades-total2")
-    public void getAllCantidades(@AuthenticationPrincipal UserDetails userDetails,
-                                 @RequestBody FechaIntervalo f) throws CustomException
-    {
-        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        movimientoService.getAllCantidades(usuarioActual, f.getFechaDesde(), f.getFechaHasta());
+        return movimientoService.getAllCantidades(usuarioActual, fechas[0], fechas[1]);
     }
 }
