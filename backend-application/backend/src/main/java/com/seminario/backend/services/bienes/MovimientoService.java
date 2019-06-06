@@ -142,17 +142,27 @@ public class MovimientoService {
         return set;
     }
 
-    public void confirmar(Usuario usuarioActual, Long idMov, String comentario) throws CustomException{
+    public void confirmar(Usuario usuarioActual, Long idMov, String estado, String comentario) throws CustomException{
         Movimiento m;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"MODI-MOVIMIENTO")) {
             if (null != (m = movimientoRepository.findById(idMov))){
-                if (m.getEstadoViaje().getDescrip().equals("PENDIENTE")) {
-                    m.setEstadoViaje(estadoViajeRepository.findByDescrip("ENTREGADO"));
-                    cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE","OCUPADO");
-                    confimarMovimiento(m);
-                    movimientoRepository.save(m);
-                } else {
-                    throw new CustomException("El movimiento no esta en estado " + m.getEstadoViaje().getDescrip());
+                EstadoViaje nuevoEstado = estadoViajeRepository.findByDescrip(estado);
+                if(nuevoEstado != null) {
+                    if (!m.getEstadoViaje().getDescrip().equalsIgnoreCase("ENTREGADO")) {
+
+                        if(nuevoEstado.getDescrip().equalsIgnoreCase(m.getEstadoViaje().getDescrip()))
+                            throw new CustomException("El movimiento ya se encuentra en el estado " + estado);
+                        m.setEstadoViaje(nuevoEstado);
+                        m.setComentario(comentario);
+
+                        cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE", "OCUPADO");
+                        confimarMovimiento(m);
+                        movimientoRepository.save(m);
+                    } else {
+                        throw new CustomException("El movimiento se encuentra en estado ENTREGADO, no puede modificarse el estado!");
+                    }
+                }else{
+                    throw new CustomException("El estado " + estado + " no es valido!");
                 }
             } else {
                 throw new CustomException("No se encontró el movimiento que desea confirmar!");

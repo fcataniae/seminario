@@ -51,6 +51,8 @@ public class Movimiento {
     private Usuario usuarioAlta;
 
     @Column
+    private String comentario;
+    @Column
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaAlta;
@@ -186,5 +188,13 @@ public class Movimiento {
 
     public void setFechaSalida(Date fechaSalida) {
         this.fechaSalida = fechaSalida;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 }
