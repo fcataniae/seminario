@@ -1,0 +1,37 @@
+<div class="container">
+
+  <form class="form">
+    <mat-form-field>
+      <input matInput
+             type="date"
+             class="fechainicio"
+             name="fechaincio"
+             [(ngModel)]="fechaInicio"
+             (ngModelChange)="onChangeFecha()"
+             placeholder="Fecha Desde"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+             type="date"
+             class="fechafin"
+             name="fechafin"
+             [(ngModel)]="fechaFin"
+             (ngModelChange)="onChangeFecha()"
+             placeholder="Fecha Hasta"/>
+    </mat-form-field>
+  </form>
+
+  <div class="grafico">
+    <canvas id="barEnviadoChart"></canvas>
+  </div>
+
+  <div class="grafico">
+    <canvas id="barRecibidoChart"></canvas>
+  </div>
+
+  <div class="totales">
+    <h2 class="mat-h2 total mat-elevation-z2">Total Enviado: {{totalEnviado}}</h2>
+    <h2 class="mat-h2 total margen mat-elevation-z2">Total Recibido: {{totalRecibido}}</h2>
+  </div>
+
+</div>
