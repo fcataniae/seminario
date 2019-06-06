@@ -10,7 +10,7 @@ export class Movimiento{
   origen: number;
   destino: number;
   fechaSalida: Date;
-  idTransportista:number;
+  idTransportista:string;
   patenteTransporte: string;
   recursosAsignados: Recurso[];
   itemMovimientos : ItemMovimiento[];

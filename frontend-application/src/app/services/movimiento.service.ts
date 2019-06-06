@@ -10,6 +10,7 @@ import { Movimiento } from '../model/bienes/movimiento.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
 import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
+import { Transportista } from '../model/bienes/transportista.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,4 +58,7 @@ export class MovimientoService {
   getMovimientoByNro(nro : string): Observable<Movimiento>{
     return this._http.get<Movimiento>(environment.serviceUrl.replace('service','bienes') + 'get-movimiento/' + nro);
   }
+  getAllTransportistas():Observable<Transportista[]>{
+    return this._http.get<Transportista[]>(environment.serviceUrl.replace('service','bienes') + 'listar-transportistas');
+    }
 }

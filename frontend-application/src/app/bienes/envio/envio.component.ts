@@ -9,10 +9,13 @@ import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { ActivatedRoute } from '@angular/router';
 import { MovimientoService } from '../../services/movimiento.service';
-import { of, forkJoin } from 'rxjs';
+import { of, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
+import { FormControl } from '@angular/forms';
+import { Transportista } from '../../model/bienes/transportista.model';
+import { startWith } from 'rxjs/internal/operators/startWith';
 
 
 @Component({
@@ -29,6 +32,11 @@ export class EnvioComponent implements OnInit {
   @ViewChild("sortRecursos") sortRecursos: MatSort;
   @ViewChild("paginatorRecursos") paginatorRecursos: MatPaginator;
   datosTablaRecursos = new MatTableDataSource<Recurso>();
+
+  transpForm = new FormControl();
+  transpFilter = new Observable<Transportista[]>();
+  transportistas: Transportista[];
+  selectedTransp: string;
 
   columnsRecepcionBien = ['bien','tipoDoc','nroDoc','cantidad','estado','modificar','eliminar'];
   columnsRecepcionGenerico = ['bien','cantidad','estado','modificar','eliminar'];
@@ -49,26 +57,42 @@ export class EnvioComponent implements OnInit {
 
   ngOnInit() {
 
-    this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
-    console.log(this.movimiento);
-    this.datosTablaBienes.data = this.movimiento.itemMovimientos;
-    this.datosTablaBienes.sort = this.sortBienes;
-    this.datosTablaBienes.paginator = this.paginatorBienes;
+    this._movimientoService.getAllTransportistas().subscribe(
+        res =>{
+          console.log(res);
+          this.transportistas = res;
 
-    this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
-    this.datosTablaRecursos.sort = this.sortRecursos;
-    this.datosTablaRecursos.paginator = this.paginatorRecursos;
-
-    this.movimiento.tipoMovimiento.tipoDocumentos.forEach( d => this.movimiento.tipoDocumento = d);
-
-    if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION' && this.movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'){
-      this.columnsToDisplayBien = this.columnsRecepcionBien;
-    }else {
-      this.columnsToDisplayBien = this.columnsRecepcionGenerico;
-    }
+          this.transpFilter = this.transpForm.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this.filterTransp(value))
+          );
 
 
+          this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+          console.log(this.movimiento);
+          this.datosTablaBienes.data = this.movimiento.itemMovimientos;
+          this.datosTablaBienes.sort = this.sortBienes;
+          this.datosTablaBienes.paginator = this.paginatorBienes;
+
+          this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
+          this.datosTablaRecursos.sort = this.sortRecursos;
+          this.datosTablaRecursos.paginator = this.paginatorRecursos;
+
+          this.movimiento.tipoMovimiento.tipoDocumentos.forEach( d => this.movimiento.tipoDocumento = d);
+
+          if(this.movimiento.tipoMovimiento.tipo === 'RECEPCION' && this.movimiento.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'){
+            this.columnsToDisplayBien = this.columnsRecepcionBien;
+          }else {
+            this.columnsToDisplayBien = this.columnsRecepcionGenerico;
+          }
+        }
+    )
   }//END OnInit
+
+  filterTransp(value : string): Transportista[] {
+    return this.transportistas.filter(t => t.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()) );
+  }
 
   goBack(): void {
     let dialog = this._dialog.open(ConfirmacionPopupComponent,{
@@ -78,8 +102,8 @@ export class EnvioComponent implements OnInit {
     dialog.afterClosed().subscribe(
       result =>{
         if (result && result == "true")
-            this.location.back();
 
+        this.location.back();
       }
     );
 
@@ -192,4 +216,12 @@ export class EnvioComponent implements OnInit {
     );
   }
 
+  refreshT(){
+    this.transportistas.forEach(t =>
+      {
+        if(t.nombre === this.selectedTransp)
+          this.movimiento.idTransportista = t.id;
+      }
+    );
+  }
 }
