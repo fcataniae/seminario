@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MovimientoService } from '../../services/movimiento.service';
 import { Movimiento } from '../../model/bienes/movimiento.model';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 export class Movi{
   nro: string;
@@ -24,6 +26,7 @@ export class Movi{
 export class GestionMovimientosComponent implements OnInit {
 
   constructor(private _movimientoService: MovimientoService,
+              private _dialog: MatDialog,
               private _router: Router) { }
 
   movimientos: Movimiento[];
@@ -71,14 +74,36 @@ export class GestionMovimientosComponent implements OnInit {
     this._router.navigate(['home']);
   }
 
-  modificarMovimiento(element: Movimiento){
-    console.log(element);
-  }
-  cancelarMovimiento(element:Movimiento){
-    console.log(element);
+  modificarMovimiento(element: Movi){
 
+  }
+  confirmarMovimiento(element:Movi){
+    let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
+      width: '50%',
+      data: { nro: element.nro}
+    });
+
+    dialog.afterClosed().subscribe(
+      res=>{
+        if(res && res == true){
+          this.showDialog("Se confirmo correctamente el movimiento");
+        }else if (res && res == false){
+          this.showDialog("No se pudo confirmar el movimiento");
+        }
+      }
+    );
   }
   onAltaMov(){
     this._router.navigate(['/home/movimientos/registrar']);
   }
+
+
+    showDialog(msj: string) {
+      let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+        data: {mensaje: msj },
+        width: '50%'
+      });
+      dialog.afterClosed().subscribe();
+
+    }
 }

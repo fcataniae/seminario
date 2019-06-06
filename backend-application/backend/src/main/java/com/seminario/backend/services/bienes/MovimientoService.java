@@ -74,7 +74,9 @@ public class MovimientoService {
                 movimientoNuevo.setId(null);
                 movimientoNuevo.setUsuarioAlta(usuarioActual);
                 validarMovimiento(movimientoNuevo);
-                validarTransportista(movimientoNuevo);
+                if(!movimientoNuevo.getTipoMovimiento().getTipo().equalsIgnoreCase("RECEPCION") &&
+                   !movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equalsIgnoreCase("PROVEEDOR"))
+                    validarTransportista(movimientoNuevo);
                 sanitizarMovimiento(movimientoNuevo);
                 movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
                 validarItems(movimientoNuevo.getItemMovimientos());
