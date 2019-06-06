@@ -503,7 +503,7 @@ public class MovimientoService {
             } else if (fechaDesde == null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida("\'1900-01-01\'", dateFormat.format(fechaHasta));
             } else if (fechaHasta == null) {
-                obj = localRepository.findAllCantidadEnviadaYRecibida(dateFormat.format(fechaHasta), "\'today\'");
+                obj = localRepository.findAllCantidadEnviadaYRecibida(dateFormat.format(fechaDesde), "\'today\'");
             }
             obj.forEach(p->{
                 TiendaCant tc = new TiendaCant();
