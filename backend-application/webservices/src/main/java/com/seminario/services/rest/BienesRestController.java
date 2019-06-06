@@ -220,55 +220,15 @@ public class BienesRestController {
      * @param    userDetails       Credenciales de usuario.
      *                             (debe tener los permisos para ejecutar el método).
      **/
-    @GetMapping("/cantidades-totales-por-tienda/{fechaDesde}/{fechaHasta}")
+    @GetMapping("/cantidades-totales-por-tienda")
     public List<TiendaCant> getAllCantidadesDesdeYHasta(@AuthenticationPrincipal UserDetails userDetails,
-                                             @PathVariable("fechaDesde") @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaDesde,
-                                             @PathVariable("fechaHasta") @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaHasta) throws CustomException
+                                             @RequestParam(name = "fechadesde",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaDesde,
+                                             @RequestParam(name = "fechahasta",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaHasta) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
     }
 
-    /**
-    * Obtiene cantidad total de bienes recibidos y enviados agrupados por tienda desde fecha hasta hoy.
-    *
-    * @param    userDetails       Credenciales de usuario.
-    *                             (debe tener los permisos para ejecutar el método).
-    **/
-   @GetMapping("/cantidades-totales-por-tienda/{fechaDesde}/null")
-   public List<TiendaCant> getAllCantidadesDesde(@AuthenticationPrincipal UserDetails userDetails,
-                                            @PathVariable("fechaDesde") @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaDesde) throws CustomException
-   {
-       Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-       return movimientoService.getAllCantidades(usuarioActual, fechaDesde, null);
-   }
-
-   /**
-    * Obtiene cantidad total de bienes recibidos y enviados agrupados por tienda hasta fecha.
-    *
-    * @param    userDetails       Credenciales de usuario.
-    *                             (debe tener los permisos para ejecutar el método).
-    **/
-   @GetMapping("/cantidades-totales-por-tienda/null/{fechaHasta}")
-   public List<TiendaCant> getAllCantidadesHasta(@AuthenticationPrincipal UserDetails userDetails,
-                                            @PathVariable("fechaHasta") @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaHasta) throws CustomException
-   {
-       Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-       return movimientoService.getAllCantidades(usuarioActual, null, fechaHasta);
-   }
-
-   /**
-    * Obtiene cantidad total de bienes recibidos y enviados agrupados por tienda de todos los tiempos.
-    *
-    * @param    userDetails       Credenciales de usuario.
-    *                             (debe tener los permisos para ejecutar el método).
-    **/
-   @GetMapping("/cantidades-totales-por-tienda")
-   public List<TiendaCant> getAllCantidades(@AuthenticationPrincipal UserDetails userDetails) throws CustomException
-   {
-       Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-       return movimientoService.getAllCantidades(usuarioActual, null, null);
-   }
 
     /**
      * Metodo que retorna un movimiento particular a partir del numero
