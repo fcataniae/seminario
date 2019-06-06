@@ -226,4 +226,20 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
     }
+
+    /**
+     * Metodo que retorna un movimiento particular a partir del numero
+     * @param userDetails credenciales de usuario
+     * @param nro nro de movimiento
+     * @return Movimiento
+     * @throws CustomException permisos de usuario, etc
+     */
+    @GetMapping("get-movimiento/{nro}")
+    public Movimiento getMovimientoByNro(@AuthenticationPrincipal UserDetails userDetails,
+                                         @PathVariable("nro") Long nro) throws CustomException{
+
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getMovmientoByNro(usuarioActual,nro);
+    }
+
 }

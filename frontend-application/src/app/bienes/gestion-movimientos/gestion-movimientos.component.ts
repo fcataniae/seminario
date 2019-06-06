@@ -76,6 +76,15 @@ export class GestionMovimientosComponent implements OnInit {
 
   modificarMovimiento(element: Movi){
 
+    this._movimientoService.getMovimientoByNro(element.nro)
+      .subscribe(
+        res => {
+          console.log(res);
+          let movimiento: Movimiento = res;
+          this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
+
+        }
+      );
   }
   confirmarMovimiento(element:Movi){
     let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
