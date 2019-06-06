@@ -42,7 +42,7 @@ export class ConfirmarMovimientoComponent implements OnInit {
   }
 
   onSubmit(){
-    this._movimientoService.setConfirmacionEnvio(this.nro, this.comentario)
+    this._movimientoService.setConfirmacionEnvio(this.nro, this.comentario,this.estado.descrip)
       .subscribe(
         res => {
           this.dialogRef.close(true);
