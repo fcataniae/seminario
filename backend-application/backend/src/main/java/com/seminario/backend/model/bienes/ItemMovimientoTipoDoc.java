@@ -10,24 +10,14 @@ public class ItemMovimientoTipoDoc {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @ManyToOne
-    @JoinColumn(name = "ITEM_MOVIMIENTO_ID")
-    private ItemMovimiento itemMovimiento;
 
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.MERGE})
     @JoinColumn(name = "TIPO_DOCUMENTO_ID")
     private  TipoDocumento tipoDocumento;
 
     @Column
     private String  nroDocumento;
 
-    public ItemMovimiento getItemMovimiento() {
-        return itemMovimiento;
-    }
-
-    public void setItemMovimiento(ItemMovimiento itemMovimiento) {
-        this.itemMovimiento = itemMovimiento;
-    }
 
     public String getNroDocumento() {
         return nroDocumento;
