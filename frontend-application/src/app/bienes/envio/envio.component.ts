@@ -112,7 +112,7 @@ export class EnvioComponent implements OnInit {
   onAgregarBien() {
     const dialogRef = this._dialog.open(AgregarBienComponent,{
       width: '50%',
-      data: { tipoMovimiento: this.movimiento.tipoMovimiento, modi: false}
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento, modi: false, origen: this.movimiento.origen}
     });
 
     dialogRef.afterClosed().subscribe(

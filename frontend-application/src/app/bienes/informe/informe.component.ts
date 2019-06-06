@@ -45,7 +45,6 @@ export class InformeComponent implements OnInit {
               private _stockbienlocalService: StockBienLocalService) { }
 
   ngOnInit() {
-    this.locales = [];
     this.bienes = [];
     this.locales = [];
     let consultaBienes = this._movimientoService.getAllBienes();
