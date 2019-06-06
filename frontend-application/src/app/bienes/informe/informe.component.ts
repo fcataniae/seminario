@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Permiso }  from '../../model/abm/permiso.model';
 import { PermisoService } from '../../services/permiso.service';
 import { Token } from '../../model/token.model';
-import {Observable} from 'rxjs';
+import {Observable, forkJoin} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Bien } from '../../model/bienes/bien.model';
 import { MovimientoService } from '../../services/movimiento.service';
@@ -11,6 +11,10 @@ import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Agente } from '../../model/bienes/agente.model';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
 import { Chart } from 'chart.js';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-informe',
@@ -45,41 +49,37 @@ export class InformeComponent implements OnInit {
               private _stockbienlocalService: StockBienLocalService) { }
 
   ngOnInit() {
-
-    //TODO hacer un forkjoin, porque sino asumis que todo va a ser sincrono! y ver el scope
-    this.bienes = [];
-    this._movimientoService.getAllBienes()
-    .subscribe(res=>{
-        console.log(res);
-        this.bienes = res;
-      },
-      error => console.log(error)
-    );
-
     this.locales = [];
-    this._movimientoService.getAllAgentes()
-    .subscribe(res=>{
-        this.locales = res.filter( a => a.tipoAgente.id !== 3);
-        console.log(this.locales);
-      },
-      error => console.log(error)
-    );
+    this.bienes = [];
 
-    this.filteredLocales = this.myControlLocales.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterLocal(value))
-    );
 
-    this.filteredBienes = this.myControlBienes.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterBien(value))
-    );
+    console.log("asd");
+    forkJoin(this._movimientoService.getAllAgentes(),
+             this._movimientoService.getAllBienes()).pipe(
+      map(([res1,res2]) =>{
+        console.log("asd");
+        console.log(res1);
+        console.log(res2);
 
-    this.bienElegido = false;
+        this.locales = res1.filter( a => a.tipoAgente.id !== 3);
+        this.bienes = res2;
+        this.bienElegido = false;
 
-  }//END OnInit
+        this.filteredLocales = this.myControlLocales.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterLocal(value))
+        );
+
+        this.filteredBienes = this.myControlBienes.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterBien(value))
+        );
+
+      })
+    ).subscribe();
+}//END OnInit
 
   private _filterLocal(value: string): Agente[] {
     const filterValue = value.toLowerCase();
@@ -149,4 +149,3 @@ export class InformeComponent implements OnInit {
   }
 
 }
-
