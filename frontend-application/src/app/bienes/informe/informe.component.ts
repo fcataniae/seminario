@@ -15,7 +15,6 @@ import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { FormControl } from '@angular/forms';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-informe',
@@ -67,24 +66,12 @@ export class InformeComponent implements OnInit {
       map(value => this._filterLocal(value))
     );
 
-        this.locales = res1.filter( a => a.tipoAgente.id !== 3);
-        this.bienes = res2;
-        this.bienElegido = false;
+    this.filteredBienes = this.myControlBienes.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filterBien(value))
+    );
 
-        this.filteredLocales = this.myControlLocales.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filterLocal(value))
-        );
-
-        this.filteredBienes = this.myControlBienes.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filterBien(value))
-        );
-
-      })
-    ).subscribe();
 }//END OnInit
 
   private _filterLocal(value: string): Agente[] {
