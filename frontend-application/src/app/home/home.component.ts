@@ -49,8 +49,7 @@ export class HomeComponent implements OnInit {
     this.locales = [];
     this.fechaInicio = null;
     this.fechaFin = null;
-    let fechas: Date[] = [this.fechaInicio, this.fechaFin];
-    let consultaEstadisticas = this._movimientoService.getTiendasEstadisticas(fechas);
+    let consultaEstadisticas = this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin);
     let consultaAgentes = this._movimientoService.getAllAgentes();
 
     forkJoin(consultaEstadisticas, consultaAgentes)
@@ -70,9 +69,7 @@ export class HomeComponent implements OnInit {
 
   onChangeFecha(){
 
-    let fechas: Date[] = [this.fechaInicio, this.fechaFin];
-
-    this._movimientoService.getTiendasEstadisticas(fechas)
+    this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin)
     .subscribe(res=>{
         console.log(res);
         this.tiendasEstadisticas = res;

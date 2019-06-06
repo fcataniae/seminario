@@ -218,12 +218,13 @@ public class BienesRestController {
      * @param    userDetails       Credenciales de usuario.
      *                             (debe tener los permisos para ejecutar el método).
      **/
-    @PostMapping("/cantidades-totales-por-tienda")
+    @PostMapping("/cantidades-totales-por-tienda/{fechaDesde}/{fechaHasta}")
     public List<TiendaCant> getAllCantidades(@AuthenticationPrincipal UserDetails userDetails,
-                                             @RequestBody Date[] fechas) throws CustomException
+                                             @PathVariable("fechaDesde") Date fechaDesde,
+                                             @PathVariable("fechaHasta") Date fechaHasta) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getAllCantidades(usuarioActual, fechas[0], fechas[1]);
+        return movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
     }
 
     /**
