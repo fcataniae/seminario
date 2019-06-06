@@ -47,7 +47,10 @@ export class HomeComponent implements OnInit {
 
     this.tiendasEstadisticas = [];
     this.locales = [];
-    let consultaEstadisticas = this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin);
+    this.fechaInicio = null;
+    this.fechaFin = null;
+    let fechas: Date[] = [this.fechaInicio, this.fechaFin];
+    let consultaEstadisticas = this._movimientoService.getTiendasEstadisticas(fechas);
     let consultaAgentes = this._movimientoService.getAllAgentes();
 
     forkJoin(consultaEstadisticas, consultaAgentes)
@@ -59,17 +62,17 @@ export class HomeComponent implements OnInit {
       error => console.log(error)
     );
 
-    this.fechaInicio = null;
-    this.fechaFin = null;
     this.totalEnviado = 0;
     this.totalRecibido = 0;
-    this.generarGraficos();
+    //this.generarGraficos();
 
   }//END OnInit
 
   onChangeFecha(){
 
-    this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin)
+    let fechas: Date[] = [this.fechaInicio, this.fechaFin];
+
+    this._movimientoService.getTiendasEstadisticas(fechas)
     .subscribe(res=>{
         console.log(res);
         this.tiendasEstadisticas = res;
@@ -82,6 +85,7 @@ export class HomeComponent implements OnInit {
 
   generarGraficos(){
 
+
       //Ordeno array de tiendas segun más envios
       let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
           if (obj1.enviado > obj2.enviado) {return 1;}
@@ -89,25 +93,15 @@ export class HomeComponent implements OnInit {
           return 0;
       });
 
-      let tienda1 = ""+topTiendasEnvios[0].id;
-      let tienda2 = ""+topTiendasEnvios[1].id;
-      let tienda3 = ""+topTiendasEnvios[2].id;
-      let tienda4 = ""+topTiendasEnvios[3].id;
-      let tienda5 = ""+topTiendasEnvios[4].id;
-
-      let enviadoTienda1 = topTiendasEnvios[0].enviado;
-      let enviadoTienda2 = topTiendasEnvios[1].enviado;
-      let enviadoTienda3 = topTiendasEnvios[2].enviado;
-      let enviadoTienda4 = topTiendasEnvios[3].enviado;
-      let enviadoTienda5 = topTiendasEnvios[4].enviado;
-
       // bar chart:
       this.chartEnviado = new Chart('barEnviadoChart', {
           type: 'bar',
         data: {
-         labels: [tienda1, tienda2, tienda3, tienda4, tienda5],
+         labels: [""+topTiendasEnvios[0].id, ""+topTiendasEnvios[1].id, ""+topTiendasEnvios[2].id,
+                  ""+topTiendasEnvios[3].id, ""+topTiendasEnvios[4].id],
          datasets: [{
-             data: [enviadoTienda1, enviadoTienda2, enviadoTienda3, enviadoTienda4, enviadoTienda5],
+             data: [topTiendasEnvios[0].enviado, topTiendasEnvios[1].enviado, topTiendasEnvios[2].enviado,
+                    topTiendasEnvios[3].enviado, topTiendasEnvios[4].enviado],
              backgroundColor: [
                  'rgba(255, 206, 86, 1)',
                  'rgba(75, 192, 192, 1)',
@@ -135,25 +129,15 @@ export class HomeComponent implements OnInit {
           return 0;
       });
 
-      let tienda1 = ""+topTiendasRecibidos[0].id;
-      let tienda2 = ""+topTiendasRecibidos[1].id;
-      let tienda3 = ""+topTiendasRecibidos[2].id;
-      let tienda4 = ""+topTiendasRecibidos[3].id;
-      let tienda5 = ""+topTiendasRecibidos[4].id;
-
-      let recibidoTienda1 = topTiendasRecibidos[0].recibido;
-      let recibidoTienda2 = topTiendasRecibidos[1].recibido;
-      let recibidoTienda3 = topTiendasRecibidos[2].recibido;
-      let recibidoTienda4 = topTiendasRecibidos[3].recibido;
-      let recibidoTienda5 = topTiendasRecibidos[4].recibido;
-
       // bar chart:
       this.chartRecibido = new Chart('barRecibidoChart', {
           type: 'bar',
         data: {
-         labels: [tienda1, tienda2, tienda3, tienda4, tienda5],
+         labels: [""+topTiendasRecibidos[0].id, ""+topTiendasRecibidos[1].id, ""+topTiendasRecibidos[2].id,
+                  ""+topTiendasRecibidos[3].id, ""+topTiendasRecibidos[4].id],
          datasets: [{
-             data: [recibidoTienda1, recibidoTienda2, recibidoTienda3, recibidoTienda4, recibidoTienda5],
+             data: [topTiendasRecibidos[0].recibido, topTiendasRecibidos[1].recibido, topTiendasRecibidos[2].recibido,
+                    topTiendasRecibidos[3].recibido, topTiendasRecibidos[4].recibido],
              backgroundColor: [
                  'rgba(255, 206, 86, 1)',
                  'rgba(75, 192, 192, 1)',
