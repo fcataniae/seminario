@@ -62,7 +62,7 @@ export class InformeTiendasComponent implements OnInit {
 
     this.totalEnviado = 0;
     this.totalRecibido = 0;
-    //this.generarGraficos();
+    this.generarGraficos();
 
   }//END OnInit
 
@@ -81,77 +81,73 @@ export class InformeTiendasComponent implements OnInit {
 
   generarGraficos(){
 
-      //Ordeno array de tiendas segun más envios
-      let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-          if (obj1.enviado > obj2.enviado) {return 1;}
-          if (obj1.enviado < obj2.enviado) {return -1;}
-          return 0;
-      });
-
-      // bar chart:
-      this.chartEnviado = new Chart('barEnviadoChart', {
-          type: 'bar',
-        data: {
-         labels: [""+topTiendasEnvios[0].id, ""+topTiendasEnvios[1].id, ""+topTiendasEnvios[2].id,
-                  ""+topTiendasEnvios[3].id, ""+topTiendasEnvios[4].id],
-         datasets: [{
-             data: [topTiendasEnvios[0].enviado, topTiendasEnvios[1].enviado, topTiendasEnvios[2].enviado,
-                    topTiendasEnvios[3].enviado, topTiendasEnvios[4].enviado],
-             backgroundColor: [
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 99, 132, 1)',
-                 'rgba(170, 70, 246, 1)',
-             ]
-         }]
-        },
-        options: {
-          title:{
-             text:"Top 10 locales con más envíos",
-             display:true
+     if(this.tiendasEstadisticas.length){
+        //Ordeno array de tiendas segun más envios
+        let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
+            if (obj1.cantEnviada > obj2.cantEnviada) {return 1;}
+            if (obj1.cantEnviada < obj2.cantEnviada) {return -1;}
+            return 0;
+        });
+        console.log(topTiendasEnvios);
+        // bar chart:
+        this.chartEnviado = new Chart('barEnviadoChart', {
+            type: 'bar',
+          data: {
+           labels: [""+topTiendasEnvios[0].tiendaId, ""+topTiendasEnvios[1].tiendaId, ""+topTiendasEnvios[2].tiendaId,
+                    ""+topTiendasEnvios[3].tiendaId, ""+topTiendasEnvios[4].tiendaId],
+           datasets: [{
+               data: [topTiendasEnvios[0].cantEnviada, topTiendasEnvios[1].cantEnviada, topTiendasEnvios[2].cantEnviada,
+                      topTiendasEnvios[3].cantEnviada, topTiendasEnvios[4].cantEnviada],
+               backgroundColor: [
+                   'rgba(255, 206, 86, 1)',
+                   'rgba(75, 192, 192, 1)',
+                   'rgba(54, 162, 235, 1)',
+                   'rgba(255, 99, 132, 1)',
+                   'rgba(170, 70, 246, 1)',
+               ]
+           }]
           },
-          cutoutPercentage: 50,
-          tooltips: {enabled: false},
-          hover: {mode: null},
-        }
-      });
+          options: {
+            title:{
+               text:"Top 5 locales con más envíos",
+               display:true
+            },
+          }
+        });
 
-      //Ordeno array de tiendas segun más recibos
-      let topTiendasRecibidos: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-          if (obj1.recibido > obj2.recibido) {return 1;}
-          if (obj1.recibido < obj2.recibido) {return -1;}
-          return 0;
-      });
+        //Ordeno array de tiendas segun más recibos
+        let topTiendasRecibidos: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
+            if (obj1.cantRecibida > obj2.cantRecibida) {return 1;}
+            if (obj1.cantRecibida < obj2.cantRecibida) {return -1;}
+            return 0;
+        });
 
-      // bar chart:
-      this.chartRecibido = new Chart('barRecibidoChart', {
-          type: 'bar',
-        data: {
-         labels: [""+topTiendasRecibidos[0].id, ""+topTiendasRecibidos[1].id, ""+topTiendasRecibidos[2].id,
-                  ""+topTiendasRecibidos[3].id, ""+topTiendasRecibidos[4].id],
-         datasets: [{
-             data: [topTiendasRecibidos[0].recibido, topTiendasRecibidos[1].recibido, topTiendasRecibidos[2].recibido,
-                    topTiendasRecibidos[3].recibido, topTiendasRecibidos[4].recibido],
-             backgroundColor: [
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 99, 132, 1)',
-                 'rgba(170, 70, 246, 1)',
-             ]
-         }]
-        },
-        options: {
-          title:{
-             text:"Top 10 locales con más recepciones",
-             display:true
+        // bar chart:
+        this.chartRecibido = new Chart('barRecibidoChart', {
+            type: 'bar',
+          data: {
+           labels: [""+topTiendasRecibidos[0].tiendaId, ""+topTiendasRecibidos[1].tiendaId, ""+topTiendasRecibidos[2].tiendaId,
+                    ""+topTiendasRecibidos[3].tiendaId, ""+topTiendasRecibidos[4].tiendaId],
+           datasets: [{
+               data: [topTiendasRecibidos[0].cantRecibida, topTiendasRecibidos[1].cantRecibida, topTiendasRecibidos[2].cantRecibida,
+                      topTiendasRecibidos[3].cantRecibida, topTiendasRecibidos[4].cantRecibida],
+               backgroundColor: [
+                   'rgba(255, 206, 86, 1)',
+                   'rgba(75, 192, 192, 1)',
+                   'rgba(54, 162, 235, 1)',
+                   'rgba(255, 99, 132, 1)',
+                   'rgba(170, 70, 246, 1)',
+               ]
+           }]
           },
-          cutoutPercentage: 50,
-          tooltips: {enabled: false},
-          hover: {mode: null},
-        }
-      });
+          options: {
+            title:{
+               text:"Top 5 locales con más recepciones",
+               display:true
+            }
+          }
+        });
+     }
   }
 
 

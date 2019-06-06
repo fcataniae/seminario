@@ -11,19 +11,23 @@
 }
 
 .grafico{
-  width: 50% !important;
+  width: 40% !important;
+  margin-left: 6%;
   height: auto !important;
+  display: inline-block;
 }
 
 .totales{
   text-align:center;
   position:relative;
+  margin-top:5%;
 }
 
 .total {
   text-align: center;
   display: inline-block;
   padding: 2%;
+  background: #fff;
 }
 
 .margen{
