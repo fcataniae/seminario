@@ -517,4 +517,12 @@ public class MovimientoService {
             throw new CustomException("No cuenta con los permisos para consultar agentes!");
         }
     }
+
+    public Movimiento getMovmientoByNro(Usuario usuarioActual, Long nro) throws CustomException {
+
+        if(null == permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO"))
+            throw new CustomException("No tiene permisos para consultar los movimientos!");
+
+        return movimientoRepository.findById(nro);
+    }
 }
