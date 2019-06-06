@@ -11,6 +11,7 @@ import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -485,7 +486,7 @@ public class MovimientoService {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
             List<TiendaCant> listTc = new ArrayList<>();
             List<Object[]> obj = new ArrayList<>();
-            if (fechaDesde != null && fechaHasta != null) {
+            if (fechaDesde == null && fechaHasta == null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida();
             } else if (fechaDesde == null) {
                 obj = localRepository.findAllCantidadEnviadaYRecibida("\'1900-01-01\'", dateFormat.format(fechaHasta));
