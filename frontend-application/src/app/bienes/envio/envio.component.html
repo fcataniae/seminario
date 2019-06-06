@@ -31,12 +31,19 @@
              placeholder="Fecha"/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
-      <input matInput
-             type="number"
-             class="idTransportista"
-             name="idTransportista"
-             [(ngModel)]="movimiento.idTransportista"
-             placeholder="ID Transportista"/>
+      <input type="text"
+             placeholder="Transportista"
+             aria-label="Number"
+             matInput [formControl]="transpForm"
+             [matAutocomplete]="autoTransp"
+             name="transp"
+             [(ngModel)]="selectedTransp"
+             (ngModelChange)="refreshT()">
+         <mat-autocomplete #autoTransp="matAutocomplete">
+         <mat-option *ngFor="let t of transpFilter | async" [value]="t.nombre">
+           {{t.nombre}} ({{t.id}})
+         </mat-option>
+       </mat-autocomplete>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
       <input matInput

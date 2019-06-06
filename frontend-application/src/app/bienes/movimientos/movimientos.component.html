@@ -7,8 +7,14 @@
 <h3>Tipo de movimiento</h3>
   <form #altamovimiento="ngForm">
     <mat-form-field class="w70 mat-local">
-      <input type="text" placeholder="Tipo movimiento" aria-label="Number" matInput [formControl]="formMovs"
-             [matAutocomplete]="autoTipoMov" name="tipoMov" [(ngModel)]="select1" (ngModelChange)="onChangeMovimiento()">
+      <input type="text"
+             placeholder="Tipo movimiento"
+             aria-label="Number"
+             matInput [formControl]="formMovs"
+             [matAutocomplete]="autoTipoMov"
+             name="tipoMov"
+             [(ngModel)]="select1"
+             (ngModelChange)="onChangeMovimiento()">
       <mat-autocomplete #autoTipoMov="matAutocomplete">
         <mat-option *ngFor="let mov of movsFilter | async" [value]="mov.nombre">
           {{mov.nombre}}
