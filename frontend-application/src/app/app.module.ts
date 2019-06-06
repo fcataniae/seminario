@@ -47,6 +47,7 @@ import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestio
 import { ValidpatentePipe } from './utils/validpatente.pipe';
 import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
 import { InformeComponent } from './bienes/informe/informe.component';
+import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
 
 
 
@@ -73,7 +74,8 @@ import { InformeComponent } from './bienes/informe/informe.component';
     GestionMovimientosComponent,
     ValidpatentePipe,
     ModificarBienComponent,
-    InformeComponent
+    InformeComponent,
+    InformeTiendasComponent
   ],
   imports: [
     BrowserModule,
