@@ -6,7 +6,7 @@ import { Movimiento } from '../../model/bienes/movimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
 
 export interface Data{
-  movimiento :Movimiento;
+  nro: number;
 }
 @Component({
   selector: 'app-confirmar-movimiento',
@@ -21,13 +21,12 @@ export class ConfirmarMovimientoComponent implements OnInit {
   {
    }
 
-  movimiento: Movimiento;
+  nro: number;
   estados: Estado[];
   estado:Estado;
   comentario: string;
   ngOnInit() {
-    this.movimiento = this.data.movimiento;
-
+    this.nro = this.data.nro;
     this._movimientoService.getAllEstadosViaje()
         .subscribe(
           res => {
@@ -43,15 +42,13 @@ export class ConfirmarMovimientoComponent implements OnInit {
   }
 
   onSubmit(){
-    this._movimientoService.setConfirmacionEnvio(this.movimiento.id, this.comentario)
+    this._movimientoService.setConfirmacionEnvio(this.nro, this.comentario)
       .subscribe(
         res => {
-          alert("Se registro correctamente la recepcion");
-          this.dialogRef.close(this.movimiento);
+          this.dialogRef.close(true);
         },
         error => {
-          alert("Ocurrio un error al confimar el movimiento");
-          this.dialogRef.close();
+          this.dialogRef.close(false);
         }
       );
 
