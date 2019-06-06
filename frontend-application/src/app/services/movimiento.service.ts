@@ -50,8 +50,8 @@ export class MovimientoService {
   getAllEstadosViaje(): Observable<Estado[]>{
     return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') +'estado-viaje');
   }
-  getTiendasEstadisticas(fechas: Date[]): Observable<TiendaEstadisticas[]>{
+  getTiendasEstadisticas(fechaDesde: Date, fechaHasta: Date): Observable<TiendaEstadisticas[]>{
     return this._http.get<TiendaEstadisticas[]>(environment.serviceUrl.replace('service','bienes')
-    +'cantidades-totales-por-tienda/'+ fechas);
+    +'cantidades-totales-por-tienda/'+ fechaDesde, fechaHasta);
   }
 }
