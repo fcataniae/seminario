@@ -20,7 +20,8 @@ public class ItemMovimiento {
     private BienIntercambiable bienIntercambiable;
 
 
-    @OneToMany(mappedBy = "ItemMovimiento",  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "ITEM_MOVIMIENTO_ID")
+    @OneToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimientoTipoDoc> itemMovimientoTipoDoc;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
