@@ -17,6 +17,18 @@
 
     <div *ngIf="selectedBien != null" >
       <mat-form-field class="w70">
+        <mat-label>Estado</mat-label>
+        <mat-select  name="estadoBien"
+                     [(ngModel)]="itemMovimiento.estadoRecurso"
+                     [value]= "itemMovimiento.estadoRecurso"
+                     required
+                     (ngModelChange)="mostrarCantidad()">
+        <mat-option *ngFor="let estado of estados" [value]="estado">
+          {{estado.descrip}}
+        </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w70">
         <input matInput
                type="number"
                name="cantidad"
@@ -24,7 +36,8 @@
                pattern="[0-9]+"
                title="Debe ingresar un número"
                [(ngModel)]="itemMovimiento.cantidad"
-               required/>
+               required
+               [formControl]="rateControl"/>
         </mat-form-field>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->
@@ -36,21 +49,12 @@
                      placeholder="Nro {{doc.tipoDocumento.descripcion}}"
                      [(ngModel)]="doc.nroDocumento"
                      required/>
-
             </mat-form-field>
           </div>
         </div>
-        <mat-form-field class="w70">
-          <mat-label>Estado</mat-label>
-          <mat-select  name="estadoBien"
-                       [(ngModel)]="itemMovimiento.estadoRecurso"
-                       [value]= "itemMovimiento.estadoRecurso"
-                       required>
-            <mat-option *ngFor="let estado of estados" [value]="estado">
-              {{estado.descrip}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="center">
+          <p>{{cantidadBI}} Disponible/s en estado {{itemMovimiento.estadoRecurso.descrip}}</p>
+        </div>
       </div>
 
 

@@ -22,26 +22,30 @@ table {
 }
 
 .mat-column-nro{
-  width: 12vw;
-  max-width: 12vw;
+  width: 11vw;
+  max-width: 11vw;
+}
+.mat-column-fecha{
+  width: 11vw;
+  max-width: 11vw;
 }
 .mat-column-tipo{
-  width: 15vw;
-  max-width: 15vw;
+  width: 11vw;
+  max-width: 11vw;
 }
 .mat-column-origen{
-  max-width: 15vw;
-  width: 15vw;
+  max-width: 13vw;
+  width: 13vw;
 }
 .mat-column-destino{
-  max-width: 15vw;
-  width: 15vw;
+  max-width: 13vw;
+  width: 13vw;
 }
 .mat-column-estado{
-  max-width: 15vw;
-  width: 15vw;
+  max-width: 11vw;
+  width: 11vw;
 }
 .mat-column-nrodocumento{
-  max-width: 15vw;
-  width: 15vw;
+  max-width: 11vw;
+  width: 11vw;
 }

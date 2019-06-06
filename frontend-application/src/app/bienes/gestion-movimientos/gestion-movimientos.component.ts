@@ -9,6 +9,7 @@ import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popu
 
 export class Movi{
   nro: string;
+  fecha: Date;
   origen: string;
   destino: string;
   cantBienes: string;
@@ -32,7 +33,7 @@ export class GestionMovimientosComponent implements OnInit {
   movimientos: Movimiento[];
 
   public dataSource = new MatTableDataSource<Movi>();
-  public displayedColumns = ['nro','tipo','origen', 'destino', 'estado','nrodocumento','modificar','cancelar'];
+  public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','modificar','cancelar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -52,6 +53,7 @@ export class GestionMovimientosComponent implements OnInit {
 
     this.movimientos.forEach(m => {
       let movi = new Movi();
+      movi.fecha = m.fechaAlta;
       movi.nro = m.id.toString();
       movi.cantBienes = m.itemMovimientos.length.toString();
       movi.cantRecursos = m.recursosAsignados.length.toString();

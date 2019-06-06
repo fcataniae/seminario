@@ -12,17 +12,23 @@
       <mat-icon class="mat-18" >library_add</mat-icon> Alta
     </button>
   </div>
+
  <mat-table [dataSource]="dataSource" matSort >
+
   <ng-container matColumnDef="nro">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro Movimiento </th>
     <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
   </ng-container>
 
+   <ng-container matColumnDef="fecha">
+     <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+     <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+   </ng-container>
+
   <ng-container matColumnDef="tipo">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
     <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
   </ng-container>
-
 
    <ng-container matColumnDef="destino">
      <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
