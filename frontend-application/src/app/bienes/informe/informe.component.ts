@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Permiso }  from '../../model/abm/permiso.model';
 import { PermisoService } from '../../services/permiso.service';
 import { Token } from '../../model/token.model';
-import {Observable} from 'rxjs';
+import {Observable, forkJoin} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Bien } from '../../model/bienes/bien.model';
 import { MovimientoService } from '../../services/movimiento.service';
@@ -46,8 +46,7 @@ export class InformeComponent implements OnInit {
               private _stockbienlocalService: StockBienLocalService) { }
 
   ngOnInit() {
-
-    //TODO hacer un forkjoin, porque sino asumis que todo va a ser sincrono! y ver el scope
+    this.locales = [];
     this.bienes = [];
     this.locales = [];
     let consultaBienes = this._movimientoService.getAllBienes();
@@ -68,15 +67,25 @@ export class InformeComponent implements OnInit {
       map(value => this._filterLocal(value))
     );
 
-    this.filteredBienes = this.myControlBienes.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterBien(value))
-    );
+        this.locales = res1.filter( a => a.tipoAgente.id !== 3);
+        this.bienes = res2;
+        this.bienElegido = false;
 
-    this.bienElegido = false;
+        this.filteredLocales = this.myControlLocales.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterLocal(value))
+        );
 
-  }//END OnInit
+        this.filteredBienes = this.myControlBienes.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterBien(value))
+        );
+
+      })
+    ).subscribe();
+}//END OnInit
 
   private _filterLocal(value: string): Agente[] {
     const filterValue = value.toLowerCase();
@@ -152,4 +161,3 @@ export class InformeComponent implements OnInit {
   }
 
 }
-
