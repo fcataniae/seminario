@@ -5,6 +5,7 @@ import com.seminario.backend.model.abm.Rol;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.abm.Persona;
 import com.seminario.backend.repository.abm.*;
+import com.seminario.backend.repository.bienes.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
@@ -24,6 +25,8 @@ public class UsuarioService{
     private EstadoRepository estadoRepository;
     @Autowired
     private PermisoRepository permisoRepository;
+    @Autowired
+    private LocalRepository localRepository;
 
     private Usuario asignarRolesUsuario(Usuario usuarioActual, Usuario usuario) {
         Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
@@ -79,6 +82,10 @@ public class UsuarioService{
             if (nroDocPersona == null) {
                 throw new CustomException("Persona NO existente!");
             }
+            if (localRepository.findByNro(usuario.getLocal().getNro()) == null) {
+                throw new CustomException("Local del usuario NO existente!");
+            }
+
             Persona persona = personaRepository.findByNroDoc(nroDocPersona);
             if (persona == null)
                 throw new CustomException("Persona NO existente!");

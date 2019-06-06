@@ -133,10 +133,18 @@ public class StockBienEnLocalService {
 
 
        public List<StockBienEnLocal> getStockLocal(Long localNro, Usuario usuarioActual)throws CustomException{
+            boolean permiso = false;
+           if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-STOCK-TOTAL")) {
+               permiso = true;
+               System.out.println("El usuario trabaja en el CD (permiso a stock total)");
+           }else{
+               if (usuarioActual.getLocal().getNro().equals(localNro)){
+                    permiso = true;
+                    System.out.println("El usuario trabaja en el local que quiere consultar");
+               }
+           }
 
-           if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-STOCK-TIENDA")) {
-               //&& (usuarioActual.getLocal()== localNro)){
-
+           if (permiso) {
                EntityManager em = emf.createEntityManager();
                List<StockBienEnLocal> listStockLocal = new ArrayList<StockBienEnLocal>(); // resultado final
 
@@ -151,7 +159,7 @@ public class StockBienEnLocalService {
                            .setParameter(1, localNro)
                            .getResultList();
                    em.close();
-                  if (stockLocal.size()>0){
+                   if (stockLocal.size() > 0) {
                        for (Object[] tupla : stockLocal) {
                            StockBienEnLocal bien = new StockBienEnLocal();
 
@@ -160,20 +168,20 @@ public class StockBienEnLocalService {
                            bien.setStock_libre((Long) tupla[4]);
                            bien.setStock_ocupado((Long) tupla[5]);
                            bien.setStock_reservado((Long) tupla[6]);
-                           bien.setStock_destruido((Long)  tupla[7]);
+                           bien.setStock_destruido((Long) tupla[7]);
                            System.out.println("Respuesta final el local es el nro :" + tupla[0]);
                            listStockLocal.add(bien);
                        }
-                    }else{
-                        throw new CustomException("El local "+localNro+" no posee stock de ningun bien");
-                    }
+                   } else {
+                       throw new CustomException("El local " + localNro + " no posee stock de ningun bien");
+                   }
                } catch (NoResultException e) {
                    throw new RuntimeException(e);
                }
                System.out.println("Respuesta final bien 1:" + listStockLocal.get(0).getDescripcionBI());
                return listStockLocal;
            }else{
-               throw new CustomException("No cuenta con los permisos para consultar el stock de este Local.");
+               throw new CustomException("No cuenta con los permisos para consultar el stock de este local.");
            }
     }
 
@@ -181,7 +189,6 @@ public class StockBienEnLocalService {
     public List<Agente> getDistribucionBienes(Usuario usuarioActual)throws CustomException{
 
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-STOCK-TOTAL")) {
-            //&& (usuarioActual.getLocal()== localNro)){
 
             EntityManager em = emf.createEntityManager();
             List<Agente> listStockLocal = new ArrayList<Agente>(); // resultado final

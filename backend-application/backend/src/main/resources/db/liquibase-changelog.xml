@@ -89,6 +89,7 @@
             <column name="password" type="STRING" />
             <column name="estado_id" type="NUMERIC" />
             <column name="persona_id" type="NUMERIC" />
+            <column name="local_id" type="NUMERIC" />
         </loadUpdateData>
         <loadUpdateData tableName="rol"
                         file="classpath:db/csv/roles.csv"
