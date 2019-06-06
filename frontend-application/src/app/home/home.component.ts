@@ -82,7 +82,6 @@ export class HomeComponent implements OnInit {
 
   generarGraficos(){
 
-
       //Ordeno array de tiendas segun más envios
       let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
           if (obj1.enviado > obj2.enviado) {return 1;}
