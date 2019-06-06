@@ -498,13 +498,7 @@ public class MovimientoService {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
             List<TiendaCant> listTc = new ArrayList<>();
             List<Object[]> obj = new ArrayList<>();
-            if (fechaDesde == null && fechaHasta == null) {
-                obj = localRepository.findAllCantidadEnviadaYRecibida();
-            } else if (fechaDesde == null) {
-                obj = localRepository.findAllCantidadEnviadaYRecibida("\'1900-01-01\'", dateFormat.format(fechaHasta));
-            } else if (fechaHasta == null) {
-                obj = localRepository.findAllCantidadEnviadaYRecibida(dateFormat.format(fechaDesde), "\'today\'");
-            }
+            obj = localRepository.findAllCantidadEnviadaYRecibida(fechaDesde, fechaHasta );
             obj.forEach(p->{
                 TiendaCant tc = new TiendaCant();
                 tc.setTiendaId((Long) p[0]);
