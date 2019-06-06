@@ -52,13 +52,9 @@ export class MovimientoService {
   }
   getTiendasEstadisticas(fechaDesde: Date, fechaHasta: Date): Observable<TiendaEstadisticas[]>{
     return this._http.get<TiendaEstadisticas[]>(environment.serviceUrl.replace('service','bienes')
-<<<<<<< HEAD
-    +'cantidades-totales-por-tienda/'+fechas);
+    +'cantidades-totales-por-tienda/'+fechaDesde+'/'+fechaHasta);
   }
   getMovimientoByNro(nro : string): Observable<Movimiento>{
     return this._http.get<Movimiento>(environment.serviceUrl.replace('service','bienes') + 'get-movimiento/' + nro);
-=======
-    +'cantidades-totales-por-tienda/'+ fechaDesde, fechaHasta);
->>>>>>> 85899636ab3276688bff19540725f9ccc0af5a4b
   }
 }
