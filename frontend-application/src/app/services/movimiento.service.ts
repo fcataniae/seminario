@@ -9,6 +9,7 @@ import { Recurso } from '../model/bienes/recurso.model';
 import { Movimiento } from '../model/bienes/movimiento.model';
 import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
+import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,9 @@ export class MovimientoService {
   }
   getAllEstadosViaje(): Observable<Estado[]>{
     return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') +'estado-viaje');
+  }
+  getTiendasEstadisticas(fechas: Date[]): Observable<TiendaEstadisticas[]>{
+    return this._http.get<TiendaEstadisticas[]>(environment.serviceUrl.replace('service','bienes')
+    +'cantidades-total/'+ fechas);
   }
 }

@@ -5,7 +5,7 @@
 .mat-local{
   display: inline-block;
   width: 30%;
-  margin-left: 0%;
+  margin-left: 13%;
   min-width: 200px;
   margin-top: 1%;
 }
@@ -13,21 +13,14 @@
 .mat-bien{
   display: inline-block;
   width: 30%;
-  margin-left: 10%;
+  margin-left: 13%;
   min-width: 200px;
   margin-top: 1%;
-}
-
-table{
-  width: 50%;
-  min-width: 200px;
-  margin-left: 0%;
-  margin-top: 1%;
-  text-align: left;
-
 }
 
 .grafico{
   width: 50% !important;
   height: auto !important;
+  margin-left: auto;
+  margin-right: auto;
 }
