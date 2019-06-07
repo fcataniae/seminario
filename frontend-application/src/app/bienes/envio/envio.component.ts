@@ -45,7 +45,7 @@ export class EnvioComponent implements OnInit {
   columnsToDisplayBien: String[];
 
   movimiento: Movimiento = new Movimiento();
-
+  modificacion: boolean = false;
   constructor(private location: Location,
               private _dialog: MatDialog,
               private route: ActivatedRoute,
@@ -67,9 +67,9 @@ export class EnvioComponent implements OnInit {
             map(value => this.filterTransp(value))
           );
 
-
+          this.modificacion = window.location.href.includes("modificar");
           this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
-          console.log(this.movimiento);
+          console.log(this.modificacion);
           this.datosTablaBienes.data = this.movimiento.itemMovimientos;
           this.datosTablaBienes.sort = this.sortBienes;
           this.datosTablaBienes.paginator = this.paginatorBienes;
@@ -166,7 +166,8 @@ export class EnvioComponent implements OnInit {
   }
 
   registrar() {
-    this._movimientoService.setRegistroMovimiento(this.movimiento).subscribe(
+    let observer = this.modificacion ? this._movimientoService.setModificacionMovimiento(this.movimiento) : this._movimientoService.setRegistroMovimiento(this.movimiento); 
+    observer.subscribe(
       res =>{
         alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
         this.location.back();

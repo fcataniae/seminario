@@ -45,6 +45,10 @@ export class MovimientoService {
 
     return this._http.post<string>(environment.serviceUrl.replace('service','bienes') +'alta-movimiento', movimiento);
   }
+  setModificacionMovimiento(movimiento: Movimiento): Observable<string>{
+
+    return this._http.put<string>(environment.serviceUrl.replace('service','bienes') +'update-movimiento', movimiento);
+  }
   setConfirmacionEnvio(idmov: number, comentario: string, estado: string): Observable<string>{
     return this._http.put<string>(environment.serviceUrl.replace('service','bienes') + "confirmar-movimiento/" + idmov + "/" + estado,comentario);
   }

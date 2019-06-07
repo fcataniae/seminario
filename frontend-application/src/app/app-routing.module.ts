@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'home/movimientos', component: GestionMovimientosComponent},
   { path: 'home/movimientos/registrar', component: MovimientosComponent},
   { path: 'home/movimientos/registrar/:mov', component: EnvioComponent},
+  { path: 'home/movimientos/modificar/:mov', component: EnvioComponent},
   { path: 'home/informeStock', component: InformeComponent},
   { path: 'home/informeTiendas', component: InformeTiendasComponent}
 

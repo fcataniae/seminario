@@ -83,7 +83,7 @@ export class GestionMovimientosComponent implements OnInit {
         res => {
           console.log(res);
           let movimiento: Movimiento = res;
-          this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
+          this._router.navigate(["/home/movimientos/modificar/" + btoa(JSON.stringify(movimiento))]);
 
         }
       );
