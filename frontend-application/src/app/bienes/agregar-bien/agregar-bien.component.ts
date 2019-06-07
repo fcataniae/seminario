@@ -32,7 +32,6 @@ export class AgregarBienComponent implements OnInit {
   tipoMovimiento: TipoMovimiento;
   estados : Estado[];
   origen: number;
-  locales: Agente[];
   cantidadBI: number;
   stockBienLocal: StockBienEnLocal[];
   rateControl: FormControl;
@@ -51,19 +50,18 @@ export class AgregarBienComponent implements OnInit {
   ngOnInit() {
     let consultaBienes = this._movimientoService.getAllBienes();
     let consultaEstados = this._movimientoService.getAllEstadosBien();
-    let consultaAgentes = this._movimientoService.getAllAgentes();
     this.estados = [];
     this.bienes = [];
-    this.locales = [];
-    forkJoin(consultaBienes,consultaEstados,consultaAgentes)
+    forkJoin(consultaBienes,consultaEstados)
       .subscribe(results=>{
         console.log(results);
         this.bienes = results[0];
         this.estados = results[1];
-        this.locales = results[2].filter( a => a.tipoAgente.id !== 3);
     },
       error => console.log(error)
     );
+
+    this.esUnProveedor();
 
   }
 
@@ -77,7 +75,6 @@ export class AgregarBienComponent implements OnInit {
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );
-    this.esUnProveedor();
     this.mostrarCantidad();
   }
   onCancel(): void {
@@ -92,8 +89,7 @@ export class AgregarBienComponent implements OnInit {
 
   esUnProveedor(){
 
-    let origenMov = this.locales.filter(l => l.nro == this.origen)[0];
-    this.esProveedor = (origenMov == null);//Busco id origen entre los locales. sino aparece es un proveedor
+    this.esProveedor = this.tipoMovimiento.tipoAgenteOrigen.id == 3;
 
     if(this.esProveedor){
       this.cantidadBI = 100000;

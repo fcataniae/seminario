@@ -28,6 +28,9 @@
         </mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="center" *ngIf="!esProveedor && eligioEstado">
+        <p>{{cantidadBI}} Disponible/s en estado {{itemMovimiento.estadoRecurso.descrip}}</p>
+      </div>
       <mat-form-field class="w70">
         <input matInput
                type="number"
@@ -51,9 +54,6 @@
                      required/>
             </mat-form-field>
           </div>
-        </div>
-        <div class="center" *ngIf="!esProveedor && eligioEstado">
-          <p>{{cantidadBI}} Disponible/s en estado {{itemMovimiento.estadoRecurso.descrip}}</p>
         </div>
       </div>
 
