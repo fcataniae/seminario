@@ -29,6 +29,7 @@ export class MovimientosComponent implements OnInit {
   movimientos: TipoMovimiento[];
   origenes: Agente[];
   destinos: Agente[];
+  agentes: Agente[];
 
   selectedMov: TipoMovimiento;
   selectedDest: Agente;
@@ -58,6 +59,14 @@ export class MovimientosComponent implements OnInit {
       error => console.log(error)
     );
 
+    this._movimientoService.getAllAgentes().subscribe(
+    res => {
+      console.log(res);
+      this.agentes = res;
+    },
+    error => console.log(error)
+    );
+
   }
 
   filterMovs(value : string): TipoMovimiento[] {
@@ -82,6 +91,19 @@ export class MovimientosComponent implements OnInit {
             console.log(res);
             this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
             this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
+
+            this.select2 = "";
+            this.onChangeOrigen();
+            this.select3 = "";
+            this.onChangeDestino();
+            if(this.origenes.length==1){
+              this.select2 = this.origenes[0].nombre;
+              this.onChangeOrigen();
+            }
+            if(this.destinos.length==1){
+              this.select3 = this.destinos[0].nombre;
+              this.onChangeDestino();
+            }
 
             this.destFilter = this.formDest.valueChanges
             .pipe(
@@ -115,6 +137,8 @@ export class MovimientosComponent implements OnInit {
     let movimiento = new Movimiento();
     movimiento.destino = this.selectedDest.nro;
     movimiento.origen = this.selectedOrig.nro;
+    movimiento.nombreOrigen = this.selectedOrig.nombre;
+    movimiento.nombreDestino = this.selectedDest.nombre;
     movimiento.tipoMovimiento = this.selectedMov;
     this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
   }

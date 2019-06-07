@@ -196,7 +196,7 @@ export class InformeTiendasComponent implements OnInit {
       topLocalEnvios.push(agente);
     }
 
-    for(let j=0; j<envios.length; j++){
+    for(let j=0; j<recibos.length; j++){
       agente = this.locales.filter(local => local.nro === recibos[j].tiendaId)[0];
       topLocalRecibidos.push(agente);
     }

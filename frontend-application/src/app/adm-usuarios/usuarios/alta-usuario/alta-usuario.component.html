@@ -3,13 +3,21 @@
 
 <form #altausuario="ngForm">
   <mat-dialog-content fxLayout="column">
-    <mat-form-field class="w70" fxFlex>
-        <input matInput
-               placeholder="Numero de documento"
-               required
-               name="nroDoc"
-               [(ngModel)]="user.persona.nroDoc">
-    </mat-form-field>
+
+
+    <div class="persona">
+      <mat-form-field class="doc-search" fxFlex>
+          <input matInput
+                 placeholder="Numero de documento"
+                 required
+                 name="nroDoc"
+                 [(ngModel)]="user.persona.nroDoc">
+
+      </mat-form-field>
+      <button mat-button (click)="onAltaPersona()">
+        Alta 
+      </button>
+    </div>
     <mat-form-field class="w70" fxFlex>
         <input matInput
                placeholder="Nombre"

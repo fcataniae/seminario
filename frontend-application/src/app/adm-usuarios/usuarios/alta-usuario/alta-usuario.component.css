@@ -1,0 +1,15 @@
+.persona{
+  display:inline;
+}
+.persona .button-back{
+  width: 20%;
+  max-width: 15vw;
+  height: auto;
+  margin-left: 5vw
+}
+
+.persona .doc-search{
+  width: 45%;
+  margin-left: 15%;
+
+}
