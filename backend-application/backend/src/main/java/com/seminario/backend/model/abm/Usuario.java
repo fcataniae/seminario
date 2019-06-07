@@ -1,5 +1,7 @@
 package com.seminario.backend.model.abm;
 
+import com.seminario.backend.model.bienes.Local;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,10 @@ public class Usuario {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name="PERSONA_ID")
     private Persona persona;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name="LOCAL_ID")
+    private Local local;
 
     public Long getId() {
         return id;
@@ -99,6 +105,14 @@ public class Usuario {
 
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
+    }
+
+    public Local getLocal() {
+        return local;
+    }
+
+    public void setLocal(Local nroLocal) {
+        this.local = nroLocal;
     }
 
     public List<String> rolesToArrayString() {

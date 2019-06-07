@@ -24,35 +24,35 @@ public class DeudaService {
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
-    public void aumentarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
+    public void aumentarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva, Date CotizacionFecha)   {
         TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("CD");
         TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("PROVEEDOR");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false);
+        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false, CotizacionFecha);
     }
 
-    public void restarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva)   {
+    public void restarDeudaCDaProveedor(Long LocalOrigen, Long ProveedorDestino, Long biId, Long cantNueva, Date CotizacionFecha)   {
         TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("CD");
         TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("PROVEEDOR");
-        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true);
+        actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true, CotizacionFecha);
     }
 
-    public void aumentarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva)   {
+    public void aumentarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva, Date CotizacionFecha)   {
         TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
         TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
-        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false);
+        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false, CotizacionFecha);
     }
 
-    public void restarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva)   {
+    public void restarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva, Date CotizacionFecha)   {
         TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
         TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
-        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true);
+        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true, CotizacionFecha);
     }
 
     private void actualizarDeuda(Long AgenteOrigen, Long AgenteDestino,
                                  TipoAgente tipoAgenteOrigen, TipoAgente tipoAgenteDestino,
-                                 Long biId, Long cantNueva, boolean resta){
+                                 Long biId, Long cantNueva, boolean resta, Date CotizacionFecha){
 
-        Double montoNuevo = cantNueva * this.getUltimaCotizacion(biId);
+        Double montoNuevo = cantNueva * this.getCotizacionEnFecha(biId, CotizacionFecha);
         montoNuevo = (montoNuevo == null) ? 0: montoNuevo;
         Object[]  deudas = findDeudaCantByLocalAndBi( AgenteOrigen, AgenteDestino, tipoAgenteOrigen.getId(), tipoAgenteDestino.getId(), biId);
 
@@ -147,5 +147,16 @@ public class DeudaService {
         return d;
     }
 
+    private Double getCotizacionEnFecha(Long BI_id, Date fecha){
+        EntityManager em = emf.createEntityManager();
+        String qry = "SELECT COTIZACION FROM COTIZACION " +
+                "c WHERE c.BIENINTERCAMBIABLE_ID =?1 and c.fechaalta <= ?2 " +
+                "ORDER BY fechaalta desc LIMIT 1";
+        Double d = (Double) em.createNativeQuery(qry)
+                .setParameter(1,BI_id)
+                .setParameter(1, fecha).getSingleResult();
+        em.close();
+        return d;
+    }
 
 }

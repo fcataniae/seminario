@@ -17,6 +17,7 @@ export class Movimiento{
   tipoDocumento: TipoDocumento;
   nroDocumento: number;
   estadoViaje: Estado;
+  fechaAlta: Date;
 
   constructor(){
     this.recursosAsignados = [];

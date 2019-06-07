@@ -19,7 +19,7 @@ public class PersonaService {
     private PermisoRepository permisoRepository;
     @Autowired
     private EstadoRepository estadoRepository;
-    
+
     public List<Persona> getAll(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-PERSONA"))  {
             return personaRepository.findAll();

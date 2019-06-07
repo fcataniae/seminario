@@ -299,6 +299,7 @@
             <column name="PASSWORD" type="VARCHAR(255)"/>
             <column name="ESTADO_ID" type="BIGINT"/>
             <column name="PERSONA_ID" type="BIGINT"/>
+            <column name="LOCAL_ID" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-27">

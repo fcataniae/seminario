@@ -61,6 +61,21 @@ public class BienesRestController {
     }
 
     /**
+     * Actualiza un movimiento.
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @PutMapping("/update-movimiento")
+    public void modificarMovimiento(@AuthenticationPrincipal UserDetails userDetails,
+                                    @RequestBody Movimiento movimiento) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        movimientoService.update(usuarioActual, movimiento);
+    }
+
+
+    /**
      * Confirmar un movimiento.
      *
      * @param    userDetails       Credenciales de usuario.
@@ -116,6 +131,7 @@ public class BienesRestController {
     public List<com.seminario.backend.dto.StockBienEnLocal> getStockLocal(@AuthenticationPrincipal UserDetails userDetails,
                                                 @PathVariable("nro-local") Long nroLocal)  throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+       // System.out.println("El usuario pertenece a la persona "+ usuarioActual.getPersona().getNombre() +"que trabaja en "+usuarioActual.getPersona().getLocal().getNombre());
         return stockBienEnLocalService.getStockLocal(nroLocal,usuarioActual);
     }
 
