@@ -601,6 +601,28 @@ public class MovimientoService {
         }
     }
 
+    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual, String tipo) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADORECURSO")) {
+            List<EstadoRecurso> r = new ArrayList<>();
+            TipoMovimiento tipoEnvio = tipoMovimientoRepository.findByTipo(tipo);
+            if (tipoEnvio.getTipo().equals("ENVIO") || tipoEnvio.getTipo().equals("RECEPCION")){
+                r.add(estadoRecursoRepository.findByDescrip("OCUPADO"));
+                r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+            } else if (tipoEnvio.getTipo().equals("DEVOLUCION")){
+                r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+            } else if (tipoEnvio.getTipo().equals("ENVIOINTERCAMBIO")){
+                r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+                r.add(estadoRecursoRepository.findByDescrip("DESTRUIDO"));
+            } else if (tipoEnvio.getTipo().equals("RECEPCIONINTERCAMBIO")){
+                r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+            }
+            return r;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar estado de recursos!");
+        }
+    }
+
+
     public List<IntercambioProveedor> getAllIntercambioProveedor(Usuario usuarioActual) throws CustomException{
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             return intercambioProveedorRepository.findAll();
