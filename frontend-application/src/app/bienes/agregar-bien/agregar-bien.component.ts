@@ -36,6 +36,8 @@ export class AgregarBienComponent implements OnInit {
   cantidadBI: number;
   stockBienLocal: StockBienEnLocal[];
   rateControl: FormControl;
+  esProveedor: boolean;//De serlo no controlo limite cantidad
+  eligioEstado:boolean;
 
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
@@ -47,17 +49,6 @@ export class AgregarBienComponent implements OnInit {
    }
 
   ngOnInit() {
-
-    this.stockBienLocal = [];
-    this._stockbienlocalService.getStockLocal(this.origen)
-    .subscribe(res=>{
-        console.log(res);
-        this.stockBienLocal = res;
-      },
-      error => console.log(error)
-    );
-
-    this.cantidadBI = 0;
     let consultaBienes = this._movimientoService.getAllBienes();
     let consultaEstados = this._movimientoService.getAllEstadosBien();
     let consultaAgentes = this._movimientoService.getAllAgentes();
@@ -74,8 +65,6 @@ export class AgregarBienComponent implements OnInit {
       error => console.log(error)
     );
 
-    this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
-
   }
 
   onChangeBien(){ //TODO IMPLEMENTAR LA FUNCIONALIDAD
@@ -83,12 +72,12 @@ export class AgregarBienComponent implements OnInit {
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
     this.itemMovimiento.estadoRecurso = new Estado();
-    let estado = this.estados.find(c => c.id == 1);
-    this.itemMovimiento.estadoRecurso = estado;
+    this.eligioEstado = false;
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );
+    this.esUnProveedor();
     this.mostrarCantidad();
   }
   onCancel(): void {
@@ -101,25 +90,55 @@ export class AgregarBienComponent implements OnInit {
     }
   }
 
-  mostrarCantidad(){
+  esUnProveedor(){
 
-    let stockBienElegido = this.stockBienLocal.filter
-      (stockbien => stockbien.idBI === this.itemMovimiento.bienIntercambiable.id)[0];
+    let origenMov = this.locales.filter(l => l.nro == this.origen)[0];
+    this.esProveedor = (origenMov == null);//Busco id origen entre los locales. sino aparece es un proveedor
 
-    if(stockBienElegido){
-      if(this.itemMovimiento.estadoRecurso.descrip == "LIBRE"){
-        this.cantidadBI = stockBienElegido.stock_libre;
-      }else if(this.itemMovimiento.estadoRecurso.descrip == "OCUPADO"){
-        this.cantidadBI = stockBienElegido.stock_ocupado;
-      }else if(this.itemMovimiento.estadoRecurso.descrip == "RESERVADO"){
-        this.cantidadBI = stockBienElegido.stock_reservado;
-      }else if(this.itemMovimiento.estadoRecurso.descrip == "DESTRUIDO"){
-        this.cantidadBI = stockBienElegido.stock_destruido;
-      }
+    if(this.esProveedor){
+      this.cantidadBI = 100000;
+    }else{
+      this.cantidadBI = 0;
 
-      this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
+      this.stockBienLocal = [];
+      this._stockbienlocalService.getStockLocal(this.origen)
+      .subscribe(res=>{
+          console.log(res);
+          this.stockBienLocal = res;
+        },
+        error => console.log(error)
+      );
 
     }
+    this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
+  }
+
+  mostrarCantidad(){
+
+    if(!this.esProveedor){
+      let stockBienElegido = this.stockBienLocal.filter
+        (stockbien => stockbien.idBI === this.itemMovimiento.bienIntercambiable.id)[0];
+
+      if(stockBienElegido){
+        if(this.itemMovimiento.estadoRecurso.descrip == "LIBRE"){
+          this.cantidadBI = stockBienElegido.stock_libre;
+        }else if(this.itemMovimiento.estadoRecurso.descrip == "OCUPADO"){
+          this.cantidadBI = stockBienElegido.stock_ocupado;
+        }else if(this.itemMovimiento.estadoRecurso.descrip == "RESERVADO"){
+          this.cantidadBI = stockBienElegido.stock_reservado;
+        }else if(this.itemMovimiento.estadoRecurso.descrip == "DESTRUIDO"){
+          this.cantidadBI = stockBienElegido.stock_destruido;
+        }
+
+        this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
+
+      }
+    }
+  }
+
+  onChangeEstado(){
+    this.eligioEstado = true;
+    this.mostrarCantidad();
   }
 
 }
