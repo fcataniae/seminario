@@ -61,4 +61,7 @@ export class MovimientoService {
   getAllTransportistas():Observable<Transportista[]>{
     return this._http.get<Transportista[]>(environment.serviceUrl.replace('service','bienes') + 'listar-transportistas');
     }
+  getAllLocales(): Observable<Agente[]>{
+    return this._http.get<Agente[]>(environment.serviceUrl.replace('service','bienes') + 'listar-locales'); 
+  }
 }

@@ -4,6 +4,13 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Persona } from '../../../model/abm/persona.model';
 import { AltaPersonaComponent } from '../../personas/alta-persona/alta-persona.component';
 import { PersonaService } from '../../../services/persona.service';
+import { Agente } from '../../../model/bienes/agente.model';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { MovimientoService } from '../../../services/movimiento.service';
+import { startWith } from 'rxjs/internal/operators/startWith';
+import { map } from 'rxjs/operators';
+import { Local } from '../../../model/bienes/local.model';
 
 @Component({
   selector: 'app-alta-usuario',
@@ -14,9 +21,23 @@ export class AltaUsuarioComponent {
 
   constructor(public dialogRef: MatDialogRef<AltaUsuarioComponent>,
               private dialog: MatDialog,
-              private _personaService: PersonaService) {
-    this.user = new Usuario();
-    this.user.persona = new Persona();
+              private _personaService: PersonaService,
+              private _movimientoService: MovimientoService)
+  {
+    this._movimientoService.getAllLocales().subscribe(
+      res => {
+        this.user = new Usuario();
+        this.user.persona = new Persona();
+
+        this.locales = res;
+
+        this.localFilter = this.localForm.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this.filterLoca(value))
+        );
+      }
+    );
   }
 
   user: Usuario;
@@ -48,6 +69,32 @@ export class AltaUsuarioComponent {
       }
     );
 
+  }
+
+  localForm = new FormControl();
+  localFilter = new Observable<Agente[]>();
+  locales: Agente[];
+  selectedLoca: string;
+
+  refreshLoca(){
+    if(this.locales){
+      this.locales.forEach(l =>{
+         if(l.denominacion == this.selectedLoca){
+           let local: Local = new Local();
+
+           local.nro = l.nro;
+           local.denominacion = l.denominacion;
+           local.direccion_nro = l.direccion_nro;
+           local.email = l.email;
+
+           this.user.local = local;
+         }
+       });
+    }
+  }
+
+  filterLoca(value : string){
+    return this.locales.filter(l => l.denominacion.toLocaleLowerCase().includes(value.toLocaleLowerCase()) );
   }
 
 }

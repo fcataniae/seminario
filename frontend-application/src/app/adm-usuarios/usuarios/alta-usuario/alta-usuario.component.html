@@ -15,7 +15,7 @@
 
       </mat-form-field>
       <button mat-button (click)="onAltaPersona()">
-        Alta 
+        Alta
       </button>
     </div>
     <mat-form-field class="w70" fxFlex>
@@ -46,6 +46,21 @@
                name="contraseña"
                [(ngModel)]="passwordCheck"
                >
+    </mat-form-field>
+    <mat-form-field class="w70" fxFlex>
+      <input type="text"
+             placeholder="Local"
+             aria-label="Number"
+             matInput [formControl]="localForm"
+             [matAutocomplete]="autoLocal"
+             name="transp"
+             [(ngModel)]="selectedLoca"
+             (ngModelChange)="refreshLoca()">
+         <mat-autocomplete #autoLocal="matAutocomplete">
+         <mat-option *ngFor="let t of localFilter | async" [value]="t.denominacion">
+           {{t.denominacion}}
+         </mat-option>
+       </mat-autocomplete>
     </mat-form-field>
 
 

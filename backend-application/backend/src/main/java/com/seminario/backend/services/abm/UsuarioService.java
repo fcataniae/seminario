@@ -4,6 +4,7 @@ import com.seminario.backend.model.abm.Estado;
 import com.seminario.backend.model.abm.Rol;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.abm.Persona;
+import com.seminario.backend.model.bienes.Local;
 import com.seminario.backend.repository.abm.*;
 import com.seminario.backend.repository.bienes.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,10 +83,11 @@ public class UsuarioService{
             if (nroDocPersona == null) {
                 throw new CustomException("Persona NO existente!");
             }
-            if (localRepository.findByNro(usuario.getLocal().getNro()) == null) {
+            Local l = localRepository.findByNro(usuario.getLocal().getNro());
+            if ( l == null) {
                 throw new CustomException("Local del usuario NO existente!");
             }
-
+            usuario.setLocal(l);
             Persona persona = personaRepository.findByNroDoc(nroDocPersona);
             if (persona == null)
                 throw new CustomException("Persona NO existente!");

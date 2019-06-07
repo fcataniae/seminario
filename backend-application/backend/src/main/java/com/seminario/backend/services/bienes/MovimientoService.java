@@ -636,4 +636,25 @@ public class MovimientoService {
 
         return movimientoRepository.findById(nro);
     }
+
+    public List<Agente> getAllLocales(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-AGENTE")) {
+
+            Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
+            List<Local> locales =  localRepository.findAllByNro(nro);
+            List<Agente> agentes = new ArrayList<>();
+            locales.forEach(l -> {
+                Agente a = new Agente();
+                a.setDenominacion(l.getDenominacion());
+                a.setDireccion(l.getDireccion());
+                a.setNro(l.getNro());
+                a.setNombre(l.getNombre());
+                a.setTipoAgente(l.getTipoAgente());
+                agentes.add(a);
+            });
+            return agentes;
+        }else{
+            throw new CustomException("No tiene permisos para consultar la tienda");
+        }
+    }
 }

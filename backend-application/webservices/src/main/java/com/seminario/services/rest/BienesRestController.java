@@ -180,6 +180,11 @@ public class BienesRestController {
         return movimientoService.getAllAgentes(usuarioActual);
     }
 
+    @GetMapping("/listar-locales")
+    public List<Agente> getLocales(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getAllLocales(usuarioActual);
+    }
     @GetMapping("/listar-movimientos")
     public List<Movimiento> getMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
