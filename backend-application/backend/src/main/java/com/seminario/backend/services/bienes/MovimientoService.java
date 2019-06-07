@@ -146,9 +146,12 @@ public class MovimientoService {
                             throw new CustomException("El movimiento ya se encuentra en el estado " + estado);
                         m.setEstadoViaje(nuevoEstado);
                         m.setComentario(comentario);
-
                         cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE", "OCUPADO");
-                        confimarMovimiento(m);
+                        if (nuevoEstado.getDescrip().equalsIgnoreCase("CANCELADO")) {
+                            cancelarStockYDeuda(m);
+                        }  else if (nuevoEstado.getDescrip().equalsIgnoreCase("ENTREGADO")) {
+                            confimarMovimiento(m);
+                        }
                         movimientoRepository.save(m);
                     } else {
                         throw new CustomException("El movimiento se encuentra en estado ENTREGADO, no puede modificarse el estado!");
