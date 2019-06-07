@@ -18,6 +18,8 @@ export class Movimiento{
   nroDocumento: number;
   estadoViaje: Estado;
   fechaAlta: Date;
+  nombreOrigen: string;
+  nombreDestino: string;
 
   constructor(){
     this.recursosAsignados = [];

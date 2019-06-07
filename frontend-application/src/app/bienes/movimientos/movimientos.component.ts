@@ -137,6 +137,8 @@ export class MovimientosComponent implements OnInit {
     let movimiento = new Movimiento();
     movimiento.destino = this.selectedDest.nro;
     movimiento.origen = this.selectedOrig.nro;
+    movimiento.nombreOrigen = this.selectedOrig.nombre;
+    movimiento.nombreDestino = this.selectedDest.nombre;
     movimiento.tipoMovimiento = this.selectedMov;
     this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
   }
