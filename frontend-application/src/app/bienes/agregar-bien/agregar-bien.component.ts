@@ -49,7 +49,7 @@ export class AgregarBienComponent implements OnInit {
 
   ngOnInit() {
     let consultaBienes = this._movimientoService.getAllBienes();
-    let consultaEstados = this._movimientoService.getAllEstadosBien();
+    let consultaEstados = this._movimientoService.getAllEstadosBien(this.tipoMovimiento.tipo);
     this.estados = [];
     this.bienes = [];
     forkJoin(consultaBienes,consultaEstados)

@@ -215,9 +215,9 @@ public class BienesRestController {
 
     }
 
-    @GetMapping("/estado-bien/{id-tipomov}")
+    @GetMapping("/estados-bien")
     public List<EstadoRecurso> getAllEstadoBienByTipoMov(@AuthenticationPrincipal UserDetails userDetails,
-                                                         @PathVariable("id-tipomov") String tipoMov) throws  CustomException{
+                                                         @RequestParam(name = "tipo") String tipoMov) throws  CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllEstadoBien(usuarioActual, tipoMov);
 
