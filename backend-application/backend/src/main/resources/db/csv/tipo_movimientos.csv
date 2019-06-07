@@ -7,4 +7,3 @@ id,tipo,nombre,id_tipo_destino,id_tipo_origen
 6,RECEPCIONINTERCAMBIO,"Recepcion de intercambio",2,3
 7,DEVOLUCION,"Devolucion desde Tienda",3,1
 8,DEVOLUCION,"Devolucion desde Centro de Distribucion",3,2
-9,CONFIRMARRECEP,"Confirmacion de recepcion de envio",1,2

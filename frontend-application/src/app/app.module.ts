@@ -5,7 +5,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { CommonModule, LocationStrategy } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_BASE_HREF } from '@angular/common';
-
+import 'hammerjs';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
