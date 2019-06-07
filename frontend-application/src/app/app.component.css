@@ -40,7 +40,7 @@ ul#menu li ul{
   display: none;
   position: absolute;
   top: 0px;
-  background-color: #0055ba;
+  background-color: #104382;
   color: white;
   padding: 0px 0px 5px 5px;
   margin: 0;
@@ -49,10 +49,11 @@ ul#menu li.sub a:hover {
   display: none;
 }
 #menu li ul:hover{
-  display: block;
+  display: grid;
+  width: 15%;
 }
 ul#menu li:hover ul,ul#menu li:hover ul li, ul#menu li:hover ul li a{
-  display :block;
+  display : grid;
   cursor: pointer;
 }
 
