@@ -7,5 +7,5 @@ export class Proveedor implements Agente{
   nombre: string;
   email: string;
   direccion_nro: number;
-
+  direccion: string;
 }

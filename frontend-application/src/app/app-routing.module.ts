@@ -10,6 +10,7 @@ import { EnvioComponent } from './bienes/envio/envio.component';
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
+import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'home/movimientos/registrar/:mov', component: EnvioComponent},
   { path: 'home/movimientos/modificar/:mov', component: EnvioComponent},
   { path: 'home/informeStock', component: InformeComponent},
-  { path: 'home/informeTiendas', component: InformeTiendasComponent}
+  { path: 'home/informeTiendas', component: InformeTiendasComponent},
+  { path: 'home/informeTablaStock', component: TablaStockComponent},
 
 ];
 @NgModule({

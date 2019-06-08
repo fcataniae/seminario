@@ -1,6 +1,6 @@
 
 <div class="mat-elevation-z8 margin">
-  <h3>Administracion de Movimientos</h3>
+  <h3>Listado de stock</h3>
   <div fxLayout fxLayoutAlign="left center">
     <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
@@ -8,73 +8,45 @@
     <mat-form-field class= "input-search" >
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
     </mat-form-field>
-    <button class="button-alta" mat-icon-button color="primary" (click)="onAltaMov()">
-      <mat-icon class="mat-18" >library_add</mat-icon> Alta
-    </button>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort >
 
-    <ng-container matColumnDef="nro">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro Movimiento </th>
-      <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+    <ng-container matColumnDef="local">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+    <ng-container matColumnDef="bien">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bien </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockbienes.descripcionBI}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="tipo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-      <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+    <ng-container matColumnDef="stocklibre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Libre </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockbienes.stock_libre}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="destino">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Destino </th>
-      <td mat-cell *matCellDef="let element"> {{element.destino}} </td>
+    <ng-container matColumnDef="stockocupado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Ocupado </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockbienes.stock_ocupado}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="origen">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Origen </th>
-      <td mat-cell *matCellDef="let element"> {{element.origen}} </td>
+    <ng-container matColumnDef="stockreservado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Reservado </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockbienes.stock_reservado}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="estado">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-      <td mat-cell *matCellDef="let element"> {{element.estadoViaje}} </td>
+    <ng-container matColumnDef="stockdestruido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Destruido </th>
+      <td mat-cell *matCellDef="let element"> {{element.stockbienes.stock_destruido}} </td>
     </ng-container>
-
-    <ng-container matColumnDef="nrodocumento">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro documento </th>
-      <td mat-cell *matCellDef="let element"> {{element.nroDocumento}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="modificar">
-      <th mat-header-cell *matHeaderCellDef> Modificar </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="modificarMovimiento(element)">
-          <mat-icon class="mat-18" >system_update</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="cancelar">
-      <th mat-header-cell *matHeaderCellDef> Confirmar </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="confirmarMovimiento(element)">
-          <mat-icon class="mat-18">check</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </mat-table>
 
-  <mat-paginator [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+  <mat-paginator [pageSize]="30" [pageSizeOptions]="[10, 20, 30, 50, 100]">
   </mat-paginator>
 
 

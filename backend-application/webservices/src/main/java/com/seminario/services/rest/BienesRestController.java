@@ -143,7 +143,7 @@ public class BienesRestController {
      * @return List<Agente> Todos los bienes con su stock
      * @throws CustomException Excepcion custom
      */
-    @GetMapping("/stock-locales/")
+    @GetMapping("/stock-locales")
     public List<com.seminario.backend.dto.Agente> getDistribucionBienes(@AuthenticationPrincipal UserDetails userDetails)  throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return stockBienEnLocalService.getDistribucionBienes(usuarioActual);

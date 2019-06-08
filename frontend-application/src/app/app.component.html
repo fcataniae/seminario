@@ -26,6 +26,9 @@
         <li *ngIf="permisoInformeTiendas">
           <a [routerLink]="['home/informeTiendas']">Tiendas</a>
         </li>
+        <li *ngIf="permisoInformeTablaStock">
+          <a [routerLink]="['home/informeTablaStock']">Listado de stock</a>
+        </li>
       </ul>
     </li>
     <li>

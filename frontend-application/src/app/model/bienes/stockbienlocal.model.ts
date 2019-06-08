@@ -1,7 +1,5 @@
 export class StockBienEnLocal{
 
-  nroLocal: number;
-  nombreLocal: String;
   idBI: number;
   tipoBI: String;
   subtipoBI: String;
