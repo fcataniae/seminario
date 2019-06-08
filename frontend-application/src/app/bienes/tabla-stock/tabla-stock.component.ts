@@ -10,6 +10,11 @@ import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Local } from '../../model/bienes/local.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
 
+export class filaTabla{
+  nombre: string;
+  stockBienes:StockBienEnLocal;
+}
+
 @Component({
   selector: 'app-tabla-stock',
   templateUrl: './tabla-stock.component.html',
@@ -23,8 +28,9 @@ constructor(private _movimientoService: MovimientoService,
               private _stockbienlocalService: StockBienLocalService) { }
 
   listaStock: Local[];
+  listaTabla: filaTabla[];
 
-  public dataSource = new MatTableDataSource<Local>();
+  public dataSource = new MatTableDataSource<filaTabla>();
   public displayedColumns = ['local','bien','stocklibre','stockocupado', 'stockreservado', 'stockdestruido'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,7 +40,18 @@ constructor(private _movimientoService: MovimientoService,
       .subscribe( res => {
         console.log(res);
         this.listaStock = res;
-        this.dataSource.data = this.listaStock;
+        this.listaTabla = [];
+
+        for(let i=0; i<this.listaStock.length; i++){
+          for(let j=0; j<this.listaStock[i].stockBienes.length; j++){
+            let fila = new filaTabla;
+            fila.nombre = this.listaStock[i].nombre;
+            fila.stockBienes = this.listaStock[i].stockBienes[j];
+            this.listaTabla.push(fila);
+          }
+        }
+
+        this.dataSource.data = this.listaTabla;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       });
