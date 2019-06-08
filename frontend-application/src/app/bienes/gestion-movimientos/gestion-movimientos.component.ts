@@ -98,6 +98,12 @@ export class GestionMovimientosComponent implements OnInit {
       res=>{
         if(res && res == true){
           this.showDialog("Se confirmo correctamente el movimiento");
+          this._movimientoService.getAllMovimientos()
+            .subscribe( res => {
+              console.log(res);
+              this.movimientos = res;
+              this.dataSource.data = this.generateMovi();
+            });
         }else if (res && res == false){
           this.showDialog("No se pudo confirmar el movimiento");
         }
