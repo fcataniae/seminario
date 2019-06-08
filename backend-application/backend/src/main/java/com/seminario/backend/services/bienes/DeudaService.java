@@ -154,7 +154,7 @@ public class DeudaService {
                 "ORDER BY fechaalta desc LIMIT 1";
         Double d = (Double) em.createNativeQuery(qry)
                 .setParameter(1,BI_id)
-                .setParameter(1, fecha).getSingleResult();
+                .setParameter(2, fecha).getSingleResult();
         em.close();
         return d;
     }

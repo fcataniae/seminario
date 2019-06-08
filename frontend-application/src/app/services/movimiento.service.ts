@@ -25,8 +25,8 @@ export class MovimientoService {
   getAllTipoMovimientos() : Observable<TipoMovimiento[]>{
     return this._http.get<TipoMovimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-tipomovimientos');
   }
-  getAllEstadosBien(tipo: string) : Observable<Estado[]>{
-    return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') + 'estados-bien?tipo=' + tipo);
+  getAllEstadosBien(nro: number) : Observable<Estado[]>{
+    return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') + 'estados-bien?nro=' + nro);
   }
 
   getAllAgentes() : Observable<Agente[]>{

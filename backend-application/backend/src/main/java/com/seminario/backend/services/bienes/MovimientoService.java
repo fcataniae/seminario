@@ -599,10 +599,10 @@ public class MovimientoService {
         }
     }
 
-    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual, String tipo) throws CustomException{
+    public List<EstadoRecurso> getAllEstadoBien(Usuario usuarioActual, Long id) throws CustomException{
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADORECURSO")) {
             List<EstadoRecurso> r = new ArrayList<>();
-            TipoMovimiento tipoEnvio = tipoMovimientoRepository.findByTipo(tipo);
+            TipoMovimiento tipoEnvio = tipoMovimientoRepository.findOne(id);
             if (tipoEnvio.getTipo().equals("ENVIO") || tipoEnvio.getTipo().equals("RECEPCION")){
                 r.add(estadoRecursoRepository.findByDescrip("OCUPADO"));
                 r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
