@@ -88,7 +88,7 @@ h3 {
   width: 30%;
   padding: 10px;
   text-align: center;
-  font-family: "Myriad Pro"
+  font-family: "Arial"/*"Myriad Pro"*/
   }
   mat-dialog-content {
     display: flex !important;

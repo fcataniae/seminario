@@ -67,7 +67,7 @@ export class InformeComponent implements OnInit {
           startWith(''),
           map(value => this._filterBien(value))
         );
-        
+
       },
       error => console.log(error)
     );
