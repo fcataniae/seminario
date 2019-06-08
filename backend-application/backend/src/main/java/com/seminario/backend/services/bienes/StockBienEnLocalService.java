@@ -264,7 +264,15 @@ public class StockBienEnLocalService {
     }
 
     private static final String TYPE ="pie";
-
+    private static final String[] COLOR =
+            { "rgba(54, 162, 235, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(16, 102, 130)",
+              "rgba(201, 38, 149)"};
+    private static final int INDEX = 7;
     /**
      * Funcion que devuelve una lista de dashboards de acuerdo al usuario
      * @param usuarioActual
@@ -275,34 +283,52 @@ public class StockBienEnLocalService {
 
         List<Dashboard> dashs = new ArrayList<>();
         Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
-
+        Dashboard d = new Dashboard();
+        Random r = new Random();
         if(nro == null){
             /*
             *  TODO dash para CD
             * */
+            List<Agente> distr = getDistribucionBienes(usuarioActual);
+
+            for(Agente e : distr){
+                d.getData().getLabels().add(e.getNombre());
+                Long stock = 0L;
+                for(StockBienEnLocal s : e.getStockBienes()){
+                    stock = s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado();
+
+
+                }
+                d.getData().getDataset().getData().add(String.valueOf(stock));
+                d.getData().getDataset().getBackgroundColor().add(COLOR[r.nextInt(INDEX)]);
+            }
+            d.setType(TYPE);
+            d.getData().getDataset().setLabel("Distribucion de bienes general");
+
+            dashs.add(d);
         }
         /**
          * Dashboard de distribucion de bienes en tienda
          */
-        List<Agente> distr = getDistribucionBienes(usuarioActual);
-        Dashboard d = new Dashboard();
+
+        List<StockBienEnLocal> stockLocal = getStockLocal(usuarioActual.getLocal().getNro(),usuarioActual);
+
+        d = new Dashboard();
+
         d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
-        for(Agente e : distr){
 
-            for(StockBienEnLocal s : e.getStockBienes()){
-                d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
-                d.getData().getLabels().add(s.getDescripcionBI());
-
-            }
-
+        for(StockBienEnLocal s : stockLocal){
+            d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
+            d.getData().getLabels().add(s.getDescripcionBI());
+            d.getData().getDataset().getBackgroundColor().add(COLOR[r.nextInt(INDEX)]);
         }
         d.setType(TYPE);
         dashs.add(d);
         /**
          * Dashboards de movimientos en los ultimos 10 dias
          */
+        d = new Dashboard();
 
-        
         return  dashs;
     }
 
