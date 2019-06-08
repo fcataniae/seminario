@@ -26,10 +26,10 @@
         <li *ngIf="permisoInformeTiendas">
           <a [routerLink]="['home/informeTiendas']">Tiendas</a>
         </li>
-        <li *ngIf="permisoInformeTablaStock">
-          <a [routerLink]="['home/informeTablaStock']">Listado de stock</a>
-        </li>
       </ul>
+    </li>
+    <li *ngIf="permisoInformeTablaStock">
+      <a [routerLink]="['home/informeTablaStock']">Listado de stock</a>
     </li>
     <li>
       <a class="logout" (click)="logOut($event)"><mat-icon>exit_to_app</mat-icon><span>Log out</span></a>

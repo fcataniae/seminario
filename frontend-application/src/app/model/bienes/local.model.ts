@@ -10,7 +10,7 @@ export class Local implements Agente{
   email: string;
   direccion_nro: number;
   direccion:string;
-  stockbienes:StockBienEnLocal;
+  stockBienes:StockBienEnLocal;
   coordenada: string;
 
 }
