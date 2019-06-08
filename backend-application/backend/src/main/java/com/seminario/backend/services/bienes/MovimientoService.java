@@ -92,9 +92,7 @@ public class MovimientoService {
 
         movimientoNuevo.setTipoMovimiento(ti);
         validarDestinoOrigen(movimientoNuevo);
-        if(!movimientoNuevo.getTipoMovimiento().getTipo().equalsIgnoreCase("RECEPCION") &&
-                !movimientoNuevo.getTipoMovimiento().getTipoAgenteOrigen().getNombre().equalsIgnoreCase("PROVEEDOR") &&
-                !movimientoNuevo.getTipoMovimiento().getTipo().equalsIgnoreCase("DESTRUCCION") )
+        if (movimientoNuevo.getTipoMovimiento().getTipo().equalsIgnoreCase("ENVIO") )
             validarTransportista(movimientoNuevo);
 
         validarItems(movimientoNuevo.getItemMovimientos());
