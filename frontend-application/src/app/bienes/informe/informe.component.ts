@@ -55,20 +55,21 @@ export class InformeComponent implements OnInit {
         console.log(res);
         this.bienes = res[0];
         this.locales = res[1];
+
+        this.filteredLocales = this.myControlLocales.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterLocal(value))
+        );
+
+        this.filteredBienes = this.myControlBienes.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterBien(value))
+        );
+
       },
       error => console.log(error)
-    );
-
-    this.filteredLocales = this.myControlLocales.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterLocal(value))
-    );
-
-    this.filteredBienes = this.myControlBienes.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterBien(value))
     );
 
 }//END OnInit
