@@ -170,28 +170,32 @@ public class MovimientoService {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "MODI-MOVIMIENTO")) {
             Movimiento movimientoViejo;
             if (null != (movimientoViejo = movimientoRepository.findById(movimientoNuevo.getId()))) {
-                cancelarStockYDeuda(movimientoViejo);
-                validarMovimiento(movimientoNuevo);
-                movimientoViejo.setFechaSalida(movimientoNuevo.getFechaSalida());
-                movimientoViejo.setTipoMovimiento(movimientoNuevo.getTipoMovimiento());
-                movimientoViejo.setUsuarioAlta(usuarioActual);
-                movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
-                movimientoViejo.setDestino(movimientoNuevo.getDestino());
-                movimientoViejo.setOrigen(movimientoNuevo.getOrigen());
-                movimientoViejo.setItemMovimientos(movimientoNuevo.getItemMovimientos());
+                if (!movimientoViejo.getEstadoViaje().getDescrip().equalsIgnoreCase("ENTREGADO")) {
+                    cancelarStockYDeuda(movimientoViejo);
+                    validarMovimiento(movimientoNuevo);
+                    movimientoViejo.setFechaSalida(movimientoNuevo.getFechaSalida());
+                    movimientoViejo.setTipoMovimiento(movimientoNuevo.getTipoMovimiento());
+                    movimientoViejo.setUsuarioAlta(usuarioActual);
+                    movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
+                    movimientoViejo.setDestino(movimientoNuevo.getDestino());
+                    movimientoViejo.setOrigen(movimientoNuevo.getOrigen());
+                    movimientoViejo.setItemMovimientos(movimientoNuevo.getItemMovimientos());
 
-                // SOLO liberamos los recursos si el movimiento se encuentra en estado pendiente
-                if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
-                    movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoViejo.getRecursosAsignados(), "LIBRE","OCUPADO"));
+                    // SOLO liberamos los recursos si el movimiento se encuentra en estado pendiente
+                    if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
+                        movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoViejo.getRecursosAsignados(), "LIBRE", "OCUPADO"));
 
-                if (movimientoRepository.save(movimientoViejo) == null)
-                    throw new CustomException("Error al guardar la movimiento!");
-                actualizarStockYDeuda(movimientoViejo, movimientoViejo.getFechaAlta());
-
-                if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
-                    movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
                     if (movimientoRepository.save(movimientoViejo) == null)
                         throw new CustomException("Error al guardar la movimiento!");
+                    actualizarStockYDeuda(movimientoViejo, movimientoViejo.getFechaAlta());
+
+                if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
+                    movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO", "LIBRE"));
+                if (movimientoRepository.save(movimientoViejo) == null)
+                    throw new CustomException("Error al guardar la movimiento!");
+                } else {
+                    throw new CustomException("El movimiento se encuentra en estado ENTREGADO, no puede modificarse!");
+                }
             }  else {
                 throw new CustomException("No se encontró el movimiento que desea modificar!");
             }
