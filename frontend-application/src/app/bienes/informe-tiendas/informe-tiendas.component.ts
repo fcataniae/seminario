@@ -109,15 +109,20 @@ export class InformeTiendasComponent implements OnInit {
         // bar chart:
         let barEnviadoChart = document.getElementById('barEnviadoChart');
         let contextoEnviado = <HTMLCanvasElement> barEnviadoChart;
+        let labels = [];
+        let data = [];
+
+        topTiendasEnvios.forEach( t => {
+          labels.push(t.tiendaId.toString());
+          data.push(t.cantEnviada.toString());
+        });
         this.chartEnviado = new Chart(contextoEnviado, {
             type: 'bar',
           data: {
-           labels: [""+topTiendasEnvios[0].tiendaId, ""+topTiendasEnvios[1].tiendaId, ""+topTiendasEnvios[2].tiendaId,
-                    ""+topTiendasEnvios[3].tiendaId, ""+topTiendasEnvios[4].tiendaId],
+           labels: labels,
            datasets: [{
                label:"Envios por tienda",
-               data: [topTiendasEnvios[0].cantEnviada, topTiendasEnvios[1].cantEnviada, topTiendasEnvios[2].cantEnviada,
-                      topTiendasEnvios[3].cantEnviada, topTiendasEnvios[4].cantEnviada],
+               data: data,
                backgroundColor: 'rgba(75, 192, 192, 1)'
            }]
           },
@@ -140,6 +145,10 @@ export class InformeTiendasComponent implements OnInit {
         // bar chart:
         let barRecibidoChart = document.getElementById('barRecibidoChart');
         let contextoRecibido = <HTMLCanvasElement> barRecibidoChart;
+        topTiendasRecibidos.forEach( t => {
+          labels.push(t.tiendaId.toString());
+          data.push(t.cantRecibida.toString());
+        });
         this.chartRecibido = new Chart(contextoRecibido, {
             type: 'bar',
           data: {
