@@ -12,7 +12,11 @@ import { StockBienLocalService } from '../../services/stockbienlocal.service';
 
 export class filaTabla{
   nombre: string;
-  stockBienes:StockBienEnLocal;
+  descripcionBI: String;
+  stock_ocupado: String;
+  stock_libre: String;
+  stock_reservado: String;
+  stock_destruido: String;
 }
 
 @Component({
@@ -46,7 +50,11 @@ constructor(private _movimientoService: MovimientoService,
           for(let j=0; j<this.listaStock[i].stockBienes.length; j++){
             let fila = new filaTabla;
             fila.nombre = this.listaStock[i].nombre;
-            fila.stockBienes = this.listaStock[i].stockBienes[j];
+            fila.descripcionBI = this.listaStock[i].stockBienes[j].descripcionBI.toString();
+            fila.stock_ocupado = this.listaStock[i].stockBienes[j].stock_ocupado.toString();
+            fila.stock_libre = this.listaStock[i].stockBienes[j].stock_libre.toString();
+            fila.stock_reservado = this.listaStock[i].stockBienes[j].stock_reservado.toString();
+            fila.stock_destruido = this.listaStock[i].stockBienes[j].stock_destruido.toString();
             this.listaTabla.push(fila);
           }
         }
