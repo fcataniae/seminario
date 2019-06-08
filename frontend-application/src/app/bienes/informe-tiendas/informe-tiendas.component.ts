@@ -72,13 +72,14 @@ export class InformeTiendasComponent implements OnInit {
         console.log(res);
         this.tiendasEstadisticas = res[0];
         this.locales = res[1].filter( a => a.tipoAgente.id === 1);
+        this.generarGraficos();
+        
       },
       error => console.log(error)
     );
 
     this.totalEnviado = 0;
     this.totalRecibido = 0;
-    this.generarGraficos();
 
   }//END OnInit
 
@@ -88,11 +89,12 @@ export class InformeTiendasComponent implements OnInit {
     .subscribe(res=>{
         console.log(res);
         this.tiendasEstadisticas = res;
+        this.generarGraficos();
+
       },
       error => console.log(error)
     );
 
-    this.generarGraficos();
 
   }
 

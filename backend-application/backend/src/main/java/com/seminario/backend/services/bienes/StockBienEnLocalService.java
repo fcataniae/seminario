@@ -2,6 +2,7 @@ package com.seminario.backend.services.bienes;
 
 
 import ch.qos.logback.core.CoreConstants;
+import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.StockBienEnLocal;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
@@ -10,6 +11,7 @@ import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.management.Agent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -261,7 +263,48 @@ public class StockBienEnLocalService {
         }
     }
 
+    private static final String TYPE ="pie";
 
+    /**
+     * Funcion que devuelve una lista de dashboards de acuerdo al usuario
+     * @param usuarioActual
+     * @return List Dashboards
+     * @throws CustomException Excepcion
+     */
+    public List<Dashboard> getDashboards(Usuario usuarioActual) throws CustomException {
+
+        List<Dashboard> dashs = new ArrayList<>();
+        Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
+
+        if(nro == null){
+            /*
+            *  TODO dash para CD
+            * */
+        }
+        /**
+         * Dashboard de distribucion de bienes en tienda
+         */
+        List<Agente> distr = getDistribucionBienes(usuarioActual);
+        Dashboard d = new Dashboard();
+        d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
+        for(Agente e : distr){
+
+            for(StockBienEnLocal s : e.getStockBienes()){
+                d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
+                d.getData().getLabels().add(s.getDescripcionBI());
+
+            }
+
+        }
+        d.setType(TYPE);
+        dashs.add(d);
+        /**
+         * Dashboards de movimientos en los ultimos 10 dias
+         */
+
+        
+        return  dashs;
+    }
 
 
 }

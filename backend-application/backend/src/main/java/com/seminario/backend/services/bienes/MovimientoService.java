@@ -682,4 +682,6 @@ public class MovimientoService {
             throw new CustomException("No tiene permisos para consultar la tienda");
         }
     }
+
+
 }
