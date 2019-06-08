@@ -1,2 +1,5 @@
 ID,DESCRIPCION,NOMBRE,ESTADO_ID
 100,Administrador,Administradordelsistema,1
+101,Usuario de Bienes (Lectura/Escritura),"Usuario de Bienes Intercambiables con todos los permisos (7460)",1
+102,Usuario de Bienes (Lectura),"Usuario de Bienes solo con permisos de lectura/consulta",1
+103,Usuario de Tienda (Lectura),"Usuario de Tienda solo con permisos de lectura/consulta",1
