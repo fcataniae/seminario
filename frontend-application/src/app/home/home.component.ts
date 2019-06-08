@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { FormControl } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { Dashboard } from '../model/bienes/dashboard.model';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,11 @@ import { forkJoin } from 'rxjs';
 })
 
 export class HomeComponent implements OnInit {
+
+  chart1:Chart;
+  chart2:Chart;
+  chart3:Chart;
+  chart4:Chart;
 
   constructor() { }
 

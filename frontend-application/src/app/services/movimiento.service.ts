@@ -69,4 +69,7 @@ export class MovimientoService {
   getAllLocales(): Observable<Agente[]>{
     return this._http.get<Agente[]>(environment.serviceUrl.replace('service','bienes') + 'listar-locales');
   }
+  getDashboard():Observable<Dashboard[]>{
+
+  }
 }
