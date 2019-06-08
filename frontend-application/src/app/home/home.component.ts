@@ -18,6 +18,8 @@ import { LoginService } from '../services/login.service';
 import { FormControl } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { Dashboard } from '../model/bienes/dashboard.model';
+import { Data } from '../model/bienes/data.model';
+import { Dataset } from '../model/bienes/dataset.model';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +33,69 @@ export class HomeComponent implements OnInit {
   chart2:Chart;
   chart3:Chart;
   chart4:Chart;
+  charts:Chart[];
+  dashboards: Dashboard[];
 
-  constructor() { }
+  constructor(private _movimientoService: MovimientoService) { }
 
-  ngOnInit() {  }//END OnInit
+  ngOnInit() {
+    this.charts = [];
+    this.charts.push(this.chart1);
+    this.charts.push(this.chart2);
+    this.charts.push(this.chart3);
+    this.charts.push(this.chart4);
+
+    this.dashboards = [];
+    this._movimientoService.getDashboard()
+    .subscribe(res=>{
+        console.log(res);
+        this.dashboards = res;
+        this.generarGraficos();
+
+      },
+      error => console.log(error)
+    );
+
+   }//END OnInit
+
+  generarGraficos(){
+
+     if(this.dashboards.length){
+
+        // bar chart:
+        for(let i=0; i<this.dashboards.length; i++){
+          let chart = document.getElementById('chart'+i);
+          let contexto = <HTMLCanvasElement> chart;
+          let labels = [];
+          let data = [];
+          let type: string;
+          let label: string;
+          let backgroundColor = [];
+
+          type = this.dashboards[i].type;
+          labels = this.dashboards[i].data.labels;
+          data = this.dashboards[i].data.dataset.data;
+          label = this.dashboards[i].data.dataset.label;
+          backgroundColor = this.dashboards[i].data.dataset.backgroundColor;
+
+          this.charts[i] = new Chart(contexto, {
+              type: type,
+            data: {
+             labels: labels,
+             datasets: [{
+                 label: label,
+                 data: data,
+                 backgroundColor: backgroundColor
+             }]
+            },
+            options: {
+              title:{
+                 text:"Dashboard",
+                 display:true
+              },
+            }
+          });
+        }
+      }
+    }
 }

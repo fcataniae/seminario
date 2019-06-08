@@ -1,1 +1,7 @@
 
+.grafico{
+  width: 40% !important;
+  margin-left: 6%;
+  height: auto !important;
+  display: inline-block;
+}

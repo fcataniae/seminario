@@ -11,6 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
 import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 import { Transportista } from '../model/bienes/transportista.model';
+import { Dashboard } from '../model/bienes/dashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,6 @@ export class MovimientoService {
     return this._http.get<Agente[]>(environment.serviceUrl.replace('service','bienes') + 'listar-locales');
   }
   getDashboard():Observable<Dashboard[]>{
-
+    return this._http.get<Dashboard[]>(environment.serviceUrl.replace('service','bienes') + 'get-dashboards');
   }
 }
