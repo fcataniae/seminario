@@ -1,6 +1,7 @@
 package com.seminario.backend.services.bienes;
 
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
@@ -681,5 +682,10 @@ public class MovimientoService {
         }else{
             throw new CustomException("No tiene permisos para consultar la tienda");
         }
+    }
+
+    public Dashboard getDashboards(Usuario usuarioActual) {
+
+        return new Dashboard();
     }
 }
