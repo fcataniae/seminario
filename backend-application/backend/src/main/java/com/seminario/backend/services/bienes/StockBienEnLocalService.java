@@ -263,8 +263,8 @@ public class StockBienEnLocalService {
         }
     }
 
-    private static final String TYPE ="pie";
-    private static final String[] COLOR =
+    private static final String TYPES[] ={"pie","doughnut"};
+    private static final String[] COLORES =
             { "rgba(54, 162, 235, 1)",
               "rgba(75, 192, 192, 1)",
               "rgba(255, 206, 86, 1)",
@@ -273,6 +273,7 @@ public class StockBienEnLocalService {
               "rgba(16, 102, 130)",
               "rgba(201, 38, 149)"};
     private static final int INDEX = 7;
+    private static final int INDEXC = 2;
     /**
      * Funcion que devuelve una lista de dashboards de acuerdo al usuario
      * @param usuarioActual
@@ -300,9 +301,9 @@ public class StockBienEnLocalService {
 
                 }
                 d.getData().getDataset().getData().add(String.valueOf(stock));
-                d.getData().getDataset().getBackgroundColor().add(COLOR[r.nextInt(INDEX)]);
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
             }
-            d.setType(TYPE);
+            d.setType(TYPES[r.nextInt(INDEXC)]);
             d.getData().getDataset().setLabel("Distribucion de bienes general");
 
             dashs.add(d);
@@ -320,9 +321,9 @@ public class StockBienEnLocalService {
         for(StockBienEnLocal s : stockLocal){
             d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
             d.getData().getLabels().add(s.getDescripcionBI());
-            d.getData().getDataset().getBackgroundColor().add(COLOR[r.nextInt(INDEX)]);
+            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
         }
-        d.setType(TYPE);
+        d.setType(TYPES[r.nextInt(INDEXC)]);
         dashs.add(d);
         /**
          * Dashboards de movimientos en los ultimos 10 dias

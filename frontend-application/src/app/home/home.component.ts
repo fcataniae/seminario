@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
         console.log(res);
         this.dashboards = res;
         this.generarGraficos();
-
       },
       error => console.log(error)
     );
@@ -60,42 +59,44 @@ export class HomeComponent implements OnInit {
 
   generarGraficos(){
 
-     if(this.dashboards.length){
+    console.log(this.dashboards);
+    console.log(this.dashboards.length);
+    console.log(this.charts);
+     if(this.dashboards){
+        let index = 0;
+        let container = document.getElementById("container");
+        console.log(container);
+        this.dashboards.forEach(d => {
+          let div = document.createElement("div");
+          let canvas = document.createElement("canvas");
 
-        // bar chart:
-        for(let i=0; i<this.dashboards.length; i++){
-          let chart = document.getElementById('chart'+i);
-          let contexto = <HTMLCanvasElement> chart;
-          let labels = [];
-          let data = [];
-          let type: string;
-          let label: string;
-          let backgroundColor = [];
-
-          type = this.dashboards[i].type;
-          labels = this.dashboards[i].data.labels;
-          data = this.dashboards[i].data.dataset.data;
-          label = this.dashboards[i].data.dataset.label;
-          backgroundColor = this.dashboards[i].data.dataset.backgroundColor;
-
-          this.charts[i] = new Chart(contexto, {
-              type: type,
-            data: {
-             labels: labels,
-             datasets: [{
-                 label: label,
-                 data: data,
-                 backgroundColor: backgroundColor
-             }]
+          div.classList.add("grafico");
+          canvas.id = "chart"+index;
+          div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+          div.appendChild(canvas);
+          this.charts[index] = new Chart(canvas,{
+            type: d.type,
+            data:{
+              labels: d.data.labels,
+              datasets:[{
+                label: d.data.dataset.label,
+                data:d.data.dataset.data,
+                backgroundColor: d.data.dataset.backgroundColor
+              }]
             },
             options: {
               title:{
-                 text:"Dashboard",
-                 display:true
+                 text:d.data.dataset.label,
+                 display:true,
+                 responsive: true,
+                 maintainAspectRatio: false
               },
             }
           });
-        }
+          container.appendChild(div);
+          index++;
+        });
+
       }
     }
 }

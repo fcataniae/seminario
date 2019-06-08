@@ -17,7 +17,7 @@ body{
 
 div.flotante{
   position:fixed;
-  top:15px;
+  top:10vh;
   right:15px;
   background-color:#0055ba;
   color:white;
