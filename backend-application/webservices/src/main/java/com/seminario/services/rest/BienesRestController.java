@@ -276,9 +276,8 @@ public class BienesRestController {
     }
 
     @GetMapping("get-dashboards")
-    public Dashboard getDashboards(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
+    public List<Dashboard> getDashboards(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getDashboards(usuarioActual
-        );
+        return stockBienEnLocalService.getDashboards(usuarioActual);
     }
 }
