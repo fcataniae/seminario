@@ -35,6 +35,7 @@ export class InformeTiendasComponent implements OnInit {
 
   columnsToDisplayTiendas: String[] = ['id','nombre'];
 
+
   tiendasEstadisticas: TiendaEstadisticas[];
   locales: Agente[];
   fechaInicio: Date;
@@ -145,19 +146,19 @@ export class InformeTiendasComponent implements OnInit {
         // bar chart:
         let barRecibidoChart = document.getElementById('barRecibidoChart');
         let contextoRecibido = <HTMLCanvasElement> barRecibidoChart;
+        let labels2 = [];
+        let data2 = [];
         topTiendasRecibidos.forEach( t => {
-          labels.push(t.tiendaId.toString());
-          data.push(t.cantRecibida.toString());
+          labels2.push(t.tiendaId.toString());
+          data2.push(t.cantRecibida.toString());
         });
         this.chartRecibido = new Chart(contextoRecibido, {
             type: 'bar',
           data: {
-           labels: [""+topTiendasRecibidos[0].tiendaId, ""+topTiendasRecibidos[1].tiendaId, ""+topTiendasRecibidos[2].tiendaId,
-                    ""+topTiendasRecibidos[3].tiendaId, ""+topTiendasRecibidos[4].tiendaId],
+           labels: labels2,
            datasets: [{
                label:"Recepciones por tienda",
-               data: [topTiendasRecibidos[0].cantRecibida, topTiendasRecibidos[1].cantRecibida, topTiendasRecibidos[2].cantRecibida,
-                      topTiendasRecibidos[3].cantRecibida, topTiendasRecibidos[4].cantRecibida],
+               data: data2,
                backgroundColor: 'rgba(54, 162, 235, 1)'
            }]
           },
