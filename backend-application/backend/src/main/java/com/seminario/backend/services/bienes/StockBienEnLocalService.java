@@ -275,25 +275,41 @@ public class StockBienEnLocalService {
 
         List<Dashboard> dashs = new ArrayList<>();
         Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
+        Dashboard d = new Dashboard();
 
         if(nro == null){
             /*
             *  TODO dash para CD
             * */
+            List<Agente> distr = getDistribucionBienes(usuarioActual);
+
+            for(Agente e : distr){
+                d.getData().getLabels().add(e.getNombre());
+                Long stock = 0L;
+                for(StockBienEnLocal s : e.getStockBienes()){
+                    stock = s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado();
+
+
+                }
+                d.getData().getDataset().getData().add(String.valueOf(stock));
+            }
+            d.setType(TYPE);
+            d.getData().getDataset().setLabel("Distribucion de bienes general");
+            dashs.add(d);
         }
         /**
          * Dashboard de distribucion de bienes en tienda
          */
-        List<Agente> distr = getDistribucionBienes(usuarioActual);
-        Dashboard d = new Dashboard();
+
+        List<StockBienEnLocal> stockLocal = getStockLocal(usuarioActual.getLocal().getNro(),usuarioActual);
+
+        d = new Dashboard();
+
         d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
-        for(Agente e : distr){
 
-            for(StockBienEnLocal s : e.getStockBienes()){
-                d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
-                d.getData().getLabels().add(s.getDescripcionBI());
-
-            }
+        for(StockBienEnLocal s : stockLocal){
+            d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
+            d.getData().getLabels().add(s.getDescripcionBI());
 
         }
         d.setType(TYPE);
@@ -301,8 +317,8 @@ public class StockBienEnLocalService {
         /**
          * Dashboards de movimientos en los ultimos 10 dias
          */
+        d = new Dashboard();
 
-        
         return  dashs;
     }
 
