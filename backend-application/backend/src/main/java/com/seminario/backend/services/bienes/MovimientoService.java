@@ -682,6 +682,28 @@ public class MovimientoService {
             throw new CustomException("No tiene permisos para consultar la tienda");
         }
     }
+    
 
+    public List<Movimiento> getUltimosMovimientosLocal(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-MOVIMIENTO")) {
+
+            Date fecha = Date.from(ZonedDateTime.now(zoneId).toInstant()); //fecha actual
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fecha);
+            calendar.add(Calendar.DAY_OF_YEAR, -14);  // fecha - 14 dias
+            //SimpleDateFormat formatFecha = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println("fecha de hoy: "+ fecha + "| fecha -14 dias: "+ calendar.getTime());
+
+            if (usuarioActual.getLocal().getTipoAgente().getNombre().equals("CD")) {
+                return movimientoRepository.findAllByLocalAndFecha(null,calendar.getTime(),fecha);
+
+            } else { // si es tienda
+                return movimientoRepository.findAllByLocalAndFecha(usuarioActual.getId(),calendar.getTime(),fecha);
+            }
+
+        } else {
+            throw new CustomException("No tiene permisos para consultar movimientos");
+        }
+    }
 
 }
