@@ -19,27 +19,27 @@
 
     <ng-container matColumnDef="bien">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Bien </th>
-      <td mat-cell *matCellDef="let element"> {{element.stockBienes.descripcionBI}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionBI}} </td>
     </ng-container>
 
     <ng-container matColumnDef="stocklibre">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Libre </th>
-      <td mat-cell *matCellDef="let element"> {{element.stockBienes.stock_libre}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.stock_libre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="stockocupado">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Ocupado </th>
-      <td mat-cell *matCellDef="let element"> {{element.stockBienes.stock_ocupado}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.stock_ocupado}} </td>
     </ng-container>
 
     <ng-container matColumnDef="stockreservado">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Reservado </th>
-      <td mat-cell *matCellDef="let element"> {{element.stockBienes.stock_reservado}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.stock_reservado}} </td>
     </ng-container>
 
     <ng-container matColumnDef="stockdestruido">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Destruido </th>
-      <td mat-cell *matCellDef="let element"> {{element.stockBienes.stock_destruido}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.stock_destruido}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
