@@ -33,6 +33,8 @@ export class InformeTiendasComponent implements OnInit {
   @ViewChild("paginatorRecepciones") paginatorRecepciones: MatPaginator;
   datosTablaRecepciones = new MatTableDataSource<Agente>();
 
+  selectedIndex: number ;
+
   columnsToDisplayTiendas: String[] = ['id','nombre'];
 
 
@@ -59,7 +61,7 @@ export class InformeTiendasComponent implements OnInit {
   this.datosTablaEnvios.paginator = this.paginatorEnvios;
   this.datosTablaRecepciones.sort = this.sortRecepciones;
   this.datosTablaRecepciones.paginator = this.paginatorRecepciones;
-
+  this.selectedIndex = 0;
     this.tiendasEstadisticas = [];
     this.locales = [];
     this.fechaInicio = null;
@@ -73,7 +75,7 @@ export class InformeTiendasComponent implements OnInit {
         this.tiendasEstadisticas = res[0];
         this.locales = res[1].filter( a => a.tipoAgente.id === 1);
         this.generarGraficos();
-        
+
       },
       error => console.log(error)
     );
@@ -100,78 +102,106 @@ export class InformeTiendasComponent implements OnInit {
 
   generarGraficos(){
 
-     if(this.tiendasEstadisticas.length){
-        //Ordeno array de tiendas segun más envios
-        let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-            if (obj1.cantEnviada > obj2.cantEnviada) {return 1;}
-            if (obj1.cantEnviada < obj2.cantEnviada) {return -1;}
-            return 0;
-        });
-        console.log("top envios");
-        console.log(topTiendasEnvios);
-        // bar chart:
-        let barEnviadoChart = document.getElementById('barEnviadoChart');
-        let contextoEnviado = <HTMLCanvasElement> barEnviadoChart;
-        let labels = [];
-        let data = [];
+     if(this.tiendasEstadisticas){
 
-        topTiendasEnvios.forEach( t => {
-          labels.push(t.tiendaId.toString());
-          data.push(t.cantEnviada.toString());
-        });
-        this.chartEnviado = new Chart(contextoEnviado, {
-            type: 'bar',
-          data: {
-           labels: labels,
-           datasets: [{
-               label:"Envios por tienda",
-               data: data,
-               backgroundColor: 'rgba(75, 192, 192, 1)'
-           }]
-          },
-          options: {
-            title:{
-               text:"Top 5 locales con más envíos",
-               display:true
+       let topTiendasEnvios: TiendaEstadisticas[];
+       let topTiendasRecibidos: TiendaEstadisticas[];
+
+       if(this.selectedIndex == 0){//Hago una chanchada por aca (?)
+          //Ordeno array de tiendas segun más envios
+          topTiendasEnvios = this.tiendasEstadisticas.sort((obj1, obj2) => {
+              if (obj1.cantEnviada > obj2.cantEnviada) {return 1;}
+              if (obj1.cantEnviada < obj2.cantEnviada) {return -1;}
+              return 0;
+          });
+          let divTab = document.getElementsByTagName("mat-tab-body")[0].firstChild;
+          let canvas = document.getElementById("canvasEnvios");
+          let div;
+          if(canvas == null){
+            canvas = document.createElement("canvas");
+            canvas.id="canvasEnvios";
+            div = document.createElement("div");
+            div.setAttribute("style", "display: inline-block; width: 35vw; heigth: 40vh; margin-left:3vw;");
+            div.appendChild(canvas);
+            divTab.appendChild(div);
+          }
+
+
+          let labels = [];
+          let data = [];
+
+          topTiendasEnvios.forEach( t => {
+            labels.push(t.tiendaId.toString());
+            data.push(t.cantEnviada.toString());
+          });
+
+
+          this.chartEnviado = new Chart(canvas, {
+              type: 'bar',
+            data: {
+             labels: labels,
+             datasets: [{
+                 label:"Envios por tienda",
+                 data: data,
+                 backgroundColor: 'rgba(75, 192, 192, 1)'
+             }]
             },
-          }
-        });
-
-        //Ordeno array de tiendas segun más recibos
-        let topTiendasRecibidos: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-            if (obj1.cantRecibida > obj2.cantRecibida) {return 1;}
-            if (obj1.cantRecibida < obj2.cantRecibida) {return -1;}
-            return 0;
-        });
-        console.log("top recibidos");
-        console.log(topTiendasRecibidos);
-        // bar chart:
-        let barRecibidoChart = document.getElementById('barRecibidoChart');
-        let contextoRecibido = <HTMLCanvasElement> barRecibidoChart;
-        let labels2 = [];
-        let data2 = [];
-        topTiendasRecibidos.forEach( t => {
-          labels2.push(t.tiendaId.toString());
-          data2.push(t.cantRecibida.toString());
-        });
-        this.chartRecibido = new Chart(contextoRecibido, {
-            type: 'bar',
-          data: {
-           labels: labels2,
-           datasets: [{
-               label:"Recepciones por tienda",
-               data: data2,
-               backgroundColor: 'rgba(54, 162, 235, 1)'
-           }]
-          },
-          options: {
-            title:{
-               text:"Top 5 locales con más recepciones",
-               display:true
+            options: {
+              title:{
+                 text:"Top 5 locales con más envíos",
+                 display:true
+              },
             }
-          }
-        });
+          });
+        }else{
+          //Ordeno array de tiendas segun más recibos
+          let divTab = document.getElementsByTagName("mat-tab-body")[1].firstChild;
 
+          topTiendasRecibidos = this.tiendasEstadisticas.sort((obj1, obj2) => {
+              if (obj1.cantRecibida > obj2.cantRecibida) {return 1;}
+              if (obj1.cantRecibida < obj2.cantRecibida) {return -1;}
+              return 0;
+          });
+          console.log("top recibidos");
+          console.log(topTiendasRecibidos);
+          // bar chart:
+          let canvas = document.getElementById("canvasRecibos");
+          let div;
+          if(canvas == null){
+            canvas = document.createElement("canvas");
+            canvas.id="canvasRecibos";
+            div = document.createElement("div");
+            div.setAttribute("style", "display: inline-block; width: 35vw; heigth: 40vh; margin-left:3vw;");
+            div.appendChild(canvas);
+            divTab.appendChild(div);
+          }
+          let labels2 = [];
+          let data2 = [];
+          topTiendasRecibidos.forEach( t => {
+            labels2.push(t.tiendaId.toString());
+            data2.push(t.cantRecibida.toString());
+          });
+
+          this.chartRecibido = new Chart(canvas, {
+              type: 'bar',
+            data: {
+             labels: labels2,
+             datasets: [{
+                 label:"Recepciones por tienda",
+                 data: data2,
+                 backgroundColor: 'rgba(54, 162, 235, 1)'
+             }]
+            },
+            options: {
+              title:{
+                 text:"Top 5 locales con más recepciones",
+                 display:true
+              }
+            }
+          });
+
+
+        }
         this.calcularTotalEnviadoYRecibido();
         this.generarTablas(topTiendasEnvios, topTiendasRecibidos);
      }
@@ -202,22 +232,23 @@ export class InformeTiendasComponent implements OnInit {
     let topLocalEnvios: Agente[] = [];
     let topLocalRecibidos: Agente[] = [];
     let agente: Agente;
-
-    for(let i=0; i<envios.length; i++){
-      agente = this.locales.filter(local => local.nro === envios[i].tiendaId)[0];
-      topLocalEnvios.push(agente);
-    }
-
-    for(let j=0; j<recibos.length; j++){
-      agente = this.locales.filter(local => local.nro === recibos[j].tiendaId)[0];
-      topLocalRecibidos.push(agente);
-    }
+    if(envios)
+      for(let i=0; i<envios.length; i++){
+        agente = this.locales.filter(local => local.nro === envios[i].tiendaId)[0];
+        topLocalEnvios.push(agente);
+      }
+    if(recibos)
+      for(let j=0; j<recibos.length; j++){
+        agente = this.locales.filter(local => local.nro === recibos[j].tiendaId)[0];
+        topLocalRecibidos.push(agente);
+      }
 
     this.datosTablaEnvios.data = topLocalEnvios;
     this.datosTablaRecepciones.data = topLocalRecibidos;
   }
 
   setDataSource(indexNumber) {
+    this.selectedIndex = this.selectedIndex == 0 ? 1:0;
     setTimeout(() => {
       switch (indexNumber) {
         case 0:
