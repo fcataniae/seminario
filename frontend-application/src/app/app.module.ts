@@ -100,7 +100,6 @@ import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component'
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     MatAutocompleteModule

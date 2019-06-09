@@ -9,8 +9,8 @@
              class="fechainicio"
              name="fechaincio"
              [(ngModel)]="fechaInicio"
-             (ngModelChange)="onChangeFecha()"
-             placeholder="Fecha Desde"/>
+             (ngModelChange)="getDashboardData()"
+             placeholder="Fecha Desde" >
     </mat-form-field>
     <mat-form-field>
       <input matInput
@@ -18,8 +18,8 @@
              class="fechafin"
              name="fechafin"
              [(ngModel)]="fechaFin"
-             (ngModelChange)="onChangeFecha()"
-             placeholder="Fecha Hasta"/>
+             (ngModelChange)="getDashboardData()"
+             placeholder="Fecha Hasta" >
     </mat-form-field>
   </form>
 

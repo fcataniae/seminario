@@ -251,12 +251,12 @@ public class BienesRestController {
      *                             (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/cantidades-totales-por-tienda")
-    public List<TiendaCant> getAllCantidadesDesdeYHasta(@AuthenticationPrincipal UserDetails userDetails,
+    public List<Dashboard> getAllCantidadesDesdeYHasta(@AuthenticationPrincipal UserDetails userDetails,
                                              @RequestParam(name = "fechadesde",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaDesde,
                                              @RequestParam(name = "fechahasta",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaHasta) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
+        return movimientoService.getDashboardTiendas(usuarioActual, fechaDesde, fechaHasta);
     }
 
 

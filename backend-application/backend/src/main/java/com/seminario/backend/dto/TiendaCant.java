@@ -4,9 +4,28 @@ public class TiendaCant {
     private Long tiendaId;
     private Long cantRecibida;
     private Long cantEnviada;
+    private String denominacion;
 
     public TiendaCant(){
 
+    }
+
+    @Override
+    public String toString() {
+        return "TiendaCant{" +
+                "tiendaId=" + tiendaId +
+                ", cantRecibida=" + cantRecibida +
+                ", cantEnviada=" + cantEnviada +
+                ", denominacion='" + denominacion + '\'' +
+                '}';
+    }
+
+    public String getDenominacion() {
+        return denominacion;
+    }
+
+    public void setDenominacion(String denominacion) {
+        this.denominacion = denominacion;
     }
 
     public Long getTiendaId() {
