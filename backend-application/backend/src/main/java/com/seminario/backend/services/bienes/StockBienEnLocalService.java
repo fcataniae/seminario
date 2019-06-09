@@ -201,17 +201,19 @@ public class StockBienEnLocalService {
 
             EntityManager em = emf.createEntityManager();
             List<Agente> listStockLocal = new ArrayList<Agente>(); // resultado final
-
+            Long nro = usuarioActual.getLocal().getNro() == 7460? null : usuarioActual.getLocal().getNro();
             String qry = "select SBL.LOCAL_NRO,TA.NOMBRE, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION," +
                     " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO" +
                     " from STOCK_BIEN_EN_LOCAL SBL" +
                     " inner join LOCAL L on L.NRO=SBL.LOCAL_NRO" +
                     " inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID" +
-                    " inner join TIPOAGENTE TA on TA.ID=L.ID_TIPO_AGENTE";
+                    " inner join TIPOAGENTE TA on TA.ID=L.ID_TIPO_AGENTE "+
+                    " WHERE l.nro = ?1 or ?1 is null ";
 
             try {
 
                 List<Object[]> stockLocal = em.createNativeQuery(qry)
+                        .setParameter(1,nro)
                         .getResultList();
                 em.close();
 
@@ -346,15 +348,16 @@ public class StockBienEnLocalService {
             TipoMovimiento currentTM = tm;
             int cont = 0;
             for (Movimiento mov : ultimosMovimientos) {
-               if (mov.getTipoMovimiento().getId().equals(currentTM.getId())){
+                if (mov.getTipoMovimiento().getId().equals(currentTM.getId())) {
                     cont++;
-               }
+                }
             }
-            d.getData().getDataset().getData().add(String.valueOf(cont));
-            d.getData().getLabels().add(tm.getNombre());
-            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            if (cont != 0) {
+                d.getData().getDataset().getData().add(String.valueOf(cont));
+                d.getData().getLabels().add(tm.getNombre());
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            }
         }
-
         d.setType(TYPES[r.nextInt(INDEXC)]);
         dashs.add(d);
 
