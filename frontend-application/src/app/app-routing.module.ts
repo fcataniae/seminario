@@ -23,9 +23,9 @@ const routes: Routes = [
   { path: 'home/movimientos/registrar', component: MovimientosComponent},
   { path: 'home/movimientos/registrar/:mov', component: EnvioComponent},
   { path: 'home/movimientos/modificar/:mov', component: EnvioComponent},
-  { path: 'home/informeStock', component: InformeComponent},
-  { path: 'home/informeTiendas', component: InformeTiendasComponent},
-  { path: 'home/informeTablaStock', component: TablaStockComponent},
+  { path: 'home/informe/bienes', component: InformeComponent},
+  { path: 'home/informe/tiendas', component: InformeTiendasComponent},
+  { path: 'home/stock', component: TablaStockComponent},
 
 ];
 @NgModule({
