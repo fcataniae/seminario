@@ -36,8 +36,8 @@ constructor(private _movimientoService: MovimientoService,
 
   public dataSource = new MatTableDataSource<filaTabla>();
   public displayedColumns = ['local','bien','stocklibre','stockocupado', 'stockreservado', 'stockdestruido'];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild("sortStock") sort: MatSort;
+  @ViewChild("paginatorStock") paginator: MatPaginator;
 
   ngOnInit() {
     this._stockbienlocalService.getStockLocales()
