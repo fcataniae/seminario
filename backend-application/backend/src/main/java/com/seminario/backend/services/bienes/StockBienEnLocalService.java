@@ -6,8 +6,11 @@ import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.StockBienEnLocal;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.model.bienes.Movimiento;
 import com.seminario.backend.model.bienes.TipoAgente;
+import com.seminario.backend.model.bienes.TipoMovimiento;
 import com.seminario.backend.repository.abm.PermisoRepository;
+import com.seminario.backend.repository.bienes.TipoMovimientoRepository;
 import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,10 @@ public class StockBienEnLocalService {
     EntityManagerFactory emf;
     @Autowired
     PermisoRepository permisoRepository;
+    @Autowired
+    TipoMovimientoRepository tipoMovimientoRepository;
+    @Autowired
+    MovimientoService movimientoService;
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -326,9 +333,30 @@ public class StockBienEnLocalService {
         d.setType(TYPES[r.nextInt(INDEXC)]);
         dashs.add(d);
         /**
-         * Dashboards de movimientos en los ultimos 10 dias
+         * Dashboards de movimientos en los ultimos 14 dias
          */
         d = new Dashboard();
+
+        List<Movimiento> ultimosMovimientos = movimientoService.getUltimosMovimientosLocal(usuarioActual);
+        List<TipoMovimiento> tiposMovimientos =  tipoMovimientoRepository.findAll();
+
+        d.getData().getDataset().setLabel("Movimientos de los ultimos 14 dias en " + usuarioActual.getLocal().getDenominacion());
+
+        for (TipoMovimiento tm : tiposMovimientos) {
+            TipoMovimiento currentTM = tm;
+            int cont = 0;
+            for (Movimiento mov : ultimosMovimientos) {
+               if (mov.getTipoMovimiento().getId().equals(currentTM.getId())){
+                    cont++;
+               }
+            }
+            d.getData().getDataset().getData().add(String.valueOf(cont));
+            d.getData().getLabels().add(tm.getNombre());
+            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+        }
+
+        d.setType(TYPES[r.nextInt(INDEXC)]);
+        dashs.add(d);
 
         return  dashs;
     }

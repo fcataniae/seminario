@@ -280,4 +280,10 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return stockBienEnLocalService.getDashboards(usuarioActual);
     }
+
+    @GetMapping("ultimos-movimientos")
+    public List<Movimiento> getUltimosMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getUltimosMovimientosLocal(usuarioActual);
+    }
 }
