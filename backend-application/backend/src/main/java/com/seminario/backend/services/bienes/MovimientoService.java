@@ -682,7 +682,7 @@ public class MovimientoService {
             throw new CustomException("No tiene permisos para consultar la tienda");
         }
     }
-    
+
 
     public List<Movimiento> getUltimosMovimientosLocal(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-MOVIMIENTO")) {
