@@ -607,7 +607,9 @@ public class MovimientoService {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-ESTADORECURSO")) {
             List<EstadoRecurso> r = new ArrayList<>();
             TipoMovimiento tipoEnvio = tipoMovimientoRepository.findOne(id);
-            if (tipoEnvio.getTipo().equals("ENVIO") || tipoEnvio.getTipo().equals("RECEPCION")){
+            if (tipoEnvio.getTipo().equals("ENVIO")) {
+                r.add(estadoRecursoRepository.findByDescrip("OCUPADO"));
+            } else if(tipoEnvio.getTipo().equals("RECEPCION")){
                 r.add(estadoRecursoRepository.findByDescrip("OCUPADO"));
                 r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
             } else if (tipoEnvio.getTipo().equals("DEVOLUCION")){
