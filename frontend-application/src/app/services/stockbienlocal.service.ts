@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import { StockBienEnLocal } from '../model/bienes/stockbienlocal.model';
 import { environment } from '../../environments/environment';
+import { Local } from '../model/bienes/local.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,8 @@ export class StockBienLocalService {
 
   getStockLocal(nroLocal: number): Observable<StockBienEnLocal[]>{
     return this._http.get<StockBienEnLocal[]>(environment.serviceUrl.replace('service','bienes') + 'stock-local/' + nroLocal);
+  }
+  getStockLocales(): Observable<Local[]>{
+    return this._http.get<Local[]>(environment.serviceUrl.replace('service','bienes') + 'stock-locales');
   }
 }

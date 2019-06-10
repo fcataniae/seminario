@@ -1,0 +1,55 @@
+
+<div class="mat-elevation-z8 margin">
+  <h3>Listado de stock</h3>
+  <div fxLayout fxLayoutAlign="left center">
+    <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
+      <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
+    </button>
+    <mat-form-field class= "input-search" >
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+  </div>
+
+  <mat-table #sortStock="matSort" [dataSource]="dataSource" matSort >
+
+    <ng-container matColumnDef="local">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="bien">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bien </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionBI}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stocklibre">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Libre </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock_libre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stockocupado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Ocupado </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock_ocupado}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stockreservado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Reservado </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock_reservado}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stockdestruido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Destruido </th>
+      <td mat-cell *matCellDef="let element"> {{element.stock_destruido}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </mat-table>
+
+  <mat-paginator #paginatorStock="matPaginator" [pageSize]="30" [pageSizeOptions]="[10, 20, 30, 50, 100]">
+  </mat-paginator>
+
+
+</div>
+
+

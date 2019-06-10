@@ -2,14 +2,19 @@ package com.seminario.backend.services.bienes;
 
 
 import ch.qos.logback.core.CoreConstants;
+import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.StockBienEnLocal;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.model.bienes.Movimiento;
 import com.seminario.backend.model.bienes.TipoAgente;
+import com.seminario.backend.model.bienes.TipoMovimiento;
 import com.seminario.backend.repository.abm.PermisoRepository;
+import com.seminario.backend.repository.bienes.TipoMovimientoRepository;
 import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.management.Agent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,6 +36,10 @@ public class StockBienEnLocalService {
     EntityManagerFactory emf;
     @Autowired
     PermisoRepository permisoRepository;
+    @Autowired
+    TipoMovimientoRepository tipoMovimientoRepository;
+    @Autowired
+    MovimientoService movimientoService;
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -192,17 +201,19 @@ public class StockBienEnLocalService {
 
             EntityManager em = emf.createEntityManager();
             List<Agente> listStockLocal = new ArrayList<Agente>(); // resultado final
-
+            Long nro = usuarioActual.getLocal().getNro() == 7460? null : usuarioActual.getLocal().getNro();
             String qry = "select SBL.LOCAL_NRO,TA.NOMBRE, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION," +
                     " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO" +
                     " from STOCK_BIEN_EN_LOCAL SBL" +
                     " inner join LOCAL L on L.NRO=SBL.LOCAL_NRO" +
                     " inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID" +
-                    " inner join TIPOAGENTE TA on TA.ID=L.ID_TIPO_AGENTE";
+                    " inner join TIPOAGENTE TA on TA.ID=L.ID_TIPO_AGENTE "+
+                    " WHERE l.nro = ?1 or ?1 is null ";
 
             try {
 
                 List<Object[]> stockLocal = em.createNativeQuery(qry)
+                        .setParameter(1,nro)
                         .getResultList();
                 em.close();
 
@@ -261,7 +272,97 @@ public class StockBienEnLocalService {
         }
     }
 
+    private static final String TYPES[] ={"pie","doughnut"};
+    private static final String[] COLORES =
+            { "rgba(54, 162, 235, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(16, 102, 130)",
+              "rgba(201, 38, 149)"};
+    private static final int INDEX = 7;
+    private static final int INDEXC = 2;
+    /**
+     * Funcion que devuelve una lista de dashboards de acuerdo al usuario
+     * @param usuarioActual
+     * @return List Dashboards
+     * @throws CustomException Excepcion
+     */
+    public List<Dashboard> getDashboards(Usuario usuarioActual) throws CustomException {
 
+        List<Dashboard> dashs = new ArrayList<>();
+        Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
+        Dashboard d = new Dashboard();
+        Random r = new Random();
+        if(nro == null){
+            /*
+            *  TODO dash para CD
+            * */
+            List<Agente> distr = getDistribucionBienes(usuarioActual);
+
+            for(Agente e : distr){
+                d.getData().getLabels().add(e.getNombre());
+                Long stock = 0L;
+                for(StockBienEnLocal s : e.getStockBienes()){
+                    stock = s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado();
+
+
+                }
+                d.getData().getDataset().getData().add(String.valueOf(stock));
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            }
+            d.setType(TYPES[r.nextInt(INDEXC)]);
+            d.getData().getDataset().setLabel("Distribucion de bienes general");
+
+            dashs.add(d);
+        }
+        /**
+         * Dashboard de distribucion de bienes en tienda
+         */
+
+        List<StockBienEnLocal> stockLocal = getStockLocal(usuarioActual.getLocal().getNro(),usuarioActual);
+
+        d = new Dashboard();
+
+        d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
+
+        for(StockBienEnLocal s : stockLocal){
+            d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
+            d.getData().getLabels().add(s.getDescripcionBI());
+            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+        }
+        d.setType(TYPES[r.nextInt(INDEXC)]);
+        dashs.add(d);
+        /**
+         * Dashboards de movimientos en los ultimos 14 dias
+         */
+        d = new Dashboard();
+
+        List<Movimiento> ultimosMovimientos = movimientoService.getUltimosMovimientosLocal(usuarioActual);
+        List<TipoMovimiento> tiposMovimientos =  tipoMovimientoRepository.findAll();
+
+        d.getData().getDataset().setLabel("Movimientos de los ultimos 14 dias en " + usuarioActual.getLocal().getDenominacion());
+
+        for (TipoMovimiento tm : tiposMovimientos) {
+            TipoMovimiento currentTM = tm;
+            int cont = 0;
+            for (Movimiento mov : ultimosMovimientos) {
+                if (mov.getTipoMovimiento().getId().equals(currentTM.getId())) {
+                    cont++;
+                }
+            }
+            if (cont != 0) {
+                d.getData().getDataset().getData().add(String.valueOf(cont));
+                d.getData().getLabels().add(tm.getNombre());
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            }
+        }
+        d.setType(TYPES[r.nextInt(INDEXC)]);
+        dashs.add(d);
+
+        return  dashs;
+    }
 
 
 }

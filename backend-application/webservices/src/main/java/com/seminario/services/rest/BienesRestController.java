@@ -2,6 +2,7 @@ package com.seminario.services.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.dto.Transportista;
 import com.seminario.backend.model.abm.Usuario;
@@ -142,7 +143,7 @@ public class BienesRestController {
      * @return List<Agente> Todos los bienes con su stock
      * @throws CustomException Excepcion custom
      */
-    @GetMapping("/stock-locales/")
+    @GetMapping("/stock-locales")
     public List<com.seminario.backend.dto.Agente> getDistribucionBienes(@AuthenticationPrincipal UserDetails userDetails)  throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return stockBienEnLocalService.getDistribucionBienes(usuarioActual);
@@ -250,12 +251,12 @@ public class BienesRestController {
      *                             (debe tener los permisos para ejecutar el método).
      **/
     @GetMapping("/cantidades-totales-por-tienda")
-    public List<TiendaCant> getAllCantidadesDesdeYHasta(@AuthenticationPrincipal UserDetails userDetails,
+    public List<Dashboard> getAllCantidadesDesdeYHasta(@AuthenticationPrincipal UserDetails userDetails,
                                              @RequestParam(name = "fechadesde",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaDesde,
                                              @RequestParam(name = "fechahasta",required = false) @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaHasta) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
+        return movimientoService.getDashboardTiendas(usuarioActual, fechaDesde, fechaHasta);
     }
 
 
@@ -274,4 +275,15 @@ public class BienesRestController {
         return movimientoService.getMovmientoByNro(usuarioActual,nro);
     }
 
+    @GetMapping("get-dashboards")
+    public List<Dashboard> getDashboards(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return stockBienEnLocalService.getDashboards(usuarioActual);
+    }
+
+    @GetMapping("ultimos-movimientos")
+    public List<Movimiento> getUltimosMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getUltimosMovimientosLocal(usuarioActual);
+    }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Permiso }  from '../../model/abm/permiso.model';
 import { PermisoService } from '../../services/permiso.service';
 import { Token } from '../../model/token.model';
-import {Observable} from 'rxjs';
+import { BehaviorSubject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Bien } from '../../model/bienes/bien.model';
 import { MovimientoService } from '../../services/movimiento.service';
@@ -17,6 +17,12 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { FormControl } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { Dashboard } from '../../model/bienes/dashboard.model';
+
+export class Tienda{
+  nro: number;
+  nombre: string;
+}
 
 @Component({
   selector: 'app-informe-tiendas',
@@ -27,20 +33,24 @@ export class InformeTiendasComponent implements OnInit {
 
   @ViewChild("sortEnvios") sortEnvios: MatSort;
   @ViewChild("paginatorEnvios") paginatorEnvios: MatPaginator;
-  datosTablaEnvios = new MatTableDataSource<Agente>();
+  datosTablaEnvios = new MatTableDataSource<Tienda>();
 
   @ViewChild("sortRecepciones") sortRecepciones: MatSort;
   @ViewChild("paginatorRecepciones") paginatorRecepciones: MatPaginator;
-  datosTablaRecepciones = new MatTableDataSource<Agente>();
+  datosTablaRecepciones = new MatTableDataSource<Tienda>();
+
+  selectedIndex: number ;
 
   columnsToDisplayTiendas: String[] = ['id','nombre'];
 
-  tiendasEstadisticas: TiendaEstadisticas[];
-  locales: Agente[];
-  fechaInicio: Date;
-  fechaFin: Date;
+
+  fechaInicio = new Date();
+  fechaFin = new Date();
   totalEnviado: number;
   totalRecibido: number;
+
+  dashboardRecepcion: Dashboard;
+  dashboardEnvio: Dashboard;
 
   chartEnviado:Chart;
   chartRecibido:Chart;
@@ -58,170 +68,141 @@ export class InformeTiendasComponent implements OnInit {
   this.datosTablaEnvios.paginator = this.paginatorEnvios;
   this.datosTablaRecepciones.sort = this.sortRecepciones;
   this.datosTablaRecepciones.paginator = this.paginatorRecepciones;
-
-    this.tiendasEstadisticas = [];
-    this.locales = [];
-    this.fechaInicio = null;
-    this.fechaFin = null;
-    let consultaEstadisticas = this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin);
-    let consultaAgentes = this._movimientoService.getAllAgentes();
-
-    forkJoin(consultaEstadisticas, consultaAgentes)
-    .subscribe(res=>{
-        console.log(res);
-        this.tiendasEstadisticas = res[0];
-        this.locales = res[1].filter( a => a.tipoAgente.id === 1);
-      },
-      error => console.log(error)
-    );
-
-    this.totalEnviado = 0;
-    this.totalRecibido = 0;
-    this.generarGraficos();
+  this.selectedIndex = 0;
+  this.fechaFin = null;
+  this.fechaInicio = null;
+  this.getDashboardData();
+  this.totalEnviado = 0;
+  this.totalRecibido = 0;
 
   }//END OnInit
 
-  onChangeFecha(){
+  getDashboardData(){
+    this._movimientoService.getDashboardTiendas(this.fechaInicio, this.fechaFin).subscribe(r=>{
 
-    this._movimientoService.getTiendasEstadisticas(this.fechaInicio, this.fechaFin)
-    .subscribe(res=>{
-        console.log(res);
-        this.tiendasEstadisticas = res;
-      },
-      error => console.log(error)
-    );
+      console.log(r);
+      this.dashboardRecepcion = r[0];
+      this.dashboardEnvio = r[1];
+      this.fillTables();
+      this.generarGraficos();
 
-    this.generarGraficos();
+    });
 
+
+  }
+
+
+  fillTables(){
+    let envis = [];
+    this.dashboardEnvio.data.labels.forEach(l => {
+      var a : Tienda = new Tienda();
+      a.nombre = l.split("-")[1];
+      a.nro = parseInt( l.split("-")[0]);
+      envis.push(a);
+    });
+    console.log(envis);
+    this.datosTablaEnvios.data = envis;
+    let receps = [];
+    this.dashboardRecepcion.data.labels.forEach(l => {
+      var a : Tienda = new Tienda();
+      a.nombre = l.split("-")[1];
+      a.nro = parseInt( l.split("-")[0]);
+      receps.push(a);
+    });
+    console.log(receps);
+    this.datosTablaRecepciones.data = receps;
   }
 
   generarGraficos(){
 
-     if(this.tiendasEstadisticas.length){
-        //Ordeno array de tiendas segun más envios
-        let topTiendasEnvios: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-            if (obj1.cantEnviada > obj2.cantEnviada) {return 1;}
-            if (obj1.cantEnviada < obj2.cantEnviada) {return -1;}
-            return 0;
-        });
-        console.log("top envios");
-        console.log(topTiendasEnvios);
-        // bar chart:
-        let barEnviadoChart = document.getElementById('barEnviadoChart');
-        let contextoEnviado = <HTMLCanvasElement> barEnviadoChart;
-        let labels = [];
-        let data = [];
+      console.log(this.selectedIndex);
+       let topTiendasEnvios: TiendaEstadisticas[];
+       let topTiendasRecibidos: TiendaEstadisticas[];
 
-        topTiendasEnvios.forEach( t => {
-          labels.push(t.tiendaId.toString());
-          data.push(t.cantEnviada.toString());
-        });
-        this.chartEnviado = new Chart(contextoEnviado, {
-            type: 'bar',
-          data: {
-           labels: labels,
-           datasets: [{
-               label:"Envios por tienda",
-               data: data,
-               backgroundColor: 'rgba(75, 192, 192, 1)'
-           }]
-          },
-          options: {
-            title:{
-               text:"Top 5 locales con más envíos",
-               display:true
+       if(this.selectedIndex == 0 && this.dashboardEnvio){//Hago una chanchada por aca (?)
+
+          let divTab = document.getElementsByTagName("mat-tab-body")[0].firstChild;
+          let canvas = document.getElementById("canvasEnvios");
+          let div;
+          if(canvas == null){
+            canvas = document.createElement("canvas");
+            canvas.id="canvasEnvios";
+            div = document.createElement("div");
+            div.setAttribute("style", "display: inline-block; width: 35vw; height: 40vh; margin-left:3vw;");
+            div.appendChild(canvas);
+            divTab.appendChild(div);
+          }
+
+
+          let labes= [];
+          this.dashboardEnvio.data.labels.forEach(l => labes.push(l.split("-")[0]))
+          this.chartEnviado = new Chart(canvas, {
+              type: this.dashboardEnvio.type,
+            data: {
+             labels: labes,
+             datasets: [{
+                 label:"Envios por tienda",
+                 data: this.dashboardEnvio.data.dataset.data,
+                 backgroundColor: this.dashboardEnvio.data.dataset.backgroundColor
+             }]
             },
-          }
-        });
-
-        //Ordeno array de tiendas segun más recibos
-        let topTiendasRecibidos: TiendaEstadisticas[] = this.tiendasEstadisticas.sort((obj1, obj2) => {
-            if (obj1.cantRecibida > obj2.cantRecibida) {return 1;}
-            if (obj1.cantRecibida < obj2.cantRecibida) {return -1;}
-            return 0;
-        });
-        console.log("top recibidos");
-        console.log(topTiendasRecibidos);
-        // bar chart:
-        let barRecibidoChart = document.getElementById('barRecibidoChart');
-        let contextoRecibido = <HTMLCanvasElement> barRecibidoChart;
-        topTiendasRecibidos.forEach( t => {
-          labels.push(t.tiendaId.toString());
-          data.push(t.cantRecibida.toString());
-        });
-        this.chartRecibido = new Chart(contextoRecibido, {
-            type: 'bar',
-          data: {
-           labels: [""+topTiendasRecibidos[0].tiendaId, ""+topTiendasRecibidos[1].tiendaId, ""+topTiendasRecibidos[2].tiendaId,
-                    ""+topTiendasRecibidos[3].tiendaId, ""+topTiendasRecibidos[4].tiendaId],
-           datasets: [{
-               label:"Recepciones por tienda",
-               data: [topTiendasRecibidos[0].cantRecibida, topTiendasRecibidos[1].cantRecibida, topTiendasRecibidos[2].cantRecibida,
-                      topTiendasRecibidos[3].cantRecibida, topTiendasRecibidos[4].cantRecibida],
-               backgroundColor: 'rgba(54, 162, 235, 1)'
-           }]
-          },
-          options: {
-            title:{
-               text:"Top 5 locales con más recepciones",
-               display:true
+            options: {
+              title:{
+                 text: this.dashboardEnvio.data.dataset.label,
+                 display:true
+              },
             }
+          });
+        }else if(this.dashboardRecepcion){
+          //Ordeno array de tiendas segun más recibos
+          let divTab = document.getElementsByTagName("mat-tab-body")[1].firstChild;
+          // bar chart:
+          let canvas = document.getElementById("canvasRecibos");
+          let div;
+          if(canvas == null){
+            canvas = document.createElement("canvas");
+            canvas.id="canvasRecibos";
+            div = document.createElement("div");
+            div.setAttribute("style", "display: inline-block; width: 35vw; height: 40vh; margin-left:3vw;");
+            div.appendChild(canvas);
+            divTab.appendChild(div);
           }
-        });
-
-        this.calcularTotalEnviadoYRecibido();
-        this.generarTablas(topTiendasEnvios, topTiendasRecibidos);
-     }
+          let labes= [];
+          this.dashboardRecepcion.data.labels.forEach(l => labes.push(l.split("-")[0]))
+          this.chartRecibido = new Chart(canvas, {
+              type: this.dashboardRecepcion.type,
+            data: {
+             labels: labes,
+             datasets: [{
+                 label:"Recepciones por tienda",
+                 data: this.dashboardRecepcion.data.dataset.data,
+                 backgroundColor: this.dashboardRecepcion.data.dataset.backgroundColor
+             }]
+            },
+            options: {
+              title:{
+                 text: this.dashboardRecepcion.data.dataset.label,
+                 display:true
+              }
+            }
+          });
+      }
   }
 
-  calcularTotalEnviadoYRecibido(){
-    this.totalEnviado = this.sumaEnviado();
-    this.totalRecibido = this.sumaRecibido();
-  }
-
-  sumaEnviado(){
-    let suma = 0;
-    for(let i=0; i<this.tiendasEstadisticas.length; i++){
-      suma += this.tiendasEstadisticas[i].cantEnviada;
-    }
-    return suma;
-  }
-
-  sumaRecibido(){
-    let suma = 0;
-    for(let i=0; i<this.tiendasEstadisticas.length; i++){
-      suma += this.tiendasEstadisticas[i].cantRecibida;
-    }
-    return suma;
-  }
-
-  generarTablas(envios: TiendaEstadisticas[], recibos: TiendaEstadisticas[]){
-    let topLocalEnvios: Agente[] = [];
-    let topLocalRecibidos: Agente[] = [];
-    let agente: Agente;
-
-    for(let i=0; i<envios.length; i++){
-      agente = this.locales.filter(local => local.nro === envios[i].tiendaId)[0];
-      topLocalEnvios.push(agente);
-    }
-
-    for(let j=0; j<recibos.length; j++){
-      agente = this.locales.filter(local => local.nro === recibos[j].tiendaId)[0];
-      topLocalRecibidos.push(agente);
-    }
-
-    this.datosTablaEnvios.data = topLocalEnvios;
-    this.datosTablaRecepciones.data = topLocalRecibidos;
-  }
 
   setDataSource(indexNumber) {
+    this.selectedIndex = this.selectedIndex == 0 ? 1:0;
+    console.log("onchange"+ this.selectedIndex);
     setTimeout(() => {
-      switch (indexNumber) {
+      switch (this.selectedIndex) {
         case 0:
           !this.datosTablaEnvios.paginator ? this.datosTablaEnvios.paginator = this.paginatorEnvios : null;
+          this.generarGraficos();
           break;
         case 1:
           !this.datosTablaRecepciones.paginator ? this.datosTablaRecepciones.paginator = this.paginatorRecepciones : null;
+          this.generarGraficos();
+
       }
     });
   }

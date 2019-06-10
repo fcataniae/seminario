@@ -9,8 +9,8 @@
              class="fechainicio"
              name="fechaincio"
              [(ngModel)]="fechaInicio"
-             (ngModelChange)="onChangeFecha()"
-             placeholder="Fecha Desde"/>
+             (ngModelChange)="getDashboardData()"
+             placeholder="Fecha Desde" >
     </mat-form-field>
     <mat-form-field>
       <input matInput
@@ -18,25 +18,16 @@
              class="fechafin"
              name="fechafin"
              [(ngModel)]="fechaFin"
-             (ngModelChange)="onChangeFecha()"
-             placeholder="Fecha Hasta"/>
+             (ngModelChange)="getDashboardData()"
+             placeholder="Fecha Hasta" >
     </mat-form-field>
   </form>
 
-  <div class="grafico">
-    <canvas id="barEnviadoChart"></canvas>
-  </div>
+  <mat-tab-group #tabGroup (selectedTabChange)="setDataSource($event)" [selectedIndex]="selectedIndex" >
 
-  <div class="grafico">
-    <canvas id="barRecibidoChart"></canvas>
-  </div>
 
-  <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
-
-    <div class="tab">
-
-      <mat-tab label="Envios">
-
+      <mat-tab id="envios" label="Envios">
+        <div class="tab">
         <table mat-table #sortEnvios="matSort" [dataSource]="datosTablaEnvios" matSort>
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID tienda </th>
@@ -54,15 +45,13 @@
         </table>
         <mat-paginator #paginatorEnvios="matPaginator" [pageSize]="5" [pageSizeOptions]="[3,5]">
         </mat-paginator>
-
+        </div>
       </mat-tab>
 
-    </div>
 
-    <div class="tab">
 
-      <mat-tab label="Recepciones">
-
+      <mat-tab id="recepciones" label="Recepciones">
+        <div class="tab">
         <table mat-table #sortRecepciones="matSort" [dataSource]="datosTablaRecepciones" matSort>
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID tienda </th>
@@ -80,10 +69,9 @@
         </table>
         <mat-paginator #paginatorRecepciones="matPaginator" [pageSize]="5" [pageSizeOptions]="[3,5]">
         </mat-paginator>
-
+        </div>
       </mat-tab>
 
-    </div>
   </mat-tab-group>
 
   <div class="totales">

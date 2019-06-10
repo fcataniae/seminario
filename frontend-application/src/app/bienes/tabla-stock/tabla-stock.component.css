@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: hidden;
+}
+
+
+/*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
+.button-back{
+  width: 30%;
+  text-align: left;
+}
+
+.input-search{
+  width: 40%;
+
+}
+
+.button-alta{
+  width: 20%;
+  text-align: right;
+}
+
+.mat-column-local{
+  width: 30vw;
+  max-width: 30vw;
+}
+.mat-column-bien{
+  width: 30vw;
+  max-width: 30vw;
+}
+.mat-column-stocklibre{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockocupado{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockreservado{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockdestruido{
+  width: 10vw;
+  max-width: 10vw;
+}
+

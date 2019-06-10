@@ -11,6 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
 import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 import { Transportista } from '../model/bienes/transportista.model';
+import { Dashboard } from '../model/bienes/dashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,10 +56,9 @@ export class MovimientoService {
   getAllEstadosViaje(): Observable<Estado[]>{
     return this._http.get<Estado[]>(environment.serviceUrl.replace('service','bienes') +'estado-viaje');
   }
-  getTiendasEstadisticas(fechaDesde: Date, fechaHasta: Date): Observable<TiendaEstadisticas[]>{
-    console.log('cantidades-totales-por-tienda?fechadesde='+(fechaDesde ? fechaDesde: '') +'&fechahasta='+(fechaHasta? fechaHasta: ''));
-    return this._http.get<TiendaEstadisticas[]>(environment.serviceUrl.replace('service','bienes')
-    +'cantidades-totales-por-tienda?fechadesde='+(fechaDesde ? fechaDesde: '') +'&fechahasta='+(fechaHasta? fechaHasta: ''));
+  getDashboardTiendas(fechaDesde: Date, fechaHasta: Date): Observable<Dashboard[]>{
+    return this._http.get<Dashboard[]>(environment.serviceUrl.replace('service','bienes')
+    +'cantidades-totales-por-tienda?fechadesde='+(fechaDesde ? this.formatDate(fechaDesde) : '') +'&fechahasta='+(fechaHasta? this.formatDate(fechaHasta): ''));
   }
   getMovimientoByNro(nro : string): Observable<Movimiento>{
     return this._http.get<Movimiento>(environment.serviceUrl.replace('service','bienes') + 'get-movimiento/' + nro);
@@ -69,4 +69,19 @@ export class MovimientoService {
   getAllLocales(): Observable<Agente[]>{
     return this._http.get<Agente[]>(environment.serviceUrl.replace('service','bienes') + 'listar-locales');
   }
+  getDashboard():Observable<Dashboard[]>{
+    return this._http.get<Dashboard[]>(environment.serviceUrl.replace('service','bienes') + 'get-dashboards');
+  }
+
+  private formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 }

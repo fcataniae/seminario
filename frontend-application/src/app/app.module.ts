@@ -48,6 +48,7 @@ import { ValidpatentePipe } from './utils/validpatente.pipe';
 import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
 import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
+import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 
 
 
@@ -75,7 +76,8 @@ import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tienda
     ValidpatentePipe,
     ModificarBienComponent,
     InformeComponent,
-    InformeTiendasComponent
+    InformeTiendasComponent,
+    TablaStockComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,6 @@ import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tienda
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     MatAutocompleteModule

@@ -27,13 +27,13 @@ mat-paginator{
 }
 h4{
   text-align: center;
-  font-family: 'Myriad Pro';
+  font-family: "Arial"/*'Myriad Pro';*/
 }
 h5{
 
     text-align: center;
-    font-family: 'Myriad Pro';
     font-size: 15px;
+    font-family: "Arial"/*'Myriad Pro';*/
 }
 button.agregarBien {
   margin-left: 10%;

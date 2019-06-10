@@ -44,9 +44,12 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\t WHERE m.id_tipo_movimiento = 7 or m.id_tipo_movimiento = 4 -- DEVOLUCION desde Tienda \n " +
             "\t AND ( FECHASALIDA > ?1 or ?1 is null) AND (FECHASALIDA < ?2 or ?2 is null) \n " +
             "\t GROUP BY TIENDA \n " +
-            ") aux2 on aux.TIENDA = aux2.TIENDA", nativeQuery = true)
+            ") aux2 on aux.TIENDA = aux2.TIENDA and exists ( select 1 from local where aux.tienda = local.nro and aux2.tienda = local.nro)", nativeQuery = true)
     List<Object[]> findAllCantidadEnviadaYRecibida(Date fechaDesde, Date fechaHasta);
 
     @Query(value =  "SELECT * FROM LOCAL WHERE local.nro = ?1 OR ?1 is null" ,nativeQuery = true)
     List<Local> findAllByNro(Long nro);
+
+    @Query(value = "SELECT denominacion from local where local.nro = ?1", nativeQuery = true)
+    String findDenominacionByNro(Long tiendaId);
 }

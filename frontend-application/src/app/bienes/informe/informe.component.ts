@@ -48,27 +48,28 @@ export class InformeComponent implements OnInit {
     this.bienes = [];
     this.locales = [];
     let consultaBienes = this._movimientoService.getAllBienes();
-    let consultaAgentes = this._movimientoService.getAllAgentes();
+    let consultaAgentes = this._movimientoService.getAllLocales();
 
     forkJoin(consultaBienes, consultaAgentes)
     .subscribe(res=>{
         console.log(res);
         this.bienes = res[0];
-        this.locales = res[1].filter( a => a.tipoAgente.id !== 3);
+        this.locales = res[1];
+
+        this.filteredLocales = this.myControlLocales.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterLocal(value))
+        );
+
+        this.filteredBienes = this.myControlBienes.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filterBien(value))
+        );
+
       },
       error => console.log(error)
-    );
-
-    this.filteredLocales = this.myControlLocales.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterLocal(value))
-    );
-
-    this.filteredBienes = this.myControlBienes.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filterBien(value))
     );
 
 }//END OnInit

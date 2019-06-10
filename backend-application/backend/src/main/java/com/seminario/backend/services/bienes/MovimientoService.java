@@ -1,6 +1,7 @@
 package com.seminario.backend.services.bienes;
 
 import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
@@ -511,8 +512,9 @@ public class MovimientoService {
 
 
     public List<Movimiento> getAllMovimientos(Usuario usuarioActual) throws CustomException {
+        Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO")) {
-            return movimientoRepository.findAll();
+            return movimientoRepository.findAllByLocal(nro);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar recursos");
         }
@@ -634,14 +636,67 @@ public class MovimientoService {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
         }
     }
+    private static final String[] COLORES =
+            { "rgba(54, 162, 235, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(255, 206, 86, 1)",
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
+                    "rgba(16, 102, 130)",
+                    "rgba(201, 38, 149)"};
+    private static final int INDEX = 7;
+
+    private final static int SUBLIST = 5;
+    public List<Dashboard> getDashboardTiendas(Usuario usuarioActual, Date fechaDesde, Date fechaHasta) throws CustomException {
+        List<Dashboard> dashs = new ArrayList<>();
+        List<TiendaCant> ts = getAllCantidades(usuarioActual, fechaDesde, fechaHasta);
+
+        List<TiendaCant> trecib ;
+        List<TiendaCant> tenvia;
+
+        ts.forEach( t -> t.setDenominacion( localRepository.findDenominacionByNro(t.getTiendaId())));
 
 
-    public List<TiendaCant> getAllCantidades(Usuario usuarioActual, Date fechaDesde, Date fechaHasta) throws CustomException {
+        ts.sort((t1,t2) -> t2.getCantEnviada().compareTo(t1.getCantEnviada()));
+        tenvia = new ArrayList<TiendaCant> (ts.subList(0, ts.size()> SUBLIST ? SUBLIST : ts.size()));
+        ts.sort((t1,t2) -> t2.getCantRecibida().compareTo(t1.getCantRecibida()));
+        trecib = new ArrayList<TiendaCant> (ts.subList(0, ts.size()> SUBLIST ? SUBLIST : ts.size()));
+
+
+        Dashboard d = new Dashboard();
+        Random r = new Random();
+        d.setType("bar");
+        d.getData().getDataset().setLabel("Top "+SUBLIST+" locales con mas Recepciones");
+
+        for (TiendaCant tiendaCant : trecib) {
+            d.getData().getDataset().getData().add(tiendaCant.getCantRecibida().toString());
+            System.out.println(tiendaCant);
+            d.getData().getLabels().add(tiendaCant.getTiendaId() + " - " + tiendaCant.getDenominacion().substring(0, 20));
+            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+        }
+
+        dashs.add(d);
+
+        d = new Dashboard();
+        d.setType("bar");
+        d.getData().getDataset().setLabel("Top "+SUBLIST+" locales con mas Envios");
+
+        for (TiendaCant t : tenvia) {
+            d.getData().getDataset().getData().add(t.getCantEnviada().toString());
+            d.getData().getLabels().add(t.getTiendaId() + " - " + t.getDenominacion().substring(0, 20));
+            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+        }
+
+        dashs.add(d);
+        return dashs;
+    }
+
+    private List<TiendaCant> getAllCantidades(Usuario usuarioActual, Date fechaDesde, Date fechaHasta) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+
             List<TiendaCant> listTc = new ArrayList<>();
-            List<Object[]> obj = new ArrayList<>();
-            obj = localRepository.findAllCantidadEnviadaYRecibida(fechaDesde, fechaHasta );
+            List<Object[]> obj = localRepository.findAllCantidadEnviadaYRecibida(fechaDesde, fechaHasta );
+
             obj.forEach(p->{
                 TiendaCant tc = new TiendaCant();
                 tc.setTiendaId((Long) p[0]);
@@ -649,6 +704,7 @@ public class MovimientoService {
                 tc.setCantEnviada((Long) p[2]);
                 listTc.add(tc);
             });
+
             return listTc;
         } else {
             throw new CustomException("No cuenta con los permisos para consultar agentes!");
@@ -683,4 +739,28 @@ public class MovimientoService {
             throw new CustomException("No tiene permisos para consultar la tienda");
         }
     }
+
+
+    public List<Movimiento> getUltimosMovimientosLocal(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(), "CONS-MOVIMIENTO")) {
+
+            Date fecha = Date.from(ZonedDateTime.now(zoneId).toInstant()); //fecha actual
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fecha);
+            calendar.add(Calendar.DAY_OF_YEAR, -14);  // fecha - 14 dias
+            //SimpleDateFormat formatFecha = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println("fecha de hoy: "+ fecha + "| fecha -14 dias: "+ calendar.getTime());
+
+            if (usuarioActual.getLocal().getTipoAgente().getNombre().equals("CD")) {
+                return movimientoRepository.findAllByLocalAndFecha(null,calendar.getTime(),fecha);
+
+            } else { // si es tienda
+                return movimientoRepository.findAllByLocalAndFecha(usuarioActual.getId(),calendar.getTime(),fecha);
+            }
+
+        } else {
+            throw new CustomException("No tiene permisos para consultar movimientos");
+        }
+    }
+
 }
