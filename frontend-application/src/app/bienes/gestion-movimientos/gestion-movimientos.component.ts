@@ -53,7 +53,7 @@ export class GestionMovimientosComponent implements OnInit {
 
     this.movimientos.forEach(m => {
       let movi = new Movi();
-      movi.fecha = m.fechaAlta;
+      movi.fecha = m.fechaSalida;
       movi.nro = m.id.toString();
       movi.cantBienes = m.itemMovimientos.length.toString();
       movi.cantRecursos = m.recursosAsignados.length.toString();

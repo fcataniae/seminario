@@ -669,10 +669,11 @@ public class MovimientoService {
         d.getData().getDataset().setLabel("Top "+SUBLIST+" locales con mas Recepciones");
 
         for (TiendaCant tiendaCant : trecib) {
-            d.getData().getDataset().getData().add(tiendaCant.getCantRecibida().toString());
-            System.out.println(tiendaCant);
-            d.getData().getLabels().add(tiendaCant.getTiendaId() + " - " + tiendaCant.getDenominacion().substring(0, 20));
-            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            if(tiendaCant.getCantRecibida().compareTo(0L) > 0) {
+                d.getData().getDataset().getData().add(tiendaCant.getCantRecibida().toString());
+                d.getData().getLabels().add(tiendaCant.getTiendaId() + " - " + tiendaCant.getDenominacion().substring(0, 20));
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            }
         }
 
         dashs.add(d);
@@ -682,11 +683,12 @@ public class MovimientoService {
         d.getData().getDataset().setLabel("Top "+SUBLIST+" locales con mas Envios");
 
         for (TiendaCant t : tenvia) {
-            d.getData().getDataset().getData().add(t.getCantEnviada().toString());
-            d.getData().getLabels().add(t.getTiendaId() + " - " + t.getDenominacion().substring(0, 20));
-            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            if (t.getCantEnviada().compareTo(0L) > 0) {
+                d.getData().getDataset().getData().add(t.getCantEnviada().toString());
+                d.getData().getLabels().add(t.getTiendaId() + " - " + t.getDenominacion().substring(0, 20));
+                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            }
         }
-
         dashs.add(d);
         return dashs;
     }

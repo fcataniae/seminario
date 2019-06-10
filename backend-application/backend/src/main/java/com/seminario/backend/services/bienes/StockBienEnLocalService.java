@@ -305,7 +305,7 @@ public class StockBienEnLocalService {
                 d.getData().getLabels().add(e.getNombre());
                 Long stock = 0L;
                 for(StockBienEnLocal s : e.getStockBienes()){
-                    stock = s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado();
+                    stock += s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado();
 
 
                 }
