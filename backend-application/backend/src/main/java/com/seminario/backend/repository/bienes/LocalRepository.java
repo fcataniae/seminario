@@ -14,7 +14,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
     List<Local> findAllByTipoAgente(TipoAgente tipoAgente);
 
 
-    @Query(value = "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA, IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM ( \n " +
+    @Query(value = "SELECT IFNULL(aux2.TIENDA,aux.tienda), IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA, IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM ( \n " +
             "\t SELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA   \n " +
             "\t FROM seminario.movimiento m \n " +
             "\t LEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id  \n " +
@@ -30,7 +30,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\t GROUP BY TIENDA \n " +
             ") aux2 on aux.TIENDA = aux2.TIENDA \n " +
             "UNION \n " +
-            "SELECT aux.TIENDA, IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA , IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM ( \n " +
+            "SELECT IFNULL(aux2.TIENDA,aux.tienda), IFNULL(CAST(aux.CANT_RECIBIDA as SIGNED),0) as CANT_RECIBIDA , IFNULL(CAST(aux2.CANT_ENVIADA as SIGNED),0) as CANT_ENVIADA, IFNULL(aux.COSTO_CANT_RECIBIDA,0) as COSTO_CANT_RECIBIDA , IFNULL(aux2.COSTO_CANT_ENVIADA,0) as COSTO_CANT_ENVIADA FROM ( \n " +
             "\t SELECT m.DESTINO AS TIENDA, SUM(im.CANTIDAD) AS CANT_RECIBIDA, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA   \n " +
             "\t FROM seminario.movimiento m \n " +
             "\t LEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id  \n " +
@@ -44,7 +44,7 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
             "\t WHERE m.id_tipo_movimiento = 7 or m.id_tipo_movimiento = 4 -- DEVOLUCION desde Tienda \n " +
             "\t AND ( FECHASALIDA > ?1 or ?1 is null) AND (FECHASALIDA < ?2 or ?2 is null) \n " +
             "\t GROUP BY TIENDA \n " +
-            ") aux2 on aux.TIENDA = aux2.TIENDA and exists ( select 1 from local where aux.tienda = local.nro and aux2.tienda = local.nro)", nativeQuery = true)
+            ") aux2 on aux.TIENDA = aux2.TIENDA", nativeQuery = true)
     List<Object[]> findAllCantidadEnviadaYRecibida(Date fechaDesde, Date fechaHasta);
 
     @Query(value =  "SELECT * FROM LOCAL WHERE local.nro = ?1 OR ?1 is null" ,nativeQuery = true)
