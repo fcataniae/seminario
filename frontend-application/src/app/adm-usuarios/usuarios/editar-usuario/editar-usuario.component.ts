@@ -44,7 +44,7 @@ export class EditarUsuarioComponent implements OnInit {
   deleteUsuario(usuario: Usuario){
     const dialogRef = this.dialog.open(ConfirmacionPopupComponent,{
       width: '40%',
-      data: { mensaje: "Desea eliminar el usuario?"}
+      data: { mensaje: "Desea eliminar el usuario?", titulo:"Confirmar accion", error: false}
     });
 
     dialogRef.afterClosed().subscribe(result => {

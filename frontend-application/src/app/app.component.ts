@@ -26,9 +26,9 @@ export class AppComponent {
     this._router.events.subscribe( e => {
       if(e instanceof NavigationEnd)
         if(!this._router.url.includes('login') && this._router.url !== '/')
-          if(!this._sessionService.isUserLoggedIn())
+          if(!this._sessionService.isUserLoggedIn()){
             this._router.navigate(['login']);
-
+          }
        if(e instanceof NavigationStart)
          if(!this._sessionService.isUserLoggedIn()){
            this.username = '';

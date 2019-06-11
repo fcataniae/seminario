@@ -5,7 +5,6 @@ import { MatTableDataSource, MatDialog, MatSort, MatPaginator } from '@angular/m
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
-import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Local } from '../../model/bienes/local.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
@@ -73,4 +72,3 @@ constructor(private _movimientoService: MovimientoService,
     this._router.navigate(['home']);
   }
 }
-

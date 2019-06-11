@@ -42,7 +42,7 @@ export class GestionPersonasComponent implements OnInit {
   deletePersona(persona: Persona){
     const dialogRef = this._dialog.open(ConfirmacionPopupComponent,{
       width: '90%',
-      data: { mensaje: "Desea eliminar la persona?"}
+      data: { mensaje: "Desea eliminar la persona?", titulo: "Confirmar accion" , error : false}
     });
     dialogRef.afterClosed().subscribe(result=>{
       if (result && result == "true"){

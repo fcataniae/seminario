@@ -46,7 +46,7 @@ export class EditarRolComponent implements OnInit  {
   deleteRol(rol: Rol){
     const dialogRef = this.dialog.open(ConfirmacionPopupComponent,{
       width: '90%',
-      data: { mensaje: "Desea eliminar el rol?"}
+      data: { mensaje: "Desea eliminar el rol?", titulo: "Confirmar accion", error: false}
     });
     dialogRef.afterClosed().subscribe(result => {
 

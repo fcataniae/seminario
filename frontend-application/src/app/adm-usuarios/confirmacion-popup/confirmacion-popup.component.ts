@@ -4,6 +4,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export interface Data{
   mensaje: string;
   titulo: string;
+  error: boolean;
 }
 
 @Component({
@@ -13,13 +14,13 @@ export interface Data{
 })
 export class ConfirmacionPopupComponent {
 
-  constructor(public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Data) {
-          if(this.data.titulo == null || this.data.titulo == "" || !data.titulo){
-            this.data.titulo = "Confirmar accion";
-          }
+    constructor(public dialogRef: MatDialogRef<ConfirmacionPopupComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: Data)
+      {
+      this.boton = this.data.error ? 'Continuar': 'Confimar';
       }
 
+    boton: string;
     onCancel(): void {
       this.dialogRef.close();
     }

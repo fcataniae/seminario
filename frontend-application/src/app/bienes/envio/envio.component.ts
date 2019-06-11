@@ -95,7 +95,7 @@ export class EnvioComponent implements OnInit {
 
   goBack(): void {
     let dialog = this._dialog.open(ConfirmacionPopupComponent,{
-      data: {mensaje:"Desea volver atras?"},
+      data: {mensaje:"Desea volver atras?", titulo: "Confirmar accion", error: false},
       width: '50%'
     });
     dialog.afterClosed().subscribe(
@@ -166,7 +166,7 @@ export class EnvioComponent implements OnInit {
   }
 
   registrar() {
-    let observer = this.modificacion ? this._movimientoService.setModificacionMovimiento(this.movimiento) : this._movimientoService.setRegistroMovimiento(this.movimiento); 
+    let observer = this.modificacion ? this._movimientoService.setModificacionMovimiento(this.movimiento) : this._movimientoService.setRegistroMovimiento(this.movimiento);
     observer.subscribe(
       res =>{
         alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);

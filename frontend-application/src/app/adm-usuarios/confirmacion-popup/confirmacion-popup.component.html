@@ -3,6 +3,6 @@
   <p>{{data.mensaje}}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancelar</button>
-  <button mat-button (click)="onSubmit()" cdkFocusInitial>Confirmar</button>
+  <button *ngIf="!data.error" mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>{{boton}}</button>
 </div>

@@ -11,17 +11,14 @@ import { SessionService } from './../services/session.service';
 })
 export class LoginComponent implements OnInit {
 
-  isLoggedIn: Boolean = true;
+  loginError: Boolean = false;
   error: string;
   constructor(private _loginService: LoginService,
               private _router: Router,
               private _sessionService: SessionService) { }
 
   ngOnInit() {
-    console.log(this._sessionService.isUserLoggedIn());
-    if(this._sessionService.isUserLoggedIn()){
-        this._router.navigate(['/home']);
-    }
+
   }
 
   logIn(username: string, password: string, event: Event) {
@@ -30,20 +27,20 @@ export class LoginComponent implements OnInit {
         this._loginService.login(username, password).subscribe(
 
           res => {
-           this.isLoggedIn = true;
+           this.loginError = false;
            this._sessionService.setUserLoggedIn(res);
            this._router.navigate(['/home']);
           },
           error => {
             console.error(error);
             this.error = "Usuario o password incorrectos.";
-            this.isLoggedIn = false;
+            this.loginError= true;
           }
         );
 
       }else{
-        this.error = "Debe ingresar los datos solicitados.";
-        this.isLoggedIn = false;
+        this.error = "Debe ingresar los datos de inicio de session.";
+        this.loginError= true;
     }
 
   }

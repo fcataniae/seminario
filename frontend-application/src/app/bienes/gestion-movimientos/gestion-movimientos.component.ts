@@ -97,7 +97,7 @@ export class GestionMovimientosComponent implements OnInit {
     dialog.afterClosed().subscribe(
       res=>{
         if(res && res == true){
-          this.showDialog("Se confirmo correctamente el movimiento");
+          this.showDialog("Se cambio el estado correctamente.","Confimacion de movimiento",true);//lo dejo en true para que me muestre solo el boton continuar
           this._movimientoService.getAllMovimientos()
             .subscribe( res => {
               console.log(res);
@@ -105,7 +105,7 @@ export class GestionMovimientosComponent implements OnInit {
               this.dataSource.data = this.generateMovi();
             });
         }else if (res && res == false){
-          this.showDialog("No se pudo confirmar el movimiento");
+          this.showDialog("No se pudo realizar la accion correctamente!","Confirmacion de movimiento",true);
         }
       }
     );
@@ -115,9 +115,9 @@ export class GestionMovimientosComponent implements OnInit {
   }
 
 
-    showDialog(msj: string) {
+    showDialog(msj: string, titulo: string, error: boolean) {
       let dialog = this._dialog.open(ConfirmacionPopupComponent,{
-        data: {mensaje: msj },
+        data: {mensaje: msj, titulo: titulo, error: error },
         width: '50%'
       });
       dialog.afterClosed().subscribe();

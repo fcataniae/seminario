@@ -32,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log(err);
             console.log(caught);
             let dialog = this._matdialog.open(ConfirmacionPopupComponent,{
-              data: {mensaje:"ERROR: " + err.error.message, titulo: "Error al realizar la acccion"}
+              data: {mensaje:"Ocurrio un error inesperado: " + err.error.message, titulo: "Error:",error: true}
             });
             dialog.afterClosed().subscribe();
           }
