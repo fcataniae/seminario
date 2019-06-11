@@ -16,19 +16,50 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
     Proveedor findByNro(Long nro);
 
 
-    @Query(value = "SELECT aux.PROVEEDOR, (COSTO_CANT_ENVIADA - COSTO_CANT_RECIBIDA) as DEUDA FROM (\n" +
-            "\t\tSELECT m.DESTINO AS PROVEEDOR, SUM(im.PRECIO) AS COSTO_CANT_RECIBIDA \n" +
+    @Query(value = "SELECT \n" +
+            "\t\tCASE WHEN (aux.PROVEEDOR is NULL) THEN aux2.PROVEEDOR\n" +
+            "\t\tELSE aux.PROVEEDOR END as PROVEEDOR,\n" +
+            "\t\tCASE WHEN (aux.NOMBRE is NULL) THEN aux2.NOMBRE\n" +
+            "\t \tELSE aux.NOMBRE END as NOMBRE,\n" +
+            "\t\tCASE WHEN (COSTO_CANT_RECIBIDA is NULL) THEN COSTO_CANT_ENVIADA\n" +
+            "\t\t\t WHEN (COSTO_CANT_ENVIADA is NULL) THEN -1*COSTO_CANT_RECIBIDA\n" +
+            "\t\tELSE COSTO_CANT_ENVIADA - COSTO_CANT_RECIBIDA END as DEUDA FROM (\n" +
+            "\t\tSELECT m.DESTINO AS PROVEEDOR, p.NOMBRE, SUM(im.PRECIO * im.CANTIDAD) AS COSTO_CANT_RECIBIDA \n" +
             "\t\tFROM seminario.movimiento m\n" +
             "\t\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
+            "\t\tINNER JOIN seminario.proveedor p on m.DESTINO = p.nro \n" +
             "\t\tWHERE m.id_tipo_movimiento in (5, 7, 8) -- (Intercambio, Devolucion desde Tienda, Devolucion de CD)\n" +
             "\t\tGROUP BY PROVEEDOR\n" +
             ") aux LEFT JOIN (\n" +
-            "\t\tSELECT m.ORIGEN AS PROVEEDOR, SUM(im.PRECIO) AS COSTO_CANT_ENVIADA \n" +
+            "\t\tSELECT m.ORIGEN AS PROVEEDOR, p.NOMBRE, SUM(im.PRECIO * im.CANTIDAD) AS COSTO_CANT_ENVIADA \n" +
             "\t\tFROM seminario.movimiento m\n" +
             "\t\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id\n" +
+            "\t\tINNER JOIN seminario.proveedor p on m.ORIGEN = p.nro \n" +
             "\t\tWHERE m.id_tipo_movimiento in (6, 3) -- Recepcion desde Proveedor y Recepcion de Intercambio\n" +
             "\t\tGROUP BY PROVEEDOR\n" +
             ") aux2 on aux.PROVEEDOR = aux2.PROVEEDOR\n" +
-            "ORDER BY PROVEEDOR LIMIT 10", nativeQuery = true)
-    List<Proveedor> findDeuda();
+            "UNION SELECT \n" +
+            "\t\tCASE WHEN (aux.PROVEEDOR is NULL) THEN aux2.PROVEEDOR\n" +
+            "\t\tELSE aux.PROVEEDOR END as PROVEEDOR,\n" +
+            "\t\tCASE WHEN (aux.NOMBRE is NULL) THEN aux2.NOMBRE\n" +
+            "\t \tELSE aux.NOMBRE END as NOMBRE,\n" +
+            "\t\tCASE WHEN (COSTO_CANT_RECIBIDA is NULL) THEN COSTO_CANT_ENVIADA\n" +
+            "\t\t\t WHEN (COSTO_CANT_ENVIADA is NULL) THEN -1*COSTO_CANT_RECIBIDA\n" +
+            "\t\tELSE COSTO_CANT_ENVIADA - COSTO_CANT_RECIBIDA END as DEUDA FROM (\n" +
+            "\t\tSELECT m.DESTINO AS PROVEEDOR, p.NOMBRE, SUM(im.PRECIO * im.CANTIDAD) AS COSTO_CANT_RECIBIDA \n" +
+            "\t\tFROM seminario.movimiento m\n" +
+            "\t\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id \n" +
+            "\t\tINNER JOIN seminario.proveedor p on m.DESTINO = p.nro \n" +
+            "\t\tWHERE m.id_tipo_movimiento in (5, 7, 8) -- (Intercambio, Devolucion desde Tienda, Devolucion de CD)\n" +
+            "\t\tGROUP BY PROVEEDOR\n" +
+            ") aux RIGHT JOIN (\n" +
+            "\t\tSELECT m.ORIGEN AS PROVEEDOR, p.NOMBRE, SUM(im.PRECIO * im.CANTIDAD) AS COSTO_CANT_ENVIADA \n" +
+            "\t\tFROM seminario.movimiento m\n" +
+            "\t\tLEFT JOIN seminario.itemmovimiento im on m.id = im.movimiento_id\n" +
+            "\t\tINNER JOIN seminario.proveedor p on m.ORIGEN = p.nro \n" +
+            "\t\tWHERE m.id_tipo_movimiento in (6, 3) -- Recepcion desde Proveedor y Recepcion de Intercambio\n" +
+            "\t\tGROUP BY PROVEEDOR\n" +
+            ") aux2 on aux.PROVEEDOR = aux2.PROVEEDOR\n" +
+            "ORDER BY DEUDA DESC", nativeQuery = true)
+    List<Object[]> findAllDeudas();
 }
