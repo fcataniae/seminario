@@ -77,20 +77,21 @@ public class BienesRestController {
 
 
     /**
-     * Confirmar un movimiento.
+     * Cambiar Estado de un movimiento.
      *
      * @param    userDetails       Credenciales de usuario.
      *                             (debe tener los permisos para ejecutar el método).
-     * @param    id                Id del movimiento a confirmar.
+     * @param    id                Id del movimiento.
+     * @param    estado            Nuevo estado del movimiento..
      **/
     @PutMapping("/confirmar-movimiento/{id}/{estado}")
-    public void confirmarMovimiento(@AuthenticationPrincipal UserDetails userDetails,
+    public void cambiarEstadoMovimiento(@AuthenticationPrincipal UserDetails userDetails,
                                     @PathVariable("id") Long id,
                                     @PathVariable("estado") String estado,
                                     @RequestBody String comentario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        movimientoService.confirmar(usuarioActual,id,estado,comentario);
+        movimientoService.cambiarEstadoMovimiento(usuarioActual,id,estado,comentario);
     }
 
     /**
