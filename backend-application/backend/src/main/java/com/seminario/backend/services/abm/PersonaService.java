@@ -73,14 +73,12 @@ public class PersonaService {
         }
     }
 
+
      
     public Persona getPersonaByDocumento(Usuario usuarioActual, Long doc) throws CustomException {
         Persona persona;
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-PERSONA")) {
             persona = personaRepository.findByNroDoc(doc);
-            if( persona == null) {
-                throw new CustomException("Error al consultar persona");
-            }
         } else {
             throw new CustomException("No cuenta con los permisos para consultar personas!");
         }

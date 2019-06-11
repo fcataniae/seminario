@@ -58,7 +58,8 @@ export class GestionPersonasComponent implements OnInit {
 
     onAltaPersona(){
       const dialogRef = this._dialog.open(AltaPersonaComponent,{
-        width: '50%'
+        width: '50%',
+        data: {persona: new Persona() }
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log(result instanceof Persona );

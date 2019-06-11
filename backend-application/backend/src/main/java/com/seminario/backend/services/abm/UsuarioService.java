@@ -72,7 +72,7 @@ public class UsuarioService{
     }
 
      
-    public void create(Usuario usuarioActual, Usuario usuario) throws CustomException {
+    public Usuario create(Usuario usuarioActual, Usuario usuario) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-USUARIO")) {
 
             Set<Rol> roles = usuario.getRoles();
@@ -95,11 +95,14 @@ public class UsuarioService{
             if(usuarioRepository.save(usuario) != null) {
                 usuario.setRoles(roles);
                 Usuario usuarioTmp = asignarRolesUsuario(usuarioActual, usuario);
-                if (usuarioRepository.save(usuarioTmp) == null) {
+                usuarioTmp = usuarioRepository.save(usuarioTmp);
+                if (usuarioTmp == null) {
                     throw new CustomException("Error al dar de alta roles!");
                 }
+                return usuarioRepository.findById(usuarioTmp.getId());
             } else { throw new CustomException("Error! El Usuario ya existe!"); }
         } else { throw new CustomException("No cuenta con permisos para dar de alta usuarios!");}
+
     }
 
      

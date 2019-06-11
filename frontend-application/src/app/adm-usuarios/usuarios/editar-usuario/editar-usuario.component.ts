@@ -71,8 +71,11 @@ export class EditarUsuarioComponent implements OnInit {
         this._usuarioService.createUsuario(result).
           subscribe(
             res =>{
+              console.log("alta usuario");
               console.log(res);
-              alert("Se creo el usuario correctamente");
+              let users = this.dataSource.data.filter(u => true);
+              users.push(res);
+              this.dataSource.data = users;
             },
             error => {
               console.log(error);
@@ -92,11 +95,11 @@ export class EditarUsuarioComponent implements OnInit {
       if( result ){
         this._usuarioService.updateUsuario(result).subscribe(
           res => {
-            console.log("update ok");
+
           },
           error => {
             console.log(error);
-            alert('No se pudo actualizar el usuario');
+
           }
         );
       }

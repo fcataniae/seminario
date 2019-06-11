@@ -8,6 +8,8 @@
     <div class="persona">
       <mat-form-field class="doc-search" fxFlex>
           <input matInput
+                 type="number"
+                 patter="\d*"
                  placeholder="Numero de documento"
                  required
                  name="nroDoc"
@@ -15,7 +17,7 @@
 
       </mat-form-field>
       <button mat-button (click)="onAltaPersona()">
-        Alta
+        Alta de persona
       </button>
     </div>
     <mat-form-field class="w70" fxFlex>
@@ -51,11 +53,12 @@
       <input type="text"
              placeholder="Local"
              aria-label="Number"
-             matInput [formControl]="localForm"
+             matInput
+             [formControl]="localForm"
              [matAutocomplete]="autoLocal"
-             name="transp"
              [(ngModel)]="selectedLoca"
-             (ngModelChange)="refreshLoca()">
+             (ngModelChange)="refreshLoca()"
+             required>
          <mat-autocomplete #autoLocal="matAutocomplete">
          <mat-option *ngFor="let t of localFilter | async" [value]="t.denominacion">
            {{t.denominacion}}
@@ -70,6 +73,6 @@
     <button mat-button class="mat-raised-button"(click)="onCancel()">Cancelar</button>
     <button mat-button class="mat-raised-button mat-primary"
             (click)="onSubmit()"
-            [disabled]="!altausuario.valid && (user.password !== passwordCheck)">Alta</button>
+            [disabled]="selectedLoca === '' || !altausuario.valid  || (user.password !== passwordCheck)">Alta</button>
   </mat-dialog-actions>
 </form>

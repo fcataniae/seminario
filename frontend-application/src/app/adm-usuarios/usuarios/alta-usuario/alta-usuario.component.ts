@@ -26,9 +26,6 @@ export class AltaUsuarioComponent {
   {
     this._movimientoService.getAllLocales().subscribe(
       res => {
-        this.user = new Usuario();
-        this.user.persona = new Persona();
-
         this.locales = res;
 
         this.localFilter = this.localForm.valueChanges
@@ -40,7 +37,7 @@ export class AltaUsuarioComponent {
     );
   }
 
-  user: Usuario;
+  user: Usuario = new Usuario();
   passwordCheck: string;
 
 
@@ -49,11 +46,19 @@ export class AltaUsuarioComponent {
   }
 
   onSubmit(){
-    this.dialogRef.close(this.user);
+    this._personaService.getPersonaByDocumento(this.user.persona.nroDoc).subscribe(res => {
+      if(res && res !== null){
+        this.dialogRef.close(this.user);
+      }else{
+        this.onAltaPersona();
+      }
+    });
+
   }
   onAltaPersona(){
     let dialog = this.dialog.open(AltaPersonaComponent,{
-      width: '50%'
+      width: '50%',
+      data: {persona: this.user.persona}
     });
 
     dialog.afterClosed().subscribe(

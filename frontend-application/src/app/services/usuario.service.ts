@@ -29,8 +29,8 @@ export class UsuarioService {
   getUsuarioByName(nombre: string): Observable<Usuario>{
     return this._http.get<Usuario>(environment.serviceUrl + "get-usuario/" + nombre);
   }
-  createUsuario(usuario: Usuario): Observable<string>{
+  createUsuario(usuario: Usuario): Observable<Usuario>{
     console.log(usuario);
-    return this._http.post<string>(environment.serviceUrl + "alta-usuario", usuario);
+    return this._http.post<Usuario>(environment.serviceUrl + "alta-usuario", usuario);
   }
 }

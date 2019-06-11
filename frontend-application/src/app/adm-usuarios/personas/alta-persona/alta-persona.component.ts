@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { Persona } from './../../../model/abm/persona.model';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Inject } from '@angular/core';
 
+export interface Data {
+  persona: Persona;
+}
 @Component({
   selector: 'app-alta-persona',
   templateUrl: './alta-persona.component.html',
@@ -10,8 +14,9 @@ import { MatDialogRef } from '@angular/material';
 })
 export class AltaPersonaComponent  {
 
-  constructor(public _dialogRef: MatDialogRef<AltaPersonaComponent>) {
-    this.persona = new Persona();
+  constructor(public _dialogRef: MatDialogRef<AltaPersonaComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: Data) {
+    this.persona = this.data.persona;
   }
 
   persona: Persona;

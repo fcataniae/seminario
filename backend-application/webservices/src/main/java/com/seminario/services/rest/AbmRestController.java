@@ -62,12 +62,12 @@ public class AbmRestController {
      * @param    usuario        Es el Usuario que se va a dar de alta.
      * */
     @RequestMapping(value="/alta-usuario", method = RequestMethod.POST)
-    public void createUsuario(@AuthenticationPrincipal UserDetails userDetails,
+    public Usuario createUsuario(@AuthenticationPrincipal UserDetails userDetails,
                               @RequestBody Usuario usuario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         usuario.setPassword(EncryptManager.encryptWord(usuario.getPassword()));
-        usuarioService.create(usuarioActual, usuario);
+        return usuarioService.create(usuarioActual, usuario);
     }
 
     /**
@@ -245,6 +245,7 @@ public class AbmRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         personaService.delete(usuarioActual, doc);
     }
+
 
     /**
      * Baja de usuario
