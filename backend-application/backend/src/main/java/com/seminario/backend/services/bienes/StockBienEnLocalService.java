@@ -3,6 +3,7 @@ package com.seminario.backend.services.bienes;
 
 import ch.qos.logback.core.CoreConstants;
 import com.seminario.backend.dto.Dashboard;
+import com.seminario.backend.dto.DeudaResumen;
 import com.seminario.backend.dto.StockBienEnLocal;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.model.abm.Usuario;
@@ -283,6 +284,7 @@ public class StockBienEnLocalService {
               "rgba(201, 38, 149)"};
     private static final int INDEX = 7;
     private static final int INDEXC = 2;
+    private static final int SUBLIST = 10;
     /**
      * Funcion que devuelve una lista de dashboards de acuerdo al usuario
      * @param usuarioActual
@@ -295,12 +297,13 @@ public class StockBienEnLocalService {
         Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
         Dashboard d = new Dashboard();
         Random r = new Random();
+        int colorIndx;
         if(nro == null){
             /*
             *  TODO dash para CD
             * */
             List<Agente> distr = getDistribucionBienes(usuarioActual);
-
+            colorIndx = r.nextInt(INDEX);
             for(Agente e : distr){
                 d.getData().getLabels().add(e.getNombre());
                 Long stock = 0L;
@@ -310,10 +313,29 @@ public class StockBienEnLocalService {
 
                 }
                 d.getData().getDataset().getData().add(String.valueOf(stock));
-                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+                d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
+                colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
             }
             d.setType(TYPES[r.nextInt(INDEXC)]);
             d.getData().getDataset().setLabel("Distribucion de bienes general");
+
+            dashs.add(d);
+
+
+            List<DeudaResumen> deuda;
+            List<DeudaResumen> DeudaProv = movimientoService.getDeudaProveedores(usuarioActual);
+            DeudaProv.sort((t1,t2)-> t2.getDeuda().compareTo(t1.getDeuda()));
+            deuda = new ArrayList<>( DeudaProv.subList(0,  DeudaProv.size()> SUBLIST ? SUBLIST : DeudaProv.size()));
+            d = new Dashboard();
+            d.setType("bar");
+            d.getData().getDataset().setLabel("Top "+SUBLIST+" Deuda de proveedores");
+
+            for (DeudaResumen dr : deuda) {
+                d.getData().getDataset().getData().add(dr.getDeuda().toString());
+                d.getData().getLabels().add(dr.getProveedorNro() + " - " + dr.getProveedorNombre().substring(0, dr.getProveedorNombre().length()> 20 ? 20 : dr.getProveedorNombre().length()));
+                d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
+                colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
+            }
 
             dashs.add(d);
         }
@@ -326,11 +348,12 @@ public class StockBienEnLocalService {
         d = new Dashboard();
 
         d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
-
+        colorIndx = r.nextInt(INDEX);
         for(StockBienEnLocal s : stockLocal){
             d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
             d.getData().getLabels().add(s.getDescripcionBI());
-            d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+            d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
+            colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
         }
         d.setType(TYPES[r.nextInt(INDEXC)]);
         dashs.add(d);
@@ -343,7 +366,7 @@ public class StockBienEnLocalService {
         List<TipoMovimiento> tiposMovimientos =  tipoMovimientoRepository.findAll();
 
         d.getData().getDataset().setLabel("Movimientos de los ultimos 14 dias en " + usuarioActual.getLocal().getDenominacion());
-
+        colorIndx = r.nextInt(INDEX);
         for (TipoMovimiento tm : tiposMovimientos) {
             TipoMovimiento currentTM = tm;
             int cont = 0;
@@ -355,7 +378,8 @@ public class StockBienEnLocalService {
             if (cont != 0) {
                 d.getData().getDataset().getData().add(String.valueOf(cont));
                 d.getData().getLabels().add(tm.getNombre());
-                d.getData().getDataset().getBackgroundColor().add(COLORES[r.nextInt(INDEX)]);
+                d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
+                colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
             }
         }
         d.setType(TYPES[r.nextInt(INDEXC)]);

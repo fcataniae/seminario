@@ -136,7 +136,7 @@ public class DeudaService {
     }
 
 
-    private Double getUltimaCotizacion(Long BI_id){
+    public Double getUltimaCotizacion(Long BI_id){
         EntityManager em = emf.createEntityManager();
         String qry = "SELECT COTIZACION FROM COTIZACION " +
                 "c WHERE c.BIENINTERCAMBIABLE_ID = ?1 " +

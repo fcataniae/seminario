@@ -2,6 +2,7 @@ package com.seminario.backend.services.bienes;
 
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.dto.Dashboard;
+import com.seminario.backend.dto.DeudaResumen;
 import com.seminario.backend.dto.TiendaCant;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.model.bienes.*;
@@ -64,6 +65,7 @@ public class MovimientoService {
             validarMovimiento(movimientoNuevo);
             sanitizarMovimiento(movimientoNuevo, today);
             movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
+            setCotizacionActual(movimientoNuevo.getItemMovimientos());
             if (movimientoRepository.save(movimientoNuevo) == null)
                 throw new CustomException("Error al dar de alta el movimiento!");
             actualizarStockYDeuda(movimientoNuevo, today);
@@ -185,7 +187,7 @@ public class MovimientoService {
                     // SOLO liberamos los recursos si el movimiento se encuentra en estado pendiente
                     if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
                         movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoViejo.getRecursosAsignados(), "LIBRE", "OCUPADO"));
-
+                    setCotizacionActual(movimientoViejo.getItemMovimientos());
                     if (movimientoRepository.save(movimientoViejo) == null)
                         throw new CustomException("Error al guardar la movimiento!");
                     actualizarStockYDeuda(movimientoViejo, movimientoViejo.getFechaAlta());
@@ -501,6 +503,18 @@ public class MovimientoService {
         }
     }
 
+    private void setCotizacionActual(Set<ItemMovimiento> items)  throws CustomException {
+        for (ItemMovimiento i: items) {
+            BienIntercambiable bi = bienIntercambiableRepository.findById(i.getBienIntercambiable().getId());
+            if (null != bi) {
+                Double cotizacionActual = deudaService.getUltimaCotizacion(i.getBienIntercambiable().getId());
+                i.setPrecio(cotizacionActual);
+            } else {
+                throw new CustomException("No cuenta con los permisos para consultar recursos");
+            }
+        }
+    }
+
 
     public List<TipoMovimiento> getTipoMovimientos(Usuario usuarioActual) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-TIPOMOV")) {
@@ -621,6 +635,10 @@ public class MovimientoService {
                 r.add(estadoRecursoRepository.findByDescrip("DESTRUIDO"));
             } else if (tipoEnvio.getTipo().equals("RECEPCIONINTERCAMBIO")){
                 r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+            } else if (tipoEnvio.getTipo().equals("DESTRUCCION")){
+                r.add(estadoRecursoRepository.findByDescrip("LIBRE"));
+                r.add(estadoRecursoRepository.findByDescrip("OCUPADO"));
+                r.add(estadoRecursoRepository.findByDescrip("DESTRUIDO"));
             }
             return r;
         } else {
@@ -708,6 +726,25 @@ public class MovimientoService {
             });
 
             return listTc;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar agentes!");
+        }
+    }
+
+    public List<DeudaResumen> getDeudaProveedores(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
+            List<DeudaResumen> dr = new ArrayList<>();
+            List<Object[]> obj = proveedorRepository.findAllDeudas();
+
+            obj.forEach(p->{
+                DeudaResumen d = new DeudaResumen();
+                d.setProveedorNro((Long) p[0]);
+                d.setProveedorNombre((String) p[1]);
+                d.setDeuda((Double) p[2]);
+                dr.add(d);
+            });
+
+            return dr;
         } else {
             throw new CustomException("No cuenta con los permisos para consultar agentes!");
         }
