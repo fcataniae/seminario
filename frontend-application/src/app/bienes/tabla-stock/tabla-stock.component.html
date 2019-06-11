@@ -12,6 +12,11 @@
 
   <mat-table #sortStock="matSort" [dataSource]="dataSource" matSort >
 
+    <ng-container matColumnDef="nro">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>
+      <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="local">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
       <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
@@ -51,5 +56,3 @@
 
 
 </div>
-
-
