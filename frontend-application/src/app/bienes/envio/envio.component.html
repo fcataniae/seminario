@@ -9,10 +9,10 @@
     <h4 >Tipo de movimiento > {{movimiento.tipoMovimiento.nombre}}</h4>
     <h5> Origen: {{movimiento.nombreOrigen}} > Destino: {{movimiento.nombreDestino}} </h5>
   </div>
+  <h5 >Datos del movimiento</h5>
 
+<form #formMovs="ngForm">
   <div class="datosEnvio">
-
-    <h5 >Datos del movimiento</h5>
 
     <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
       <input matInput
@@ -27,8 +27,10 @@
              type="date"
              class="fechaEnvio"
              name="fechaEnvio"
-             [(ngModel)]="movimiento.fechaSalida"
-             placeholder="Fecha"/>
+             [ngModel] ="movimiento.fechaSalida | date:'yyyy-MM-dd'"
+             (ngModelChange)="movimiento.fechaSalida = $event"
+             placeholder="Fecha"
+             required/>
     </mat-form-field>
     <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
       <input type="text"
@@ -38,6 +40,7 @@
              [matAutocomplete]="autoTransp"
              name="transp"
              [(ngModel)]="selectedTransp"
+             required
              (ngModelChange)="refreshT()">
          <mat-autocomplete #autoTransp="matAutocomplete">
          <mat-option *ngFor="let t of transpFilter | async" [value]="t.nombre">
@@ -52,12 +55,14 @@
              name="patenteTransportista"
              [ngModel]="movimiento.patenteTransporte | validpatente"
              maxlength="9"
+             required
              (ngModelChange)="movimiento.patenteTransporte=$event"
              placeholder="Patente Transportista"/>
     </mat-form-field>
 
   </div>
 
+</form>
 
   <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
     <div class="datosBienes" >
@@ -171,8 +176,11 @@
 
   <div class="confirmar">
 
-    <input type="submit" class="btn btn-wlm center" (click)="registrar()" id="login-button" value="Confirmar" />
+    <input type="submit"
+           class="btn btn-wlm center"
+           (click)="registrar()"
+           [disabled]="!formMovs.valid || movimiento.itemMovimientos.length === 0"
+           id="login-button" value="Confirmar" />
 
   </div>
-
 </div>

@@ -74,6 +74,10 @@ export class EnvioComponent implements OnInit {
           this.datosTablaBienes.sort = this.sortBienes;
           this.datosTablaBienes.paginator = this.paginatorBienes;
 
+          if(!this.modificacion){
+            this.movimiento.fechaSalida = new Date();
+            this.movimiento.fechaAlta = new Date();
+          }
           this.datosTablaRecursos.data = this.movimiento.recursosAsignados;
           this.datosTablaRecursos.sort = this.sortRecursos;
           this.datosTablaRecursos.paginator = this.paginatorRecursos;

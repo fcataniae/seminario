@@ -1,8 +1,5 @@
-mat-form-field{
-  display: inline-block;
-  width: 30%;
-  margin-left: 15%;
-  min-width: 200px;
+.datosEnvio{
+    display: flex;
 }
 table{
   width: 90%;
@@ -44,4 +41,16 @@ button.agregarRecurso{
 mat-tab-group{
   width: 90%;
   margin-left: 4%
+}
+
+form{
+  width: 100%;
+  display: inherit;
+}
+
+.mat-input-element{
+  display: inline-block;
+  width: 30%;
+  margin-left: 19%;
+  min-width: 200px;
 }
