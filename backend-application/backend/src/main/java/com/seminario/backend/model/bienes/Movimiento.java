@@ -197,4 +197,12 @@ public class Movimiento {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
+
+    public String getPatenteTransporte() {
+        return patenteTransporte;
+    }
+
+    public void setPatenteTransporte(String patenteTransporte) {
+        this.patenteTransporte = patenteTransporte;
+    }
 }

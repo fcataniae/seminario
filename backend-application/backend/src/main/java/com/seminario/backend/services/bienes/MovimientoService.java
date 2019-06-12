@@ -205,7 +205,7 @@ public class MovimientoService {
                         sanitizarMovimiento(movimientoViejo, today);
 
                     if (movimientoRepository.save(movimientoViejo) == null)
-                        throw new CustomException("Error al guardar la movimiento!");
+                        throw new CustomException("Error al guardar el movimiento!");
                 } else {
                     throw new CustomException("El movimiento se encuentra en estado ENTREGADO, no puede modificarse!");
                 }

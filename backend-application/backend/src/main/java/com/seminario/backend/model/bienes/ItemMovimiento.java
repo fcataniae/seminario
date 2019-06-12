@@ -76,4 +76,12 @@ public class ItemMovimiento {
     public void setEstadoRecurso(EstadoRecurso estadoRecurso) {
         this.estadoRecurso = estadoRecurso;
     }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 }

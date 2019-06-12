@@ -317,7 +317,7 @@ public class StockBienEnLocalService {
                 colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
             }
             d.setType(TYPES[r.nextInt(INDEXC)]);
-            d.getData().getDataset().setLabel("Distribucion de bienes general");
+            d.getData().getDataset().setLabel("Distribución de bienes general");
 
             dashs.add(d);
 
@@ -347,7 +347,7 @@ public class StockBienEnLocalService {
 
         d = new Dashboard();
 
-        d.getData().getDataset().setLabel("Distribucion de bienes en " + usuarioActual.getLocal().getDenominacion());
+        d.getData().getDataset().setLabel("Distribución de bienes en " + usuarioActual.getLocal().getDenominacion());
         colorIndx = r.nextInt(INDEX);
         for(StockBienEnLocal s : stockLocal){
             d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
@@ -365,7 +365,7 @@ public class StockBienEnLocalService {
         List<Movimiento> ultimosMovimientos = movimientoService.getUltimosMovimientosLocal(usuarioActual);
         List<TipoMovimiento> tiposMovimientos =  tipoMovimientoRepository.findAll();
 
-        d.getData().getDataset().setLabel("Movimientos de los ultimos 14 dias en " + usuarioActual.getLocal().getDenominacion());
+        d.getData().getDataset().setLabel("Movimientos de los últimos 14 días en " + usuarioActual.getLocal().getDenominacion());
         colorIndx = r.nextInt(INDEX);
         for (TipoMovimiento tm : tiposMovimientos) {
             TipoMovimiento currentTM = tm;

@@ -1,5 +1,5 @@
 nro,nombre,email,denominacion,direccion,direccion_nro,coordenada,id_tipo_agente,usuarioAlta,ESTADO_ID,fechaAlta
-7460,"CD Moreno Secos","cd_Moreno@walmart.com","Centro de distribucion Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
+7460,"CD Moreno Secos","cd_Moreno@walmart.com","CD Moreno","ruta 25",2007,"coordenada",2,"system",1,2007-01-23
 1002,"Rio Cuarto (CB) Supercenter","Rio4@walmart.com","Tienda Rio Cuarto (Córdoba) Supercenter","Rio Cuarto Cordoba",2007,"coordenada",1,"system",1,2007-01-23
 1003,"San Luis (SL) Supercenter","sl@walmart.com","Tienda San Luis (SL) Supercenter","",2007,"coordenada",1,"system",1,2007-01-23
 1004,"San Fernando (PBA) Supercenter","sa@walmart.com","Tienda San Fernando (PBA) Supercenter","",2007,"coordenada",1,"system",1,2007-01-23

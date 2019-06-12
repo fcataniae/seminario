@@ -5,8 +5,8 @@ ul#menu {
   overflow: hidden;
   background-color: #0055ba;
   height: auto;
-text-align: right;
-margin-left: 20%;
+  text-align: right;
+  margin-left: 2.5%;
 }
 
 #menu li {
@@ -20,10 +20,21 @@ margin-left: 20%;
   padding: 14px 16px;
   text-decoration: none;
 }
-.logout{
+
+#menu > li > a{
+  border-left: 1px solid white;
+}
+
+#menu li:last-of-type.sub {
+  margin-left: 100%;
+  margin-right: 5%;
+}
+
+
+/* .logout{
   cursor: pointer;
   color: white;
-}
+} */
 #menu li a:hover{
   background-color: #D5D4CD;
 }

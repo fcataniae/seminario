@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
           let div = document.createElement("div");
           let canvas = document.createElement("canvas");
 
-          div.classList.add("grafico");
+          div.classList.add("grafico");div.classList.add("mat-h2");div.classList.add("mat-elevation-z2");
           canvas.id = "chart"+index;
           div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
           div.appendChild(canvas);
@@ -89,7 +89,8 @@ export class HomeComponent implements OnInit {
                  text:d.data.dataset.label,
                  display:true,
                  responsive: true,
-                 maintainAspectRatio: false
+                 maintainAspectRatio: false,
+                 fontSize: 18
               },
             }
           });
