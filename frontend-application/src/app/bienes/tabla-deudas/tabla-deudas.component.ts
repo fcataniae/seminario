@@ -13,7 +13,8 @@ export class filaTabla{
   nro: number;
   nombre: string;
   descripcionBI: String;
-  deuda: String;
+  deudaBulto: String;
+  deudaMonetaria: String;
 }
 
 @Component({
@@ -32,7 +33,7 @@ constructor(private _movimientoService: MovimientoService,
   listaTabla: filaTabla[];
 
   public dataSource = new MatTableDataSource<filaTabla>();
-  public displayedColumns = ['nro','proveedor','bien','deuda'];
+  public displayedColumns = ['nro','proveedor','bien','deudaBulto','deudaMonetaria'];
   @ViewChild("sortDeuda") sort: MatSort;
   @ViewChild("paginatorDeuda") paginator: MatPaginator;
 
@@ -49,7 +50,8 @@ constructor(private _movimientoService: MovimientoService,
             fila.nro = this.listaDeudas[i].nro;
             fila.nombre = this.listaDeudas[i].nombre;
             fila.descripcionBI = this.listaDeudas[i].deudaBienes[j].descripcionBI;
-            fila.deuda = this.listaDeudas[i].deudaBienes[j].deuda;
+            fila.deudaBulto = this.listaDeudas[i].deudaBienes[j].deudaBulto;
+            fila.deudaMonetaria = this.listaDeudas[i].deudaBienes[j].deudaMonetaria;
             this.listaTabla.push(fila);
           }
         }

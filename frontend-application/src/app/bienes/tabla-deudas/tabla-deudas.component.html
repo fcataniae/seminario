@@ -26,9 +26,14 @@
       <td mat-cell *matCellDef="let element"> {{element.descripcionBI}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="deuda">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Deuda </th>
-      <td mat-cell *matCellDef="let element"> {{element.stock_libre}} </td>
+    <ng-container matColumnDef="deudaBulto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Deuda bultos </th>
+      <td mat-cell *matCellDef="let element"> {{element.deudaBulto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deudaMonetaria">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Deuda monetaria </th>
+      <td mat-cell *matCellDef="let element"> {{element.deudaMonetaria}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

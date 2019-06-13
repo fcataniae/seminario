@@ -27,8 +27,8 @@ table {
 }
 
 .mat-column-nro{
-  width: 15vw;
-  max-width: 15vw;
+  width: 10vw;
+  max-width: 10vw;
 }
 .mat-column-proveedor{
   width: 35vw;
@@ -38,8 +38,12 @@ table {
   width: 35vw;
   max-width: 35vw;
 }
-.mat-column-deuda{
-  width: 15vw;
-  max-width: 15vw;
+.mat-column-deudaBulto{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-deudaMonetaria{
+  width: 10vw;
+  max-width: 10vw;
 }
 
