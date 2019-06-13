@@ -12,3 +12,13 @@
   height: 100%;
   max-width: 2000px;
 }
+
+.divBoton{
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  width: 30%;
+  margin-bottom: 5%;
+}

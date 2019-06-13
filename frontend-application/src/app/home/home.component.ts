@@ -20,6 +20,7 @@ import { forkJoin } from 'rxjs';
 import { Dashboard } from '../model/bienes/dashboard.model';
 import { Data } from '../model/bienes/data.model';
 import { Dataset } from '../model/bienes/dataset.model';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-home',
@@ -99,4 +100,44 @@ export class HomeComponent implements OnInit {
 
       }
     }
+
+    descargarPDF() {
+      if(this.dashboards){
+        //creo PDF con la imagenes
+        var doc = new jsPDF('portrait','mm','a4');
+
+        var width = doc.internal.pageSize.getWidth();
+        var height = doc.internal.pageSize.getHeight();
+
+        //tamaño y axis
+        var ancho = width - 10;
+        var alto = height/2 - 5;
+        var x = 0;
+        var y = 0;
+        var movY = height/2;
+
+        for(let i=0; i<this.dashboards.length; i++)
+        {
+          var canvas = document.getElementById("chart"+i);
+          console.log(canvas);
+
+          //creo imagen
+          var canvasCast = <HTMLCanvasElement> canvas;
+          var canvasImg = canvasCast.toDataURL("image/png", 1.0);
+
+          if(i % 2 === 0){
+            if(i !== 0)//Agrego una pagina
+              doc.addPage();
+            var coordY = y;
+          }else{
+            var coordY = y + movY;
+          }
+
+          doc.addImage(canvasImg, 'PNG', x, coordY, ancho, alto );
+        }
+
+        doc.save('dashboard.pdf');
+      }
+    }
+
 }

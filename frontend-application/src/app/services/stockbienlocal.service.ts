@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { StockBienEnLocal } from '../model/bienes/stockbienlocal.model';
 import { environment } from '../../environments/environment';
 import { Local } from '../model/bienes/local.model';
+import { Proveedor } from '../model/bienes/proveedor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,4 +20,8 @@ export class StockBienLocalService {
   getStockLocales(): Observable<Local[]>{
     return this._http.get<Local[]>(environment.serviceUrl.replace('service','bienes') + 'stock-locales');
   }
+  getDeudaProveedores(): Observable<Proveedor[]>{
+    return this._http.get<Proveedor[]>(environment.serviceUrl.replace('service','bienes') + 'deuda-proveedores');
+  }
+
 }
