@@ -1,0 +1,45 @@
+div.contenedor{
+overflow-y: scroll;
+overflow-x: hidden;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: hidden;
+}
+
+
+/*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
+.button-back{
+  width: 30%;
+  text-align: left;
+}
+
+.input-search{
+  width: 40%;
+
+}
+
+.button-alta{
+  width: 20%;
+  text-align: right;
+}
+
+.mat-column-nro{
+  width: 15vw;
+  max-width: 15vw;
+}
+.mat-column-proveedor{
+  width: 35vw;
+  max-width: 35vw;
+}
+.mat-column-bien{
+  width: 35vw;
+  max-width: 35vw;
+}
+.mat-column-deuda{
+  width: 15vw;
+  max-width: 15vw;
+}
+

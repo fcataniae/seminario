@@ -31,6 +31,9 @@
     <li *ngIf="permisoInformeTablaStock">
       <a [routerLink]="['home/stock']">Listado de stock</a>
     </li>
+    <li *ngIf="permisoInformeTablaDeudas">
+      <a [routerLink]="['home/deudas']">Listado de deudas</a>
+    </li>
     <li>
       <a class="logout" (click)="logOut($event)">Log out <mat-icon>exit_to_app</mat-icon></a>
     </li>

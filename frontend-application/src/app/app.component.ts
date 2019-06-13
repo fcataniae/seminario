@@ -13,6 +13,7 @@ export class AppComponent {
   username : string = '';
   loggedIn: boolean = false;
 
+  permisoInformeTablaDeudas: boolean = true;
   permisoInformeTablaStock: boolean = true;
   permisoInforme: boolean = true;
   permisoInformeTiendas: boolean = true;
@@ -52,6 +53,7 @@ export class AppComponent {
                this.permisoInforme = true;
                this.permisoInformeTiendas = true;
                this.permisoInformeTablaStock = true;
+               this.permisoInformeTablaDeudas = true;
              }
            });
          }

@@ -49,6 +49,7 @@ import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.c
 import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
 import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
+import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 
 
 
@@ -77,7 +78,8 @@ import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component'
     ModificarBienComponent,
     InformeComponent,
     InformeTiendasComponent,
-    TablaStockComponent
+    TablaStockComponent,
+    TablaDeudasComponent
   ],
   imports: [
     BrowserModule,
