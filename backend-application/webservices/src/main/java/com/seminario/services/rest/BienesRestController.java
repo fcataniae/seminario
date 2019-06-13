@@ -46,6 +46,8 @@ public class BienesRestController {
     StockBienEnLocalService stockBienEnLocalService;
     @Autowired
     SecondaryDbService secondaryDbService;
+    @Autowired
+    DeudaService deudaService;
 
     /**
      * Crea un nuevo movimiento.
@@ -286,5 +288,12 @@ public class BienesRestController {
     public List<Movimiento> getUltimosMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getUltimosMovimientosLocal(usuarioActual);
+    }
+
+    @GetMapping("/deuda-proveedores")
+    public List<Agente> getAllDeudaProveedores(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return deudaService.getAllDeuda(usuarioActual);
+
     }
 }

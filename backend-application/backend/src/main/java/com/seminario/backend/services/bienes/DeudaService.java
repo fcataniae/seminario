@@ -1,7 +1,16 @@
 package com.seminario.backend.services.bienes;
 
+import com.seminario.backend.dto.Agente;
+import com.seminario.backend.dto.DeudaBien;
+import com.seminario.backend.model.abm.Usuario;
+import com.seminario.backend.model.bienes.BienIntercambiable;
+import com.seminario.backend.model.bienes.Proveedor;
 import com.seminario.backend.model.bienes.TipoAgente;
+import com.seminario.backend.repository.abm.PermisoRepository;
+import com.seminario.backend.repository.bienes.BienIntercambiableRepository;
+import com.seminario.backend.repository.bienes.ProveedorRepository;
 import com.seminario.backend.repository.bienes.TipoAgenteRepository;
+import com.seminario.backend.services.abm.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DeudaService {
@@ -21,6 +29,15 @@ public class DeudaService {
 
     @Autowired
     TipoAgenteRepository tipoAgenteRepository;
+
+    @Autowired
+    ProveedorRepository proveedorRepository;
+
+    @Autowired
+    PermisoRepository permisoRepository;
+
+    @Autowired
+    BienIntercambiableRepository bienIntercambiableRepository;
 
     private static ZoneId zoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
@@ -157,6 +174,93 @@ public class DeudaService {
                 .setParameter(2, fecha).getSingleResult();
         em.close();
         return d;
+    }
+
+    public List<Agente> getAllDeuda(Usuario usuarioActual) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
+            EntityManager em = emf.createEntityManager();
+            String qry = "SELECT \tCASE WHEN (aux.id is NULL) THEN aux2.id \n" +
+                    "\t\tELSE aux.id end as PROVEEDOR_ID, \n" +
+                    "\t\tCASE WHEN (aux.BI_id is NULL) THEN aux2.BI_id \n" +
+                    "\t\tELSE aux.BI_id end as BI_id,  \n" +
+                    "\t\tCASE WHEN (DEUDA_MON_SUMA is NULL) THEN CAST(-1*DEUDA_MON_RESTA as DOUBLE)\n" +
+                    "\t\t\t WHEN (DEUDA_MON_RESTA is NULL) THEN CAST(DEUDA_MON_SUMA as DOUBLE)\n" +
+                    "\t\tELSE CAST(DEUDA_MON_SUMA - DEUDA_MON_RESTA as DOUBLE) END as DEUDA_MON,\n" +
+                    "\t\tCASE WHEN (DEUDA_CANT_SUMA is NULL) THEN CAST(-1*DEUDA_CANT_RESTA as DOUBLE)\n" +
+                    "\t\t\t WHEN (DEUDA_CANT_RESTA is NULL) THEN CAST(DEUDA_CANT_SUMA as DOUBLE)\n" +
+                    "\t\tELSE CAST(DEUDA_CANT_SUMA - DEUDA_CANT_RESTA as DOUBLE) END as DEUDA_BULTOS\n" +
+                    "\t\tFROM (\n" +
+                    "\t\t\tSELECT d.id_agente_origen as id, d.BI_id, SUM(deuda_monetaria) as DEUDA_MON_RESTA, SUM(deuda_cant) as DEUDA_CANT_RESTA FROM seminario.deuda d\n" +
+                    "\t\t\tINNER JOIN seminario.bienintercambiable bi ON d.BI_id = bi.ID\n" +
+                    "\t\t\tWHERE tipo_agente_origen = 3\n" +
+                    "\t\t\tGROUP BY id, d.BI_id\n" +
+                    "\t\t) as aux LEFT JOIN (\n" +
+                    "\t\t\tSELECT d.id_agente_destino as id, d.BI_id, SUM(deuda_monetaria) as DEUDA_MON_SUMA, SUM(deuda_cant) as DEUDA_CANT_SUMA FROM seminario.deuda d\n" +
+                    "\t\t\tINNER JOIN seminario.bienintercambiable bi ON d.BI_id = bi.ID\n" +
+                    "\t\t\tWHERE tipo_agente_destino = 3\n" +
+                    "\t\t\tGROUP BY id, d.BI_id\n" +
+                    "\t\t) as aux2 ON aux.id = aux2.id and aux.BI_id = aux2.BI_id \n" +
+                    "UNION \n" +
+                    "SELECT \tCASE WHEN (aux.id is NULL) THEN aux2.id \n" +
+                    "\t\tELSE aux.id end as PROVEEDOR_ID, \n" +
+                    "\t\tCASE WHEN (aux.BI_id is NULL) THEN aux2.BI_id \n" +
+                    "\t\tELSE aux.BI_id end as BI_id,  \n" +
+                    "\t\tCASE WHEN (DEUDA_MON_SUMA is NULL) THEN CAST(-1*DEUDA_MON_RESTA as DOUBLE)\n" +
+                    "\t\t\t WHEN (DEUDA_MON_RESTA is NULL) THEN CAST(DEUDA_MON_SUMA as DOUBLE)\n" +
+                    "\t\tELSE CAST(DEUDA_MON_SUMA - DEUDA_MON_RESTA as DOUBLE) END as DEUDA_MON,\n" +
+                    "\t\tCASE WHEN (DEUDA_CANT_SUMA is NULL) THEN CAST(-1*DEUDA_CANT_RESTA as DOUBLE)\n" +
+                    "\t\t\t WHEN (DEUDA_CANT_RESTA is NULL) THEN CAST(DEUDA_CANT_SUMA as DOUBLE)\n" +
+                    "\t\tELSE CAST(DEUDA_CANT_SUMA - DEUDA_CANT_RESTA as DOUBLE) END as DEUDA_BULTOS\n" +
+                    "\t\tFROM (\n" +
+                    "\t\t\tSELECT d.id_agente_origen as id, d.BI_id, SUM(deuda_monetaria) as DEUDA_MON_RESTA, SUM(deuda_cant) as DEUDA_CANT_RESTA FROM seminario.deuda d\n" +
+                    "\t\t\tINNER JOIN seminario.bienintercambiable bi ON d.BI_id = bi.ID\n" +
+                    "\t\t\tWHERE tipo_agente_origen = 3\n" +
+                    "\t\t\tGROUP BY id, d.BI_id\n" +
+                    "\t\t) as aux RIGHT JOIN (\n" +
+                    "\t\t\tSELECT d.id_agente_destino as id, d.BI_id, SUM(deuda_monetaria) as DEUDA_MON_SUMA, SUM(deuda_cant) as DEUDA_CANT_SUMA FROM seminario.deuda d\n" +
+                    "\t\t\tINNER JOIN seminario.bienintercambiable bi ON d.BI_id = bi.ID\n" +
+                    "\t\t\tWHERE tipo_agente_destino = 3\n" +
+                    "\t\t\tGROUP BY id, d.BI_id\n" +
+                    "\t\t) as aux2 ON aux.id = aux2.id and aux.BI_id = aux2.BI_id ";
+            List<Object[]> objs = em.createNativeQuery(qry).getResultList();
+            List<Agente> ls = new ArrayList<Agente>();
+            objs.forEach(obj -> {
+                Agente agente = null;
+                Proveedor prov = null;
+                Boolean f = false;
+                for (Agente a : ls) {
+                    if (a.getNro() == obj[0]) {
+                        agente = a;
+                        f = true;
+                    }
+                }
+                if (agente == null) {
+                    prov = proveedorRepository.findByNro((Long) obj[0]);
+                    agente = new Agente();
+                    agente.setNro(prov.getNro());
+                    agente.setNombre(prov.getNombre());
+                    agente.setDenominacion(prov.getDenominacion());
+                    agente.setDireccion(prov.getDireccion());
+                    agente.setEmail(prov.getEmail());
+                    agente.setDireccion_nro(prov.getDireccion_nro());
+                    agente.setTipoAgente(tipoAgenteRepository.findByNombre("PROVEEDOR"));
+                }
+                DeudaBien db = new DeudaBien();
+                BienIntercambiable bi = bienIntercambiableRepository.findById((Long) obj[1]);
+                db.setIdBI(bi.getId());
+                db.setDescripcionBI(bi.getDescripcion());
+                db.setTipoBI(bi.getTipo());
+                db.setSubtipoBI(bi.getSubtipo());
+                db.setDeudaMonetaria((Double) obj[2]);
+                db.setDeudaBultos((Double) obj[3]);
+                agente.addDeudaBien(db);
+                if (!f) ls.add(agente);
+            });
+
+            return ls;
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar agentes!");
+        }
     }
 
 }

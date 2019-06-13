@@ -18,10 +18,12 @@ public class Agente {
     private Long direccion_nro;
     private TipoAgente tipoAgente;
     private List<StockBienEnLocal> stockBienes;
+    private List<DeudaBien> deudaBienes;
 
 
     public Agente() {
         this.stockBienes = new ArrayList<StockBienEnLocal>();
+        this.deudaBienes = new ArrayList<>();
     }
 
     public TipoAgente getTipoAgente() { return tipoAgente; }
@@ -46,7 +48,17 @@ public class Agente {
     public void setDireccion_nro(Long direccion_nro) { this.direccion_nro = direccion_nro; }
 
     public List<StockBienEnLocal> getStockBienes() { return stockBienes;}
+
+    public List<DeudaBien> getDeudaBienes() { return deudaBienes;}
     public void setStockBienes(List<StockBienEnLocal> stockBienes) { this.stockBienes = stockBienes; }
     public void addStockBien(StockBienEnLocal stockBien){this.stockBienes.add(stockBien);}
 
+
+    public void addDeudaBien(DeudaBien d) {
+        this.deudaBienes.add(d);
+    }
+
+    public void setDeudaBienes(List<DeudaBien> deudaBienes) {
+        this.deudaBienes = deudaBienes;
+    }
 }
