@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit {
           canvas.id = "chart"+index;
           div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
           div.appendChild(canvas);
+
           this.charts[index] = new Chart(canvas,{
             type: d.type,
             data:{
@@ -88,8 +89,6 @@ export class HomeComponent implements OnInit {
               title:{
                  text:d.data.dataset.label,
                  display:true,
-                 responsive: true,
-                 maintainAspectRatio: false,
                  fontSize: 18
               },
             }

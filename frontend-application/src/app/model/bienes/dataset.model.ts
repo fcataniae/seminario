@@ -1,5 +1,5 @@
 export class Dataset{
   label: string;
-  data: string[];
+  data: number[];
   backgroundColor: string[];
 }

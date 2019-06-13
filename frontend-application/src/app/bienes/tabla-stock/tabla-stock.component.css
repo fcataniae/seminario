@@ -1,3 +1,8 @@
+div.contenedor{
+overflow-y: scroll;
+overflow-x: hidden;
+}
+
 table {
   width: 100%;
   table-layout: fixed;
@@ -21,13 +26,17 @@ table {
   text-align: right;
 }
 
+.mat-column-nro{
+  width: 10vw;
+  max-width: 10vw;
+}
 .mat-column-local{
-  width: 30vw;
-  max-width: 30vw;
+  width: 25vw;
+  max-width: 25vw;
 }
 .mat-column-bien{
-  width: 30vw;
-  max-width: 30vw;
+  width: 25vw;
+  max-width: 25vw;
 }
 .mat-column-stocklibre{
   width: 10vw;

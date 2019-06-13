@@ -136,7 +136,10 @@ export class InformeTiendasComponent implements OnInit {
 
           let labes= [];
           this.dashboardEnvio.data.labels.forEach(l => labes.push(l.split("-")[0]))
-          this.chartEnviado = new Chart(canvas, {
+
+          let canvasAux = <HTMLCanvasElement> canvas;
+
+          this.chartEnviado = new Chart(canvasAux, {
               type: this.dashboardEnvio.type,
             data: {
              labels: labes,
@@ -169,13 +172,16 @@ export class InformeTiendasComponent implements OnInit {
           }
           let labes= [];
           this.dashboardRecepcion.data.labels.forEach(l => labes.push(l.split("-")[0]))
-          this.chartRecibido = new Chart(canvas, {
+
+          let canvasAux = <HTMLCanvasElement> canvas;
+
+          this.chartRecibido = new Chart(canvasAux, {
               type: this.dashboardRecepcion.type,
             data: {
              labels: labes,
              datasets: [{
                  label:"Recepciones por tienda",
-                 data: this.dashboardRecepcion.data.dataset.data,
+                 data: this.dashboardEnvio.data.dataset.data,
                  backgroundColor: this.dashboardRecepcion.data.dataset.backgroundColor
              }]
             },
