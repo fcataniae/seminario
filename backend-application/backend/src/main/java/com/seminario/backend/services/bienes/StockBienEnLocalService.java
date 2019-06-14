@@ -328,7 +328,7 @@ public class StockBienEnLocalService {
             deuda = new ArrayList<>( DeudaProv.subList(0,  DeudaProv.size()> SUBLIST ? SUBLIST : DeudaProv.size()));
             d = new Dashboard();
             d.setType("bar");
-            d.getData().getDataset().setLabel("Top "+SUBLIST+" Deuda de proveedores");
+            d.getData().getDataset().setLabel("Top "+SUBLIST+" Deuda a proveedores");
 
             for (DeudaResumen dr : deuda) {
                 d.getData().getDataset().getData().add(dr.getDeuda().toString());

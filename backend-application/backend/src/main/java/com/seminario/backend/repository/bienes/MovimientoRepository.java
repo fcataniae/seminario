@@ -17,7 +17,7 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
     List<Movimiento> findAllByLocal(Long nro);
 
 
-    @Query(value = "select * from Movimiento where (origen = ?1 or destino = ?1 or ?1 is null)" +
+    @Query(value = "select * from Movimiento where (ESTADOVIAJE_ID != 2) and (origen = ?1 or destino = ?1 or ?1 is null)" +
             " and (fechasalida between ?2  and ?3) " , nativeQuery = true)
     List<Movimiento> findAllByLocalAndFecha(Long nro, Date fecha_desde, Date fecha_hasta );
 }
