@@ -46,7 +46,8 @@ mat-tab-group{
 .form{
   min-width: 150px;
   max-width: 1500px;
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 
@@ -54,4 +55,9 @@ mat-tab-group{
   width: 30%;
   display:inline-block;
   margin-left:15%;
+}
+.confirmar{
+  width: 30%;
+  margin-left: 35%;
+
 }
