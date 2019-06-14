@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Location } from '@angular/common';
 import { AgregarBienComponent } from '../agregar-bien/agregar-bien.component';
 import { AgregarRecursoComponent } from '../agregar-recurso/agregar-recurso.component';
@@ -9,9 +9,8 @@ import { Recurso } from '../../model/bienes/recurso.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { ActivatedRoute } from '@angular/router';
 import { MovimientoService } from '../../services/movimiento.service';
-import { of, forkJoin, Observable } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 import { FormControl } from '@angular/forms';
 import { Transportista } from '../../model/bienes/transportista.model';
@@ -69,7 +68,6 @@ export class EnvioComponent implements OnInit {
 
           this.modificacion = window.location.href.includes("modificar");
           this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
-          console.log(this.modificacion);
           this.datosTablaBienes.data = this.movimiento.itemMovimientos;
           this.datosTablaBienes.sort = this.sortBienes;
           this.datosTablaBienes.paginator = this.paginatorBienes;
@@ -116,7 +114,9 @@ export class EnvioComponent implements OnInit {
   onAgregarBien() {
     const dialogRef = this._dialog.open(AgregarBienComponent,{
       width: '50%',
-      data: { tipoMovimiento: this.movimiento.tipoMovimiento, modi: false, origen: this.movimiento.origen}
+      data: { tipoMovimiento: this.movimiento.tipoMovimiento,
+              origen: this.movimiento.origen,
+              destino: this.movimiento.destino}
     });
 
     dialogRef.afterClosed().subscribe(
@@ -173,10 +173,8 @@ export class EnvioComponent implements OnInit {
     let observer = this.modificacion ? this._movimientoService.setModificacionMovimiento(this.movimiento) : this._movimientoService.setRegistroMovimiento(this.movimiento);
     observer.subscribe(
       res =>{
-        alert('Se registro correctamente el movimiento ' + this.movimiento.tipoMovimiento.nombre);
         this.location.back();
-      },
-      error => alert('Error al registrar el movimiento ' + this.movimiento.tipoMovimiento.nombre)
+      }
     );
   }
 
@@ -189,7 +187,7 @@ export class EnvioComponent implements OnInit {
       this.datosTablaRecursos.filter = value.trim().toLocaleLowerCase();
   }
 
-  setDataSource(indexNumber) {
+  setDataSource(indexNumber: number) {
     setTimeout(() => {
       switch (indexNumber) {
         case 0:

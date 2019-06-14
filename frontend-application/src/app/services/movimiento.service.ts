@@ -7,9 +7,7 @@ import { environment } from '../../environments/environment';
 import {Agente} from "../model/bienes/agente.model";
 import { Recurso } from '../model/bienes/recurso.model';
 import { Movimiento } from '../model/bienes/movimiento.model';
-import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
-import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 import { Transportista } from '../model/bienes/transportista.model';
 import { Dashboard } from '../model/bienes/dashboard.model';
 import { IntercambioProv } from '../model/bienes/intercambioprovedor.model';
@@ -75,9 +73,12 @@ export class MovimientoService {
   }
 
   getAllIntercambioProveedor(): Observable<IntercambioProv[]>{
-    return this._http.get(IntercambioProv[])(environment.serviceUrl.replace('service','bienes') + 'get-intercambios');
+    return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'get-intercambios');
   }
-  private formatDate(date) {
+  getIntercambioProveedorByNroP(nro: number): Observable<IntercambioProv>{
+    return this._http.get<IntercambioProv>(environment.serviceUrl.replace('service','bienes') + 'get-intercambiop/' + nro);
+  }
+  private formatDate(date: Date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),

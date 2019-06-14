@@ -86,7 +86,7 @@ export class MovimientosComponent implements OnInit {
     if(this.movimientos){
       this.selectedMov = this.movimientos.filter(m => m.nombre === this.select1)[0];
       if(this.selectedMov){
-          if(this.selectedMov.tipo === 'INTERCAMBIO'){
+          if(this.selectedMov.tipo === 'ENVIOINTERCAMBIO'){
             console.log("es intercambio");
             let dest = [];
             this.intercambios.forEach(i => dest.push(i.proveedor));
