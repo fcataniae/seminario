@@ -235,8 +235,10 @@ public class MovimientoService {
             // Vales en estado Reservado
         } else if (tipoMov.equals("ENVIOINTERCAMBIO")) {
             for (ItemMovimiento item: items) {
+                IntercambioProveedor ip = intercambioProveedorRepository.findByProveedor(proveedorRepository.findByNro(movimiento.getDestino()));
+                Long cantidadEsperada = ip.getCantidadRecibida() * (item.getCantidad() / ip.getCantidadEntregada());
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),today);
+                deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada,today);
             }
         } else if (tipoMov.equals("ENVIO")){
             for (ItemMovimiento item: items) {
@@ -265,8 +267,10 @@ public class MovimientoService {
             // Vales en estado Reservado
         } else if (tipoMov.equals("ENVIOINTERCAMBIO")) {
             for (ItemMovimiento item: items) {
+                IntercambioProveedor ip = intercambioProveedorRepository.findByProveedorAndFechaLessEquals(movimiento.getDestino(), fechaCotizacion);
+                Long cantidadEsperada = ip.getCantidadRecibida() * (item.getCantidad() / ip.getCantidadEntregada());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),fechaCotizacion);
+                deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada, fechaCotizacion);
             }
         } else if (tipoMov.equals("ENVIO")){
             for (ItemMovimiento item: items) {
@@ -695,6 +699,17 @@ public class MovimientoService {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
         }
     }
+
+    public IntercambioProveedor getIntercambioProveedorByProveedor(Usuario usuarioActual, Long nro) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
+            Proveedor p = proveedorRepository.findByNro(nro);
+            return intercambioProveedorRepository.findByProveedor(p);
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
+        }
+    }
+
+
     private static final String[] COLORES =
             { "rgba(54, 162, 235, 1)",
                     "rgba(75, 192, 192, 1)",

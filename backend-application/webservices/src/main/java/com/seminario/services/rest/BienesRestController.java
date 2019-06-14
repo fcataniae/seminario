@@ -227,7 +227,7 @@ public class BienesRestController {
 
     }
 
-    @GetMapping("/intercambio_proveedor")
+    @GetMapping("/intercambios-proveedor")
     public List<IntercambioProveedor> getAllIntercambioProveedor(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllIntercambioProveedor(usuarioActual);
@@ -295,5 +295,12 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return deudaService.getAllDeuda(usuarioActual);
 
+    }
+
+    @GetMapping("/intercambios-proveedor/{nro-prov}")
+    public IntercambioProveedor getAll(@AuthenticationPrincipal UserDetails userDetails,
+                                       @PathVariable("nro-prov") Long nro) throws  CustomException{
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getIntercambioProveedorByProveedor(usuarioActual, nro);
     }
 }
