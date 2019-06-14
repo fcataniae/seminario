@@ -31,10 +31,12 @@ table {
   max-width: 10vw;
 }
 .mat-column-proveedor{
+  text-align: center;
   width: 35vw;
   max-width: 35vw;
 }
 .mat-column-bien{
+  text-align: center;
   width: 35vw;
   max-width: 35vw;
 }

@@ -110,9 +110,9 @@ export class HomeComponent implements OnInit {
         var height = doc.internal.pageSize.getHeight();
 
         //tamaño y axis
-        var ancho = width - 10;
-        var alto = height/2 - 5;
-        var x = 0;
+        var ancho = width/2;
+        var alto = height/4;
+        var x = width/4;
         var y = 0;
         var movY = height/2;
 

@@ -4,7 +4,7 @@ export class DeudaBien {
   tipoBI: String;
   subtipoBI: String;
   descripcionBI: String;
-  deudaBulto: String;
+  deudaBultos: String;
   deudaMonetaria: String;
 
 }

@@ -50,7 +50,7 @@ constructor(private _movimientoService: MovimientoService,
             fila.nro = this.listaDeudas[i].nro;
             fila.nombre = this.listaDeudas[i].nombre;
             fila.descripcionBI = this.listaDeudas[i].deudaBienes[j].descripcionBI;
-            fila.deudaBulto = this.listaDeudas[i].deudaBienes[j].deudaBulto;
+            fila.deudaBulto = this.listaDeudas[i].deudaBienes[j].deudaBultos;
             fila.deudaMonetaria = this.listaDeudas[i].deudaBienes[j].deudaMonetaria;
             this.listaTabla.push(fila);
           }
