@@ -48,6 +48,8 @@ public class MovimientoService {
     DeudaService deudaService;
     @Autowired
     SecondaryDbService secondaryDbService;
+    @Autowired
+    TipoAgenteRepository tipoAgenteRepository;
 
     @Autowired
     RecursoRepository recursoRepository;
@@ -692,9 +694,22 @@ public class MovimientoService {
     }
 
 
-    public List<IntercambioProveedor> getAllIntercambioProveedor(Usuario usuarioActual) throws CustomException{
+    public List<Agente> getAllIntercambioProveedor(Usuario usuarioActual) throws CustomException{
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
-            return intercambioProveedorRepository.findAll();
+            List<Proveedor> ls = intercambioProveedorRepository.findAllProv();
+            List<Agente> agentes = new ArrayList<>();
+            ls.forEach(p -> {
+                Agente a = new Agente();
+                a.setNro(p.getNro());
+                a.setNombre(p.getNombre());
+                a.setDenominacion(p.getDenominacion());
+                a.setEmail(p.getEmail());
+                a.setTipoAgente(tipoAgenteRepository.findByNombre("PROVEEDOR"));
+                a.setDireccion(p.getDireccion());
+                a.setDireccion_nro(p.getDireccion_nro());
+                agentes.add(a);
+            });
+            return agentes;
         } else {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
         }

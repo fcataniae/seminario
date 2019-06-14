@@ -18,4 +18,7 @@ public interface IntercambioProveedorRepository extends JpaRepository<Intercambi
     IntercambioProveedor findByProveedorAndFechaLessEquals(Long p, Long id,  Date fecha);
 
     List<IntercambioProveedor> findByProveedor(Proveedor proveedor);
+
+    @Query(value = "SELECT DISTINCT ip.proveedor FROM IntercambioProveedor ip")
+    List<Proveedor> findAllProv();
 }
