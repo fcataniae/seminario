@@ -12,6 +12,7 @@ import { Estado } from '../model/bienes/estado.model';
 import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 import { Transportista } from '../model/bienes/transportista.model';
 import { Dashboard } from '../model/bienes/dashboard.model';
+import { IntercambioProv } from '../model/bienes/intercambioprovedor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,9 @@ export class MovimientoService {
     return this._http.get<Dashboard[]>(environment.serviceUrl.replace('service','bienes') + 'get-dashboards');
   }
 
+  getAllIntercambioProveedor(): Observable<IntercambioProv[]>{
+    return this._http.get(IntercambioProv[])(environment.serviceUrl.replace('service','bienes') + 'get-intercambios');
+  }
   private formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),

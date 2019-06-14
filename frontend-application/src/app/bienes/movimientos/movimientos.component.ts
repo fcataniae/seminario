@@ -5,8 +5,9 @@ import {MovimientoService} from "../../services/movimiento.service";
 import {Agente} from "../../model/bienes/agente.model";
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { IntercambioProv } from 'src/app/model/bienes/intercambioprovedor.model';
 
 
 @Component({
@@ -40,32 +41,31 @@ export class MovimientosComponent implements OnInit {
   select3: string;
   disable: boolean = true;
 
+  intercambios: IntercambioProv[];
+
   constructor(private _router : Router,
               private _movimientoService: MovimientoService) { }
 
   ngOnInit() {
-    this._movimientoService.getAllTipoMovimientos().subscribe(
-      res => {
-        console.log(res);
-        this.movimientos = res;
-
+    let observer1 = this._movimientoService.getAllIntercambioProveedor();
+    let observer2 = this._movimientoService.getAllTipoMovimientos();
+    let observer3 = this._movimientoService.getAllAgentes();
+    forkJoin(observer1,observer2,observer3).pipe(
+      map( ([res1,res2,res3]) => {
+        console.log(res2);
+        this.movimientos = res2;
+        this.intercambios = res1;
         this.movsFilter = this.formMovs.valueChanges
         .pipe(
           startWith(''),
           map(value => this.filterMovs(value))
         );
 
-      },
-      error => console.log(error)
-    );
-
-    this._movimientoService.getAllAgentes().subscribe(
-    res => {
-      console.log(res);
-      this.agentes = res;
-    },
-    error => console.log(error)
-    );
+        console.log(res3);
+        this.agentes = res3;
+      }
+    )
+  ).subscribe();
 
   }
 
@@ -85,42 +85,44 @@ export class MovimientosComponent implements OnInit {
   onChangeMovimiento(){
     if(this.movimientos){
       this.selectedMov = this.movimientos.filter(m => m.nombre === this.select1)[0];
-      if(this.selectedMov)
-        this._movimientoService.getAllAgentes().subscribe(
-          res => {
-            console.log(res);
-            this.origenes = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
-            this.destinos = res.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
+      if(this.selectedMov){
+          if(this.selectedMov.tipo === 'INTERCAMBIO'){
+            console.log("es intercambio");
+            let dest = [];
+            this.intercambios.forEach(i => dest.push(i.proveedor));
+            this.destinos = dest;
+            console.log(this.destinos);
+          }else{
+            this.destinos = this.agentes.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);
+          }
+          this.origenes = this.agentes.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteOrigen.id);
 
-            this.select2 = "";
+          this.select2 = "";
+          this.onChangeOrigen();
+          this.select3 = "";
+          this.onChangeDestino();
+          if(this.origenes.length==1){
+            this.select2 = this.origenes[0].nombre;
             this.onChangeOrigen();
-            this.select3 = "";
+          }
+          if(this.destinos.length==1){
+            this.select3 = this.destinos[0].nombre;
             this.onChangeDestino();
-            if(this.origenes.length==1){
-              this.select2 = this.origenes[0].nombre;
-              this.onChangeOrigen();
-            }
-            if(this.destinos.length==1){
-              this.select3 = this.destinos[0].nombre;
-              this.onChangeDestino();
-            }
+          }
 
-            this.destFilter = this.formDest.valueChanges
-            .pipe(
-              startWith(''),
-              map(value => this.filterDest(value))
-            );
-            this.origFilter = this.formOrig.valueChanges
-            .pipe(
-              startWith(''),
-              map(value => this.filterOrig(value))
-            );
-          },
-          error => console.log(error)
-        );
+          this.destFilter = this.formDest.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this.filterDest(value))
+          );
+          this.origFilter = this.formOrig.valueChanges
+          .pipe(
+            startWith(''),
+            map(value => this.filterOrig(value))
+          );
       }
+    }
   }
-
   onChangeDestino(){
     if(this.destinos)
       this.selectedDest = this.destinos.filter(d => d.nombre === this.select3)[0];
