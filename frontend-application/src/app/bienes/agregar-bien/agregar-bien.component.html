@@ -16,7 +16,7 @@
 
 
     <div *ngIf="selectedBien != null" >
-      <mat-form-field class="w70" *ngIf="tipoMovimiento.tipo !== 'ENVIOINTERCAMBIO'">
+      <mat-form-field class="w70">
         <mat-label>Estado</mat-label>
         <mat-select  name="estadoBien"
                      [(ngModel)]="itemMovimiento.estadoRecurso"
@@ -28,10 +28,10 @@
         </mat-option>
         </mat-select>
       </mat-form-field>
-      <div class="center" *ngIf="!esProveedor && eligioEstado || tipoMovimiento.tipo !== 'ENVIOINTERCAMBIO'">
+      <div class="center" *ngIf="!esProveedor && eligioEstado">
         <p>{{cantidadBI}} Disponible/s en estado {{itemMovimiento.estadoRecurso.descrip}}</p>
       </div>
-      <mat-form-field class="w70">
+      <mat-form-field class="w70" *ngIf="tipoMovimiento.tipo !== 'ENVIOINTERCAMBIO'">
         <input matInput
                type="number"
                name="cantidad"
@@ -40,10 +40,24 @@
                title="Debe ingresar un número"
                [(ngModel)]="itemMovimiento.cantidad"
                required
-               [formControl]="rateControl"/>
+               [formControl]="commonValidator"
+               step="{{selectedIntercambio.cantidadEntregada}}"/>
         </mat-form-field>
+        <mat-form-field class="w70" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
+          <input matInput
+                 type="number"
+                 name="cantidad"
+                 placeholder="Cantidad"
+                 pattern="[0-9]+"
+                 title="Debe ingresar un número"
+                 [(ngModel)]="itemMovimiento.cantidad"
+                 required
+                 [formControl]="intercambioValidator"
+                 step="{{selectedIntercambio.cantidadEntregada}}"/>
+          </mat-form-field>
         <div class="center" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
-          <p>Intercambio de bienes en {{intercambio.cantidadEntregada}}x{{intercambio.cantidadRecibida}}</p>
+          <p>Intercambio de bienes en <strong>{{selectedIntercambio.cantidadEntregada}}x{{selectedIntercambio.cantidadRecibida}}</strong></p>
+          <p>Entrega: {{selectedIntercambio.bienIntercambiableEntregado.descripcion}} - Recibe: {{selectedIntercambio.bienIntercambiableRecibido.descripcion}}</p>
         </div>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->
@@ -64,9 +78,10 @@
   </mat-dialog-content>
 
     <mat-dialog-actions class="botones">
-      <button mat-button class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
+      <button mat-button id="e111" class="mat-raised-button cancel"(click)="onCancel()">Cancelar</button>
       <button mat-button class="mat-raised-button mat-primary submit"
               (click)="onSubmit()"
+              id="e112"
               [disabled]="!agregarbien.valid">Agregar Item</button>
     </mat-dialog-actions>
 

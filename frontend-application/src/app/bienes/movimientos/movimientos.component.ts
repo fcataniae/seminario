@@ -41,7 +41,7 @@ export class MovimientosComponent implements OnInit {
   select3: string;
   disable: boolean = true;
 
-  intercambios: IntercambioProv[];
+  proveedoresIntercambios: Agente[];
 
   constructor(private _router : Router,
               private _movimientoService: MovimientoService) { }
@@ -54,7 +54,7 @@ export class MovimientosComponent implements OnInit {
       map( ([res1,res2,res3]) => {
         console.log(res2);
         this.movimientos = res2;
-        this.intercambios = res1;
+        this.proveedoresIntercambios = res1;
         this.movsFilter = this.formMovs.valueChanges
         .pipe(
           startWith(''),
@@ -88,9 +88,7 @@ export class MovimientosComponent implements OnInit {
       if(this.selectedMov){
           if(this.selectedMov.tipo === 'ENVIOINTERCAMBIO'){
             console.log("es intercambio");
-            let dest = [];
-            this.intercambios.forEach(i => dest.push(i.proveedor));
-            this.destinos = dest;
+            this.destinos = this.proveedoresIntercambios;
             console.log(this.destinos);
           }else{
             this.destinos = this.agentes.filter( a => a.tipoAgente.id === this.selectedMov.tipoAgenteDestino.id);

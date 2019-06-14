@@ -9,7 +9,7 @@ import { Estado } from '../../model/bienes/estado.model';
 import { forkJoin } from 'rxjs';
 import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { IntercambioProv } from '../../model/bienes/intercambioprovedor.model';
 
@@ -28,17 +28,18 @@ export class AgregarBienComponent implements OnInit {
 
   bienes: Bien[];
   selectedBien: Bien;
+  selectedIntercambio: IntercambioProv;
   itemMovimiento: ItemMovimiento;
   tipoMovimiento: TipoMovimiento;
   estados : Estado[];
   origen: number;
   cantidadBI: number;
   stockBienLocal: StockBienEnLocal[];
-  rateControl: FormControl;
+  rateControl: FormGroup;
   esProveedor: boolean;//De serlo no controlo limite cantidad
   eligioEstado:boolean;
   destino: number;
-  intercambio: IntercambioProv;
+  intercambios: IntercambioProv[];
 
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
@@ -59,10 +60,9 @@ export class AgregarBienComponent implements OnInit {
     forkJoin(consultaBienes,consultaEstados,consultaBienesI)
       .pipe(
         map(([res1,res2,res3])=>{
-        console.log();
           if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
-            this.intercambio = res3;
-            this.bienes.push(res3.bienIntercambiableEntregado);
+            this.intercambios = res3;
+            res3.forEach((item) => {this.bienes.push(item.bienIntercambiableEntregado)});
           }else {
             this.bienes = res1;
           }
@@ -78,12 +78,14 @@ export class AgregarBienComponent implements OnInit {
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
     this.itemMovimiento = new ItemMovimiento();
+    this.selectedIntercambio = new IntercambioProv();
     this.itemMovimiento.estadoRecurso = new Estado();
     this.eligioEstado = false;
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );
+    this.selectedIntercambio = this.intercambios.filter((item) => item.bienIntercambiableEntregado === this.selectedBien)[0];
     this.mostrarCantidad();
   }
   onCancel(): void {
@@ -115,7 +117,9 @@ export class AgregarBienComponent implements OnInit {
       );
 
     }
-    this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
+    this.rateControl = new FormGroup({
+      'common': new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
+    });
   }
 
   mostrarCantidad(){
@@ -135,8 +139,10 @@ export class AgregarBienComponent implements OnInit {
           this.cantidadBI = stockBienElegido.stock_destruido;
         }
 
-        this.rateControl = new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)])
-
+        this.rateControl = new FormGroup({
+          'common': new FormControl("", [Validators.max(this.cantidadBI), Validators.min(0)]),
+          'intercambio': new FormControl("", [Validators.max(this.cantidadBI), Validators.min(this.selectedIntercambio.cantidadEntregada)])
+        });
       }
     }
   }
@@ -145,5 +151,9 @@ export class AgregarBienComponent implements OnInit {
     this.eligioEstado = true;
     this.mostrarCantidad();
   }
+
+  get commonValidator() { return this.rateControl.get('common'); }
+
+  get intercambioValidator() { return this.rateControl.get('intercambio'); }
 
 }
