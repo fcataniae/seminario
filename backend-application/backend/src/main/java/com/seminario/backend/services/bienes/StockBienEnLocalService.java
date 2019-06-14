@@ -169,7 +169,7 @@ public class StockBienEnLocalService {
                            .setParameter(1, localNro)
                            .getResultList();
                    em.close();
-                   if (stockLocal.size() > 0) {
+                   if (!stockLocal.isEmpty()) {
                        for (Object[] tupla : stockLocal) {
                            StockBienEnLocal bien = new StockBienEnLocal();
 
@@ -182,13 +182,11 @@ public class StockBienEnLocalService {
                            System.out.println("Respuesta final el local es el nro :" + tupla[0]);
                            listStockLocal.add(bien);
                        }
-                   } else {
-                       throw new CustomException("El local " + localNro + " no posee stock de ningun bien");
                    }
                } catch (NoResultException e) {
                    throw new RuntimeException(e);
                }
-               System.out.println("Respuesta final bien 1:" + listStockLocal.get(0).getDescripcionBI());
+               System.out.println("cantidad de stock : " + listStockLocal.size());
                return listStockLocal;
            }else{
                throw new CustomException("No cuenta con los permisos para consultar el stock de este local.");
@@ -345,18 +343,20 @@ public class StockBienEnLocalService {
 
         List<StockBienEnLocal> stockLocal = getStockLocal(usuarioActual.getLocal().getNro(),usuarioActual);
 
-        d = new Dashboard();
+        if(!stockLocal.isEmpty()) {
+            d = new Dashboard();
 
-        d.getData().getDataset().setLabel("Distribución de bienes en " + usuarioActual.getLocal().getDenominacion());
-        colorIndx = r.nextInt(INDEX);
-        for(StockBienEnLocal s : stockLocal){
-            d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
-            d.getData().getLabels().add(s.getDescripcionBI());
-            d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
-            colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
+            d.getData().getDataset().setLabel("Distribución de bienes en " + usuarioActual.getLocal().getDenominacion());
+            colorIndx = r.nextInt(INDEX);
+            for (StockBienEnLocal s : stockLocal) {
+                d.getData().getDataset().getData().add(String.valueOf(s.getStock_libre() + s.getStock_ocupado() + s.getStock_reservado()));
+                d.getData().getLabels().add(s.getDescripcionBI());
+                d.getData().getDataset().getBackgroundColor().add(COLORES[colorIndx]);
+                colorIndx = ((++colorIndx) == COLORES.length) ? 0 : colorIndx;
+            }
+            d.setType(TYPES[r.nextInt(INDEXC)]);
+            dashs.add(d);
         }
-        d.setType(TYPES[r.nextInt(INDEXC)]);
-        dashs.add(d);
         /**
          * Dashboards de movimientos en los ultimos 14 dias
          */
