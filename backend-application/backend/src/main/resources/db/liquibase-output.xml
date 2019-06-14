@@ -59,7 +59,7 @@
             <column name="CANTIDADRECIBIDA" type="BIGINT"/>
             <column name="FECHAALTA" type="date"/>
             <column name="USUARIOALTA" type="VARCHAR(255)"/>
-            <column name="NOMBRE" type="VARCHAR(50)"/>
+            <column name="NOMBREINTERCAMBIO" type="VARCHAR(50)"/>
             <column name="BIENINTERCAMBIABLEENTREGADO_ID" type="BIGINT"/>
             <column name="BIENINTERCAMBIABLERECIBIDO_ID" type="BIGINT"/>
             <column name="ESTADO_ID" type="BIGINT"/>

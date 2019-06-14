@@ -262,7 +262,7 @@
             <column name="CANTIDADRECIBIDA" type="NUMERIC"/>
             <column name="FECHAALTA" type="DATE"/>
             <column name="USUARIOALTA" type="STRING"/>
-            <column name="NOMBRE" type="STRING"/>
+            <column name="NOMBREINTERCAMBIO" type="STRING"/>
             <column name="BIENINTERCAMBIABLEENTREGADO_ID" type="NUMERIC"/>
             <column name="BIENINTERCAMBIABLERECIBIDO_ID" type="NUMERIC"/>
             <column name="ESTADO_ID" type="NUMERIC"/>

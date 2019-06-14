@@ -298,9 +298,9 @@ public class BienesRestController {
     }
 
     @GetMapping("/intercambios-proveedor/{nro-prov}")
-    public IntercambioProveedor getAll(@AuthenticationPrincipal UserDetails userDetails,
-                                       @PathVariable("nro-prov") Long nro) throws  CustomException{
+    public List<IntercambioProveedor> getAll(@AuthenticationPrincipal UserDetails userDetails,
+                                       @PathVariable("nro-prov") Long nro) throws  CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getIntercambioProveedorByProveedor(usuarioActual, nro);
+        return movimientoService.getIntercambiosByProveedor(usuarioActual, nro);
     }
 }
