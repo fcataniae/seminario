@@ -40,7 +40,7 @@ export class AgregarBienComponent implements OnInit {
   eligioEstado:boolean;
   destino: number;
   intercambios: IntercambioProv[];
-
+  descripcionIntercambio: string;
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
               @Inject(MAT_DIALOG_DATA) private data: Data,
@@ -52,17 +52,26 @@ export class AgregarBienComponent implements OnInit {
    }
 
   ngOnInit() {
+
     let consultaBienesI = this._movimientoService.getIntercambioProveedorByNroP(this.destino);
+
     let consultaBienes = this._movimientoService.getAllBienes();
     let consultaEstados = this._movimientoService.getAllEstadosBien(this.tipoMovimiento.id);
     this.estados = [];
     this.bienes = [];
-    forkJoin(consultaBienes,consultaEstados,consultaBienesI)
+    forkJoin(consultaBienes,consultaEstados)
       .pipe(
-        map(([res1,res2,res3])=>{
+        map(([res1,res2])=>{
+        console.log();
           if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
-            this.intercambios = res3;
-            res3.forEach((item) => {this.bienes.push(item.bienIntercambiableEntregado)});
+            consultaBienesI.subscribe(res3=>{
+              console.log(res3);
+              this.intercambios = res3;
+              let bienes = [];
+              this.intercambios.forEach(i =>  bienes.push(i.bienIntercambiableEntregado));
+              this.bienes = bienes;
+            });
+
           }else {
             this.bienes = res1;
           }
@@ -77,6 +86,15 @@ export class AgregarBienComponent implements OnInit {
   onChangeBien(){ //TODO IMPLEMENTAR LA FUNCIONALIDAD
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
+    if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
+      this.intercambios.forEach(i =>
+        {
+          if(JSON.stringify(this.selectedBien) === JSON.stringify(i.bienIntercambiableEntregado)){
+            this.descripcionIntercambio = 'Intercambio de bienes en relacion ' + i.cantidadEntregada + 'x' + i.cantidadRecibida;
+          }
+        }
+      );
+    }
     this.itemMovimiento = new ItemMovimiento();
     this.selectedIntercambio = new IntercambioProv();
     this.itemMovimiento.estadoRecurso = new Estado();
