@@ -37,7 +37,7 @@ import {
   MatSelectModule, MatCheckboxModule, MatDatepickerModule, MatTabsModule, MatAutocompleteModule
 } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
-import { CustomLocationStrategy } from 'src/app/app.common';
+import { CustomLocationStrategy } from './app.common';
 import { MovimientosComponent } from './bienes/movimientos/movimientos.component';
 import { EnvioComponent } from './bienes/envio/envio.component';
 import { AgregarBienComponent } from './bienes/agregar-bien/agregar-bien.component';
@@ -50,6 +50,7 @@ import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
 import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
+import { ExcelService } from './services/excel.service';
 
 
 
@@ -110,6 +111,7 @@ import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.compone
     UsuarioService,
     PersonaService,
     SessionService,
+    ExcelService,
     MatDialog,
     {
       provide: HTTP_INTERCEPTORS,

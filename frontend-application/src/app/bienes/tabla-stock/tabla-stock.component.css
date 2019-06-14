@@ -10,6 +10,11 @@ table {
 }
 
 
+.button-xls{
+  width: 30%;
+  text-align: right;
+}
+
 /*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
 .button-back{
   width: 30%;
@@ -54,4 +59,3 @@ table {
   width: 10vw;
   max-width: 10vw;
 }
-

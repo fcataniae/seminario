@@ -11,7 +11,7 @@ import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
 import { FormControl, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
-import { IntercambioProv } from 'src/app/model/bienes/intercambioprovedor.model';
+import { IntercambioProv } from '../../model/bienes/intercambioprovedor.model';
 
 
 export interface Data{

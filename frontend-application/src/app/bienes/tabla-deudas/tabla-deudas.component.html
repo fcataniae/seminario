@@ -7,6 +7,9 @@
     <mat-form-field class= "input-search" >
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
     </mat-form-field>
+    <button class="button-xls" mat-icon-button color="primary" (click)="exportAsExcel()">
+      <mat-icon class="mat-18" >cloud_download</mat-icon> as xlsx
+    </button>
   </div>
 
   <mat-table #sortDeuda="matSort" [dataSource]="dataSource" matSort >

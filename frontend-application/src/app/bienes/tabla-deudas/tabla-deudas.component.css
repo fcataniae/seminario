@@ -15,6 +15,10 @@ table {
   width: 30%;
   text-align: left;
 }
+.button-xls{
+  width: 30%;
+  text-align: right;
+}
 
 .input-search{
   width: 40%;
@@ -48,4 +52,3 @@ table {
   width: 10vw;
   max-width: 10vw;
 }
-

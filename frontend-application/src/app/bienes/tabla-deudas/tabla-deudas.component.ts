@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MovimientoService } from '../../services/movimiento.service';
-import { Movimiento } from '../../model/bienes/movimiento.model';
-import { MatTableDataSource, MatDialog, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
-import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Proveedor } from '../../model/bienes/proveedor.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
+import { ExcelService } from '../../services/excel.service';
 
 export class filaTabla{
   nro: number;
@@ -24,8 +21,7 @@ export class filaTabla{
 })
 export class TablaDeudasComponent implements OnInit {
 
-constructor(private _movimientoService: MovimientoService,
-              private _dialog: MatDialog,
+constructor(private _excelService: ExcelService,
               private _router: Router,
               private _stockbienlocalService: StockBienLocalService) { }
 
@@ -68,5 +64,9 @@ constructor(private _movimientoService: MovimientoService,
 
   redirectToHome(){
     this._router.navigate(['home']);
+  }
+
+  exportAsExcel(){
+    this._excelService.exportAsExcelFile(this.dataSource.filteredData,'deudas-prov');
   }
 }

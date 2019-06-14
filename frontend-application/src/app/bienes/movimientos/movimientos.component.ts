@@ -7,7 +7,7 @@ import { Movimiento } from '../../model/bienes/movimiento.model';
 import { FormControl } from '@angular/forms';
 import { Observable, forkJoin } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { IntercambioProv } from 'src/app/model/bienes/intercambioprovedor.model';
+import { IntercambioProv } from '../../model/bienes/intercambioprovedor.model';
 
 
 @Component({
