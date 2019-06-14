@@ -73,10 +73,10 @@ export class MovimientoService {
   }
 
   getAllIntercambioProveedor(): Observable<IntercambioProv[]>{
-    return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'get-intercambios');
+    return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'intercambios-proveedor');
   }
-  getIntercambioProveedorByNroP(nro: number): Observable<IntercambioProv>{
-    return this._http.get<IntercambioProv>(environment.serviceUrl.replace('service','bienes') + 'get-intercambiop/' + nro);
+  getIntercambioProveedorByNroP(nro: number): Observable<IntercambioProv[]>{
+    return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'intercambios-proveedor/' + nro);
   }
   private formatDate(date: Date) {
     var d = new Date(date),

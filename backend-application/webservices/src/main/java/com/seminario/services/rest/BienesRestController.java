@@ -33,7 +33,7 @@ import java.util.List;
 @Scope("session")
 public class BienesRestController {
 
-    private BienesRestController(){};
+    private BienesRestController(){}
     @Autowired
     MovimientoService movimientoService;
     @Autowired

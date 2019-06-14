@@ -43,7 +43,7 @@
                [formControl]="rateControl"/>
         </mat-form-field>
         <div class="center" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
-          <p>Intercambio de bienes en {{intercambio.cantidadEntregada}}x{{intercambio.cantidadRecibida}}</p>
+          <p>{{descripcionIntercambio}}</p>
         </div>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->

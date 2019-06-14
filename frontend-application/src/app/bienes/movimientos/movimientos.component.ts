@@ -89,6 +89,9 @@ export class MovimientosComponent implements OnInit {
           if(this.selectedMov.tipo === 'ENVIOINTERCAMBIO'){
             console.log("es intercambio");
             let dest = [];
+            this.intercambios = this.intercambios.filter((valorActual, indiceActual, arreglo) => {
+              return arreglo.findIndex(valorDelArreglo =>JSON.stringify(valorDelArreglo.proveedor) === JSON.stringify(valorActual.proveedor)) === indiceActual
+            });
             this.intercambios.forEach(i => dest.push(i.proveedor));
             this.destinos = dest;
             console.log(this.destinos);
