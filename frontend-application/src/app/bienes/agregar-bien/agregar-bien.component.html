@@ -52,6 +52,7 @@
                  title="Debe ingresar un número"
                  [(ngModel)]="itemMovimiento.cantidad"
                  required
+                 step="step"
                  [formControl]="intercambioValidator"
                  step="{{selectedIntercambio.cantidadEntregada}}"/>
           </mat-form-field>

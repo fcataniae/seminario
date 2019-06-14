@@ -41,6 +41,7 @@ export class AgregarBienComponent implements OnInit {
   destino: number;
   intercambios: IntercambioProv[];
   descripcionIntercambio: string;
+  step: number;
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
               @Inject(MAT_DIALOG_DATA) private data: Data,
@@ -59,6 +60,7 @@ export class AgregarBienComponent implements OnInit {
     let consultaEstados = this._movimientoService.getAllEstadosBien(this.tipoMovimiento.id);
     this.estados = [];
     this.bienes = [];
+    this.step = 1;
     forkJoin(consultaBienes,consultaEstados)
       .pipe(
         map(([res1,res2])=>{
@@ -91,6 +93,7 @@ export class AgregarBienComponent implements OnInit {
         {
           if(JSON.stringify(this.selectedBien) === JSON.stringify(i.bienIntercambiableEntregado)){
             this.descripcionIntercambio = 'Intercambio de bienes en relacion ' + i.cantidadEntregada + 'x' + i.cantidadRecibida;
+            this.step = i.cantidadEntregada;
           }
         }
       );
