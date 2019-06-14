@@ -15,6 +15,10 @@ table {
   width: 30%;
   text-align: left;
 }
+.button-xls{
+  width: 30%;
+  text-align: right;
+}
 
 .input-search{
   width: 40%;
@@ -31,10 +35,12 @@ table {
   max-width: 10vw;
 }
 .mat-column-proveedor{
+  text-align: center;
   width: 35vw;
   max-width: 35vw;
 }
 .mat-column-bien{
+  text-align: center;
   width: 35vw;
   max-width: 35vw;
 }
@@ -46,4 +52,3 @@ table {
   width: 10vw;
   max-width: 10vw;
 }
-

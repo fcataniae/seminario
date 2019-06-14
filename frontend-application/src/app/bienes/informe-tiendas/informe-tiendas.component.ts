@@ -44,8 +44,8 @@ export class InformeTiendasComponent implements OnInit {
   columnsToDisplayTiendas: String[] = ['id','nombre'];
 
 
-  fechaInicio = new Date();
-  fechaFin = new Date();
+  fechaInicio :Date = new Date();
+  fechaFin :Date = new Date();
   totalEnviado: number;
   totalRecibido: number;
 
@@ -118,7 +118,6 @@ export class InformeTiendasComponent implements OnInit {
       console.log(this.selectedIndex);
        let topTiendasEnvios: TiendaEstadisticas[];
        let topTiendasRecibidos: TiendaEstadisticas[];
-
        if(this.selectedIndex == 0 && this.dashboardEnvio){//Hago una chanchada por aca (?)
 
           let divTab = document.getElementsByTagName("mat-tab-body")[0].firstChild;
@@ -134,15 +133,15 @@ export class InformeTiendasComponent implements OnInit {
           }
 
 
-          let labes= [];
-          this.dashboardEnvio.data.labels.forEach(l => labes.push(l.split("-")[0]))
 
-          let canvasAux = <HTMLCanvasElement> canvas;
 
+          let canvasAux = <HTMLElement> canvas;
+          let labels= [];
+          this.dashboardEnvio.data.labels.forEach(l => labels.push( l.split("-")[0]));
           this.chartEnviado = new Chart(canvasAux, {
               type: this.dashboardEnvio.type,
             data: {
-             labels: labes,
+             labels: labels,
              datasets: [{
                  label:"Envios por tienda",
                  data: this.dashboardEnvio.data.dataset.data,
@@ -170,18 +169,18 @@ export class InformeTiendasComponent implements OnInit {
             div.appendChild(canvas);
             divTab.appendChild(div);
           }
-          let labes= [];
-          this.dashboardRecepcion.data.labels.forEach(l => labes.push(l.split("-")[0]))
 
-          let canvasAux = <HTMLCanvasElement> canvas;
+          let canvasAux = <HTMLElement> canvas;
 
+          let labels= [];
+          this.dashboardRecepcion.data.labels.forEach(l => labels.push( l.split("-")[0]));
           this.chartRecibido = new Chart(canvasAux, {
               type: this.dashboardRecepcion.type,
             data: {
-             labels: labes,
+             labels: labels,
              datasets: [{
                  label:"Recepciones por tienda",
-                 data: this.dashboardEnvio.data.dataset.data,
+                 data: this.dashboardRecepcion.data.dataset.data,
                  backgroundColor: this.dashboardRecepcion.data.dataset.backgroundColor
              }]
             },

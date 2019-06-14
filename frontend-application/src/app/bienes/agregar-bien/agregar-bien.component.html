@@ -16,7 +16,7 @@
 
 
     <div *ngIf="selectedBien != null" >
-      <mat-form-field class="w70">
+      <mat-form-field class="w70" *ngIf="tipoMovimiento.tipo !== 'ENVIOINTERCAMBIO'">
         <mat-label>Estado</mat-label>
         <mat-select  name="estadoBien"
                      [(ngModel)]="itemMovimiento.estadoRecurso"
@@ -28,7 +28,7 @@
         </mat-option>
         </mat-select>
       </mat-form-field>
-      <div class="center" *ngIf="!esProveedor && eligioEstado">
+      <div class="center" *ngIf="!esProveedor && eligioEstado || tipoMovimiento.tipo !== 'ENVIOINTERCAMBIO'">
         <p>{{cantidadBI}} Disponible/s en estado {{itemMovimiento.estadoRecurso.descrip}}</p>
       </div>
       <mat-form-field class="w70">
@@ -42,6 +42,9 @@
                required
                [formControl]="rateControl"/>
         </mat-form-field>
+        <div class="center" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
+          <p>Intercambio de bienes en {{intercambio.cantidadEntregada}}x{{intercambio.cantidadRecibida}}</p>
+        </div>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->
             <mat-form-field class="w70">

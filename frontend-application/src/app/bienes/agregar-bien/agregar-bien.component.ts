@@ -2,23 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Bien } from '../../model/bienes/bien.model';
 import { ItemMovimiento } from '../../model/bienes/itemmovimiento.model';
-import { Vale } from '../../model/bienes/vale.model';
 import { MovimientoService } from '../../services/movimiento.service';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Inject } from '@angular/core';
 import { Estado } from '../../model/bienes/estado.model';
 import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Agente } from '../../model/bienes/agente.model';
 import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
 import { FormControl, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { IntercambioProv } from '../../model/bienes/intercambioprovedor.model';
 
 
 export interface Data{
   tipoMovimiento: TipoMovimiento;
   origen: number;
-  }
+  destino: number;
+}
 @Component({
   selector: 'app-agregar-bien',
   templateUrl: './agregar-bien.component.html',
@@ -37,29 +37,38 @@ export class AgregarBienComponent implements OnInit {
   rateControl: FormControl;
   esProveedor: boolean;//De serlo no controlo limite cantidad
   eligioEstado:boolean;
+  destino: number;
+  intercambio: IntercambioProv;
 
   constructor(private dialogRef: MatDialogRef<AgregarBienComponent>,
               private _movimientoService: MovimientoService,
               @Inject(MAT_DIALOG_DATA) private data: Data,
               private _stockbienlocalService: StockBienLocalService)
    {
-      this.tipoMovimiento = data.tipoMovimiento;
-      this.origen = data.origen;
+      this.tipoMovimiento = this.data.tipoMovimiento;
+      this.origen = this.data.origen;
+      this.destino = this.data.destino;
    }
 
   ngOnInit() {
+    let consultaBienesI = this._movimientoService.getIntercambioProveedorByNroP(this.destino);
     let consultaBienes = this._movimientoService.getAllBienes();
     let consultaEstados = this._movimientoService.getAllEstadosBien(this.tipoMovimiento.id);
     this.estados = [];
     this.bienes = [];
-    forkJoin(consultaBienes,consultaEstados)
-      .subscribe(results=>{
-        console.log(results);
-        this.bienes = results[0];
-        this.estados = results[1];
-    },
-      error => console.log(error)
-    );
+    forkJoin(consultaBienes,consultaEstados,consultaBienesI)
+      .pipe(
+        map(([res1,res2,res3])=>{
+        console.log();
+          if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
+            this.intercambio = res3;
+            this.bienes.push(res3.bienIntercambiableEntregado);
+          }else {
+            this.bienes = res1;
+          }
+          this.estados = res2;
+        })
+    ).subscribe();
 
     this.esUnProveedor();
 

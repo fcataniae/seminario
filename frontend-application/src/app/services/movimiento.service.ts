@@ -7,11 +7,10 @@ import { environment } from '../../environments/environment';
 import {Agente} from "../model/bienes/agente.model";
 import { Recurso } from '../model/bienes/recurso.model';
 import { Movimiento } from '../model/bienes/movimiento.model';
-import { HttpHeaders } from '@angular/common/http';
 import { Estado } from '../model/bienes/estado.model';
-import { TiendaEstadisticas } from '../model/bienes/tiendaEstadisticas.model';
 import { Transportista } from '../model/bienes/transportista.model';
 import { Dashboard } from '../model/bienes/dashboard.model';
+import { IntercambioProv } from '../model/bienes/intercambioprovedor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +72,13 @@ export class MovimientoService {
     return this._http.get<Dashboard[]>(environment.serviceUrl.replace('service','bienes') + 'get-dashboards');
   }
 
-  private formatDate(date) {
+  getAllIntercambioProveedor(): Observable<IntercambioProv[]>{
+    return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'get-intercambios');
+  }
+  getIntercambioProveedorByNroP(nro: number): Observable<IntercambioProv>{
+    return this._http.get<IntercambioProv>(environment.serviceUrl.replace('service','bienes') + 'get-intercambiop/' + nro);
+  }
+  private formatDate(date: Date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),

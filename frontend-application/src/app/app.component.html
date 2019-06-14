@@ -28,11 +28,15 @@
         </li>
       </ul>
     </li>
-    <li *ngIf="permisoInformeTablaStock">
-      <a [routerLink]="['home/stock']">Listado de stock</a>
-    </li>
-    <li *ngIf="permisoInformeTablaDeudas">
-      <a [routerLink]="['home/deudas']">Listado de deudas</a>
+    <li><a class="sub">Listados</a>
+      <ul>
+        <li *ngIf="permisoInformeTablaStock">
+          <a [routerLink]="['home/stock']">Stock</a>
+        </li>
+        <li *ngIf="permisoInformeTablaDeudas">
+          <a [routerLink]="['home/deudas']">Deudas</a>
+        </li>
+      </ul>
     </li>
     <li>
       <a class="logout" (click)="logOut($event)">Log out <mat-icon>exit_to_app</mat-icon></a>
