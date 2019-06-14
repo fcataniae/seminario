@@ -2,7 +2,7 @@
   <a [routerLink]="['/home']" ><img src="assets/img/walm.jpg" class="logo-wmt" alt="Logo walmart"></a>
   <strong>Area de Bienes <br>Intercambiables</strong>
   <ul id="menu" *ngIf="loggedIn">
-    <li class="sub"><a>Administracion</a>
+    <li class="sub" *ngIf="permisoPersona || permisoUsuario || permisoRol"><a>Administracion</a>
       <ul>
         <li *ngIf="permisoPersona">
           <a [routerLink]="['home/adm/personas']">Personas</a>
@@ -18,7 +18,7 @@
     <li *ngIf="permisoMovimiento">
       <a [routerLink]="['home/movimientos']">Movimientos</a>
     </li>
-    <li class="sub"><a>Informes</a>
+    <li *ngIf="permisoInforme || permisoInformeTiendas" class="sub"><a>Informes</a>
       <ul>
         <li *ngIf="permisoInforme">
           <a [routerLink]="['home/informe/bienes']">Stock</a>
@@ -28,7 +28,7 @@
         </li>
       </ul>
     </li>
-    <li><a class="sub">Listados</a>
+    <li *ngIf="permisoInformeTablaStock || permisoInformeTablaDeudas"><a class="sub">Listados</a>
       <ul>
         <li *ngIf="permisoInformeTablaStock">
           <a [routerLink]="['home/stock']">Stock</a>

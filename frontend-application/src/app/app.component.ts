@@ -41,13 +41,14 @@ export class AppComponent {
            console.log(token);
            this.loggedIn = true;
            token.permisos.forEach( p => {
-             if(p.nombre.includes('ROL')){
+             console.log(p);
+             if(p.nombre.includes('MODI-ROL')){
                this.permisoRol = true;
-             }else if(p.nombre.includes('PERSONA')){
+             }else if(p.nombre.includes('MODI-PERSONA')){
                this.permisoPersona = true;
-             }else if(p.nombre.includes('USUARIO')){
+             }else if(p.nombre.includes('MODI-USUARIO')){
                this.permisoUsuario = true;
-             }else if(p.nombre.includes('MOVIMIENTO')){
+             }else if(p.nombre.includes('MODI-MOVIMIENTO')){
                this.permisoMovimiento = true;
              }else if(p.nombre.includes('INFORME')){
                this.permisoInforme = true;
