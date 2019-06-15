@@ -47,8 +47,8 @@ public class Movimiento {
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimiento> itemMovimientos;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private Usuario usuarioAlta;
+    @Column
+    private String usuarioAlta;
 
     @Column
     private String comentario;
@@ -133,11 +133,11 @@ public class Movimiento {
         this.recursosAsignados = recursosAsignados;
     }
 
-    public Usuario getUsuarioAlta() {
+    public String getUsuarioAlta() {
         return usuarioAlta;
     }
 
-    public void setUsuarioAlta(Usuario usuarioAlta) {
+    public void setUsuarioAlta(String usuarioAlta) {
         this.usuarioAlta = usuarioAlta;
     }
 

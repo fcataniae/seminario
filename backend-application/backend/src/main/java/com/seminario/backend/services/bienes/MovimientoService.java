@@ -61,7 +61,7 @@ public class MovimientoService {
         Date today = Date.from(ZonedDateTime.now(zoneId).toInstant());
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"ALTA-MOVIMIENTO")) {
             movimientoNuevo.setId(null);
-            movimientoNuevo.setUsuarioAlta(usuarioActual);
+            movimientoNuevo.setUsuarioAlta(usuarioActual.getNombreUsuario());
             validarMovimiento(movimientoNuevo);
             sanitizarMovimiento(movimientoNuevo, today);
             movimientoNuevo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoNuevo.getRecursosAsignados(), "OCUPADO","LIBRE"));
@@ -186,7 +186,7 @@ public class MovimientoService {
                     validarMovimiento(movimientoNuevo);
                     movimientoViejo.setFechaSalida(movimientoNuevo.getFechaSalida());
                     movimientoViejo.setTipoMovimiento(movimientoNuevo.getTipoMovimiento());
-                    movimientoViejo.setUsuarioAlta(usuarioActual);
+                    movimientoViejo.setUsuarioAlta(usuarioActual.getNombreUsuario());
                     movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
                     movimientoViejo.setDestino(movimientoNuevo.getDestino());
                     movimientoViejo.setOrigen(movimientoNuevo.getOrigen());

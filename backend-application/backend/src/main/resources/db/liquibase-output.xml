@@ -122,7 +122,7 @@
             <column name="ESTADOVIAJE_ID" type="BIGINT"/>
             <column name="id_tipo_documento" type="BIGINT"/>
             <column name="id_tipo_movimiento" type="BIGINT"/>
-            <column name="USUARIOALTA_ID" type="BIGINT"/>
+            <column name="USUARIOALTA" type="VARCHAR(60)"/>
         </createTable>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-11">
@@ -434,11 +434,6 @@
             <column name="recursosAsignados_ID"/>
         </createIndex>
     </changeSet>
-    <changeSet author="Franco (generated)" id="1559009101927-59">
-        <createIndex indexName="FK_MOVIMIENTO_USUARIOALTA_ID" tableName="movimiento">
-            <column name="USUARIOALTA_ID"/>
-        </createIndex>
-    </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-60">
         <createIndex indexName="FK_MOVIMIENTO_id_tipo_documento" tableName="movimiento">
             <column name="id_tipo_documento"/>
@@ -589,9 +584,6 @@
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-95">
         <addForeignKeyConstraint baseColumnNames="recursosAsignados_ID" baseTableName="movimiento_recurso" constraintName="FK_MOVIMIENTO_RECURSO_recursosAsignados_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="recurso"/>
-    </changeSet>
-    <changeSet author="Franco (generated)" id="1559009101927-96">
-        <addForeignKeyConstraint baseColumnNames="USUARIOALTA_ID" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_USUARIOALTA_ID"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="usuario"/>
     </changeSet>
     <changeSet author="Franco (generated)" id="1559009101927-97">
         <addForeignKeyConstraint baseColumnNames="id_tipo_documento" baseTableName="movimiento" constraintName="FK_MOVIMIENTO_id_tipo_documento"  onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="tipodocumento"/>

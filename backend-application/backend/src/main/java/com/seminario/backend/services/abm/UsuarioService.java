@@ -8,6 +8,7 @@ import com.seminario.backend.model.bienes.Local;
 import com.seminario.backend.repository.abm.*;
 import com.seminario.backend.repository.bienes.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
@@ -150,7 +151,12 @@ public class UsuarioService{
     public void deleteUsuarioByNombre(Usuario usuarioActual, String nombre) throws CustomException {
       if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"BAJA-USUARIO")) {
             Usuario usuarioTmp = usuarioRepository.findByNombreUsuario(nombre);
-            usuarioRepository.delete(usuarioTmp);
+            try {
+                usuarioRepository.delete(usuarioTmp);
+            }catch (DataAccessException de ){
+                de.printStackTrace();
+                throw new RuntimeException(de.toString());
+            }
         } else {
             throw new CustomException("No cuenta con los permisos para eliminar usuarios!");
         }
