@@ -111,10 +111,10 @@ export class HomeComponent implements OnInit {
 
         //tamaño y axis
         var ancho = width/2;
-        var alto = height/4;
+        var alto = height/3;
         var x = width/4;
         var y = 0;
-        var movY = height/2;
+        var movY = height/(1.7);
 
         for(let i=0; i<this.dashboards.length; i++)
         {
@@ -134,6 +134,24 @@ export class HomeComponent implements OnInit {
           }
 
           doc.addImage(canvasImg, 'PNG', x, coordY, ancho, alto );
+
+          //Agregar lista
+          let ul = document.createElement("ul");
+
+          for(let j=0; j<this.dashboards[i].data.labels.length; j++){
+            let liLabel = document.createElement("li");
+            liLabel.textContent += this.dashboards[i].data.labels[j];
+            liLabel.textContent += ": " + this.dashboards[i].data.dataset.data[j];
+            ul.appendChild(liLabel);
+          }
+
+          doc.fromHTML(
+            ul,
+            5,
+            coordY+alto,
+            {'width': width}
+          );
+
         }
 
         doc.save('dashboard.pdf');

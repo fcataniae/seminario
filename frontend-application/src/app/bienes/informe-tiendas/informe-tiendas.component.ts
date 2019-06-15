@@ -135,7 +135,7 @@ export class InformeTiendasComponent implements OnInit {
 
 
 
-          let canvasAux = <HTMLElement> canvas;
+          let canvasAux = <HTMLCanvasElement> canvas;
           let labels= [];
           this.dashboardEnvio.data.labels.forEach(l => labels.push( l.split("-")[0]));
           this.chartEnviado = new Chart(canvasAux, {
@@ -170,7 +170,7 @@ export class InformeTiendasComponent implements OnInit {
             divTab.appendChild(div);
           }
 
-          let canvasAux = <HTMLElement> canvas;
+          let canvasAux = <HTMLCanvasElement> canvas;
 
           let labels= [];
           this.dashboardRecepcion.data.labels.forEach(l => labels.push( l.split("-")[0]));
