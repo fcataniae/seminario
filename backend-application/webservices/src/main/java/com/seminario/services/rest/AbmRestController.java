@@ -6,7 +6,6 @@ import com.seminario.backend.model.abm.Rol;
 import com.seminario.backend.model.abm.Usuario;
 import com.seminario.backend.services.abm.*;
 import com.seminario.services.auth.cipher.EncryptManager;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,7 +26,6 @@ import java.util.List;
 @RequestMapping("/service")
 @CrossOrigin
 @Scope("session")
-@Slf4j
 public class AbmRestController {
 
     private AbmRestController(){};
@@ -68,8 +66,6 @@ public class AbmRestController {
                               @RequestBody Usuario usuario) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        log.info("CONTRASEÑA: " + usuario.getPassword());
-        log.info("CONTRASEÑA ENCRIPTADA: " + EncryptManager.encryptWord(usuario.getPassword()));
         usuario.setPassword(EncryptManager.encryptWord(usuario.getPassword()));
         return usuarioService.create(usuarioActual, usuario);
     }
