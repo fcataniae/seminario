@@ -60,8 +60,8 @@ export class GestionMovimientosComponent implements OnInit {
       movi.destino = m.tipoMovimiento.tipoAgenteDestino.nombre + " - " + m.destino;
       movi.origen = m.tipoMovimiento.tipoAgenteOrigen.nombre + " - " + m.origen;
       movi.estadoViaje = m.estadoViaje.descrip;
-      movi.nroDocumento = m.nroDocumento.toString();
-      movi.tipoDocumento = m.tipoDocumento.descripcion;
+      movi.nroDocumento = ((m.nroDocumento != null) ? m.nroDocumento.toString() : "");
+      movi.tipoDocumento = ((m.tipoDocumento != null) ? m.tipoDocumento.descripcion : "");
       movi.tipo = m.tipoMovimiento.nombre;
       movis.push(movi);
     });
