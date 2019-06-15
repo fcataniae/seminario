@@ -54,15 +54,15 @@
      <ng-container matColumnDef="modificar">
          <th mat-header-cell *matHeaderCellDef> Modificar </th>
          <td mat-cell *matCellDef="let element">
-           <button mat-icon-button color="primary" (click)="modificarMovimiento(element)">
-             <mat-icon class="mat-18" >system_update</mat-icon>
+           <button mat-icon-button color="primary" [disabled]="element.estadoViaje ==='ENTREGADO'" (click)="modificarMovimiento(element)">
+             <mat-icon class="mat-18" >update</mat-icon>
            </button>
          </td>
        </ng-container>
     <ng-container matColumnDef="cancelar">
         <th mat-header-cell *matHeaderCellDef> Confirmar </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" (click)="confirmarMovimiento(element)">
+          <button mat-icon-button color="primary" [disabled]="element.estadoViaje ==='ENTREGADO'" (click)="confirmarMovimiento(element)">
               <mat-icon class="mat-18">check</mat-icon>
           </button>
         </td>
