@@ -271,7 +271,7 @@ public class StockBienEnLocalService {
         }
     }
 
-    private static final String TYPES[] ={"pie","doughnut"};
+    private static final String TYPES[] ={"bar"};
     private static final String[] COLORES =
             { "rgba(54, 162, 235, 1)",
               "rgba(75, 192, 192, 1)",
@@ -281,7 +281,7 @@ public class StockBienEnLocalService {
               "rgba(16, 102, 130)",
               "rgba(201, 38, 149)"};
     private static final int INDEX = 7;
-    private static final int INDEXC = 2;
+    private static final int INDEXC = 1;
     private static final int SUBLIST = 10;
     /**
      * Funcion que devuelve una lista de dashboards de acuerdo al usuario

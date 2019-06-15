@@ -33,7 +33,7 @@ export class GestionMovimientosComponent implements OnInit {
   movimientos: Movimiento[];
 
   public dataSource = new MatTableDataSource<Movi>();
-  public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','modificar','cancelar'];
+  public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','modificar','cancelar','clonar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
