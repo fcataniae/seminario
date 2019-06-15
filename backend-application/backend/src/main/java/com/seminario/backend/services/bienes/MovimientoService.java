@@ -873,7 +873,7 @@ public class MovimientoService {
                 return movimientoRepository.findAllByLocalAndFecha(null,calendar.getTime(),fecha);
 
             } else { // si es tienda
-                return movimientoRepository.findAllByLocalAndFecha(usuarioActual.getId(),calendar.getTime(),fecha);
+                return movimientoRepository.findAllByLocalAndFecha(usuarioActual.getLocal().getNro(),calendar.getTime(),fecha);
             }
 
         } else {
