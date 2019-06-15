@@ -7,6 +7,8 @@ import { Movimiento } from '../../model/bienes/movimiento.model';
 import { FormControl } from '@angular/forms';
 import { Observable, forkJoin } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 
 @Component({
@@ -42,7 +44,8 @@ export class MovimientosComponent implements OnInit {
 
   proveedoresIntercambios: Agente[];
 
-  constructor(private _router : Router,
+  constructor(private _dialog:MatDialog,
+              private _router : Router,
               private _movimientoService: MovimientoService) { }
 
   ngOnInit() {
@@ -131,15 +134,30 @@ export class MovimientosComponent implements OnInit {
 
   }
 
+  showDialog(mensaje: string){
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      width: '50%',
+      data: {mensaje: mensaje, error: true, titulo: "Datos invalidos!"}
+    });
+    dialog.afterClosed().subscribe();
+  }
   onSubmit(){
-    console.log(this.selectedMov);
-    let movimiento = new Movimiento();
-    movimiento.destino = this.selectedDest.nro;
-    movimiento.origen = this.selectedOrig.nro;
-    movimiento.nombreOrigen = this.selectedOrig.nombre;
-    movimiento.nombreDestino = this.selectedDest.nombre;
-    movimiento.tipoMovimiento = this.selectedMov;
-    this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
+
+    if(this.selectedMov && this.selectedDest && this.selectedOrig){
+      let movimiento = new Movimiento();
+      movimiento.destino = this.selectedDest.nro;
+      movimiento.origen = this.selectedOrig.nro;
+      movimiento.nombreOrigen = this.selectedOrig.nombre;
+      movimiento.nombreDestino = this.selectedDest.nombre;
+      movimiento.tipoMovimiento = this.selectedMov;
+      this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
+    }else if(!this.selectedMov){
+      this.showDialog("Debe seleccionar un movimiento para poder continuar");
+    }else if(!this.selectedOrig){
+      this.showDialog("Debe seleccionar un origen para poder continuar");
+    }else if(!this.selectedDest){
+      this.showDialog("Debe seleccionar un destino para poder continuar");
+    }
   }
 
 }
