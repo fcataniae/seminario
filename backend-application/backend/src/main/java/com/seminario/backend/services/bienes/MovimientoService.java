@@ -190,6 +190,9 @@ public class MovimientoService {
                     movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
                     movimientoViejo.setDestino(movimientoNuevo.getDestino());
                     movimientoViejo.setOrigen(movimientoNuevo.getOrigen());
+                    movimientoViejo.setPatenteTransporte(movimientoNuevo.getPatenteTransporte());
+                    movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
+                    movimientoViejo.setTipoDocumento(movimientoNuevo.getTipoDocumento());
                     movimientoViejo.setItemMovimientos(movimientoNuevo.getItemMovimientos());
 
                     // SOLO liberamos los recursos si el movimiento se encuentra en estado pendiente
