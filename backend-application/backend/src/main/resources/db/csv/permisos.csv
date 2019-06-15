@@ -57,3 +57,5 @@ ID,DESCRIPCION,FUNCIONALIDAD,NOMBRE,ESTADO_ID
 1052, ,Permite dar de baja registros en BD externas,BAJA-BD-EXTERNA,1
 1053, ,Permite modificar registros en BD externas,MODI-BD-EXTERNA,1
 1054, ,Permite consultar los BD externas,CONS-BD-EXTERNA,1
+1055, ,Permite consultar los Informe Stock,CONS-LISTADO-STOCK,1
+1056, ,Permite consultar los Informe Deuda,CONS-LISTADO-DEUDA,1

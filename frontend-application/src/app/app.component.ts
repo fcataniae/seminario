@@ -11,16 +11,16 @@ import { NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   username : string = '';
-  loggedIn: boolean = false;
+  loggedIn = false;
 
-  permisoInformeTablaDeudas: boolean = true;
-  permisoInformeTablaStock: boolean = true;
-  permisoInforme: boolean = true;
-  permisoInformeTiendas: boolean = true;
-  permisoMovimiento: boolean = false;
-  permisoRol: boolean = false;
-  permisoUsuario: boolean = false;
-  permisoPersona: boolean = false;
+  permisoInformeTablaDeudas = false;
+  permisoInformeTablaStock = false;
+  permisoInforme = true;
+  permisoInformeTiendas = true;
+  permisoMovimiento = false;
+  permisoRol = false;
+  permisoUsuario = false;
+  permisoPersona = false;
 
   constructor (private _sessionService: SessionService,
                private _router: Router){
@@ -41,27 +41,40 @@ export class AppComponent {
            console.log(token);
            this.loggedIn = true;
            token.permisos.forEach( p => {
-             console.log(p);
              if(p.nombre.includes('MODI-ROL')){
                this.permisoRol = true;
-             }else if(p.nombre.includes('MODI-PERSONA')){
+             }
+             if(p.nombre.includes('MODI-PERSONA')){
                this.permisoPersona = true;
-             }else if(p.nombre.includes('MODI-USUARIO')){
+             }
+             if(p.nombre.includes('MODI-USUARIO')){
                this.permisoUsuario = true;
-             }else if(p.nombre.includes('MODI-MOVIMIENTO')){
+             }
+             if(p.nombre.includes('MODI-MOVIMIENTO')){
                this.permisoMovimiento = true;
-             }else if(p.nombre.includes('INFORME')){
-               this.permisoInforme = true;
-               this.permisoInformeTiendas = true;
+             }
+             if(p.nombre.includes('CONS-LISTADO-STOCK')){
                this.permisoInformeTablaStock = true;
+             }
+             if(p.nombre.includes('CONS-LISTADO-DEUDA')){
                this.permisoInformeTablaDeudas = true;
              }
+             this.permisoInforme = true;
+             this.permisoInformeTiendas = true;
            });
          }
     });
   }
   logOut(event: Event) {
     event.preventDefault();
+    this.permisoInformeTablaDeudas = false;
+    this.permisoInformeTablaStock = false;
+    this.permisoInforme = true;
+    this.permisoInformeTiendas = true;
+    this.permisoMovimiento = false;
+    this.permisoRol = false;
+    this.permisoUsuario = false;
+    this.permisoPersona = false;
     this._sessionService.setLogOut();
     this._router.navigate(['/login']);
   }
