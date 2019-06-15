@@ -1,23 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Permiso }  from '../../model/abm/permiso.model';
-import { PermisoService } from '../../services/permiso.service';
-import { Token } from '../../model/token.model';
-import { BehaviorSubject} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import { Bien } from '../../model/bienes/bien.model';
 import { MovimientoService } from '../../services/movimiento.service';
-import { StockBienLocalService } from '../../services/stockbienlocal.service';
-import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
-import { Agente } from '../../model/bienes/agente.model';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
-import { Chart } from 'chart.js';
-import { TiendaEstadisticas } from '../../model/bienes/tiendaEstadisticas.model';
-import { SessionService } from '../../services/session.service';
-import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
-import { FormControl } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 import { Dashboard } from '../../model/bienes/dashboard.model';
+import { Chart } from 'chart.js';
 
 export class Tienda{
   nro: number;
@@ -55,12 +40,7 @@ export class InformeTiendasComponent implements OnInit {
   chartEnviado:Chart;
   chartRecibido:Chart;
 
-  constructor(private _loginService: LoginService,
-              private _router: Router,
-              private _sessionService: SessionService,
-              private _permisoService: PermisoService,
-              private _movimientoService: MovimientoService,
-              private _stockbienlocalService: StockBienLocalService) { }
+  constructor( private _movimientoService: MovimientoService) { }
 
   ngOnInit() {
 
@@ -116,8 +96,6 @@ export class InformeTiendasComponent implements OnInit {
   generarGraficos(){
 
       console.log(this.selectedIndex);
-       let topTiendasEnvios: TiendaEstadisticas[];
-       let topTiendasRecibidos: TiendaEstadisticas[];
        if(this.selectedIndex == 0 && this.dashboardEnvio){//Hago una chanchada por aca (?)
 
           let divTab = document.getElementsByTagName("mat-tab-body")[0].firstChild;
@@ -195,7 +173,7 @@ export class InformeTiendasComponent implements OnInit {
   }
 
 
-  setDataSource(indexNumber) {
+  setDataSource() {
     this.selectedIndex = this.selectedIndex == 0 ? 1:0;
     console.log("onchange"+ this.selectedIndex);
     setTimeout(() => {
