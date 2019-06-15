@@ -231,11 +231,12 @@ public class MovimientoService {
             // Actualizo StockReservado
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                    deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),today);
-                } else {
-                    deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), today);
-                }
+//                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+//                    deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),today);
+//                } else {
+//                    deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), today);
+//                }
+                deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), today);
             }
             // Vales en estado Reservado
         } else if (tipoMov.equals("ENVIOINTERCAMBIO")) {
@@ -263,11 +264,12 @@ public class MovimientoService {
             // Actualizo StockReservado
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                    deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),fechaCotizacion);
-                } else {
-                    deudaService.aumentarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
-                }
+//                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+//                    deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),fechaCotizacion);
+//                } else {
+//                    deudaService.aumentarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
+//                }
+                deudaService.aumentarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
             }
             // Vales en estado Reservado
         } else if (tipoMov.equals("ENVIOINTERCAMBIO")) {
@@ -427,9 +429,10 @@ public class MovimientoService {
                     } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
                         ProveedorId = chep.getNro();
                     }
-                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                        deudaService.restarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaAlta);
-                    }
+//                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+//                        deudaService.restarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaAlta);
+//                    }
+                    deudaService.restarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaAlta);
                 }
             }
         } else if (movimiento.getTipoMovimiento().getTipo().equals("ENVIOINTERCAMBIO")) {
@@ -517,9 +520,10 @@ public class MovimientoService {
                     } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
                         ProveedorId = chep.getNro();
                     }
-                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaCotizacion);
-                    }
+//                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
+//                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaCotizacion);
+//                    }
+                    deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaCotizacion);
                 }
             }
         } else if (movimiento.getTipoMovimiento().getTipo().equals("ENVIOINTERCAMBIO")) {
