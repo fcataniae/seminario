@@ -44,7 +44,7 @@ public class Movimiento {
     private Set<Recurso> recursosAsignados;
 
     @JoinColumn(name = "movimiento_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ItemMovimiento> itemMovimientos;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
