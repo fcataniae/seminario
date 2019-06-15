@@ -12,12 +12,13 @@ import { of, throwError } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmacionPopupComponent } from '../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 import { Router } from '@angular/router';
+import { SessionService } from './session.service';
 
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private _matdialog: MatDialog, private _router : Router){}
+  constructor(private _matdialog: MatDialog, private _router : Router, private _sessionService: SessionService){}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -32,13 +33,18 @@ export class AuthInterceptor implements HttpInterceptor {
           if (err.status === 500) {
             console.log(err);
             console.log(caught);
-            let dialog = this._matdialog.open(ConfirmacionPopupComponent,{
-              data: {mensaje:"Ocurrio un error inesperado: " + err.error.message, titulo: "Error:",error: true}
-            });
-            dialog.afterClosed().subscribe();
+            if(err.error.message.includes('Not valid user!')){
+              this._sessionService.setLogOut();
+              this._router.navigate(['/login'])
+            }else{
+              let dialog = this._matdialog.open(ConfirmacionPopupComponent,{
+                data: {mensaje:"Ocurrio un error inesperado: " + err.error.message, titulo: "Error:",error: true}
+              });
+              dialog.afterClosed().subscribe();
+            }
           }else if (err.status === 403){
             console.log(window.location.href);
-            if(!window.location.href.includes('login')){
+            if(!window.location.href.includes('#/login')){
               let dialog = this._matdialog.open(ConfirmacionPopupComponent,{
                 data: {mensaje:"No se pudo autenticar al usuario!",error: true}
               });
