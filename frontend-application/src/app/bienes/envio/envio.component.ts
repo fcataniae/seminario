@@ -70,8 +70,6 @@ export class EnvioComponent implements OnInit {
               }
             })
           }
-          console.log(this.movimiento.idTransportista);
-          console.log(this.selectedTransp);
           this.transpFilter = this.transpForm.valueChanges
           .pipe(
             startWith(this.modificacion? this.selectedTransp : ''),

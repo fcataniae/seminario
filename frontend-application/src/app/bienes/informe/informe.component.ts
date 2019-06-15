@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PermisoService } from '../../services/permiso.service';
 import {Observable, forkJoin} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Bien } from '../../model/bienes/bien.model';
@@ -8,9 +7,6 @@ import { StockBienLocalService } from '../../services/stockbienlocal.service';
 import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Agente } from '../../model/bienes/agente.model';
 import { Chart } from 'chart.js';
-import { SessionService } from '../../services/session.service';
-import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
 import { FormControl } from '@angular/forms';
 
 @Component({

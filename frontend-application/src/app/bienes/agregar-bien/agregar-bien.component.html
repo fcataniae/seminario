@@ -59,6 +59,7 @@
         <div class="center" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
           <p>Intercambio de bienes en <strong>{{selectedIntercambio.cantidadEntregada}}x{{selectedIntercambio.cantidadRecibida}}</strong></p>
           <p>Entrega: {{selectedIntercambio.bienIntercambiableEntregado.descripcion}} - Recibe: {{selectedIntercambio.bienIntercambiableRecibido.descripcion}}</p>
+          <p style="color:red;" *ngIf=" (tipoMovimiento.tipo === 'ENVIOINTERCAMBIO' && itemMovimiento.cantidad % selectedIntercambio.cantidadEntregada !== 0)">La cantidad debe ser multiplo de {{selectedIntercambio.cantidadEntregada}} </p> 
         </div>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->
@@ -83,7 +84,7 @@
       <button mat-button class="mat-raised-button mat-primary submit"
               (click)="onSubmit()"
               id="e112"
-              [disabled]="!agregarbien.valid">Agregar Item</button>
+              [disabled]="!itemMovimiento || !agregarbien.valid || (tipoMovimiento.tipo === 'ENVIOINTERCAMBIO' && itemMovimiento.cantidad % selectedIntercambio.cantidadEntregada !== 0) ">Agregar Item</button>
     </mat-dialog-actions>
 
 </form>
