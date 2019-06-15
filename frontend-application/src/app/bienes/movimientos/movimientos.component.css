@@ -16,12 +16,16 @@ mat-form-field{
 
 .button-back{
   width: 30%;
+  margin-right: 10%;
   text-align: left;
 }
+
+
 
 form{
   margin: 3%;
 }
+
 form button{
   margin-left: 30%;
   margin-bottom: 1em;

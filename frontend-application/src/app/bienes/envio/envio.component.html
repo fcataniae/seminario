@@ -11,10 +11,9 @@
   </div>
   <h5 >Datos del movimiento</h5>
 
-<form #formMovs="ngForm">
-  <div class="datosEnvio">
+<form #formMovs="ngForm" class="form">
 
-    <mat-form-field class="tipoDocEnvio" *ngIf="movimiento.tipoDocumento != null">
+    <mat-form-field  class="mfinput"  *ngIf="movimiento.tipoDocumento != null">
       <input matInput
              type="text"
              name="nroDocumento"
@@ -22,7 +21,7 @@
              [(ngModel)]="movimiento.nroDocumento"
              required/>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="mfinput" >
       <input matInput
              type="date"
              class="fechaEnvio"
@@ -32,7 +31,7 @@
              placeholder="Fecha"
              required/>
     </mat-form-field>
-    <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
+    <mat-form-field  class="mfinput" *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
       <input type="text"
              placeholder="Transportista"
              aria-label="Number"
@@ -48,7 +47,7 @@
          </mat-option>
        </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
+    <mat-form-field  class="mfinput" *ngIf="movimiento.tipoMovimiento.tipo === 'ENVIO'">
       <input matInput
              type="text"
              class="patenteTransportista"
@@ -60,11 +59,10 @@
              placeholder="Patente Transportista"/>
     </mat-form-field>
 
-  </div>
 
 </form>
 
-  <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)"  >
+  <mat-tab-group #tabGroup (selectedIndexChange)="setDataSource($event)" class="form" >
     <div class="datosBienes" >
 
     <mat-tab label="Bienes">

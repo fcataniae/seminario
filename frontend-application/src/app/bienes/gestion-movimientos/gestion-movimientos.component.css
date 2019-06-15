@@ -9,6 +9,7 @@ table {
 .button-back{
   width: 30%;
   text-align: left;
+  padding-left: 5%;
 }
 
 .input-search{
@@ -19,6 +20,7 @@ table {
 .button-alta{
   width: 20%;
   text-align: right;
+  padding-left: 5%;
 }
 
 .mat-column-nro{

@@ -33,7 +33,7 @@ import java.util.List;
 @Scope("session")
 public class BienesRestController {
 
-    private BienesRestController(){};
+    private BienesRestController(){}
     @Autowired
     MovimientoService movimientoService;
     @Autowired
@@ -228,10 +228,9 @@ public class BienesRestController {
     }
 
     @GetMapping("/intercambios-proveedor")
-    public List<IntercambioProveedor> getAllIntercambioProveedor(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+    public List<Agente> getAllIntercambioProveedor(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllIntercambioProveedor(usuarioActual);
-
     }
 
     /**

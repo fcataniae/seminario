@@ -11,3 +11,18 @@ div{
 p {
   font-size: 0.8em;
 }
+
+#e111 {
+  width: auto;
+  float: left;
+}
+
+#e112 {
+  width: auto;
+  float: right;
+}
+
+
+  .mat-dialog-actions {
+      display: contents;
+  }
