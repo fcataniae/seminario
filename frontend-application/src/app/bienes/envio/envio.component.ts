@@ -60,14 +60,25 @@ export class EnvioComponent implements OnInit {
           console.log(res);
           this.transportistas = res;
 
+          this.modificacion = window.location.href.includes("modificar");
+          this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+
+          if(this.modificacion){
+            this.transportistas.forEach(t => {
+              if(t.id === this.movimiento.idTransportista){
+                this.selectedTransp = t.nombre;
+              }
+            })
+          }
+          console.log(this.movimiento.idTransportista);
+          console.log(this.selectedTransp);
           this.transpFilter = this.transpForm.valueChanges
           .pipe(
-            startWith(''),
+            startWith(this.modificacion? this.selectedTransp : ''),
             map(value => this.filterTransp(value))
           );
 
-          this.modificacion = window.location.href.includes("modificar");
-          this.movimiento = JSON.parse(atob(this.route.snapshot.paramMap.get('mov')));
+
           this.datosTablaBienes.data = this.movimiento.itemMovimientos;
           this.datosTablaBienes.sort = this.sortBienes;
           this.datosTablaBienes.paginator = this.paginatorBienes;
