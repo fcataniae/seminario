@@ -194,7 +194,7 @@ public class MovimientoService {
                     movimientoViejo.setNroDocumento(movimientoNuevo.getNroDocumento());
                     movimientoViejo.setTipoDocumento(movimientoNuevo.getTipoDocumento());
                     movimientoViejo.setItemMovimientos(movimientoNuevo.getItemMovimientos());
-
+                    movimientoViejo.setIdTransportista(movimientoNuevo.getIdTransportista());
                     // SOLO liberamos los recursos si el movimiento se encuentra en estado pendiente
                     if (movimientoViejo.getEstadoViaje().getDescrip().equals("PENDIENTE"))
                         movimientoViejo.setRecursosAsignados(cambiarEstadoRecursosAsignados(movimientoViejo.getRecursosAsignados(), "LIBRE", "OCUPADO"));
