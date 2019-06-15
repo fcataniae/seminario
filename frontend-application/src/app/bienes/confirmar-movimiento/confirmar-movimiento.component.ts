@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MovimientoService } from '../../services/movimiento.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Inject } from '@angular/core';
-import { Movimiento } from '../../model/bienes/movimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
 
 export interface Data{

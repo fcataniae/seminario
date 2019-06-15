@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Permiso }  from '../../model/abm/permiso.model';
+import { Component, OnInit } from '@angular/core';
 import { PermisoService } from '../../services/permiso.service';
-import { Token } from '../../model/token.model';
 import {Observable, forkJoin} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { Bien } from '../../model/bienes/bien.model';
@@ -9,7 +7,6 @@ import { MovimientoService } from '../../services/movimiento.service';
 import { StockBienLocalService } from '../../services/stockbienlocal.service';
 import { StockBienEnLocal } from '../../model/bienes/stockbienlocal.model';
 import { Agente } from '../../model/bienes/agente.model';
-import { MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
 import { Chart } from 'chart.js';
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
@@ -37,11 +34,7 @@ export class InformeComponent implements OnInit {
 
   chart:Chart;
 
-  constructor(private _loginService: LoginService,
-              private _router: Router,
-              private _sessionService: SessionService,
-              private _permisoService: PermisoService,
-              private _movimientoService: MovimientoService,
+  constructor(              private _movimientoService: MovimientoService,
               private _stockbienlocalService: StockBienLocalService) { }
 
   ngOnInit() {

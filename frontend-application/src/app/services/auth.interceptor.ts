@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ConfirmacionPopupComponent } from '../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
