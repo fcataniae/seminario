@@ -10,12 +10,9 @@ import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.repository.abm.EstadoRepository;
 import com.seminario.backend.repository.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -741,18 +738,18 @@ public class MovimientoService {
             Date fechaAltaHasta,
             Long origen,
             Long destino,
-            TipoMovimiento tipoMovimiento,
-            TipoAgente tipoAgenteOrigen,
-            TipoAgente tipoAgenteDestino,
-            TipoDocumento tipoDocumento,
+            String tipoMovimiento_tipo,
+            String tipoAgenteOrigenNombre,
+            String tipoAgenteDestinoNombre,
+            String tipoDocumentoNombreDocumento,
             String usuarioAlta,
-            EstadoViaje estadoViaje,
+            String estadoViajeDescrip,
             Long idTransportista,
-            EstadoRecurso estadoRecursoRecurso,
+            String estadoRecursoRecursoDescrip,
             Long nroRecurso,
-            EstadoRecurso estadoRecursoItemMovimiento,
+            String estadoRecursoItemMovimientoDescrip,
             Long cantidadItemMovimiento,
-            BienIntercambiable bienIntercambiable) throws CustomException{
+            Long bienIntercambiableId) throws CustomException{
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO")) {
             return movimientoRepository.findAllComplex(
                     fechaSalidaDesde,
@@ -761,18 +758,18 @@ public class MovimientoService {
                     fechaAltaHasta,
                     origen,
                     destino,
-                    tipoMovimiento,
-                    tipoAgenteOrigen,
-                    tipoAgenteDestino,
-                    tipoDocumento,
+                    tipoMovimiento_tipo,
+                    tipoAgenteOrigenNombre,
+                    tipoAgenteDestinoNombre,
+                    tipoDocumentoNombreDocumento,
                     usuarioAlta,
-                    estadoViaje,
+                    estadoViajeDescrip,
                     idTransportista,
-                    estadoRecursoRecurso,
+                    estadoRecursoRecursoDescrip,
                     nroRecurso,
-                    estadoRecursoItemMovimiento,
+                    estadoRecursoItemMovimientoDescrip,
                     cantidadItemMovimiento,
-                    bienIntercambiable);
+                    bienIntercambiableId);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de movimientos!");
         }

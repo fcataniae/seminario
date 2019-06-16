@@ -1,6 +1,5 @@
 package com.seminario.services.rest;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.Transportista;
@@ -321,18 +320,18 @@ public class BienesRestController {
             @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaAltaHasta,
             @RequestParam(name = "origen",required = false) Long origen,
             @RequestParam(name = "destino",required = false) Long destino,
-            @RequestParam(name = "tipoMovimiento",required = false) TipoMovimiento tipoMovimiento,
-            @RequestParam(name = "tipoAgenteOrigen",required = false) TipoAgente tipoAgenteOrigen,
-            @RequestParam(name = "tipoAgenteDestino",required = false) TipoAgente tipoAgenteDestino,
-            @RequestParam(name = "tipoDocumento",required = false) TipoDocumento tipoDocumento,
+            @RequestParam(name = "tipoMovimientoTipo",required = false) String tipoMovimiento_tipo,
+            @RequestParam(name = "tipoAgenteOrigenNombre",required = false) String tipoAgenteOrigen,
+            @RequestParam(name = "tipoAgenteDestinoNombre",required = false) String tipoAgenteDestino,
+            @RequestParam(name = "tipoDocumento",required = false) String tipoDocumento,
             @RequestParam(name = "usuario",required = false) String usuarioAlta,
-            @RequestParam(name = "EstadoViaje",required = false) EstadoViaje estadoViaje,
+            @RequestParam(name = "EstadoViajeDescrip",required = false) String estadoViaje,
             @RequestParam(name = "idTransportista",required = false) Long idTransportista,
-            @RequestParam(name = "estadoRecursoRecurso",required = false) EstadoRecurso estadoRecursoRecurso,
+            @RequestParam(name = "estadoRecursoRecursoDescrip",required = false) String estadoRecursoRecurso,
             @RequestParam(name = "nroRecurso",required = false) Long nroRecurso,
-            @RequestParam(name = "estadoRecursoItemMovimiento",required = false)EstadoRecurso estadoRecursoItemMovimiento,
+            @RequestParam(name = "estadoRecursoItemMovimientoDescrip",required = false) String estadoRecursoItemMovimiento,
             @RequestParam(name = "cantidadItemMovimiento",required = false) Long cantidadItemMovimiento,
-            @RequestParam(name = "bienIntercambiable",required = false)  BienIntercambiable bienIntercambiable) throws CustomException
+            @RequestParam(name = "bienIntercambiableId",required = false)  Long bienIntercambiableId) throws CustomException
     {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getMovimientoComplex(
@@ -343,7 +342,7 @@ public class BienesRestController {
                 fechaAltaHasta,
                 origen,
                 destino,
-                tipoMovimiento,
+                tipoMovimiento_tipo,
                 tipoAgenteOrigen,
                 tipoAgenteDestino,
                 tipoDocumento,
@@ -354,7 +353,7 @@ public class BienesRestController {
                 nroRecurso,
                 estadoRecursoItemMovimiento,
                 cantidadItemMovimiento,
-                bienIntercambiable
+                bienIntercambiableId
         );
     }
 }
