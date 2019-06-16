@@ -43,7 +43,6 @@ ul#menu {
 
 #menu li{
   height: auto;
-  min-height: 52px;
   vertical-align: center;
   color: white;
   cursor: pointer;
@@ -63,11 +62,11 @@ ul#menu li.sub a:hover {
   display: block;
 }
 #menu li ul:hover{
-  display: grid;
+  display: block;
   width: 10%;
 }
 ul#menu li:hover ul,ul#menu li:hover ul li, ul#menu li:hover ul li a{
-  display : grid;
+  display : block;
   cursor: pointer;
 }
 
@@ -79,6 +78,19 @@ strong{
 ul#menu li:hover ul li a:hover{
     background-color: #D5D4CD;
 }
+ul#menu li ul li a{
+  height: 25px;
+  padding:0px;
+  margin:0px;
+  width: 9vw;
+  text-align: left;
+}
+ul#menu li ul li{
+  height: 25px;
+  width: 9vw;
+
+}
+
 
 header {
   display :flex;

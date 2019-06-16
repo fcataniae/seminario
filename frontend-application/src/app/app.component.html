@@ -18,23 +18,16 @@
     <li *ngIf="permisoMovimiento">
       <a [routerLink]="['home/movimientos']">Movimientos</a>
     </li>
-    <li *ngIf="permisoInforme || permisoInformeTiendas" class="sub"><a>Informes</a>
-      <ul>
-        <li *ngIf="permisoInforme">
-          <a [routerLink]="['home/informe/bienes']">Stock</a>
-        </li>
-        <li *ngIf="permisoInformeTiendas">
-          <a [routerLink]="['home/informe/tiendas']">Tiendas</a>
-        </li>
-      </ul>
-    </li>
-    <li *ngIf="permisoInformeTablaStock || permisoInformeTablaDeudas"><a class="sub">Listados</a>
+    <li *ngIf="permisoInforme || permisoInformeTiendas || permisoInformeTablaStock || permisoInformeTablaDeudas"><a class="sub">Listados</a>
       <ul>
         <li *ngIf="permisoInformeTablaStock">
-          <a [routerLink]="['home/stock']">Stock</a>
+          <a [routerLink]="['home/informe/stock']">Stock</a>
         </li>
         <li *ngIf="permisoInformeTablaDeudas">
-          <a [routerLink]="['home/deudas']">Deudas</a>
+          <a [routerLink]="['home/informe/deudas']">Deudas</a>
+        </li>
+        <li *ngIf="permisoInformeTiendas">
+          <a [routerLink]="['home/informe/movimientos']">Movimientos</a>
         </li>
       </ul>
     </li>
