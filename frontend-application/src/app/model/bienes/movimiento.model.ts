@@ -20,6 +20,7 @@ export class Movimiento{
   fechaAlta: Date;
   nombreOrigen: string;
   nombreDestino: string;
+  usuarioAlta: string;
 
   constructor(){
     this.recursosAsignados = [];
