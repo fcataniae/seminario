@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
           div.appendChild(canvas);
 
           this.charts[index] = new Chart(canvas,{
-            type: d.type,
+            type: 'horizontalBar',
             data:{
               labels: d.data.labels,
               datasets:[{

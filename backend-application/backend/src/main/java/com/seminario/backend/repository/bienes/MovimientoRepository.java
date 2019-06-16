@@ -21,10 +21,10 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
     List<Movimiento> findAllByLocalAndFecha(Long nro, Date fecha_desde, Date fecha_hasta );
 
     @Query("SELECT m FROM Movimiento m \n" +
-            "WHERE (m.fechaSalida > ?1 or ?1 IS NULL) \n" +
-            "AND (m.fechaSalida < ?2 or ?2 IS NULL) \n" +
-            "AND (m.fechaAlta > ?3 or ?3 IS NULL)\n" +
-            "AND (m.fechaAlta < ?4 or ?4 IS NULL)\n" +
+            "WHERE (m.fechaSalida >= ?1 or ?1 IS NULL) \n" +
+            "AND (m.fechaSalida <= ?2 or ?2 IS NULL) \n" +
+            "AND (m.fechaAlta >= ?3 or ?3 IS NULL)\n" +
+            "AND (m.fechaAlta <= ?4 or ?4 IS NULL)\n" +
             "AND (m.origen = ?5 or ?5 IS NULL)\n" +
             "AND (m.destino = ?6 or ?6 IS NULL)\n" +
             "AND (m.tipoMovimiento.tipo = ?7 or ?7 IS NULL)\n" +
