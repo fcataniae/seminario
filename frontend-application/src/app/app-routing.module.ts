@@ -9,9 +9,9 @@ import { MovimientosComponent } from './bienes/movimientos/movimientos.component
 import { EnvioComponent } from './bienes/envio/envio.component';
 import { GestionMovimientosComponent } from './bienes/gestion-movimientos/gestion-movimientos.component';
 import { InformeComponent } from './bienes/informe/informe.component';
-import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
 import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
+import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'home/movimientos/registrar/:mov', component: EnvioComponent},
   { path: 'home/movimientos/modificar/:mov', component: EnvioComponent},
   { path: 'home/informe/bienes', component: InformeComponent},
-  { path: 'home/informe/movimientos', component: InformeTiendasComponent},
+  { path: 'home/informe/movimientos', component: InformeMovimientosComponent},
   { path: 'home/informe/stock', component: TablaStockComponent},
   { path: 'home/informe/deudas', component: TablaDeudasComponent}
 

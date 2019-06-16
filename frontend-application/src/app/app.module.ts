@@ -51,6 +51,7 @@ import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tienda
 import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 import { ExcelService } from './services/excel.service';
+import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 
 
 
@@ -80,7 +81,8 @@ import { ExcelService } from './services/excel.service';
     InformeComponent,
     InformeTiendasComponent,
     TablaStockComponent,
-    TablaDeudasComponent
+    TablaDeudasComponent,
+    InformeMovimientosComponent
   ],
   imports: [
     BrowserModule,

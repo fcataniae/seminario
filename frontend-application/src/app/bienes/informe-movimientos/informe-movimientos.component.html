@@ -1,0 +1,108 @@
+<form #informemovimiento="ngForm">
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Bien"
+           aria-label="text"
+           matInput [formControl]="formBi"
+           [matAutocomplete]="bi"
+           name="bi">
+    <mat-autocomplete #bi="matAutocomplete">
+      <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion">
+        {{bi.descripcion}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="number"
+           placeholder="Cantidad BI"
+           aria-label="text"
+           matInput
+           name="cbi">
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Recurso"
+           aria-label="text"
+           matInput [formControl]="formRe"
+           [matAutocomplete]="re"
+           name="re">
+    <mat-autocomplete #re="matAutocomplete">
+      <mat-option *ngFor="let re of obserRe | async" [value]="re.nroRecurso">
+        {{re.nroRecurso}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Destino"
+           aria-label="text"
+           matInput [formControl]="formAgD"
+           [matAutocomplete]="de"
+           name="de">
+    <mat-autocomplete #de="matAutocomplete">
+      <mat-option *ngFor="let de of obserAgD | async" [value]="de.denominacion">
+        {{de.denominacion}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Origen"
+           aria-label="text"
+           matInput [formControl]="formAgO"
+           [matAutocomplete]="or"
+           name="or">
+    <mat-autocomplete #or="matAutocomplete">
+      <mat-option *ngFor="let or of obserAgO | async" [value]="or.denominacion">
+        {{or.denominacion}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Transportista"
+           aria-label="text"
+           matInput [formControl]="formTp"
+           [matAutocomplete]="tp"
+           name="tp">
+    <mat-autocomplete #tp="matAutocomplete">
+      <mat-option *ngFor="let tp of obserTp | async" [value]="tp.nombre">
+        {{tp.nombre}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Tipo movimiento"
+           aria-label="text"
+           matInput [formControl]="formMo"
+           [matAutocomplete]="mo"
+           name="mo">
+    <mat-autocomplete #mo="matAutocomplete">
+      <mat-option *ngFor="let mo of obserMo | async" [value]="mo.nombre">
+        {{mo.nombre}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="date"
+           placeholder="Fecha desde"
+           aria-label="text"
+           matInput
+           name="fd">
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="date"
+           placeholder="Fecha hasta"
+           aria-label="text"
+           matInput
+           name="fh">
+  </mat-form-field>
+  <mat-form-field class="w70 mat-local">
+    <input type="text"
+           placeholder="Usuario alta"
+           aria-label="text"
+           matInput
+           name="ua">
+  </mat-form-field>
+</form>
