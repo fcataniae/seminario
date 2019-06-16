@@ -12,9 +12,10 @@ import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
+import { Movimiento } from '../../model/bienes/movimiento.model';
 
 export class MovimientoReducido{
-  nro:number;
+  nro:string;
   destino: string;
   origen: string;
   fecha: Date;
@@ -33,9 +34,10 @@ export class InformeMovimientosComponent implements OnInit {
   constructor(private _movimientoService: MovimientoService) {
   }
 
-  @ViewChild("sortMovs") sortEnvios: MatSort;
-  @ViewChild("paginatorMovs") paginatorEnvios: MatPaginator;
-  datasourceMovimientos = new MatTableDataSource<MovimientoReducido>();
+  @ViewChild("sortMovs") sortMov: MatSort;
+  @ViewChild("paginatorMovs") pagiMov: MatPaginator;
+  dsMov = new MatTableDataSource<MovimientoReducido>();
+  displayedColumns = ['nro','destino','origen','tipo','fecha','estado','usuario','transport'];
 
   agentes: Agente[];
   transportistas: Transportista[];
@@ -72,6 +74,7 @@ export class InformeMovimientosComponent implements OnInit {
   obserBi = new Observable<Bien[]>();
   obserMo = new Observable<TipoMovimiento[]>();
 
+  movimientos: Movimiento[];
 
 
   ngOnInit() {
@@ -218,6 +221,38 @@ export class InformeMovimientosComponent implements OnInit {
                                this.usuarioAlta)
            .subscribe( res=>{
              console.log(res);
+             this.movimientos = res;
+             this.dsMov.data = this.toArray(res);
+             this.dsMov.sort = this.sortMov;
+             this.dsMov.paginator = this.pagiMov;
            });
+  }
+  toArray(array: Movimiento[]): MovimientoReducido[]{
+    let movis: MovimientoReducido[] = [];
+    array.forEach( m => {
+      let mr: MovimientoReducido = new MovimientoReducido();
+      this.agentes.forEach(a => {
+          if(a.nro == m.origen){
+            mr.origen = a.denominacion;
+          }
+          else if(a.nro == m.destino){
+            mr.destino = a.denominacion;
+          }
+      });
+
+      mr.estadoViaje = m.estadoViaje.descrip;
+      mr.nro = m.id.toString();
+      mr.tipo = m.tipoMovimiento.nombre;
+      mr.fecha = m.fechaSalida;
+      this.transportistas.filter(t => {
+        if(t.id == m.idTransportista)
+        {
+        mr.transportista = t.nombre;
+        }
+      });
+      mr.usuarioAlta = m.usuarioAlta;
+      movis.push(mr);
+    });
+    return movis;
   }
 }
