@@ -27,7 +27,7 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
             "AND (m.fechaAlta < ?4 or ?4 IS NULL)\n" +
             "AND (m.origen = ?5 or ?5 IS NULL)\n" +
             "AND (m.destino = ?6 or ?6 IS NULL)\n" +
-            "AND (m.tipoMovimiento.tipo = ?7 or ?7 IS NULL)\n" +
+            "AND (m.tipoMovimiento.id = ?7 or ?7 IS NULL)\n" +
             "AND (m.tipoMovimiento.tipoAgenteOrigen.nombre = ?8 or ?8 IS NULL)\n" +
             "AND (m.tipoMovimiento.tipoAgenteDestino.nombre = ?9 or ?9 IS NULL)\n" +
             "AND (m.tipoDocumento.nombreDocumento = ?10 or ?10 is null)\n" +
@@ -47,7 +47,7 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
             Date fechaAltaHasta,
             Long origen,
             Long destino,
-            String tipoMovimiento_tipo,
+            Long tipoMovimientoId,
             String tipoAgenteOrigenNombre,
             String tipoAgenteDestinoNombre,
             String tipoDocumentoNombreDocumento,
