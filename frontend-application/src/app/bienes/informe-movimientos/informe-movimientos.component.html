@@ -103,7 +103,7 @@
            placeholder="Fecha desde"
            aria-label="text"
            [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
-           (ngModelChange)="fechaDesde= $event"
+           (ngModelChange)="fechaDesde=  parseDate( $event)"
            matInput
            name="fd">
   </mat-form-field>
@@ -111,7 +111,7 @@
     <input type="date"
            placeholder="Fecha hasta "
            aria-label="text"
-           (ngModelChange)="fechaHasta= $event"
+           (ngModelChange)="fechaHasta= parseDate( $event)"
            [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
            matInput
            name="fh">

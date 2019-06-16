@@ -9,6 +9,7 @@ seminario.datasource.driver-class-name=org.mariadb.jdbc.Driver
 seminario.datasource.jndi-name=jdbc/seminario
 seminario.datasource.default-auto-commit=true
 
+spring.jackson.serialization.write-dates-as-timestamps=false
 secondarydatabase.datasource.url=jdbc:mariadb://localhost:3306/walmart
 secondarydatabase.datasource.username=root
 secondarydatabase.datasource.password=franco

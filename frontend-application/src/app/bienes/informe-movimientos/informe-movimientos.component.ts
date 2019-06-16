@@ -255,4 +255,17 @@ export class InformeMovimientosComponent implements OnInit {
     });
     return movis;
   }
+  parseDate(dateString): Date {
+    console.log(dateString);
+    var month = dateString.split("-")[1];
+    var year = dateString.split("-")[0];
+    var day = dateString.split("-")[2];
+
+    if (dateString) {
+        let strDate = (year+"-"+month+"-"+(Number(day)+1));
+        console.log(strDate);
+        return new Date(strDate);
+    }
+    return null;
+}
 }
