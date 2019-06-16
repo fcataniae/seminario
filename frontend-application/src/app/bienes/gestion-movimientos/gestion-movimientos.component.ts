@@ -33,7 +33,7 @@ export class GestionMovimientosComponent implements OnInit {
   movimientos: Movimiento[];
 
   public dataSource = new MatTableDataSource<Movi>();
-  public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','modificar','cancelar','clonar'];
+  public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','visualizar','modificar','cancelar','clonar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -88,6 +88,20 @@ export class GestionMovimientosComponent implements OnInit {
         }
       );
   }
+
+  duplicarMovimiento(element: Movi){
+
+    this._movimientoService.getMovimientoByNro(element.nro)
+      .subscribe(
+        res => {
+          console.log(res);
+          let movimiento: Movimiento = res;
+          this._router.navigate(["/home/movimientos/registrar/" + btoa(JSON.stringify(movimiento))]);
+
+        }
+      );
+  }
+
   confirmarMovimiento(element:Movi){
     let dialog = this._dialog.open(ConfirmarMovimientoComponent,{
       width: '50%',

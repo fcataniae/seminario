@@ -16,7 +16,7 @@
  <mat-table [dataSource]="dataSource" matSort >
 
   <ng-container matColumnDef="nro">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro Movimiento </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nro </th>
     <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
   </ng-container>
 
@@ -51,6 +51,14 @@
     </ng-container>
 
 
+    <ng-container matColumnDef="visualizar">
+        <th mat-header-cell *matHeaderCellDef> Ver </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="modificarMovimiento(element)">
+            <mat-icon class="mat-18" >remove_red_eye</mat-icon>
+          </button>
+        </td>
+    </ng-container>
      <ng-container matColumnDef="modificar">
          <th mat-header-cell *matHeaderCellDef> Modificar </th>
          <td mat-cell *matCellDef="let element">
@@ -70,7 +78,7 @@
       <ng-container matColumnDef="clonar">
           <th mat-header-cell *matHeaderCellDef> Duplicar </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" [disabled]="element.estadoViaje ==='PENDIENTE'" (click)="confirmarMovimiento(element)">
+            <button mat-icon-button color="primary" [disabled]="element.estadoViaje ==='PENDIENTE'" (click)="duplicarMovimiento(element)">
                 <mat-icon class="mat-18">call_split</mat-icon>
             </button>
           </td>
