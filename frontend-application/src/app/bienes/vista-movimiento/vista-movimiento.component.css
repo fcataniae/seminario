@@ -2,3 +2,11 @@
   width: 20vw;
   margin-left: 24vw;
 }
+.midle{
+  width: 20vw;
+  display: inline-block;
+  margin-left: 5vw;
+}
+span{
+  display: block;
+}

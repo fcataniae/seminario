@@ -1,7 +1,12 @@
 <h3>Movimiento nro {{movimiento.id}} - {{movimiento.tipoMovimiento.nombre}}</h3>
+<br>
+<div class="midle" >
+  <label for="nro">{{movimiento.tipoDocumento.descripcion}}</label>
+  <input type="text" class="form-control" name="nro" [ngModel]="movimiento.nroDocumento" disabled>
+</div>
 <div class="midle" *ngIf="movimiento.tipoMovimiento.tipo==='ENVIO'">
   <label for="patente">Patente</label>
-  <input type="text" class="form-control" name="nro" [ngModel]="movimiento.patenteTransporte | validpatente" disabled>
+  <input type="text" class="form-control" name="patente" [ngModel]="movimiento.patenteTransporte | validpatente" disabled>
 </div>
 
 <span><strong>Bienes asignados:</strong></span>
