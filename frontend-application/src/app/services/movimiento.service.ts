@@ -95,7 +95,7 @@ export class MovimientoService {
     fechaDesde? (params = params.append('fechaSalidaDesde', this.formatDate(fechaDesde))): null;
     origen? (params = params.append('origen', origen.nro.toString())): null;
     destino? (params = params.append('destino',destino.nro.toString())): null;
-    tipo? (params = params.append('tipoMovimientoTipo',tipo.tipo ))  : null;
+    tipo? (params = params.append('tipoMovimientoTipo',tipo.id.toString() ))  : null;
     origen?  (params = params.append('tipoAgenteOrigenNombre',origen.tipoAgente.nombre)): null;
     destino? (params = params.append('tipoAgenteDestinoNombre',destino.tipoAgente.nombre)): null;
     (usuarioAlta && usuarioAlta.trim() !== '')? (params = params.append('usuario',usuarioAlta )): null;
