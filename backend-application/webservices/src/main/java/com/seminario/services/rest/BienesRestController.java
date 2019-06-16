@@ -145,9 +145,39 @@ public class BienesRestController {
      * @throws CustomException Excepcion custom
      */
     @GetMapping("/stock-locales")
-    public List<com.seminario.backend.dto.Agente> getDistribucionBienes(@AuthenticationPrincipal UserDetails userDetails)  throws CustomException {
+    public List<com.seminario.backend.dto.Agente> getDistribucionBienes(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(name = "fechaActualizacionDesde",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaActualizacionDesde,
+            @RequestParam(name = "fechaActualizacionHasta",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaActualizacionHasta,
+            @RequestParam(name = "localNro",required = false) Long localNro,
+            @RequestParam(name = "bienId",required = false) Long bienId,
+            @RequestParam(name = "cantMinStockLibre",required = false) Long cantMinStockLibre,
+            @RequestParam(name = "cantMaxStockLibre",required = false) Long cantMaxStockLibre,
+            @RequestParam(name = "cantMinStockOcupado",required = false) Long cantMinStockOcupado,
+            @RequestParam(name = "cantMaxStockOcupado",required = false) Long cantMaxStockOcupado,
+            @RequestParam(name = "cantMinStockReservado",required = false) Long cantMinStockReservado,
+            @RequestParam(name = "cantMaxStockReservado",required = false) Long cantMaxStockReservado,
+            @RequestParam(name = "cantMinStockDestruido",required = false) Long cantMinStockDestruido,
+            @RequestParam(name = "cantMaxStockDestruido",required = false) Long cantMaxStockDestruido
+    )  throws CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return stockBienEnLocalService.getDistribucionBienes(usuarioActual);
+        return stockBienEnLocalService.getDistribucionBienes(
+                usuarioActual,
+                fechaActualizacionDesde,
+                fechaActualizacionHasta,
+                localNro,
+                bienId,
+                cantMinStockLibre,
+                cantMaxStockLibre,
+                cantMinStockOcupado,
+                cantMaxStockOcupado,
+                cantMinStockReservado,
+                cantMaxStockReservado,
+                cantMinStockDestruido,
+                cantMaxStockDestruido
+        );
     }
 
 

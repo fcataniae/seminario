@@ -389,4 +389,116 @@ public class StockBienEnLocalService {
     }
 
 
+    public List<Agente> getDistribucionBienes(Usuario usuarioActual,
+                                              Date fechaActualizacionDesde,
+                                              Date fechaActualizacionHasta,
+                                              Long localNro,
+                                              Long bienId,
+                                              Long cantMinStockLibre,
+                                              Long cantMaxStockLibre,
+                                              Long cantMinStockOcupado,
+                                              Long cantMaxStockOcupado,
+                                              Long cantMinStockReservado,
+                                              Long cantMaxStockReservado,
+                                              Long cantMinStockDestruido,
+                                              Long cantMaxStockDestruido) throws CustomException {
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-STOCK-TOTAL")) {
+
+            EntityManager em = emf.createEntityManager();
+            List<Agente> listStockLocal = new ArrayList<Agente>(); // resultado final
+            Long nro = usuarioActual.getLocal().getNro() == 7460? null : usuarioActual.getLocal().getNro();
+            nro = (nro == null)? localNro: nro;
+            String qry = "select SBL.LOCAL_NRO,TA.NOMBRE, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION," +
+                    " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO" +
+                    " from STOCK_BIEN_EN_LOCAL SBL" +
+                    " inner join LOCAL L on L.NRO=SBL.LOCAL_NRO" +
+                    " inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID" +
+                    " inner join TIPOAGENTE TA on TA.ID=L.ID_TIPO_AGENTE "+
+                    " WHERE (l.nro = ?1 or ?1 IS NULL) " +
+                    " AND (SBL.ULTIMA_FECHA_ACTUALIZACION > ?2 or ?2 IS NULL) " +
+                    " AND (SBL.ULTIMA_FECHA_ACTUALIZACION < ?3 or ?3 IS NULL) " +
+                    " AND (SBL.LOCAL_NRO = ?4 or ?4 IS NULL)" +
+                    " AND (SBL.BI_id = ?5 or ?5 IS NULL)" +
+                    " AND (SBL.STOCK_LIBRE >= ?6 or ?6 IS NULL)" +
+                    " AND (SBL.STOCK_LIBRE <= ?7 or ?7 IS NULL)" +
+                    " AND (SBL.STOCK_OCUPADO >= ?8 or ?8 IS NULL)" +
+                    " AND (SBL.STOCK_OCUPADO <= ?9 or ?9 IS NULL)" +
+                    " AND (SBL.STOCK_RESERVADO >= ?10 or ?10 IS NULL)" +
+                    " AND (SBL.STOCK_RESERVADO <= ?11 or ?11 IS NULL)" +
+                    " AND (SBL.STOCK_DESTRUIDO >= ?12 or ?12 IS NULL)" +
+                    " AND (SBL.STOCK_DESTRUIDO <= ?13 or ?13 IS NULL)";
+
+            try {
+
+                List<Object[]> stockLocal = em.createNativeQuery(qry)
+                        .setParameter(1,nro)
+                        .setParameter(2,fechaActualizacionDesde)
+                        .setParameter(3,fechaActualizacionHasta)
+                        .setParameter(4,localNro)
+                        .setParameter(5, bienId)
+                        .setParameter(6, cantMinStockLibre)
+                        .setParameter(7, cantMaxStockLibre)
+                        .setParameter(8, cantMinStockOcupado)
+                        .setParameter(9, cantMaxStockOcupado)
+                        .setParameter(10,cantMinStockReservado)
+                        .setParameter(11,cantMaxStockReservado)
+                        .setParameter(12,cantMinStockDestruido)
+                        .setParameter(13,cantMaxStockDestruido)
+                        .getResultList();
+                em.close();
+
+                if (stockLocal.size()>0) {
+                    Long agenteAnt = (Long) stockLocal.get(0)[0];// codigo negativo invalido para cualquier agente
+                    Agente agente = new Agente();
+                    agente.setNro((Long) stockLocal.get(0)[0]);
+                    TipoAgente ta = new TipoAgente();
+                    ta.setNombre((String) stockLocal.get(0)[1]);
+                    agente.setTipoAgente(ta);
+                    agente.setNombre((String) stockLocal.get(0)[2]);
+
+                    for (Object[] tupla : stockLocal) {
+
+                        StockBienEnLocal bien = new StockBienEnLocal();
+                        bien.setIdBI((Long) tupla[3]);
+                        bien.setDescripcionBI((String) tupla[4]);
+                        bien.setStock_libre((Long) tupla[5]);
+                        bien.setStock_ocupado((Long) tupla[6]);
+                        bien.setStock_reservado((Long) tupla[7]);
+                        bien.setStock_destruido((Long) tupla[8]);
+
+                        if (!agenteAnt.equals((Long) tupla[0])) {
+                            listStockLocal.add(agente);
+                            System.out.println("[ /bienes/distribucion-bienes/ ]Se agrego Local " + agenteAnt + " con sus bienes");
+                            System.out.println(" ");
+
+                            agente = new Agente();
+                            agente.setNro((long) tupla[0]);
+                            ta = new TipoAgente();
+                            ta.setNombre((String) stockLocal.get(0)[1]);
+                            agente.setTipoAgente(ta);
+                            agente.setNombre((String) tupla[2]);
+
+                            System.out.println("[ /bienes/distribucion-bienes/ ] Local " + agente.getNro() + ": ");
+                            System.out.println("       -" + tupla[3]);
+                            agente.addStockBien(bien);
+                            agenteAnt = (long) tupla[0];
+                        } else {
+                            System.out.println("       -" + tupla[4]);
+                            agente.addStockBien(bien);
+                        }
+                    }
+                    listStockLocal.add(agente);//agrego el ultimo
+                    System.out.println(" [ /bienes/distribucion-bienes/ ] Se agrego local " + agente.getNro() + " con sus bienes");
+                }else{
+                    throw new CustomException("No posee stock de ningun local");
+                }
+            } catch (NoResultException e) {
+                throw new RuntimeException(e);
+            }
+            //System.out.println("Respuesta final:" + listStockLocal);
+            return listStockLocal;
+        }else{
+            throw new CustomException("No cuenta con los permisos para consultar la distribucion de los bienes.");
+        }
+    }
 }
