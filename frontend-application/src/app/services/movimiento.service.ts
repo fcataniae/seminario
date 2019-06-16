@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { TipoMovimiento } from '../model/bienes/tipomovimiento.model';
 import { Bien } from '../model/bienes/bien.model';
@@ -77,6 +77,35 @@ export class MovimientoService {
   }
   getIntercambioProveedorByNroP(nro: number): Observable<IntercambioProv[]>{
     return this._http.get<IntercambioProv[]>(environment.serviceUrl.replace('service','bienes') + 'intercambios-proveedor/' + nro);
+  }
+  getInformeMovimientos( origen : Agente,
+                         destino: Agente,
+                         bien : Bien,
+                         recurso: Recurso,
+                         transportista : Transportista,
+                         tipo : TipoMovimiento,
+                         estado : Estado,
+                         fechaDesde : Date,
+                         fechaHasta : Date,
+                         cantidadBi : number,
+                         usuarioAlta : string) : Observable<Movimiento[]>{
+    let params = new HttpParams();
+
+    fechaHasta? (params = params.append('fechaSalidaHasta', this.formatDate(fechaHasta))): null;
+    fechaDesde? (params = params.append('fechaSalidaDesde', this.formatDate(fechaDesde))): null;
+    origen? (params = params.append('origen', origen.nro.toString())): null;
+    destino? (params = params.append('destino',destino.nro.toString())): null;
+    tipo? (params = params.append('tipoMovimientoTipo',tipo.tipo ))  : null;
+    origen?  (params = params.append('tipoAgenteOrigenNombre',origen.tipoAgente.nombre)): null;
+    destino? (params = params.append('tipoAgenteDestinoNombre',destino.tipoAgente.nombre)): null;
+    (usuarioAlta && usuarioAlta.trim() !== '')? (params = params.append('usuario',usuarioAlta )): null;
+    estado ? ( params = params.append('EstadoViajeDescrip', estado.descrip)): null;
+    transportista? (params = params.append('idTransportista',  transportista.id )): null;
+    recurso ? (params = params.append('nroRecurso', recurso.nroRecurso.toString())): null;
+    (cantidadBi && cantidadBi !== 0) ? (params = params.append('cantidadItemMovimiento', cantidadBi.toString())): null;
+    bien? (params = params.append('bienIntercambiableId',bien.id.toString())): null;
+    console.log(params);
+    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes')+ 'informe-movimiento', {params : params});
   }
   private formatDate(date: Date) {
     var d = new Date(date),

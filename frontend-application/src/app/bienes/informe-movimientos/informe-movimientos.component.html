@@ -1,5 +1,5 @@
-<form #informemovimiento="ngForm">
-  <mat-form-field class="w70 mat-local">
+<form #informemovimiento="ngForm" >
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Bien"
            aria-label="text"
@@ -12,14 +12,28 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
+    <input type="text"
+           placeholder="Estado del viaje"
+           aria-label="text"
+           matInput [formControl]="formEs"
+           [matAutocomplete]="es"
+           name="es">
+    <mat-autocomplete #es="matAutocomplete">
+      <mat-option *ngFor="let es of obserEs | async" [value]="es.descrip">
+        {{es.descrip}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="mat-local">
     <input type="number"
            placeholder="Cantidad BI"
            aria-label="text"
+           [(ngModel)]="cantidadBi"
            matInput
            name="cbi">
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Recurso"
            aria-label="text"
@@ -32,7 +46,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Destino"
            aria-label="text"
@@ -45,7 +59,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Origen"
            aria-label="text"
@@ -58,7 +72,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Transportista"
            aria-label="text"
@@ -71,7 +85,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Tipo movimiento"
            aria-label="text"
@@ -84,25 +98,33 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="date"
            placeholder="Fecha desde"
            aria-label="text"
+           [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
+           (ngModelChange)="fechaDesde= $event"
            matInput
            name="fd">
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="date"
-           placeholder="Fecha hasta"
+           placeholder="Fecha hasta "
            aria-label="text"
+           (ngModelChange)="fechaHasta= $event"
+           [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
            matInput
            name="fh">
   </mat-form-field>
-  <mat-form-field class="w70 mat-local">
+  <mat-form-field class="mat-local">
     <input type="text"
            placeholder="Usuario alta"
            aria-label="text"
+           [(ngModel)]="usuarioAlta"
            matInput
            name="ua">
   </mat-form-field>
+  <button mat-button class="mat-raised-button mat-primary mat-local"
+          (click)="submitSeach()">Buscar</button>
+
 </form>

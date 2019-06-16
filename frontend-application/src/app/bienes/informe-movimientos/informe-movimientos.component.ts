@@ -11,6 +11,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
+import { Estado } from '../../model/bienes/estado.model';
 
 export class MovimientoReducido{
   nro:number;
@@ -41,6 +42,7 @@ export class InformeMovimientosComponent implements OnInit {
   bienes: Bien[];
   recursos: Recurso[];
   tipoMovs: TipoMovimiento[];
+  estadosViajes: Estado[];
 
   origen: Agente;
   destino: Agente;
@@ -48,6 +50,11 @@ export class InformeMovimientosComponent implements OnInit {
   recurso: Recurso;
   transportista: Transportista;
   tipo: TipoMovimiento;
+  estado: Estado;
+  fechaHasta: Date = new Date();
+  fechaDesde: Date = new Date();
+  cantidadBi: number = 0;
+  usuarioAlta: string = '';
 
   formAgD = new FormControl();
   formAgO = new FormControl();
@@ -55,13 +62,17 @@ export class InformeMovimientosComponent implements OnInit {
   formRe = new FormControl();
   formBi = new FormControl();
   formMo = new FormControl();
+  formEs = new FormControl();
 
+  obserEs = new Observable<Estado[]>();
   obserAgD = new Observable<Agente[]>();
   obserAgO = new Observable<Agente[]>();
   obserTp = new Observable<Transportista[]>();
   obserRe = new Observable<Recurso[]>();
   obserBi = new Observable<Bien[]>();
   obserMo = new Observable<TipoMovimiento[]>();
+
+
 
   ngOnInit() {
 
@@ -70,13 +81,16 @@ export class InformeMovimientosComponent implements OnInit {
     let bi = this._movimientoService.getAllBienes();
     let re = this._movimientoService.getAllRecursos();
     let tm = this._movimientoService.getAllTipoMovimientos();
-    forkJoin(ag,tp,bi,re,tm).pipe(
-      map(([agres,tpres,bires,reres,tmres])=>{
+    let es = this._movimientoService.getAllEstadosViaje();
+
+    forkJoin(ag,tp,bi,re,tm,es).pipe(
+      map(([agres,tpres,bires,reres,tmres,esres])=>{
         this.agentes = agres;
         this.transportistas = tpres;
         this.bienes = bires;
         this.recursos = reres;
         this.tipoMovs = tmres;
+        this.estadosViajes = esres;
         this.initFormControlers();
       })
     ).subscribe();
@@ -87,6 +101,11 @@ export class InformeMovimientosComponent implements OnInit {
     .pipe(
       startWith(''),
       map(value => this.filterAgO(value))
+    );
+    this.obserEs = this.formEs.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.filterEs(value))
     );
 
     this.obserAgD = this.formAgD.valueChanges
@@ -121,6 +140,12 @@ export class InformeMovimientosComponent implements OnInit {
       res=> {
         this.bien = this.bienes.filter(b => b.descripcion === res)[0];
         console.log(this.bien);
+      }
+    );
+    this.formEs.valueChanges.subscribe(
+      res=> {
+        this.estado = this.estadosViajes.filter(b => b.descrip === res)[0];
+        console.log(this.estado);
       }
     );
     this.formRe.valueChanges.subscribe(
@@ -158,6 +183,9 @@ export class InformeMovimientosComponent implements OnInit {
   filterTp(value: string): any {
     return this.transportistas.filter(t => t.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
   }
+  filterEs(value: string): any {
+    return this.estadosViajes.filter(t => t.descrip.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+  }
   filterMo(value: string): any {
     return this.tipoMovs.filter(t => t.nombre.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
   }
@@ -174,4 +202,22 @@ export class InformeMovimientosComponent implements OnInit {
     return this.agentes.filter(t => t.denominacion.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
   }
 
+  submitSeach(){
+    console.log('search');
+    this._movimientoService
+        .getInformeMovimientos(this.origen,
+                               this.destino,
+                               this.bien,
+                               this.recurso,
+                               this.transportista,
+                               this.tipo,
+                               this.estado,
+                               this.fechaDesde,
+                               this.fechaHasta,
+                               this.cantidadBi,
+                               this.usuarioAlta)
+           .subscribe( res=>{
+             console.log(res);
+           });
+  }
 }
