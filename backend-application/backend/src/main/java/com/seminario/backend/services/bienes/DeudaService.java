@@ -176,10 +176,16 @@ public class DeudaService {
         return d;
     }
 
-    public List<Agente> getAllDeuda(Usuario usuarioActual) throws CustomException {
+    public List<Agente> getAllDeuda(Usuario usuarioActual, Long proveedorNro, Long Bi_id, Double montoMin, Double montoMax, Long cantMin, Long cantMax) throws CustomException {
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-AGENTE")) {
             EntityManager em = emf.createEntityManager();
-            String qry = "SELECT \tCASE WHEN (aux.id is NULL) THEN aux2.id \n" +
+            String qry = "SELECT \n" +
+                    " \tPROVEEDOR_ID,\n" +
+                    " \tBI_id,\n" +
+                    " \tDEUDA_MON,\n" +
+                    " \tDEUDA_BULTOS\n" +
+                    " FROM (    \n" +
+                    "      SELECT \tCASE WHEN (aux.id is NULL) THEN aux2.id \n" +
                     "\t\tELSE aux.id end as PROVEEDOR_ID, \n" +
                     "\t\tCASE WHEN (aux.BI_id is NULL) THEN aux2.BI_id \n" +
                     "\t\tELSE aux.BI_id end as BI_id,  \n" +
@@ -221,8 +227,20 @@ public class DeudaService {
                     "\t\t\tINNER JOIN seminario.bienintercambiable bi ON d.BI_id = bi.ID\n" +
                     "\t\t\tWHERE tipo_agente_destino = 3\n" +
                     "\t\t\tGROUP BY id, d.BI_id\n" +
-                    "\t\t) as aux2 ON aux.id = aux2.id and aux.BI_id = aux2.BI_id ";
-            List<Object[]> objs = em.createNativeQuery(qry).getResultList();
+                    "\t\t) as aux2 ON aux.id = aux2.id and aux.BI_id = aux2.BI_id\n" +
+                    ") as aux4 WHERE (PROVEEDOR_ID = ?1 OR ?1 IS NULL) \n" +
+                    "AND (BI_id = ?2 OR ?2 IS NULL)\n" +
+                    "AND (DEUDA_MON >= ?3 OR ?3 IS NULL)\n" +
+                    "AND (DEUDA_MON <= ?4 OR ?4 IS NULL)\n" +
+                    "AND (DEUDA_BULTOS >= ?5 OR ?5 IS NULL)\n" +
+                    "AND (DEUDA_BULTOS <= ?6 OR ?6 IS NULL) ";
+            List<Object[]> objs = em.createNativeQuery(qry)
+                    .setParameter(1, proveedorNro)
+                    .setParameter(2, Bi_id)
+                    .setParameter(3, montoMin)
+                    .setParameter(4, montoMax)
+                    .setParameter(5, cantMin)
+                    .setParameter(6, cantMax).getResultList();
             List<Agente> ls = new ArrayList<Agente>();
             objs.forEach(obj -> {
                 Agente agente = null;

@@ -288,9 +288,25 @@ public class BienesRestController {
     }
 
     @GetMapping("/deuda-proveedores")
-    public List<Agente> getAllDeudaProveedores(@AuthenticationPrincipal UserDetails userDetails) throws  CustomException{
+    public List<Agente> getAllDeudaProveedores(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(name = "proveedorNro",required = false) Long proveedorNro,
+            @RequestParam(name = "bienId",required = false) Long bienId,
+            @RequestParam(name = "cantMin",required = false) Long cantMin,
+            @RequestParam(name = "cantMax",required = false) Long cantMax,
+            @RequestParam(name = "montoMin",required = false) Double montoMin,
+            @RequestParam(name = "montoMax",required = false) Double montoMax
+            ) throws  CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return deudaService.getAllDeuda(usuarioActual);
+        return deudaService.getAllDeuda(
+                usuarioActual,
+                proveedorNro,
+                bienId,
+                montoMin,
+                montoMax,
+                cantMax,
+                cantMin
+            );
 
     }
 
