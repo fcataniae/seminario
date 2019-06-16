@@ -1,5 +1,6 @@
 package com.seminario.services.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.dto.Agente;
 import com.seminario.backend.dto.Dashboard;
 import com.seminario.backend.dto.Transportista;
@@ -299,5 +300,61 @@ public class BienesRestController {
                                        @PathVariable("nro-prov") Long nro) throws  CustomException {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getIntercambiosByProveedor(usuarioActual, nro);
+    }
+
+    /**
+     * Obtiene informe movimiento en base a argumentos brindados
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @GetMapping("/informe-movimiento")
+    public List<Movimiento> getAllCantidadesDesdeYHasta(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(name = "fechaSalidaDesde",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaSalidaDesde,
+            @RequestParam(name = "fechaSalidaHasta",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaSalidaHasta,
+            @RequestParam(name = "fechaAltaDesde",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaAltaDesde,
+            @RequestParam(name = "fechaAltaHasta",required = false)
+            @DateTimeFormat( pattern = "yyyy-MM-dd") Date fechaAltaHasta,
+            @RequestParam(name = "origen",required = false) Long origen,
+            @RequestParam(name = "destino",required = false) Long destino,
+            @RequestParam(name = "tipoMovimiento",required = false) TipoMovimiento tipoMovimiento,
+            @RequestParam(name = "tipoAgenteOrigen",required = false) TipoAgente tipoAgenteOrigen,
+            @RequestParam(name = "tipoAgenteDestino",required = false) TipoAgente tipoAgenteDestino,
+            @RequestParam(name = "tipoDocumento",required = false) TipoDocumento tipoDocumento,
+            @RequestParam(name = "usuario",required = false) String usuarioAlta,
+            @RequestParam(name = "EstadoViaje",required = false) EstadoViaje estadoViaje,
+            @RequestParam(name = "idTransportista",required = false) Long idTransportista,
+            @RequestParam(name = "estadoRecursoRecurso",required = false) EstadoRecurso estadoRecursoRecurso,
+            @RequestParam(name = "nroRecurso",required = false) Long nroRecurso,
+            @RequestParam(name = "estadoRecursoItemMovimiento",required = false)EstadoRecurso estadoRecursoItemMovimiento,
+            @RequestParam(name = "cantidadItemMovimiento",required = false) Long cantidadItemMovimiento,
+            @RequestParam(name = "bienIntercambiable",required = false)  BienIntercambiable bienIntercambiable) throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return movimientoService.getMovimientoComplex(
+                usuarioActual,
+                fechaSalidaDesde,
+                fechaSalidaHasta,
+                fechaAltaDesde,
+                fechaAltaHasta,
+                origen,
+                destino,
+                tipoMovimiento,
+                tipoAgenteOrigen,
+                tipoAgenteDestino,
+                tipoDocumento,
+                usuarioAlta,
+                estadoViaje,
+                idTransportista,
+                estadoRecursoRecurso,
+                nroRecurso,
+                estadoRecursoItemMovimiento,
+                cantidadItemMovimiento,
+                bienIntercambiable
+        );
     }
 }

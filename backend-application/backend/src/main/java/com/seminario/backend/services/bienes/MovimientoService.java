@@ -10,6 +10,7 @@ import com.seminario.backend.repository.abm.PermisoRepository;
 import com.seminario.backend.repository.abm.EstadoRepository;
 import com.seminario.backend.repository.bienes.*;
 import com.seminario.backend.services.abm.CustomException;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -731,6 +732,52 @@ public class MovimientoService {
             throw new CustomException("No cuenta con los permisos para consultar intercambios de proveedores!");
         }
     }
+
+    public List<Movimiento> getMovimientoComplex(
+            Usuario usuarioActual,
+            Date fechaSalidaDesde,
+            Date fechaSalidaHasta,
+            Date fechaAltaDesde,
+            Date fechaAltaHasta,
+            Long origen,
+            Long destino,
+            TipoMovimiento tipoMovimiento,
+            TipoAgente tipoAgenteOrigen,
+            TipoAgente tipoAgenteDestino,
+            TipoDocumento tipoDocumento,
+            String usuarioAlta,
+            EstadoViaje estadoViaje,
+            Long idTransportista,
+            EstadoRecurso estadoRecursoRecurso,
+            Long nroRecurso,
+            EstadoRecurso estadoRecursoItemMovimiento,
+            Long cantidadItemMovimiento,
+            BienIntercambiable bienIntercambiable) throws CustomException{
+        if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO")) {
+            return movimientoRepository.findAllComplex(
+                    fechaSalidaDesde,
+                    fechaSalidaHasta,
+                    fechaAltaDesde,
+                    fechaAltaHasta,
+                    origen,
+                    destino,
+                    tipoMovimiento,
+                    tipoAgenteOrigen,
+                    tipoAgenteDestino,
+                    tipoDocumento,
+                    usuarioAlta,
+                    estadoViaje,
+                    idTransportista,
+                    estadoRecursoRecurso,
+                    nroRecurso,
+                    estadoRecursoItemMovimiento,
+                    cantidadItemMovimiento,
+                    bienIntercambiable);
+        } else {
+            throw new CustomException("No cuenta con los permisos para consultar intercambios de movimientos!");
+        }
+    }
+
 
 
     private static final String[] COLORES =
