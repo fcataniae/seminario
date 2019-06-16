@@ -41,7 +41,7 @@
                [(ngModel)]="itemMovimiento.cantidad"
                required
                [formControl]="commonValidator"
-               step="{{selectedIntercambio.cantidadEntregada}}"/>
+               step="{{step}}"/>
         </mat-form-field>
         <mat-form-field class="w70" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
           <input matInput
@@ -52,14 +52,13 @@
                  title="Debe ingresar un número"
                  [(ngModel)]="itemMovimiento.cantidad"
                  required
-                 step="step"
                  [formControl]="intercambioValidator"
-                 step="{{selectedIntercambio.cantidadEntregada}}"/>
+                 step="{{step}}"/>
           </mat-form-field>
-        <div class="center" *ngIf="tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
+        <div class="center" *ngIf="selectedIntercambio && tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'">
           <p>Intercambio de bienes en <strong>{{selectedIntercambio.cantidadEntregada}}x{{selectedIntercambio.cantidadRecibida}}</strong></p>
           <p>Entrega: {{selectedIntercambio.bienIntercambiableEntregado.descripcion}} - Recibe: {{selectedIntercambio.bienIntercambiableRecibido.descripcion}}</p>
-          <p style="color:red;" *ngIf=" (tipoMovimiento.tipo === 'ENVIOINTERCAMBIO' && itemMovimiento.cantidad % selectedIntercambio.cantidadEntregada !== 0)">La cantidad debe ser multiplo de {{selectedIntercambio.cantidadEntregada}} </p> 
+          <p style="color:red;" *ngIf=" (tipoMovimiento.tipo === 'ENVIOINTERCAMBIO' && itemMovimiento.cantidad % selectedIntercambio.cantidadEntregada !== 0)">La cantidad debe ser multiplo de {{selectedIntercambio.cantidadEntregada}} </p>
         </div>
         <div *ngIf="tipoMovimiento.tipo === 'RECEPCION'">
           <div *ngFor="let doc of itemMovimiento.itemMovimientoTipoDoc"><!--Condicion: solo recepcion, devolucion-->

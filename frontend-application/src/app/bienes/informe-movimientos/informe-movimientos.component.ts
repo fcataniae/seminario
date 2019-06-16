@@ -233,10 +233,10 @@ export class InformeMovimientosComponent implements OnInit {
       let mr: MovimientoReducido = new MovimientoReducido();
       this.agentes.forEach(a => {
           if(a.nro == m.origen){
-            mr.origen = a.denominacion;
+            mr.origen = a.denominacion.substr(0,a.denominacion.length < 18 ? a.denominacion.length : 18);
           }
           else if(a.nro == m.destino){
-            mr.destino = a.denominacion;
+            mr.destino = a.denominacion.substr(0,a.denominacion.length < 18 ? a.denominacion.length : 18);
           }
       });
 

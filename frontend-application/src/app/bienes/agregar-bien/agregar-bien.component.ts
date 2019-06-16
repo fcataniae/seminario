@@ -88,25 +88,26 @@ export class AgregarBienComponent implements OnInit {
   onChangeBien(){ //TODO IMPLEMENTAR LA FUNCIONALIDAD
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
+    this.selectedIntercambio = new IntercambioProv();
     if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
       this.intercambios.forEach(i =>
         {
-          if(JSON.stringify(this.selectedBien) === JSON.stringify(i.bienIntercambiableEntregado)){
+          if(this.selectedBien.id === i.bienIntercambiableEntregado.id){
             this.descripcionIntercambio = 'Intercambio de bienes en relacion ' + i.cantidadEntregada + 'x' + i.cantidadRecibida;
             this.step = i.cantidadEntregada;
+            this.selectedIntercambio = i;
           }
         }
       );
+
     }
     this.itemMovimiento = new ItemMovimiento();
-    this.selectedIntercambio = new IntercambioProv();
     this.itemMovimiento.estadoRecurso = new Estado();
     this.eligioEstado = false;
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
       this.itemMovimiento.itemMovimientoTipoDoc.push({nroDocumento : '',tipoDocumento:d})
     );
-    this.selectedIntercambio = this.intercambios.filter((item) => item.bienIntercambiableEntregado === this.selectedBien)[0];
     this.mostrarCantidad();
   }
   onCancel(): void {
