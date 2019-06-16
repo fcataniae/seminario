@@ -180,4 +180,12 @@
      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
    </mat-table>
+   <mat-paginator #pagiMov [pageSize]="3" [pageSizeOptions]="[2, 4, 6, 10, 20,30,50]">
+   </mat-paginator>
+
+</div>
+<button mat-button class="mat-raised-button mat-primary mat-local"
+        (click)="generarGraficos()">Graficar</button>
+<div #dg class="generarGraficos">
+
 </div>

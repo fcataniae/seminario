@@ -14,6 +14,7 @@ import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { VistaMovimientoComponent } from '../vista-movimiento/vista-movimiento.component';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 export class MovimientoReducido{
   nro:string;
@@ -35,8 +36,8 @@ export class InformeMovimientosComponent implements OnInit {
   constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog) {
   }
 
-  @ViewChild("sortMovs") sortMov: MatSort;
-  @ViewChild("paginatorMovs") pagiMov: MatPaginator;
+  @ViewChild(MatSort) sortMov: MatSort;
+  @ViewChild(MatPaginator) pagiMov: MatPaginator;
   dsMov = new MatTableDataSource<MovimientoReducido>();
   displayedColumns = ['nro','destino','origen','tipo','fecha','estado','usuario','transport','ver'];
 
@@ -277,6 +278,24 @@ export class InformeMovimientosComponent implements OnInit {
     let dialog = this._dialog.open(VistaMovimientoComponent,{
       width: '70%',
       data: {movimiento: movi}
+    });
+    dialog.afterClosed().subscribe();
+  }
+
+  generarGraficos(){
+    let div = document.getElementById("dg");
+
+    if(this.movimientos){
+
+    }else{
+      this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
+    }
+
+  }
+  showError(msg: string, titul: string, err: boolean) {
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      width: '30%',
+      data: { mensaje: msg, titulo: titul, error: err}
     });
     dialog.afterClosed().subscribe();
   }
