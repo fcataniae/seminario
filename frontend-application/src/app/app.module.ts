@@ -52,6 +52,7 @@ import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component'
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
+import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
 
 
 
@@ -82,7 +83,8 @@ import { InformeMovimientosComponent } from './bienes/informe-movimientos/inform
     InformeTiendasComponent,
     TablaStockComponent,
     TablaDeudasComponent,
-    InformeMovimientosComponent
+    InformeMovimientosComponent,
+    VistaMovimientoComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +140,8 @@ import { InformeMovimientosComponent } from './bienes/informe-movimientos/inform
     AgregarBienComponent,
     AgregarRecursoComponent,
     ConfirmarMovimientoComponent,
-    ModificarBienComponent
+    ModificarBienComponent,
+    VistaMovimientoComponent
   ],
   exports: [
     ValidpatentePipe

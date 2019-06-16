@@ -1,0 +1,41 @@
+<h3>Movimiento nro {{movimiento.id}} - {{movimiento.tipoMovimiento.nombre}}</h3>
+<div class="midle" *ngIf="movimiento.tipoMovimiento.tipo==='ENVIO'">
+  <label for="patente">Patente</label>
+  <input type="text" class="form-control" name="nro" [ngModel]="movimiento.patenteTransporte | validpatente" disabled>
+</div>
+
+<span><strong>Bienes asignados:</strong></span>
+<div class="table-responsive table-striped">
+<table class="table table-striped">
+  <thead>
+    <th>Bien</th>
+    <th>Cantidad</th>
+    <th>Estado</th>
+    <th>Documento</th>
+  </thead>
+  <tbody *ngFor="let item of movimiento.itemMovimientos">
+    <td>{{item.bienIntercambiable.descripcion}}</td>
+    <td>{{item.cantidad}}</td>
+    <td>{{item.estadoRecurso.descrip}}</td>
+    <td>
+      {{item.itemMovimientoTipoDoc[0].tipoDocumento.descripcion}} nro: {{item.itemMovimientoTipoDoc[0].nroDocumento}} </td>
+  </tbody>
+</table>
+</div>
+<br>
+<span *ngIf="movimiento.recursosAsignados && movimiento.recursosAsignados.length > 0"> <strong>Recursos asignados:</strong></span>
+<div class="table-responsive table-striped" *ngIf="movimiento.recursosAsignados && movimiento.recursosAsignados.length > 0">
+<table class="table table-striped">
+  <thead>
+    <th>Recurso</th>
+    <th>Nro de recurso</th>
+    <th>Estado</th>
+  </thead>
+  <tbody *ngFor="let re of movimiento.recursosAsignados">
+    <td>{{re.tipoRecurso.nombre}}</td>
+    <td>{{re.nroRecurso}}</td>
+    <td>{{re.estadoRecurso.descrip}}</td>
+  </tbody>
+</table>
+</div>
+<input type="submit" class="btn btn-primary btn-custom" (click)="submit()" value="Volver">

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovimientoService } from '../../services/movimiento.service';
-import { MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialog} from '@angular/material';
 import { Dashboard } from '../../model/bienes/dashboard.model';
 import { Chart } from 'chart.js';
 import { Agente } from '../../model/bienes/agente.model';
@@ -13,6 +13,7 @@ import { FormControl } from '@angular/forms';
 import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
+import { VistaMovimientoComponent } from '../vista-movimiento/vista-movimiento.component';
 
 export class MovimientoReducido{
   nro:string;
@@ -31,7 +32,7 @@ export class MovimientoReducido{
 })
 export class InformeMovimientosComponent implements OnInit {
 
-  constructor(private _movimientoService: MovimientoService) {
+  constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog) {
   }
 
   @ViewChild("sortMovs") sortMov: MatSort;
@@ -234,9 +235,11 @@ export class InformeMovimientosComponent implements OnInit {
       this.agentes.forEach(a => {
           if(a.nro == m.origen){
             mr.origen = a.denominacion.substr(0,a.denominacion.length < 18 ? a.denominacion.length : 18);
+            m.nombreOrigen = mr.origen;
           }
           else if(a.nro == m.destino){
             mr.destino = a.denominacion.substr(0,a.denominacion.length < 18 ? a.denominacion.length : 18);
+            m.nombreDestino = mr.destino;
           }
       });
 
@@ -255,17 +258,26 @@ export class InformeMovimientosComponent implements OnInit {
     });
     return movis;
   }
-  parseDate(dateString): Date {
-    console.log(dateString);
-    var month = dateString.split("-")[1];
-    var year = dateString.split("-")[0];
-    var day = dateString.split("-")[2];
+  parseDate(dateString: string): Date {
+      console.log(dateString);
+      var month = dateString.split("-")[1];
+      var year = dateString.split("-")[0];
+      var day = dateString.split("-")[2];
 
-    if (dateString) {
-        let strDate = (year+"-"+month+"-"+(Number(day)+1));
-        console.log(strDate);
-        return new Date(strDate);
-    }
-    return null;
-}
+      if (dateString) {
+          let strDate = (year+"-"+month+"-"+(Number(day)+1));
+          console.log(strDate);
+          return new Date(strDate);
+      }
+      return null;
+  }
+  showMovimiento(mov : MovimientoReducido){
+    let movi = this.movimientos.filter(m => m.id.toString() == mov.nro)[0];
+    console.log(movi);
+    let dialog = this._dialog.open(VistaMovimientoComponent,{
+      width: '70%',
+      data: {movimiento: movi}
+    });
+    dialog.afterClosed().subscribe();
+  }
 }

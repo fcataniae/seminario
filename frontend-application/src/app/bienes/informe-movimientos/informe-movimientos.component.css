@@ -3,6 +3,11 @@
   width: 14vw;
   margin-left: 2vw;
 }
+.midle{
+  display:inline-block;
+  width: 20vw;
+}
+
 form{
   margin-top:  20px;
 }
