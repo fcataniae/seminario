@@ -169,7 +169,14 @@
        <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario Alta </th>
        <td mat-cell *matCellDef="let element"> {{element.usuarioAlta}} </td>
      </ng-container>
-
+     <ng-container matColumnDef="ver">
+         <th mat-header-cell *matHeaderCellDef> Detalles </th>
+         <td mat-cell *matCellDef="let element">
+           <button mat-icon-button color="primary" (click)="modificarMovimiento(element)">
+             <mat-icon class="mat-18" >remove_red_eye</mat-icon>
+           </button>
+         </td>
+     </ng-container>
      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
    </mat-table>

@@ -37,7 +37,7 @@ export class InformeMovimientosComponent implements OnInit {
   @ViewChild("sortMovs") sortMov: MatSort;
   @ViewChild("paginatorMovs") pagiMov: MatPaginator;
   dsMov = new MatTableDataSource<MovimientoReducido>();
-  displayedColumns = ['nro','destino','origen','tipo','fecha','estado','usuario','transport'];
+  displayedColumns = ['nro','destino','origen','tipo','fecha','estado','usuario','transport','ver'];
 
   agentes: Agente[];
   transportistas: Transportista[];
