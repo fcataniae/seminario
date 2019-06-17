@@ -90,12 +90,12 @@ export class MovimientoService {
                          cantidadBi : number,
                          usuarioAlta : string) : Observable<Movimiento[]>{
     let params = new HttpParams();
-
+    console.log(tipo);
     fechaHasta? (params = params.append('fechaSalidaHasta', this.formatDate(fechaHasta))): null;
     fechaDesde? (params = params.append('fechaSalidaDesde', this.formatDate(fechaDesde))): null;
     origen? (params = params.append('origen', origen.nro.toString())): null;
     destino? (params = params.append('destino',destino.nro.toString())): null;
-    tipo? (params = params.append('tipoMovimientoTipo',tipo.id.toString() ))  : null;
+    tipo? (params = params.append('tipoMovimientoId',tipo.id.toString() ))  : null;
     origen?  (params = params.append('tipoAgenteOrigenNombre',origen.tipoAgente.nombre)): null;
     destino? (params = params.append('tipoAgenteDestinoNombre',destino.tipoAgente.nombre)): null;
     (usuarioAlta && usuarioAlta.trim() !== '')? (params = params.append('usuario',usuarioAlta )): null;
