@@ -53,7 +53,7 @@ import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.compone
 import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -108,7 +108,8 @@ import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimi
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTooltipModule
   ],
   providers: [
     LoginService,
