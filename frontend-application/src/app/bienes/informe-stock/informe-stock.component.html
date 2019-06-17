@@ -1,0 +1,115 @@
+<div class="contenedor">
+<form #informestock="ngForm" >
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Busqueda Simple
+      </mat-panel-title>
+      <mat-panel-description>
+        Rango de fechas de actualización, Local y Bien
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field >
+      <input type="date"
+             placeholder="Ultima fecha actualización desde:"
+             aria-label="text"
+             [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
+             (ngModelChange)="fechaDesde=parseDate($event)"
+             matInput
+             name="fd">
+    </mat-form-field>
+    <mat-form-field >
+      <input type="date"
+             placeholder="Ultima fecha actualización hasta:"
+             aria-label="text"
+             (ngModelChange)="fechaHasta=parseDate($event)"
+             [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
+             matInput
+             name="fh">
+    </mat-form-field>
+    <mat-form-field >
+      <input type="text"
+             placeholder="Bien"
+             aria-label="text"
+             matInput [formControl]="formBi"
+             [matAutocomplete]="bi"
+             name="bi">
+      <mat-autocomplete #bi="matAutocomplete">
+        <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion">
+          {{bi.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field >
+      <input type="text"
+             placeholder="Local"
+             aria-label="text"
+             matInput [formControl]="formLo"
+             [matAutocomplete]="local"
+             name="local">
+      <mat-autocomplete #local="matAutocomplete">
+        <mat-option *ngFor="let local of obserLo | async" [value]="local.denominacion">
+          {{local.denominacion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button class="mat-raised-button mat-primary mat-local"
+            (click)="submitSeach()">Buscar</button>
+  </mat-expansion-panel>
+</mat-accordion>
+
+</form>
+<div *ngIf="dataSource">
+  <mat-table [dataSource]="dataSource" matSort >
+      <ng-container matColumnDef="nro">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>
+        <td mat-cell *matCellDef="let element"> {{element.nro}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="local">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="bien">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bien </th>
+        <td mat-cell *matCellDef="let element"> {{element.descripcionBI}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stocklibre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Libre </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock_libre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stockocupado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Ocupado </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock_ocupado}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stockreservado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Reservado </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock_reservado}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stockdestruido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock Destruido </th>
+        <td mat-cell *matCellDef="let element"> {{element.stock_destruido}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actualizacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ultima Actualización </th>
+        <td mat-cell *matCellDef="let element"> {{element.actualizacion}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </mat-table>
+   <mat-paginator #pagiMov [pageSize]="3" [pageSizeOptions]="[2, 4, 6, 10, 20,30,50]">
+   </mat-paginator>
+   <button class="button-xls" mat-icon-button color="primary" (click)="exportAsExcel()">
+     <mat-icon class="mat-25" >cloud_download</mat-icon> Descargar informe
+   </button>
+</div>
+</div>

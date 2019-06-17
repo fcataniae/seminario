@@ -9,11 +9,12 @@ import { Bien } from '../../model/bienes/bien.model';
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
+import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { VistaMovimientoComponent } from '../vista-movimiento/vista-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
+import { ExcelService } from '../../services/excel.service';
 
 export class MovimientoReducido{
   nro:string;
@@ -32,7 +33,8 @@ export class MovimientoReducido{
 })
 export class InformeMovimientosComponent implements OnInit {
 
-  constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog) {
+  constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog,
+              private _excelService: ExcelService) {
   }
 
   @ViewChild(MatSort) sortMov: MatSort;
@@ -75,7 +77,7 @@ export class InformeMovimientosComponent implements OnInit {
   obserBi = new Observable<Bien[]>();
   obserMo = new Observable<TipoMovimiento[]>();
 
-  movimientos: Movimiento[];
+  movimientos: Movimiento[] = [];
 
 
   ngOnInit() {
@@ -448,7 +450,239 @@ export class InformeMovimientosComponent implements OnInit {
         div2.appendChild(canvas2);
         divprincipal.appendChild(div2);
 
+        let div3 = document.getElementById('divcanvas3');
+        let canvas3 = document.getElementById('canvas3');
 
+        if(canvas3){
+          canvas3.parentNode.removeChild(canvas3);
+          div3.parentNode.removeChild(div3);
+          div3 = document.createElement('div');
+          canvas3 = document.createElement('canvas');
+        }else{
+          div3 = document.createElement('div');
+          canvas3 = document.createElement('canvas');
+        }
+        canvas3.id= 'canvas3';
+        div3.id = 'divcanvas3';
+        div3.classList.add("grafico");div3.classList.add("mat-h2");div3.classList.add("mat-elevation-z2");
+        div3.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+        let dias2 = [];
+        this.movimientos.forEach(m => dias2.push({dia: m.fechaSalida,stockdestruido:0,stockdevuelto:0,stockintercambiado:0, stockenviado: 0,stockrecibido: 0}));
+        dias2 = dias2.filter((ac,index,arr) => {
+          return arr.findIndex( a => a.dia === ac.dia )  === index;
+        });
+        dias2.sort((a,b) => {
+          let d1 = new Date(a.dia).getTime();
+          let d2 = new Date(b.dia).getTime();
+          return  d1-d2;
+        });
+        this.movimientos.forEach(m=>{
+          dias2.forEach(d =>{
+            if(d.dia === m.fechaSalida){
+              if(m.estadoViaje.descrip !=='CANCELADO'){
+                let t = 0;
+                m.itemMovimientos.forEach(i => t += i.cantidad);
+                if(m.tipoMovimiento.tipo === 'ENVIO') d.stockenviado +=t;
+                if(m.tipoMovimiento.tipo === 'RECEPCION') d.stockrecibido +=t;
+                if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.stockdestruido += t;
+                if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.stockdevuelto += t;
+                if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.stockintercambiado +=t;
+              }
+            }
+          });
+        });
+
+        let labeld = [];
+        let senviado = [];
+        let sdestruido = [];
+        let sdevuelto = [];
+        let sintercamb = [];
+        let srecibid = [];
+
+        dias2.forEach(d => {
+          labeld.push(d.dia);
+          senviado.push(d.stockenviado);
+          sdestruido.push(d.stockdestruido);
+          sdevuelto.push(d.stockdestruido);
+          sintercamb.push(d.stockintercambiado);
+          srecibid.push(d.stockrecibido);
+        });
+
+        let chart3 = new Chart(canvas3,{
+          type: (dias2.length == 1) ?'bar':'line',
+          data:((dias2.length == 1)?
+              {
+              labels: ["Devueltos", "Intercambiados", "Recibidos", "Enviados", "Destruidos"],
+                 datasets: [
+                   {
+                     label: "Distribucion flujo de bienes",
+                     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#c45850","ADF20E"],
+                     data: [dias2[0].stockdevuelto,dias2[0].stockintercambiado,dias2[0].stockrecibido, dias2[0].stockenviado,dias2[0].stockdestruido]
+                   }
+                 ]
+               }
+
+              : {
+                labels: labeld,
+                datasets: [{
+                    data: senviado,
+                    label: "Enviados",
+                    borderColor: "#3e95cd",
+                    fill: false
+                  }, {
+                    data: sdestruido,
+                    label: "Destruidos",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                  }, {
+                    data: srecibid,
+                    label: "Recibidos",
+                    borderColor: "#3cba9f",
+                    fill: false
+                  }, {
+                    data: sdevuelto,
+                    label: "Devueltos",
+                    borderColor: "#F35A30",
+                    fill: false
+                  }, {
+                    data: sintercamb,
+                    label: "Intercambiados",
+                    borderColor: "#ADF20E",
+                    fill: false
+                  }
+                ]
+              }),
+          options: {
+            title: {
+              display: true,
+              text: 'Flujo de bienes por dia'
+            }
+          }
+        });
+        console.log(dias2);
+
+        div3.appendChild(canvas3);
+        divprincipal.appendChild(div3);
+
+                let div4 = document.getElementById('divcanvas4');
+                let canvas4 = document.getElementById('canvas4');
+
+                if(canvas4){
+                  canvas4.parentNode.removeChild(canvas4);
+                  div4.parentNode.removeChild(div4);
+                  div4 = document.createElement('div');
+                  canvas4 = document.createElement('canvas');
+                }else{
+                  div4 = document.createElement('div');
+                  canvas4 = document.createElement('canvas');
+                }
+                canvas4.id= 'canvas4';
+                div4.id = 'divcanvas4';
+                div4.classList.add("grafico");div4.classList.add("mat-h2");div4.classList.add("mat-elevation-z2");
+                div4.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+                let dias4 = [];
+                this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosalientet:0,flujosalientep:0,flujoentrantet:0,flujoentrantep:0,flujoperdido:0}));
+                dias4 = dias4.filter((ac,index,arr) => {
+                  return arr.findIndex( a => a.dia === ac.dia )  === index;
+                });
+                dias4.sort((a,b) => {
+                  let d1 = new Date(a.dia).getTime();
+                  let d2 = new Date(b.dia).getTime();
+                  return  d1-d2;
+                });
+                this.movimientos.forEach(m=>{
+                  dias4.forEach(d =>{
+                    if(d.dia === m.fechaSalida){
+                      if(m.estadoViaje.descrip !=='CANCELADO'){
+                        let t = 0;
+                        m.itemMovimientos.forEach(i => t += i.cantidad*i.precio);
+                        if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosalientet +=t;
+                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'PROVEEDOR') d.flujoentrantep +=t;
+                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'TIENDA') d.flujoentrantet +=t;
+                        if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.flujoperdido += t;
+                        if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosalientep += t;
+                        if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosalientep +=t;
+                      }
+                    }
+                  });
+                });
+
+                let labelf = [];
+                let fentrantep = [];
+                let fentrantet = [];
+                let fsalientep = [];
+                let fsalientet = [];
+                let fperdido = [];
+
+                dias4.forEach(d => {
+                  labelf.push(d.dia);
+                  fentrantet.push(d.flujoentrantet);
+                  fentrantep.push(d.flujoentrantep);
+                  fsalientep.push(d.flujosalientep);
+                  fsalientet.push(d.flujosalientet);
+                  fperdido.push(d.flujoperdido);
+                });
+
+                let chart4 = new Chart(canvas4,{
+                  type: (dias4.length == 1) ?'bar':'line',
+                  data:((dias4.length == 1)?
+                      {
+                      labels: ["Flujo saliente proveedor","Flujo saliente tienda", "Fluejo entrante tienda","Fluejo entrante proveedor", "Flujo perdido"],
+                         datasets: [
+                           {
+                             label: "Flujo monetario de operaciones en pesos($)",
+                             backgroundColor: ["#3e95cd", "#8e5ea2","#EF0CA3","#011078","#3cba9f"],
+                             data: [dias4[0].flujosalientep,dias4[0].flujosalientet,dias4[0].flujoentrantet,dias4[0].flujoentrantep,dias4[0].flujoperdido]
+                           }
+                         ]
+                       }
+
+                      : {
+                        labels: labeld,
+                        datasets: [{
+                            data: fsalientet,
+                            label: "Flujo Saliente Tienda",
+                            borderColor: "#3e95cd",
+                            fill: false
+                          },{
+                              data: fsalientep,
+                              label: "Flujo Saliente Proveedor",
+                              borderColor: "#EF0CA3",
+                              fill: false
+                            },
+                          {
+                            data: fentrantet,
+                            label: "Flujo Entrante Tienda",
+                            borderColor: "#8e5ea2",
+                            fill: false
+                          },
+                          {
+                            data: fentrantep,
+                            label: "Flujo Entrante Proveedor",
+                            borderColor: "#011078",
+                            fill: false
+                          }, {
+                            data: fperdido,
+                            label: "Flujo Perdido",
+                            borderColor: "#3cba9f",
+                            fill: false
+                          }
+                        ]
+                      }),
+                  options: {
+                    title: {
+                      display: true,
+                      text: 'Flujo monetario de movimientos por dia en pesos ($)'
+                    }
+                  }
+                });
+
+                div4.appendChild(canvas4);
+                divprincipal.appendChild(div4);
 
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
@@ -461,5 +695,8 @@ export class InformeMovimientosComponent implements OnInit {
       data: { mensaje: msg, titulo: titul, error: err}
     });
     dialog.afterClosed().subscribe();
+  }
+  exportAsExcel(){
+    this._excelService.exportAsExcelFile(this.dsMov.data,'informe-movimientos');
   }
 }

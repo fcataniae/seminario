@@ -8,5 +8,6 @@ export class StockBienEnLocal{
   stock_libre: number;
   stock_reservado: number;
   stock_destruido: number;
+  actualizacion: Date;
 
 }

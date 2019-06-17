@@ -12,6 +12,7 @@ import { InformeComponent } from './bienes/informe/informe.component';
 import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
+import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'home/movimientos/modificar/:mov', component: EnvioComponent},
   { path: 'home/informe/bienes', component: InformeComponent},
   { path: 'home/informe/movimientos', component: InformeMovimientosComponent},
-  { path: 'home/informe/stock', component: TablaStockComponent},
+  { path: 'home/informe/stock', component: InformeStockComponent},
   { path: 'home/informe/deudas', component: TablaDeudasComponent}
 
 ];

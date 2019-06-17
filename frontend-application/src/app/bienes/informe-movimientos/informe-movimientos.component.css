@@ -1,4 +1,4 @@
-.mat-local{
+.mat-local2{
   display: inline-block;
   width: 14vw;
   margin-left: 2vw;
@@ -8,6 +8,23 @@
   width: 20vw;
 }
 
+form div.mat-expansion-panel-content{
+  display:block;
+}
+mat-panel-description{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  width: 100%;
+}
+mat-panel-title{
+  white-space:nowrap;
+}
+mat-form-field{
+  display: inline-block;
+  width: 14vw;
+  margin-left: 2vw;
+}
 form{
   margin-top:  20px;
 }

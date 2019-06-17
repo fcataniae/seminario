@@ -12,7 +12,7 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
     Movimiento findById(Long id);
     List<Movimiento> findByTipoMovimientoAndEstadoViajeAndDestino(TipoMovimiento tipo, EstadoViaje estado, Long nroLocalDestino);
 
-    @Query(value = "select * from Movimiento where (origen = ?1 or destino = ?1 or ?1 is null)" , nativeQuery = true)
+    @Query(value = "select * from Movimiento where (origen = ?1 or destino = ?1 or ?1 is null) order by fechasalida desc limit 100" , nativeQuery = true)
     List<Movimiento> findAllByLocal(Long nro);
 
 

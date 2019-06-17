@@ -53,8 +53,9 @@ import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.compone
 import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
+import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     TablaStockComponent,
     TablaDeudasComponent,
     InformeMovimientosComponent,
-    VistaMovimientoComponent
+    VistaMovimientoComponent,
+    InformeStockComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   providers: [
     LoginService,
