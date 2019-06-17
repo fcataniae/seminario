@@ -7,9 +7,7 @@
   display:inline-block;
   width: 20vw;
 }
-.mat-expansion-panel-content{
-  display: block;
-}
+
 form div.mat-expansion-panel-content{
   display:block;
 }
