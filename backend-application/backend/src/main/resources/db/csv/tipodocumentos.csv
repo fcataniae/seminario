@@ -10,3 +10,4 @@ id,nombredocumento,descripcion,usuarioalta,estado_id,fechaalta
 10,REMITOINTERCAMBIO,Nro de intercambio,system,1,2015-05-05
 11,REMITORECEPCIONINT,Nro de recepcion intercambio,system,1,2015-05-05
 12,REMITODEVOLUCION,Nro de devolucion,system,1,2015-05-05
+13,COMPROBANTEDESTR,Comprobante destruccion,sistem,1,2015-05-05
