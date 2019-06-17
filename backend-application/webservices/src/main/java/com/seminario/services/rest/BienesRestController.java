@@ -402,4 +402,40 @@ public class BienesRestController {
                 bienIntercambiableId
         );
     }
+
+    /**
+     * Obtiene informe stock en base a argumentos brindados
+     *
+     * @param    userDetails       Credenciales de usuario.
+     *                             (debe tener los permisos para ejecutar el método).
+     **/
+    @GetMapping("/informe-stock")
+    public List<Agente> getAllLocales(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(name = "bienIntercambiableId",required = false)  Long bienIntercambiableId,
+            @RequestParam(name = "local",required = false) Long local,
+            @RequestParam(name = "stockOcupadoMin",required = false) Long stockOcupadoMin,
+            @RequestParam(name = "stockOcupadoMax",required = false) Long stockOcupadoMax,
+            @RequestParam(name = "stockLibreMin",required = false) Long stockLibreMin,
+            @RequestParam(name = "stockLibreMax",required = false) Long stockLibreMax,
+            @RequestParam(name = "stockReservadoMin",required = false) Long stockReservadoMin,
+            @RequestParam(name = "stockReservadoMax",required = false) Long stockReservadoMax,
+            @RequestParam(name = "stockDestruidoMin",required = false) Long stockDestruidoMin,
+            @RequestParam(name = "stockDestruidoMax",required = false) Long stockDestruidoMax)throws CustomException
+    {
+        Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
+        return stockBienEnLocalService.getListaStock(
+                usuarioActual,
+                stockOcupadoMin,
+                stockOcupadoMax,
+                stockLibreMin,
+                stockLibreMax,
+                stockReservadoMin,
+                stockReservadoMax,
+                stockDestruidoMin,
+                stockDestruidoMax,
+                local,
+                bienIntercambiableId
+        );
+    }
 }
