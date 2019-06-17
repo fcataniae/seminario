@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
           for(let i=0; i<d.data.labels.length; i++){
             if(d.data.dataset.label === "Distribución de bienes general")
               d.data.labels[i] += ": "+ d.data.dataset.data[i] + " BI";
-            else
+            else if(d.data.dataset.label === "Distribución de bienes en CD Moreno")
               d.data.labels[i] += ": "+ d.data.dataset.data[i];
           }
 
