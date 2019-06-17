@@ -9,11 +9,12 @@ import { Bien } from '../../model/bienes/bien.model';
 import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Estado } from '../../model/bienes/estado.model';
+import { TipoMovimiento } from '../../model/bienes/tipomovimiento.model';
 import { Movimiento } from '../../model/bienes/movimiento.model';
 import { VistaMovimientoComponent } from '../vista-movimiento/vista-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
+import { ExcelService } from '../../services/excel.service';
 
 export class MovimientoReducido{
   nro:string;
@@ -32,7 +33,8 @@ export class MovimientoReducido{
 })
 export class InformeMovimientosComponent implements OnInit {
 
-  constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog) {
+  constructor(private _movimientoService: MovimientoService,private _dialog: MatDialog,
+              private _excelService: ExcelService) {
   }
 
   @ViewChild(MatSort) sortMov: MatSort;
@@ -461,5 +463,8 @@ export class InformeMovimientosComponent implements OnInit {
       data: { mensaje: msg, titulo: titul, error: err}
     });
     dialog.afterClosed().subscribe();
+  }
+  exportAsExcel(){
+    this._excelService.exportAsExcelFile(this.dsMov.data,'informe-movimientos');
   }
 }
