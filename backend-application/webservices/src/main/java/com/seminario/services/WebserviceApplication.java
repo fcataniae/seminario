@@ -42,7 +42,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
     @Override
     public void run(String... args) throws Exception {
         List<Date> fechas = new ArrayList<>();
-        int d = 365;
+        int d = 24;
         for (int i = 1 ; i< d; i++){
             Calendar c = Calendar.getInstance();
             c.setTime(new Date());
@@ -52,13 +52,13 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
         int o[] = {1,2,3,4,5,6};
         int ob[] = {1,2,3,4,5,6,7,8,9,10};
         Random random = new Random();
-        for(int j = 1; j <= 3; j++){
+        for(int j = 1; j <= 20; j++){
         int i2 = 0;
             for(Date fecha : fechas){
 
                 Movimiento m = new Movimiento();
                 EstadoViaje e = new EstadoViaje();
-                e.setId((long)j); //1 pendiente 2 entregado 3 cancelado
+                e.setId((long)(j % 4)+1); //1 pendiente 2 entregado 3 cancelado
                 m.setEstadoViaje(e);
 
                 m.setDestino(7460L);
@@ -99,14 +99,11 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
         }
         int od[] = {1023,1024,1025,1002,1003,1004,1005,1006};
         random = new Random();
-        for(int j = 1; j <= 6; j++){
+        for(int j = 1; j <= 45; j++){
             int i2 = 0;
             for(Date fecha : fechas){
                 try {
                     Movimiento m = new Movimiento();
-                    EstadoViaje e = new EstadoViaje();
-                    e.setId((long) (j % 4) + 1); //1 pendiente 3 entregado 2 cancelado
-                    m.setEstadoViaje(e);
 
                     m.setDestino((long) od[random.nextInt(od.length)]);
                     m.setOrigen(7460L);
@@ -165,7 +162,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
                 int o2 = 0;
                 List<Movimiento> movs = movimiento.getAllMovimientos(usuario.getUsuarioByNombre("admin"));
                 for(Movimiento mov : movs) {
-                    if(mov.getTipoMovimiento().getTipo() =="ENVIO" && o2 % 2 == 0){
+                    if(!mov.getEstadoViaje().getDescrip().equalsIgnoreCase("CANCELADO") && mov.getTipoMovimiento().getTipo().equalsIgnoreCase("ENVIO") && o2 % 2 == 0){
                         mov.setComentario("Cancelado porque algo paso en el viaje y no se pudo completar (?");
                         movimiento.cambiarEstadoMovimiento(usuario.getUsuarioByNombre("admin"),mov.getId(),"CANCELADO", mov.getComentario() + o2);
                     }
