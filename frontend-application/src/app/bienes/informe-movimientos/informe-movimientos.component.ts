@@ -284,7 +284,7 @@ export class InformeMovimientosComponent implements OnInit {
 
   generarGraficos(){
     let divprincipal = document.getElementById("dg");
-console.log(div);
+
     if(this.movimientos){
         let estados: any[]= [];
         this.estadosViajes.forEach(e => { estados.push({estado: e.descrip,cantidad: 0})});
@@ -313,7 +313,10 @@ console.log(div);
         div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
 
         let chart : Chart;
-        chart = new Chart(canvas,{
+
+        let canvasCast = <HTMLCanvasElement> canvas;
+
+        chart = new Chart(canvasCast,{
           type: 'pie',
           data:{
             labels: labels,
@@ -395,7 +398,10 @@ console.log(div);
           cancelados.push(d.cancelado);
           pendientes.push(d.pendiente);
         });
-        let chart2 = new Chart(canvas2,{
+
+        let canvasCast2 = <HTMLCanvasElement> canvas2;
+
+        let chart2 = new Chart(canvasCast2,{
           type: (dias.length == 1) ?'bar':'line',
           data:((dias.length == 1)?
               {

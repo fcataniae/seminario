@@ -58,6 +58,13 @@ export class HomeComponent implements OnInit {
           div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
           div.appendChild(canvas);
 
+          for(let i=0; i<d.data.labels.length; i++){
+            if(d.data.dataset.label === "Distribución de bienes general")
+              d.data.labels[i] += ": "+ d.data.dataset.data[i] + " BI";
+            else
+              d.data.labels[i] += ": "+ d.data.dataset.data[i];
+          }
+
           this.charts[index] = new Chart(canvas,{
             type: 'horizontalBar',
             data:{
@@ -84,60 +91,41 @@ export class HomeComponent implements OnInit {
     }
 
     descargarPDF() {
-      if(this.dashboards){
-        //creo PDF con la imagenes
-        var doc = new jsPDF('portrait','mm','a4');
+       if(this.dashboards){
+         //creo PDF con la imagenes
+         var doc = new jsPDF('portrait','mm','a4');
 
-        var width = doc.internal.pageSize.getWidth();
-        var height = doc.internal.pageSize.getHeight();
+         var width = doc.internal.pageSize.getWidth();
+         var height = doc.internal.pageSize.getHeight();
 
-        //tamaño y axis
-        var ancho = width/2;
-        var alto = height/3;
-        var x = width/4;
-        var y = 0;
-        var movY = height/(1.7);
+         //tamaño y axis
+         var ancho = (80*width)/100;
+         var alto = (40*height)/100;
+         var x = (10*width)/100;
+         var y = 0;
+         var movY = (50*height)/100;
 
-        for(let i=0; i<this.dashboards.length; i++)
-        {
-          var canvas = document.getElementById("chart"+i);
-          console.log(canvas);
+         for(let i=0; i<this.dashboards.length; i++)
+         {
+           let canvas = document.getElementById("chart"+i);
 
-          //creo imagen
-          var canvasCast = <HTMLCanvasElement> canvas;
-          var canvasImg = canvasCast.toDataURL("image/png", 1.0);
+           //creo imagen
+           var canvasCast = <HTMLCanvasElement> canvas;
+           var canvasImg = canvasCast.toDataURL("image/png", 1.0);
 
-          if(i % 2 === 0){
-            if(i !== 0)//Agrego una pagina
-              doc.addPage();
-            var coordY = y;
-          }else{
-            var coordY = y + movY;
-          }
+           if(i % 2 === 0){
+             if(i !== 0)//Agrego una pagina
+               doc.addPage();
+             var coordY = y;
+           }else{
+             var coordY = y + movY;
+           }
 
-          doc.addImage(canvasImg, 'PNG', x, coordY, ancho, alto );
+           doc.addImage(canvasImg, 'PNG', x, coordY, ancho, alto);
+         }
 
-          //Agregar lista
-          let ul = document.createElement("ul");
-
-          for(let j=0; j<this.dashboards[i].data.labels.length; j++){
-            let liLabel = document.createElement("li");
-            liLabel.textContent += this.dashboards[i].data.labels[j];
-            liLabel.textContent += ": " + this.dashboards[i].data.dataset.data[j];
-            ul.appendChild(liLabel);
-          }
-
-          doc.fromHTML(
-            ul,
-            5,
-            coordY+alto,
-            {'width': width}
-          );
-
-        }
-
-        doc.save('dashboard.pdf');
-      }
-    }
+         doc.save('dashboard.pdf');
+       }
+     }
 
 }
