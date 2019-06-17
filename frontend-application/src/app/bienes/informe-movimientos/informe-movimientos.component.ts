@@ -77,7 +77,7 @@ export class InformeMovimientosComponent implements OnInit {
   obserBi = new Observable<Bien[]>();
   obserMo = new Observable<TipoMovimiento[]>();
 
-  movimientos: Movimiento[];
+  movimientos: Movimiento[] = [];
 
 
   ngOnInit() {
@@ -583,7 +583,7 @@ export class InformeMovimientosComponent implements OnInit {
                 div4.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
 
                 let dias4 = [];
-                this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosaliente:0,flujoentrante:0,flujoperdido:0}));
+                this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosalientet:0,flujosalientep:0,flujoentrantet:0,flujoentrantep:0,flujoperdido:0}));
                 dias4 = dias4.filter((ac,index,arr) => {
                   return arr.findIndex( a => a.dia === ac.dia )  === index;
                 });
@@ -598,25 +598,32 @@ export class InformeMovimientosComponent implements OnInit {
                       if(m.estadoViaje.descrip !=='CANCELADO'){
                         let t = 0;
                         m.itemMovimientos.forEach(i => t += i.cantidad*i.precio);
-                        if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosaliente +=t;
-                        if(m.tipoMovimiento.tipo === 'RECEPCION') d.flujoentrante +=t;
+                        if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosalientet +=t;
+                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'PROVEEDOR') d.flujoentrantep +=t;
+                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'TIENDA') d.flujoentrantet +=t;
                         if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.flujoperdido += t;
-                        if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosaliente += t;
-                        if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosaliente +=t;
+                        if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosalientep += t;
+                        if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosalientep +=t;
                       }
                     }
                   });
                 });
 
                 let labelf = [];
-                let fentrante = [];
-                let fsaliente = [];
+                let fentrantep = [];
+                let fentrantet = [];
+                let fsalientep = [];
+                let fsalientet = [];
                 let fperdido = [];
 
                 dias4.forEach(d => {
                   labelf.push(d.dia);
-                  fentrante.push(d.flujoentrante);
-                  fsaliente.push(d.flujosaliente);
+                  fentrantet.push(d.flujoentrantet);
+                  fentrantep.push(d.flujoentrantep);
+                  fsalientep.push(d.flujosalientep);
+                  fsalientet.push(d.flujosalientet);
                   fperdido.push(d.flujoperdido);
                 });
 
@@ -624,12 +631,12 @@ export class InformeMovimientosComponent implements OnInit {
                   type: (dias4.length == 1) ?'bar':'line',
                   data:((dias4.length == 1)?
                       {
-                      labels: ["Flujo saliente", "Fluejo entrante", "Flujo perdido"],
+                      labels: ["Flujo saliente proveedor","Flujo saliente tienda", "Fluejo entrante tienda","Fluejo entrante proveedor", "Flujo perdido"],
                          datasets: [
                            {
                              label: "Flujo monetario de operaciones en pesos($)",
-                             backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
-                             data: [dias4[0].flujosaliente,dias4[0].flujoentrante,dias4[0].flujoperdido]
+                             backgroundColor: ["#3e95cd", "#8e5ea2","#EF0CA3","#011078","#3cba9f"],
+                             data: [dias4[0].flujosalientep,dias4[0].flujosalientet,dias4[0].flujoentrantet,dias4[0].flujoentrantep,dias4[0].flujoperdido]
                            }
                          ]
                        }
@@ -637,14 +644,26 @@ export class InformeMovimientosComponent implements OnInit {
                       : {
                         labels: labeld,
                         datasets: [{
-                            data: fsaliente,
-                            label: "Flujo Saliente",
+                            data: fsalientet,
+                            label: "Flujo Saliente Tienda",
                             borderColor: "#3e95cd",
                             fill: false
-                          }, {
-                            data: fentrante,
-                            label: "Flujo Entrante",
+                          },{
+                              data: fsalientep,
+                              label: "Flujo Saliente Proveedor",
+                              borderColor: "#EF0CA3",
+                              fill: false
+                            },
+                          {
+                            data: fentrantet,
+                            label: "Flujo Entrante Tienda",
                             borderColor: "#8e5ea2",
+                            fill: false
+                          },
+                          {
+                            data: fentrantep,
+                            label: "Flujo Entrante Proveedor",
+                            borderColor: "#011078",
                             fill: false
                           }, {
                             data: fperdido,
