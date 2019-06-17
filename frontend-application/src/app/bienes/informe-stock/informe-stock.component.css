@@ -7,10 +7,31 @@ overflow-x: hidden;
   margin-top: 2px;
 }
 
+.btn-search{
+  align: right;
+}
+
+div.stocks-grl-contenedor{
+  display:flex;
+  float: left;
+}
+
+div.stocks-contenedor{
+  width: 27%;
+}
+
+.stocks-contenedor mat-form-field{
+  width: 7vw;
+}
+
+.stocks-contenedor p{
+  margin: 0px 0px 0px 12%;
+}
 .mat-local{
   display: inline-block;
-  width: 25vw;
+  width: 20%;
   margin-left: 2vw;
+  float: right;
 }
 .midle{
   display:flex;

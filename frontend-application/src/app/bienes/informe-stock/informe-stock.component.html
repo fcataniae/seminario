@@ -55,8 +55,90 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-button class="mat-raised-button mat-primary mat-local"
-            (click)="submitSeach()"><mat-icon class="mat-18" >search</mat-icon> Buscar</button>
+    <div class="stocks-grl-contenedor">
+      <div class="stocks-contenedor">
+        <p>Stock Libre</p>
+
+      <mat-form-field class="mat-local">
+        <input type="number"
+               placeholder="Max"
+               aria-label="text"
+               [(ngModel)]="stockLibreMax"
+               matInput
+               name="slmax">
+      </mat-form-field>
+      <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Min"
+             aria-label="text"
+             [(ngModel)]="stockLibreMin"
+             matInput
+             name="slmin">
+    </mat-form-field>
+      </div>
+      <div class="stocks-contenedor">
+        <p>Stock Ocupado</p>
+        <mat-form-field class="mat-local">
+          <mat-form-field class="mat-local">
+            <input type="number"
+                   placeholder="Max"
+                   aria-label="text"
+                   [(ngModel)]="stockOcupadoMax"
+                   matInput
+                   name="somax">
+          </mat-form-field>
+          <input type="number"
+                 placeholder="Min"
+                 aria-label="text"
+                 [(ngModel)]="stockOcupadoMin"
+                 matInput
+                 name="somin">
+        </mat-form-field>
+
+
+      </div>
+      <div class="stocks-contenedor">
+        <p>Stock Reservado</p>
+        <mat-form-field class="mat-local">
+          <input type="number"
+                 placeholder="Max"
+                 aria-label="text"
+                 [(ngModel)]="stockReservadoMax"
+                 matInput
+                 name="srmax">
+        </mat-form-field>
+        <mat-form-field class="mat-local">
+          <input type="number"
+                 placeholder="Min"
+                 aria-label="text"
+                 [(ngModel)]="stockReservadoMin"
+                 matInput
+                 name="srmin">
+        </mat-form-field>
+      </div>
+      <div class="stocks-contenedor">
+        <p>Stock Destruido</p>
+        <mat-form-field class="mat-local">
+          <input type="number"
+                 placeholder="Max"
+                 aria-label="text"
+                 [(ngModel)]="stockDestruidoMax"
+                 matInput
+                 name="sdmax">
+        </mat-form-field>
+        <mat-form-field class="mat-local">
+          <input type="number"
+                 placeholder="Min"
+                 aria-label="text"
+                 [(ngModel)]="stockDestruidoMin"
+                 matInput
+                 name="sdmin">
+        </mat-form-field>
+
+      </div>
+    </div>
+    <button mat-button class="mat-raised-button mat-primary mat-local btn-search"
+        (click)="submitSeach()"><mat-icon class="mat-18" >search</mat-icon> Buscar</button>
   </mat-expansion-panel>
 </mat-accordion>
 

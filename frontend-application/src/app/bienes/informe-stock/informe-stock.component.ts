@@ -47,14 +47,14 @@ export class InformeStockComponent implements OnInit {
   fechaDesde: Date;
   local: Agente;
   bien: Bien;
-  cantMinStockLibre: number;
-  cantMaxStockLibre: number;
-  cantMinStockOcupado: number;
-  cantMaxStockOcupado: number;
-  cantMinStockReservado: number;
-  cantMaxStockReservado: number;
-  cantMinStockDestruido: number;
-  cantMaxStockDestruido: number;
+  stockOcupadoMin: number;
+  stockOcupadoMax: number;
+  stockLibreMin: number;
+  stockLibreMax: number;
+  stockReservadoMin: number;
+  stockReservadoMax: number;
+  stockDestruidoMin: number;
+  stockDestruidoMax: number;
 
   bienes : Bien[];
   locales: Agente[];
@@ -110,14 +110,14 @@ export class InformeStockComponent implements OnInit {
             this.fechaHasta,
             this.local,
             this.bien,
-            this.cantMinStockLibre,
-            this.cantMaxStockLibre,
-            this.cantMinStockOcupado,
-            this.cantMaxStockOcupado,
-            this.cantMinStockReservado,
-            this.cantMaxStockReservado,
-            this.cantMinStockDestruido,
-            this.cantMaxStockDestruido
+            this.stockLibreMin,
+            this.stockLibreMax,
+            this.stockOcupadoMin,
+            this.stockOcupadoMax,
+            this.stockReservadoMin,
+            this.stockReservadoMax,
+            this.stockDestruidoMin,
+            this.stockDestruidoMax
         ).subscribe( res=>{
              console.log(res);
              this.dataSource.data = this.toArray(res);
