@@ -283,10 +283,166 @@ export class InformeMovimientosComponent implements OnInit {
   }
 
   generarGraficos(){
-    let div = document.getElementById("dg");
-
+    let divprincipal = document.getElementById("dg");
+console.log(div);
     if(this.movimientos){
+        let estados: any[]= [];
+        this.estadosViajes.forEach(e => { estados.push({estado: e.descrip,cantidad: 0})});
+        this.movimientos.forEach(m=> {estados.forEach(e=> e.estado === m.estadoViaje.descrip? e.cantidad++:e.cantidad)});
+        estados.forEach(e => e.cantidad = ( e.cantidad / this.movimientos.length)*100);
+        let labels=[];
+        let data=[];
+        estados.forEach( e => { data.push(e.cantidad);labels.push(e.estado)})
 
+        let div = document.getElementById('divcanvas1');
+        let canvas = document.getElementById('canvas1');
+        if(canvas){
+          canvas.parentNode.removeChild(canvas);
+          div.parentNode.removeChild(div);
+          canvas = document.createElement('canvas');
+          canvas.id= 'canvas1';
+          div.classList.add("grafico");div.classList.add("mat-h2");div.classList.add("mat-elevation-z2");
+          div.id= 'divcanvas1';
+        }else{
+          div = document.createElement('div');
+          div.id= 'divcanvas1';
+          div.classList.add("grafico");div.classList.add("mat-h2");div.classList.add("mat-elevation-z2");
+          canvas = document.createElement('canvas');
+          canvas.id= 'canvas1';
+        }
+        div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+        let chart : Chart;
+        chart = new Chart(canvas,{
+          type: 'pie',
+          data:{
+            labels: labels,
+            datasets:[{
+              label: "Distribucion de estados de movimientos",
+              data: data,
+              backgroundColor:' rgba(54, 162, 235, 1)'
+            }]
+          },
+          options: {
+            title:{
+               text:"Distribucion de estados de movimientos",
+               display:true,
+               fontSize: 18
+            },
+          }
+        });
+        div.appendChild(canvas);
+        divprincipal.appendChild(div);
+
+
+        let dias=[];
+        this.movimientos.forEach(m => dias.push({dia:m.fechaSalida,total:0,entregado:0,pendiente:0,cancelado:0}));
+        dias = dias.filter((ac,index,arr) => {
+          return arr.findIndex( a => a.dia === ac.dia )  === index;
+        });
+
+        this.movimientos.forEach(
+          m => {
+            dias.forEach(d => {
+              if(d.dia === m.fechaSalida){
+                d.total++;
+                if(m.estadoViaje.descrip==='ENTREGADO'){
+                  d.entregado++;
+                }else if(m.estadoViaje.descrip ==='PENDIENTE'){
+                  d.pendiente++;
+                }else if(m.estadoViaje.descrip === 'CANCELADO'){
+                  d.cancelado++;
+                }
+              }
+            })
+          }
+        );
+        let div2 = document.getElementById('divcanvas2');
+        let canvas2 = document.getElementById('canvas2');
+
+        if(canvas2){
+          canvas2.parentNode.removeChild(canvas2);
+          div2.parentNode.removeChild(div2);
+          div2 = document.createElement('div');
+          div2.classList.add("grafico");div2.classList.add("mat-h2");div2.classList.add("mat-elevation-z2");
+          canvas2 = document.createElement('canvas');
+          canvas2.id= 'canvas2';
+          div2.id = 'divcanvas2';
+        }else{
+          div2 = document.createElement('div');
+          canvas2 = document.createElement('canvas');
+          canvas2.id= 'canvas2';
+          div2.id = 'divcanvas2';
+          div2.classList.add("grafico");div2.classList.add("mat-h2");div2.classList.add("mat-elevation-z2");
+        }
+        div2.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+        let label =[];
+        let entregados = [];
+        let cancelados = [];
+        let pendientes = [];
+        let totales = [];
+
+        dias.sort((a,b) => {
+          let d1 = new Date(a.dia).getTime();
+          let d2 = new Date(b.dia).getTime();
+          return  d1-d2;
+        });
+        dias.forEach(d => {
+          label.push(d.dia);
+          entregados.push(d.entregado);
+          totales.push(d.total);
+          cancelados.push(d.cancelado);
+          pendientes.push(d.pendiente);
+        });
+        let chart2 = new Chart(canvas2,{
+          type: (dias.length == 1) ?'bar':'line',
+          data:((dias.length == 1)?
+              {
+              labels: ["Totales", "Entregados", "Pendientes", "Cancelados"],
+                 datasets: [
+                   {
+                     label: "Distribucion de estados de movimientos",
+                     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#c45850"],
+                     data: [dias[0].total,dias[0].entregado,dias[0].pendiente, dias[0].cancelado]
+                   }
+                 ]
+               }
+
+              : {
+                labels: label,
+                datasets: [{
+                    data: totales,
+                    label: "Totales",
+                    borderColor: "#3e95cd",
+                    fill: false
+                  }, {
+                    data: entregados,
+                    label: "Entregados",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                  }, {
+                    data: cancelados,
+                    label: "Cancelados",
+                    borderColor: "#3cba9f",
+                    fill: false
+                  }, {
+                    data: pendientes,
+                    label: "Pendientes",
+                    borderColor: "#F35A30",
+                    fill: false
+                  }
+                ]
+              }),
+          options: {
+            title: {
+              display: true,
+              text: 'Distribucion de los movimientos por estado/dia'
+            }
+          }
+        });
+        div2.appendChild(canvas2);
+        divprincipal.appendChild(div2);
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
     }
