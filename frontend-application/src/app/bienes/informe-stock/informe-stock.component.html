@@ -1,50 +1,65 @@
+<div class="contenedor">
 <form #informestock="ngForm" >
-  <mat-form-field class="mat-local">
-    <input type="date"
-           placeholder="Ultima fecha actualización desde:"
-           aria-label="text"
-           [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
-           (ngModelChange)="fechaDesde=parseDate($event)"
-           matInput
-           name="fd">
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="date"
-           placeholder="Ultima fecha actualización hasta:"
-           aria-label="text"
-           (ngModelChange)="fechaHasta=parseDate($event)"
-           [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
-           matInput
-           name="fh">
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Bien"
-           aria-label="text"
-           matInput [formControl]="formBi"
-           [matAutocomplete]="bi"
-           name="bi">
-    <mat-autocomplete #bi="matAutocomplete">
-      <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion">
-        {{bi.descripcion}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Local"
-           aria-label="text"
-           matInput [formControl]="formLo"
-           [matAutocomplete]="local"
-           name="local">
-    <mat-autocomplete #local="matAutocomplete">
-      <mat-option *ngFor="let local of obserLo | async" [value]="local.denominacion">
-        {{local.denominacion}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button mat-button class="mat-raised-button mat-primary mat-local"
-          (click)="submitSeach()">Buscar</button>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Busqueda Simple
+      </mat-panel-title>
+      <mat-panel-description>
+        Rango de fechas de actualización, Local y Bien
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field class="mat-local">
+      <input type="date"
+             placeholder="Ultima fecha actualización desde:"
+             aria-label="text"
+             [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
+             (ngModelChange)="fechaDesde=parseDate($event)"
+             matInput
+             name="fd">
+    </mat-form-field>
+    <mat-form-field class="mat-local">
+      <input type="date"
+             placeholder="Ultima fecha actualización hasta:"
+             aria-label="text"
+             (ngModelChange)="fechaHasta=parseDate($event)"
+             [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
+             matInput
+             name="fh">
+    </mat-form-field>
+    <mat-form-field class="mat-local">
+      <input type="text"
+             placeholder="Bien"
+             aria-label="text"
+             matInput [formControl]="formBi"
+             [matAutocomplete]="bi"
+             name="bi">
+      <mat-autocomplete #bi="matAutocomplete">
+        <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion">
+          {{bi.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="mat-local">
+      <input type="text"
+             placeholder="Local"
+             aria-label="text"
+             matInput [formControl]="formLo"
+             [matAutocomplete]="local"
+             name="local">
+      <mat-autocomplete #local="matAutocomplete">
+        <mat-option *ngFor="let local of obserLo | async" [value]="local.denominacion">
+          {{local.denominacion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button class="mat-raised-button mat-primary mat-local"
+            (click)="submitSeach()">Buscar</button>
+  </mat-expansion-panel>
+</mat-accordion>
+
 </form>
 <div *ngIf="dataSource">
   <mat-table [dataSource]="dataSource" matSort >
@@ -96,4 +111,5 @@
    <button class="button-xls" mat-icon-button color="primary" (click)="exportAsExcel()">
      <mat-icon class="mat-25" >cloud_download</mat-icon> Descargar informe
    </button>
+</div>
 </div>

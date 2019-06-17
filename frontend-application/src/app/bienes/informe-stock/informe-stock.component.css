@@ -1,15 +1,26 @@
+div.contenedor{
+overflow-y: scroll;
+overflow-x: hidden;
+}
+
+
 .mat-local{
-  display: inline-block;
+  display: flex;
   width: 25vw;
   margin-left: 2vw;
 }
 .midle{
-  display:inline-block;
+  display:flex;
   width: 20vw;
 }
 
 form{
-  margin-top:  20px;
+  margin-top:  60px;
+}
+
+form div {
+  margin-bottom: 10px;
+  align-items: normal;
 }
 
 .mat-column-nro{

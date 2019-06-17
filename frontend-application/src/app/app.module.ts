@@ -55,7 +55,7 @@ import { InformeMovimientosComponent } from './bienes/informe-movimientos/inform
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
 import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -111,7 +111,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatNativeDateModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule
   ],
   providers: [
     LoginService,
