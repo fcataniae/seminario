@@ -1,19 +1,122 @@
 
 <div class="mat-elevation-z8 margin contenedor">
-  <h3>Listado de stock</h3>
   <div fxLayout fxLayoutAlign="left center">
     <button class="button-back" mat-icon-button color="primary" (click)="redirectToHome()">
       <mat-icon class="mat-18" >arrow_back_ios</mat-icon> Atras
     </button>
-    <mat-form-field class= "input-search" >
-      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
-    </mat-form-field>
+    <h3>Listado de stock</h3>
     <button class="button-xls" mat-icon-button color="primary" (click)="exportAsExcel()">
       <mat-icon class="mat-18" >cloud_download</mat-icon> Descargar informe
     </button>
   </div>
 
-  <mat-table #sortStock="matSort" [dataSource]="dataSource" matSort >
+  <form #informemovimiento="ngForm" >
+    <mat-form-field class="mat-local">
+      <input type="text"
+             placeholder="Bien"
+             aria-label="text"
+             matInput [formControl]="formBi"
+             [matAutocomplete]="bi"
+             name="bi">
+      <mat-autocomplete #bi="matAutocomplete">
+        <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion" matTooltip="{{bi.descripcion}}">
+          {{bi.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="text"
+             placeholder="Local"
+             aria-label="text"
+             matInput [formControl]="formLocal"
+             [matAutocomplete]="lo"
+             name="lo">
+      <mat-autocomplete #lo="matAutocomplete">
+        <mat-option *ngFor="let lo of obserLocal | async" [value]="lo.denominacion" matTooltip="{{lo.denominacion}}">
+          {{lo.denominacion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock ocupado Min"
+             aria-label="text"
+             [(ngModel)]="stockOcupadoMin"
+             matInput
+             name="somin">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock ocupado Max"
+             aria-label="text"
+             [(ngModel)]="stockOcupadoMax"
+             matInput
+             name="somax">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock libre Min"
+             aria-label="text"
+             [(ngModel)]="stockLibreMin"
+             matInput
+             name="slmin">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock libre Max"
+             aria-label="text"
+             [(ngModel)]="stockLibreMax"
+             matInput
+             name="slmax">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock reservado Min"
+             aria-label="text"
+             [(ngModel)]="stockReservadoMin"
+             matInput
+             name="srmin">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock reservado Max"
+             aria-label="text"
+             [(ngModel)]="stockReservadoMax"
+             matInput
+             name="srmax">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock destruido Min"
+             aria-label="text"
+             [(ngModel)]="stockDestruidoMin"
+             matInput
+             name="sdmin">
+    </mat-form-field>
+
+    <mat-form-field class="mat-local">
+      <input type="number"
+             placeholder="Stock destruido Max"
+             aria-label="text"
+             [(ngModel)]="stockDestruidoMax"
+             matInput
+             name="sdmax">
+    </mat-form-field>
+
+    <button mat-button class="mat-raised-button mat-primary mat-local"
+            (click)="submitSearch()">Buscar</button>
+
+  </form>
+
+    <mat-table #sortStock="matSort" [dataSource]="dataSource" matSort >
 
     <ng-container matColumnDef="nro">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>

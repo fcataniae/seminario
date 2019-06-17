@@ -11,6 +11,7 @@ import { Estado } from '../model/bienes/estado.model';
 import { Transportista } from '../model/bienes/transportista.model';
 import { Dashboard } from '../model/bienes/dashboard.model';
 import { IntercambioProv } from '../model/bienes/intercambioprovedor.model';
+import { Local } from '../model/bienes/local.model';
 
 @Injectable({
   providedIn: 'root'
@@ -118,4 +119,31 @@ export class MovimientoService {
 
     return [year, month, day].join('-');
 }
+
+getInformeStock(
+                bien : Bien,
+                local: Agente,
+                stockOcupadoMin: number,
+                stockOcupadoMax: number,
+                stockLibreMin: number,
+                stockLibreMax: number,
+                stockReservadoMin: number,
+                stockReservadoMax: number,
+                stockDestruidoMin: number,
+                stockDestruidoMax: number) : Observable<Local[]>{
+    let params = new HttpParams();
+
+    bien? (params = params.append('bienIntercambiableId',bien.id.toString())): null;
+    local? (params = params.append('local', local.nro.toString())): null;
+    (stockOcupadoMin && stockOcupadoMin !== 0) ? (params = params.append('stockOcupadoMin', stockOcupadoMin.toString())): null;
+    (stockOcupadoMax && stockOcupadoMax !== 0) ? (params = params.append('stockOcupadoMax', stockOcupadoMin.toString())): null;
+    (stockLibreMin && stockLibreMin !== 0) ? (params = params.append('stockLibreMin', stockLibreMin.toString())): null;
+    (stockLibreMax && stockLibreMax !== 0) ? (params = params.append('stockLibreMax', stockLibreMax.toString())): null;
+    (stockReservadoMin && stockReservadoMin !== 0) ? (params = params.append('stockReservadoMin', stockReservadoMin.toString())): null;
+    (stockReservadoMax && stockReservadoMax !== 0) ? (params = params.append('stockReservadoMax', stockReservadoMax.toString())): null;
+    (stockDestruidoMin && stockDestruidoMin !== 0) ? (params = params.append('stockDestruidoMin', stockDestruidoMin.toString())): null;
+    (stockDestruidoMax && stockDestruidoMax !== 0) ? (params = params.append('stockDestruidoMax', stockDestruidoMax.toString())): null;
+    console.log(params);
+    return this._http.get<Local[]>(environment.serviceUrl.replace('service','bienes')+ 'stock-locales', {params : params});
+  }
 }
