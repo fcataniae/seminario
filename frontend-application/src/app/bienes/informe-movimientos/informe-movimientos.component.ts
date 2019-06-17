@@ -450,7 +450,120 @@ export class InformeMovimientosComponent implements OnInit {
         div2.appendChild(canvas2);
         divprincipal.appendChild(div2);
 
+        let div3 = document.getElementById('divcanvas3');
+        let canvas3 = document.getElementById('canvas3');
 
+        if(canvas3){
+          canvas3.parentNode.removeChild(canvas3);
+          div3.parentNode.removeChild(div3);
+          div3 = document.createElement('div');
+          canvas3 = document.createElement('canvas');
+        }else{
+          div3 = document.createElement('div');
+          canvas3 = document.createElement('canvas');
+        }
+        canvas3.id= 'canvas3';
+        div3.id = 'divcanvas3';
+        div3.classList.add("grafico");div3.classList.add("mat-h2");div3.classList.add("mat-elevation-z2");
+        div3.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+        let dias2 = [];
+        this.movimientos.forEach(m => dias2.push({dia: m.fechaSalida,stockdestruido:0,stockdevuelto:0,stockintercambiado:0, stockenviado: 0,stockrecibido: 0}));
+        dias2 = dias2.filter((ac,index,arr) => {
+          return arr.findIndex( a => a.dia === ac.dia )  === index;
+        });
+        dias2.sort((a,b) => {
+          let d1 = new Date(a.dia).getTime();
+          let d2 = new Date(b.dia).getTime();
+          return  d1-d2;
+        });
+        this.movimientos.forEach(m=>{
+          dias2.forEach(d =>{
+            if(d.dia === m.fechaSalida){
+              if(m.estadoViaje.descrip !=='CANCELADO'){
+                let t = 0;
+                m.itemMovimientos.forEach(i => t += i.cantidad);
+                if(m.tipoMovimiento.tipo === 'ENVIO') d.stockenviado +=t;
+                if(m.tipoMovimiento.tipo === 'RECEPCION') d.stockrecibido +=t;
+                if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.stockdestruido += t;
+                if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.stockdevuelto += t;
+                if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.stockintercambiado +=t;
+              }
+            }
+          });
+        });
+
+        let labeld = [];
+        let senviado = [];
+        let sdestruido = [];
+        let sdevuelto = [];
+        let sintercamb = [];
+        let srecibid = [];
+
+        dias2.forEach(d => {
+          labeld.push(d.dia);
+          senviado.push(d.stockenviado);
+          sdestruido.push(d.stockdestruido);
+          sdevuelto.push(d.stockdestruido);
+          sintercamb.push(d.stockintercambiado);
+          srecibid.push(d.stockrecibido);
+        });
+
+        let chart3 = new Chart(canvas3,{
+          type: (dias2.length == 1) ?'bar':'line',
+          data:((dias2.length == 1)?
+              {
+              labels: ["Devueltos", "Intercambiados", "Recibidos", "Enviados", "Destruidos"],
+                 datasets: [
+                   {
+                     label: "Distribucion flujo de bienes",
+                     backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#c45850","ADF20E"],
+                     data: [dias2[0].stockdevuelto,dias2[0].stockintercambiado,dias2[0].stockrecibido, dias2[0].stockenviado,dias2[0].stockdestruido]
+                   }
+                 ]
+               }
+
+              : {
+                labels: labeld,
+                datasets: [{
+                    data: senviado,
+                    label: "Enviados",
+                    borderColor: "#3e95cd",
+                    fill: false
+                  }, {
+                    data: sdestruido,
+                    label: "Destruidos",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                  }, {
+                    data: srecibid,
+                    label: "Recibidos",
+                    borderColor: "#3cba9f",
+                    fill: false
+                  }, {
+                    data: sdevuelto,
+                    label: "Devueltos",
+                    borderColor: "#F35A30",
+                    fill: false
+                  }, {
+                    data: sintercamb,
+                    label: "Intercambiados",
+                    borderColor: "#ADF20E",
+                    fill: false
+                  }
+                ]
+              }),
+          options: {
+            title: {
+              display: true,
+              text: 'Flujo de bienes por dia'
+            }
+          }
+        });
+        console.log(dias2);
+
+        div3.appendChild(canvas3);
+        divprincipal.appendChild(div3);
 
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
