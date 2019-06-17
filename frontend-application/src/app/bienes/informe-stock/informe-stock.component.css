@@ -3,6 +3,9 @@ overflow-y: scroll;
 overflow-x: hidden;
 }
 
+.tabla{
+  margin-top: 2px;
+}
 
 .mat-local{
   display: inline-block;

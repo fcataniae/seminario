@@ -135,11 +135,11 @@
                name="ua">
       </mat-form-field>
       <button mat-button class="mat-raised-button mat-primary mat-local2"
-              (click)="submitSeach()">Buscar</button>
+              (click)="submitSeach()"><mat-icon class="mat-18">search</mat-icon> Buscar</button>
     </mat-expansion-panel>
   </mat-accordion>
 </form>
-<div *ngIf="dsMov || movimientos">
+<div *ngIf="dsMov || movimientos" class="tabla">
   <mat-table [dataSource]="dsMov" matSort >
 
    <ng-container matColumnDef="nro">
