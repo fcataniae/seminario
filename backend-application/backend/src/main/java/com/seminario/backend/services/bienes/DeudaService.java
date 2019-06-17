@@ -53,18 +53,6 @@ public class DeudaService {
         actualizarDeuda(LocalOrigen, ProveedorDestino, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true, CotizacionFecha);
     }
 
-    public void aumentarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva, Date CotizacionFecha)   {
-        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
-        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
-        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, false, CotizacionFecha);
-    }
-
-    public void restarDeudaProveedorACD(Long CD, Long Proveedor, Long biId, Long cantNueva, Date CotizacionFecha)   {
-        TipoAgente tipoAgenteOrigen = tipoAgenteRepository.findByNombre("PROVEEDOR");
-        TipoAgente tipoAgenteDestino = tipoAgenteRepository.findByNombre("CD");
-        actualizarDeuda(Proveedor, CD, tipoAgenteOrigen, tipoAgenteDestino, biId, cantNueva, true, CotizacionFecha);
-    }
-
     private void actualizarDeuda(Long AgenteOrigen, Long AgenteDestino,
                                  TipoAgente tipoAgenteOrigen, TipoAgente tipoAgenteDestino,
                                  Long biId, Long cantNueva, boolean resta, Date CotizacionFecha){

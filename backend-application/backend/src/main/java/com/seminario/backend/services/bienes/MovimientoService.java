@@ -146,17 +146,17 @@ public class MovimientoService {
                     } else {
                         if ((m.getEstadoViaje().getDescrip().equals("ENTREGADO") || m.getEstadoViaje().getDescrip().equals("PENDIENTE")) && nuevoEstado.getDescrip().equalsIgnoreCase("CANCELADO")) {
                             cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE", "OCUPADO");
-                            desconfimarMovimiento(m);
+                            desconfirmarMovimiento(m);
                             cancelarStockYDeuda(m);
                         } else if ((m.getEstadoViaje().getDescrip().equals("PENDIENTE")) && (nuevoEstado.getDescrip().equalsIgnoreCase("ENTREGADO"))) {
                             cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "LIBRE", "OCUPADO");
-                            confimarMovimiento(m);
+                            confirmarMovimiento(m);
                         } else if ((m.getEstadoViaje().getDescrip().equals("ENTREGADO")) && (nuevoEstado.getDescrip().equalsIgnoreCase("PENDIENTE"))) {
                             cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "OCUPADO", "LIBRE");
-                            desconfimarMovimiento(m);
+                            desconfirmarMovimiento(m);
                         } else if ((m.getEstadoViaje().getDescrip().equals("ENTREGADO")) && (nuevoEstado.getDescrip().equalsIgnoreCase("CANCELADO"))) {
                             cambiarEstadoRecursosAsignados(m.getRecursosAsignados(), "OCUPADO", "LIBRE");
-                            desconfimarMovimiento(m);
+                            desconfirmarMovimiento(m);
                         }
                         m.setComentario(comentario);
                         m.setEstadoViaje(nuevoEstado);
@@ -220,7 +220,7 @@ public class MovimientoService {
         }
     }
 
-    private void confimarMovimiento(Movimiento movimiento) {
+    private void confirmarMovimiento(Movimiento movimiento) {
         Local cd = localRepository.findByNro(new Long("7460"));
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         String tipoMov = movimiento.getTipoMovimiento().getTipo();
@@ -229,11 +229,6 @@ public class MovimientoService {
             // Actualizo StockReservado
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-//                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-//                    deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),today);
-//                } else {
-//                    deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), today);
-//                }
                 deudaService.restarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), today);
             }
             // Vales en estado Reservado
@@ -242,7 +237,7 @@ public class MovimientoService {
                 IntercambioProveedor ip = intercambioProveedorRepository.findByProveedorAndBienIntercambiableEntregado(proveedorRepository.findByNro(movimiento.getDestino()), item.getBienIntercambiable());
                 Long cantidadEsperada = ip.getCantidadRecibida() * (item.getCantidad() / ip.getCantidadEntregada());
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                deudaService.aumentarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada,today);
+                deudaService.restarDeudaCDaProveedor(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada,today);
             }
         } else if (tipoMov.equals("ENVIO")){
             for (ItemMovimiento item: items) {
@@ -253,7 +248,7 @@ public class MovimientoService {
         }
     }
 
-    private void desconfimarMovimiento(Movimiento movimiento) {
+    private void desconfirmarMovimiento(Movimiento movimiento) {
         Local cd = localRepository.findByNro(new Long("7460"));
         Set<ItemMovimiento> items = movimiento.getItemMovimientos();
         String tipoMov = movimiento.getTipoMovimiento().getTipo();
@@ -262,11 +257,6 @@ public class MovimientoService {
             // Actualizo StockReservado
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-//                if (item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-//                    deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(),fechaCotizacion);
-//                } else {
-//                    deudaService.aumentarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
-//                }
                 deudaService.aumentarDeudaCDaProveedor(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
             }
             // Vales en estado Reservado
@@ -275,9 +265,9 @@ public class MovimientoService {
                 IntercambioProveedor ip = intercambioProveedorRepository.findByProveedorAndFechaLessEquals(movimiento.getDestino(), item.getBienIntercambiable().getId(), fechaCotizacion);
                 Long cantidadEsperada = ip.getCantidadRecibida() * (item.getCantidad() / ip.getCantidadEntregada());
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                deudaService.restarDeudaProveedorACD(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada, fechaCotizacion);
+                deudaService.aumentarDeudaCDaProveedor(movimiento.getDestino(),movimiento.getDestino(), ip.getBienIntercambiableRecibido().getId(),cantidadEsperada, fechaCotizacion);
             }
-        } else if (tipoMov.equals("ENVIO")){
+        } else if (tipoMov.equals("ENVIO")) {
             for (ItemMovimiento item: items) {
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
                 //# TODO: ATENCION! cambiar linea de abaja por : stockBienEnLocalService.aumentarStockOcupado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
@@ -427,9 +417,6 @@ public class MovimientoService {
                     } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
                         ProveedorId = chep.getNro();
                     }
-//                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-//                        deudaService.restarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaAlta);
-//                    }
                     deudaService.restarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaAlta);
                 }
             }
@@ -445,14 +432,6 @@ public class MovimientoService {
                 stockBienEnLocalService.restarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
 
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
-
-            for (ItemMovimiento item: items) {
-                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
-                    stockBienEnLocalService.restarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                }
-                deudaService.aumentarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaAlta);
-            }
         } else if (movimiento.getTipoMovimiento().getTipo().equals("DESTRUCCION")) {
             for (ItemMovimiento item: items) {
                 String stk = "STOCK_" + item.getEstadoRecurso().getDescrip();
@@ -518,9 +497,6 @@ public class MovimientoService {
                     } else if (item.getBienIntercambiable().getSubtipo().equals("CHEP")) {
                         ProveedorId = chep.getNro();
                     }
-//                    if (!item.getBienIntercambiable().getTipo().equals("ENVASE")) {
-//                        deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaCotizacion);
-//                    }
                     deudaService.aumentarDeudaCDaProveedor(cd.getNro(),ProveedorId, item.getBienIntercambiable().getId(), item.getCantidad(), fechaCotizacion);
                 }
             }
@@ -537,15 +513,7 @@ public class MovimientoService {
                 stockBienEnLocalService.aumentarStockReservado(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
             }
 
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("RECEPCIONINTERCAMBIO")) {
-
-            for (ItemMovimiento item: items) {
-                if (item.getEstadoRecurso().getDescrip().equals("LIBRE")) {
-                    stockBienEnLocalService.aumentarStockLibre(movimiento.getDestino(), item.getBienIntercambiable().getId(), item.getCantidad());
-                }
-                deudaService.restarDeudaProveedorACD(cd.getNro(),movimiento.getDestino(), item.getBienIntercambiable().getId(),item.getCantidad(), fechaCotizacion);
-            }
-        } else if (movimiento.getTipoMovimiento().getTipo().equals("DESTRUCCION")) {
+        }  else if (movimiento.getTipoMovimiento().getTipo().equals("DESTRUCCION")) {
             for (ItemMovimiento item: items) {
                 String stk = "STOCK_" + item.getEstadoRecurso().getDescrip();
                 if (stk.equals("STOCK_OCUPADO") ||stk.equals("STOCK_LIBRE") || stk.equals("STOCK_DESTRUIDO")){
