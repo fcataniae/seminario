@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MovimientoService } from '../../services/movimiento.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatDialog} from '@angular/material';
-import { Dashboard } from '../../model/bienes/dashboard.model';
-import { Chart } from 'chart.js';
 import { Agente } from '../../model/bienes/agente.model';
+import { Chart } from 'chart.js';
 import { Transportista } from '../../model/bienes/transportista.model';
 import { Recurso } from '../../model/bienes/recurso.model';
 import { Bien } from '../../model/bienes/bien.model';
@@ -284,7 +283,6 @@ export class InformeMovimientosComponent implements OnInit {
 
   generarGraficos(){
     let divprincipal = document.getElementById("dg");
-
     if(this.movimientos){
         let estados: any[]= [];
         this.estadosViajes.forEach(e => { estados.push({estado: e.descrip,cantidad: 0})});
@@ -449,6 +447,9 @@ export class InformeMovimientosComponent implements OnInit {
         });
         div2.appendChild(canvas2);
         divprincipal.appendChild(div2);
+
+
+
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
     }
