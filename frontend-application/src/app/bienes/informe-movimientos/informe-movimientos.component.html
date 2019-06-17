@@ -1,132 +1,143 @@
 <form #informemovimiento="ngForm" >
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Bien"
-           aria-label="text"
-           matInput [formControl]="formBi"
-           [matAutocomplete]="bi"
-           name="bi">
-    <mat-autocomplete #bi="matAutocomplete">
-      <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion" matTooltip="{{bi.descripcion}}">
-        {{bi.descripcion}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Estado del viaje"
-           aria-label="text"
-           matInput [formControl]="formEs"
-           [matAutocomplete]="es"
-           name="es">
-    <mat-autocomplete #es="matAutocomplete">
-      <mat-option *ngFor="let es of obserEs | async" [value]="es.descrip" matTooltip="{{es.descrip}}">
-        {{es.descrip}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="number"
-           placeholder="Cantidad BI"
-           aria-label="text"
-           [(ngModel)]="cantidadBi"
-           matInput
-           name="cbi">
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Recurso"
-           aria-label="text"
-           matInput [formControl]="formRe"
-           [matAutocomplete]="re"
-           name="re">
-    <mat-autocomplete #re="matAutocomplete">
-      <mat-option *ngFor="let re of obserRe | async" [value]="re.nroRecurso" matTooltip="{{re.nroRecurso}}">
-        {{re.nroRecurso}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Destino"
-           aria-label="text"
-           matInput [formControl]="formAgD"
-           [matAutocomplete]="de"
-           name="de">
-    <mat-autocomplete #de="matAutocomplete">
-      <mat-option *ngFor="let de of obserAgD | async" [value]="de.denominacion" matTooltip="{{de.denominacion}}">
-        {{de.denominacion}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Origen"
-           aria-label="text"
-           matInput [formControl]="formAgO"
-           [matAutocomplete]="or"
-           name="or">
-    <mat-autocomplete #or="matAutocomplete">
-      <mat-option *ngFor="let or of obserAgO | async" [value]="or.denominacion" matTooltip="{{or.denominacion}}">
-        {{or.denominacion}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Transportista"
-           aria-label="text"
-           matInput [formControl]="formTp"
-           [matAutocomplete]="tp"
-           name="tp">
-    <mat-autocomplete #tp="matAutocomplete">
-      <mat-option *ngFor="let tp of obserTp | async" [value]="tp.nombre" matTooltip="{{tp.nombre}}">
-        {{tp.nombre}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Tipo movimiento"
-           aria-label="text"
-           matInput [formControl]="formMo"
-           [matAutocomplete]="mo"
-           name="mo">
-    <mat-autocomplete #mo="matAutocomplete">
-      <mat-option *ngFor="let mo of obserMo | async" [value]="mo.nombre" matTooltip="{{mo.nombre}}">
-        {{mo.nombre}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="date"
-           placeholder="Fecha desde"
-           aria-label="text"
-           [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
-           (ngModelChange)="fechaDesde=  parseDate( $event)"
-           matInput
-           name="fd">
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="date"
-           placeholder="Fecha hasta "
-           aria-label="text"
-           (ngModelChange)="fechaHasta= parseDate( $event)"
-           [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
-           matInput
-           name="fh">
-  </mat-form-field>
-  <mat-form-field class="mat-local">
-    <input type="text"
-           placeholder="Usuario alta"
-           aria-label="text"
-           [(ngModel)]="usuarioAlta"
-           matInput
-           name="ua">
-  </mat-form-field>
-  <button mat-button class="mat-raised-button mat-primary mat-local"
-          (click)="submitSeach()">Buscar</button>
-
+  <mat-accordion>
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Busqueda
+        </mat-panel-title>
+        <mat-panel-description>
+          Filtros para busqueda de movimientos
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Bien"
+               aria-label="text"
+               matInput [formControl]="formBi"
+               [matAutocomplete]="bi"
+               name="bi">
+        <mat-autocomplete #bi="matAutocomplete">
+          <mat-option *ngFor="let bi of obserBi | async" [value]="bi.descripcion" matTooltip="{{bi.descripcion}}">
+            {{bi.descripcion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Estado del viaje"
+               aria-label="text"
+               matInput [formControl]="formEs"
+               [matAutocomplete]="es"
+               name="es">
+        <mat-autocomplete #es="matAutocomplete">
+          <mat-option *ngFor="let es of obserEs | async" [value]="es.descrip" matTooltip="{{es.descrip}}">
+            {{es.descrip}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="number"
+               placeholder="Cantidad BI"
+               aria-label="text"
+               [(ngModel)]="cantidadBi"
+               matInput
+               name="cbi">
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Recurso"
+               aria-label="text"
+               matInput [formControl]="formRe"
+               [matAutocomplete]="re"
+               name="re">
+        <mat-autocomplete #re="matAutocomplete">
+          <mat-option *ngFor="let re of obserRe | async" [value]="re.nroRecurso" matTooltip="{{re.nroRecurso}}">
+            {{re.nroRecurso}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Destino"
+               aria-label="text"
+               matInput [formControl]="formAgD"
+               [matAutocomplete]="de"
+               name="de">
+        <mat-autocomplete #de="matAutocomplete">
+          <mat-option *ngFor="let de of obserAgD | async" [value]="de.denominacion" matTooltip="{{de.denominacion}}">
+            {{de.denominacion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Origen"
+               aria-label="text"
+               matInput [formControl]="formAgO"
+               [matAutocomplete]="or"
+               name="or">
+        <mat-autocomplete #or="matAutocomplete">
+          <mat-option *ngFor="let or of obserAgO | async" [value]="or.denominacion" matTooltip="{{or.denominacion}}">
+            {{or.denominacion}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Transportista"
+               aria-label="text"
+               matInput [formControl]="formTp"
+               [matAutocomplete]="tp"
+               name="tp">
+        <mat-autocomplete #tp="matAutocomplete">
+          <mat-option *ngFor="let tp of obserTp | async" [value]="tp.nombre" matTooltip="{{tp.nombre}}">
+            {{tp.nombre}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Tipo movimiento"
+               aria-label="text"
+               matInput [formControl]="formMo"
+               [matAutocomplete]="mo"
+               name="mo">
+        <mat-autocomplete #mo="matAutocomplete">
+          <mat-option *ngFor="let mo of obserMo | async" [value]="mo.nombre" matTooltip="{{mo.nombre}}">
+            {{mo.nombre}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field >
+        <input type="date"
+               placeholder="Fecha desde"
+               aria-label="text"
+               [ngModel]="fechaDesde | date:'yyyy-MM-dd'"
+               (ngModelChange)="fechaDesde=  parseDate( $event)"
+               matInput
+               name="fd">
+      </mat-form-field>
+      <mat-form-field >
+        <input type="date"
+               placeholder="Fecha hasta "
+               aria-label="text"
+               (ngModelChange)="fechaHasta= parseDate( $event)"
+               [ngModel]="fechaHasta | date:'yyyy-MM-dd'"
+               matInput
+               name="fh">
+      </mat-form-field>
+      <mat-form-field >
+        <input type="text"
+               placeholder="Usuario alta"
+               aria-label="text"
+               [(ngModel)]="usuarioAlta"
+               matInput
+               name="ua">
+      </mat-form-field>
+      <button mat-button class="mat-raised-button mat-primary mat-local2"
+              (click)="submitSeach()">Buscar</button>
+    </mat-expansion-panel>
+  </mat-accordion>
 </form>
 <div *ngIf="dsMov || movimientos">
   <mat-table [dataSource]="dsMov" matSort >
@@ -184,9 +195,9 @@
    </mat-paginator>
 
 </div>
-<button mat-button class="mat-raised-button mat-primary mat-local"
+<button mat-button class="mat-raised-button mat-primary mat-local2"
         (click)="generarGraficos()">Graficar</button>
-<button class="mat-raised-button mat-primary mat-local" mat-button  (click)="exportAsExcel()">
+<button class="mat-raised-button mat-primary mat-local2" mat-button  (click)="exportAsExcel()">
   <mat-icon class="mat-18" >cloud_download</mat-icon> Descargar informe
 </button>
 <div id="dg" class="generarGraficos">

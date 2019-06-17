@@ -28,7 +28,7 @@ input, select {
   width: 30%;
  }
 
- form div {
+ form div.divp {
      margin-bottom: 10px;
      display: flex;
      align-items: center;
