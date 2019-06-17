@@ -565,6 +565,106 @@ export class InformeMovimientosComponent implements OnInit {
         div3.appendChild(canvas3);
         divprincipal.appendChild(div3);
 
+                let div4 = document.getElementById('divcanvas4');
+                let canvas4 = document.getElementById('canvas4');
+
+                if(canvas4){
+                  canvas4.parentNode.removeChild(canvas4);
+                  div4.parentNode.removeChild(div4);
+                  div4 = document.createElement('div');
+                  canvas4 = document.createElement('canvas');
+                }else{
+                  div4 = document.createElement('div');
+                  canvas4 = document.createElement('canvas');
+                }
+                canvas4.id= 'canvas4';
+                div4.id = 'divcanvas4';
+                div4.classList.add("grafico");div4.classList.add("mat-h2");div4.classList.add("mat-elevation-z2");
+                div4.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+                let dias4 = [];
+                this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosaliente:0,flujoentrante:0,flujoperdido:0}));
+                dias4 = dias4.filter((ac,index,arr) => {
+                  return arr.findIndex( a => a.dia === ac.dia )  === index;
+                });
+                dias4.sort((a,b) => {
+                  let d1 = new Date(a.dia).getTime();
+                  let d2 = new Date(b.dia).getTime();
+                  return  d1-d2;
+                });
+                this.movimientos.forEach(m=>{
+                  dias4.forEach(d =>{
+                    if(d.dia === m.fechaSalida){
+                      if(m.estadoViaje.descrip !=='CANCELADO'){
+                        let t = 0;
+                        m.itemMovimientos.forEach(i => t += i.cantidad*i.precio);
+                        if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosaliente +=t;
+                        if(m.tipoMovimiento.tipo === 'RECEPCION') d.flujoentrante +=t;
+                        if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.flujoperdido += t;
+                        if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosaliente += t;
+                        if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosaliente +=t;
+                      }
+                    }
+                  });
+                });
+
+                let labelf = [];
+                let fentrante = [];
+                let fsaliente = [];
+                let fperdido = [];
+
+                dias4.forEach(d => {
+                  labelf.push(d.dia);
+                  fentrante.push(d.flujoentrante);
+                  fsaliente.push(d.flujosaliente);
+                  fperdido.push(d.flujoperdido);
+                });
+
+                let chart4 = new Chart(canvas4,{
+                  type: (dias4.length == 1) ?'bar':'line',
+                  data:((dias4.length == 1)?
+                      {
+                      labels: ["Flujo saliente", "Fluejo entrante", "Flujo perdido"],
+                         datasets: [
+                           {
+                             label: "Flujo monetario de operaciones en pesos($)",
+                             backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+                             data: [dias4[0].flujosaliente,dias4[0].flujoentrante,dias4[0].flujoperdido]
+                           }
+                         ]
+                       }
+
+                      : {
+                        labels: labeld,
+                        datasets: [{
+                            data: fsaliente,
+                            label: "Flujo Saliente",
+                            borderColor: "#3e95cd",
+                            fill: false
+                          }, {
+                            data: fentrante,
+                            label: "Flujo Entrante",
+                            borderColor: "#8e5ea2",
+                            fill: false
+                          }, {
+                            data: fperdido,
+                            label: "Flujo Perdido",
+                            borderColor: "#3cba9f",
+                            fill: false
+                          }
+                        ]
+                      }),
+                  options: {
+                    title: {
+                      display: true,
+                      text: 'Flujo monetario de movimientos por dia en pesos ($)'
+                    }
+                  }
+                });
+
+                div4.appendChild(canvas4);
+                divprincipal.appendChild(div4);
+
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
     }
