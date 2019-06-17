@@ -4,10 +4,10 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Busqueda Simple
+        Busqueda
       </mat-panel-title>
       <mat-panel-description>
-        Rango de fechas de actualización, Local y Bien
+        Filtros para busqueda de Stock
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -56,12 +56,12 @@
       </mat-autocomplete>
     </mat-form-field>
     <button mat-button class="mat-raised-button mat-primary mat-local"
-            (click)="submitSeach()">Buscar</button>
+            (click)="submitSeach()"><mat-icon class="mat-18" >search</mat-icon> Buscar</button>
   </mat-expansion-panel>
 </mat-accordion>
 
 </form>
-<div *ngIf="dataSource">
+<div *ngIf="dataSource" class="tabla">
   <mat-table [dataSource]="dataSource" matSort >
       <ng-container matColumnDef="nro">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Número </th>

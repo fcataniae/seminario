@@ -8,6 +8,10 @@
   width: 20vw;
 }
 
+.tabla{
+  margin-top: 2px;
+}
+
 form div.mat-expansion-panel-content{
   display:block;
 }
