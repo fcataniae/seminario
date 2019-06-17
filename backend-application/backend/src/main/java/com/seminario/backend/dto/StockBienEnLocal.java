@@ -1,6 +1,9 @@
 package com.seminario.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.seminario.backend.model.bienes.TipoAgente;
+
+import java.util.Date;
 
 public class StockBienEnLocal {
 
@@ -20,6 +23,8 @@ public class StockBienEnLocal {
 
     private Long stock_destruido;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date actualizacion;
 
     public StockBienEnLocal() {
     }
@@ -59,5 +64,13 @@ public class StockBienEnLocal {
     public void setStock_reservado(Long stock_reservado) { this.stock_reservado = stock_reservado; }
 
     public void setStock_destruido(Long stock_destruido) { this.stock_destruido = stock_destruido; }
+
+    public Date getActualizacion() {
+        return actualizacion;
+    }
+
+    public void setActualizacion(Date actualizacion) {
+        this.actualizacion = actualizacion;
+    }
 }
 

@@ -53,6 +53,7 @@ import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.compone
 import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
+import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
 
 
 
@@ -84,7 +85,8 @@ import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimi
     TablaStockComponent,
     TablaDeudasComponent,
     InformeMovimientosComponent,
-    VistaMovimientoComponent
+    VistaMovimientoComponent,
+    InformeStockComponent
   ],
   imports: [
     BrowserModule,

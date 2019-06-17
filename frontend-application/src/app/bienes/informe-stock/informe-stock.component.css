@@ -1,0 +1,52 @@
+.mat-local{
+  display: inline-block;
+  width: 25vw;
+  margin-left: 2vw;
+}
+.midle{
+  display:inline-block;
+  width: 20vw;
+}
+
+form{
+  margin-top:  20px;
+}
+
+.mat-column-nro{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-local{
+  width: 25vw;
+  max-width: 25vw;
+}
+.mat-column-bien{
+  width: 15vw;
+  max-width: 25vw;
+}
+.mat-column-stocklibre{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockocupado{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockreservado{
+  width: 10vw;
+  max-width: 10vw;
+}
+.mat-column-stockdestruido{
+  width: 10vw;
+  max-width: 10vw;
+}
+
+.mat-column-actualizacion{
+  width: 10vw;
+  max-width: 10vw;
+}
+
+.button-xls{
+  width: 30%;
+  text-align: right;
+}

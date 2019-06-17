@@ -409,7 +409,7 @@ public class StockBienEnLocalService {
             Long nro = usuarioActual.getLocal().getNro() == 7460? null : usuarioActual.getLocal().getNro();
             nro = (nro == null)? localNro: nro;
             String qry = "select SBL.LOCAL_NRO,TA.NOMBRE, L.NOMBRE, SBL.BI_ID, BI.DESCRIPCION," +
-                    " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO" +
+                    " SBL.STOCK_LIBRE, SBL.STOCK_OCUPADO, SBL.STOCK_RESERVADO, SBL.STOCK_DESTRUIDO, SBL.ULTIMA_FECHA_ACTUALIZACION" +
                     " from STOCK_BIEN_EN_LOCAL SBL" +
                     " inner join LOCAL L on L.NRO=SBL.LOCAL_NRO" +
                     " inner join BIENINTERCAMBIABLE BI on BI.ID=SBL.BI_ID" +
@@ -465,6 +465,7 @@ public class StockBienEnLocalService {
                         bien.setStock_ocupado((Long) tupla[6]);
                         bien.setStock_reservado((Long) tupla[7]);
                         bien.setStock_destruido((Long) tupla[8]);
+                        bien.setActualizacion((Date) tupla[9]);
 
                         if (!agenteAnt.equals((Long) tupla[0])) {
                             listStockLocal.add(agente);

@@ -36,30 +36,30 @@ constructor(private _excelService: ExcelService,
   @ViewChild("paginatorStock") paginator: MatPaginator;
 
   ngOnInit() {
-    this._stockbienlocalService.getStockLocales()
-      .subscribe( res => {
-        console.log(res);
-        this.listaStock = res;
-        this.listaTabla = [];
-
-        for(let i=0; i<this.listaStock.length; i++){
-          for(let j=0; j<this.listaStock[i].stockBienes.length; j++){
-            let fila = new filaTabla;
-            fila.nro = this.listaStock[i].nro;
-            fila.nombre = this.listaStock[i].nombre;
-            fila.descripcionBI = this.listaStock[i].stockBienes[j].descripcionBI.toString();
-            fila.stock_ocupado = this.listaStock[i].stockBienes[j].stock_ocupado.toString();
-            fila.stock_libre = this.listaStock[i].stockBienes[j].stock_libre.toString();
-            fila.stock_reservado = this.listaStock[i].stockBienes[j].stock_reservado.toString();
-            fila.stock_destruido = this.listaStock[i].stockBienes[j].stock_destruido.toString();
-            this.listaTabla.push(fila);
-          }
-        }
-
-        this.dataSource.data = this.listaTabla;
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      });
+    // this._stockbienlocalService.getStockLocales()
+    //   .subscribe( res => {
+    //     console.log(res);
+    //     this.listaStock = res;
+    //     this.listaTabla = [];
+    //
+    //     for(let i=0; i<this.listaStock.length; i++){
+    //       for(let j=0; j<this.listaStock[i].stockBienes.length; j++){
+    //         let fila = new filaTabla;
+    //         fila.nro = this.listaStock[i].nro;
+    //         fila.nombre = this.listaStock[i].nombre;
+    //         fila.descripcionBI = this.listaStock[i].stockBienes[j].descripcionBI.toString();
+    //         fila.stock_ocupado = this.listaStock[i].stockBienes[j].stock_ocupado.toString();
+    //         fila.stock_libre = this.listaStock[i].stockBienes[j].stock_libre.toString();
+    //         fila.stock_reservado = this.listaStock[i].stockBienes[j].stock_reservado.toString();
+    //         fila.stock_destruido = this.listaStock[i].stockBienes[j].stock_destruido.toString();
+    //         this.listaTabla.push(fila);
+    //       }
+    //     }
+    //
+    //     this.dataSource.data = this.listaTabla;
+    //     this.dataSource.sort = this.sort;
+    //     this.dataSource.paginator = this.paginator;
+    //   });
   }
 
   doFilter  (value: string)  {
