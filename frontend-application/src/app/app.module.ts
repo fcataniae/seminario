@@ -54,7 +54,7 @@ import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
 import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -110,7 +110,8 @@ import { InformeStockComponent } from './bienes/informe-stock/informe-stock.comp
     MatDatepickerModule,
     MatNativeDateModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTooltipModule
   ],
   providers: [
     LoginService,

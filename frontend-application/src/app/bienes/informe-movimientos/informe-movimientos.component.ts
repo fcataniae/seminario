@@ -311,7 +311,10 @@ export class InformeMovimientosComponent implements OnInit {
         div.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
 
         let chart : Chart;
-        chart = new Chart(canvas,{
+
+        let canvasCast = <HTMLCanvasElement> canvas;
+
+        chart = new Chart(canvasCast,{
           type: 'pie',
           data:{
             labels: labels,
@@ -393,7 +396,10 @@ export class InformeMovimientosComponent implements OnInit {
           cancelados.push(d.cancelado);
           pendientes.push(d.pendiente);
         });
-        let chart2 = new Chart(canvas2,{
+
+        let canvasCast2 = <HTMLCanvasElement> canvas2;
+
+        let chart2 = new Chart(canvasCast2,{
           type: (dias.length == 1) ?'bar':'line',
           data:((dias.length == 1)?
               {
