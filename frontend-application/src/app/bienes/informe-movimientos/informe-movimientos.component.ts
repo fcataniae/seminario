@@ -223,13 +223,25 @@ export class InformeMovimientosComponent implements OnInit {
                                this.cantidadBi,
                                this.usuarioAlta)
            .subscribe( res=>{
-             console.log(res);
-             this.movimientos = res;
-             this.dsMov.data = this.toArray(res);
-             this.dsMov.sort = this.sortMov;
-             this.dsMov.paginator = this.pagiMov;
+              if (res.length === 0){
+                this.showDialog("No se obtuvieron resulados.","¡Atención!",true);
+              } else {
+                this.movimientos = res;
+                this.dsMov.data = this.toArray(res);
+                this.dsMov.sort = this.sortMov;
+                this.dsMov.paginator = this.pagiMov;
+              }
            });
   }
+
+  showDialog(msj: string, titulo: string, error: boolean) {
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      data: {mensaje: msj, titulo: titulo, error: error },
+      width: '50%'
+    });
+    dialog.afterClosed().subscribe();
+  }
+
   toArray(array: Movimiento[]): MovimientoReducido[]{
     let movis: MovimientoReducido[] = [];
     array.forEach( m => {

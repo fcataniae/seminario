@@ -11,6 +11,7 @@ import { forkJoin, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { ExcelService } from '../../services/excel.service';
+import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
 
 export class filaTabla{
   nro: number;
@@ -98,10 +99,13 @@ export class InformeDeudasComponent implements OnInit {
             this.montoMin,
             this.montoMax
         ).subscribe( res=>{
-             console.log(res);
-             this.dataSource.data = this.toArray(res);
-             this.dataSource.sort = this.sortMov;
-             this.dataSource.paginator = this.pagiMov;
+            if (res.length === 0){
+              this.showDialog("No se obtuvieron resulados.","¡Atención!",true);
+            } else {
+              this.dataSource.data = this.toArray(res);
+              this.dataSource.sort = this.sortMov;
+              this.dataSource.paginator = this.pagiMov;
+            }
         });
   }
 
@@ -154,5 +158,13 @@ export class InformeDeudasComponent implements OnInit {
 
   exportAsExcel(){
     this._excelService.exportAsExcelFile(this.dataSource.filteredData,'deuda-proveedores');
+  }
+
+  showDialog(msj: string, titulo: string, error: boolean) {
+    let dialog = this._dialog.open(ConfirmacionPopupComponent,{
+      data: {mensaje: msj, titulo: titulo, error: error },
+      width: '50%'
+    });
+    dialog.afterClosed().subscribe();
   }
 }
