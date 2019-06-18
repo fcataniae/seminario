@@ -22,8 +22,8 @@ div.stocks-grl-contenedor{
   float: left;
 }
 
-div.stocks-contenedor{
-  width: 27%;
+.btn-s1{
+  padding-top: 4.8%;
 }
 
 .stocks-contenedor mat-form-field{
@@ -65,41 +65,26 @@ mat-form-field{
   width: 14vw;
   margin-left: 2vw;
 }
+
 .mat-column-nro{
   width: 10vw;
   max-width: 10vw;
 }
-.mat-column-local{
-  width: 25vw;
-  max-width: 25vw;
+.mat-column-proveedor{
+  text-align: center;
+  width: 35vw;
+  max-width: 35vw;
 }
 .mat-column-bien{
-  width: 15vw;
-  max-width: 25vw;
+  text-align: center;
+  width: 35vw;
+  max-width: 35vw;
 }
-.mat-column-stocklibre{
+.mat-column-deudaBulto{
   width: 10vw;
   max-width: 10vw;
 }
-.mat-column-stockocupado{
+.mat-column-deudaMonetaria{
   width: 10vw;
   max-width: 10vw;
-}
-.mat-column-stockreservado{
-  width: 10vw;
-  max-width: 10vw;
-}
-.mat-column-stockdestruido{
-  width: 10vw;
-  max-width: 10vw;
-}
-
-.mat-column-actualizacion{
-  width: 10vw;
-  max-width: 10vw;
-}
-
-.button-xls{
-  width: 30%;
-  text-align: right;
 }

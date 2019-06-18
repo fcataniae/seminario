@@ -49,8 +49,22 @@ export class StockBienLocalService {
     console.log(params);
     return this._http.get<Local[]>(environment.serviceUrl.replace('service','bienes') + 'stock-locales', {params : params});
   }
-  getDeudaProveedores(): Observable<Proveedor[]>{
-    return this._http.get<Proveedor[]>(environment.serviceUrl.replace('service','bienes') + 'deuda-proveedores');
+  getDeudaProveedores(
+    proveedor : Agente,
+    bi: Bien,
+    cantMin: number,
+    cantMax: number,
+    montoMin: number,
+    montoMax: number
+  ): Observable<Proveedor[]>{
+    let params = new HttpParams();
+    proveedor? (params = params.append('proveedorNro', proveedor.nro.toString())): null;
+    bi? (params = params.append('bienId', bi.id.toString())): null;
+    cantMin? (params = params.append('cantMin', cantMin.toString())): null;
+    cantMax? (params = params.append('cantMax', cantMax.toString())): null;
+    montoMin? (params = params.append('montoMin', montoMin.toString())): null;
+    montoMax? (params = params.append('montoMax', montoMax.toString())): null;
+    return this._http.get<Proveedor[]>(environment.serviceUrl.replace('service','bienes') + 'deuda-proveedores', {params : params});
   }
 
   private formatDate(date: Date) {

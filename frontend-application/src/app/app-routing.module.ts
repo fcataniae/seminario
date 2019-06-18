@@ -13,6 +13,7 @@ import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component'
 import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
+import { InformeDeudasComponent } from './bienes/informe-deudas/informe-deudas.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'home/informe/bienes', component: InformeComponent},
   { path: 'home/informe/movimientos', component: InformeMovimientosComponent},
   { path: 'home/informe/stock', component: InformeStockComponent},
-  { path: 'home/informe/deudas', component: TablaDeudasComponent}
+  { path: 'home/informe/deudas', component: InformeDeudasComponent}
 
 ];
 @NgModule({
