@@ -57,10 +57,9 @@ export class InformeDeudasComponent implements OnInit {
   ngOnInit() {
     let lo = this._movimientoService.getAllAgentes();
     let bi = this._movimientoService.getAllBienes();
-    let p;
     forkJoin(lo,bi).pipe(
       map(([lores,bires])=>{
-        this.proveedores = lores;
+        this.proveedores = lores.filter(p => p.tipoAgente.nombre=== 'PROVEEDOR');
         this.bienes = bires;
         this.initFormControlers();
       })
@@ -109,14 +108,14 @@ export class InformeDeudasComponent implements OnInit {
   onChanges() {
     this.formBi.valueChanges.subscribe(
       res=> {
-        this.bien = this.bienes.filter(b => b.descripcion === res)[0];
+        this.bien = this.bienes.find(b => b.descripcion === res);
         console.log(this.bien);
       }
     );
 
     this.formPr.valueChanges.subscribe(
       res=> {
-        this.proveedor = this.proveedores.filter(b => b.denominacion === res)[0];
+        this.proveedor = this.proveedores.find(b => b.denominacion === res);
         console.log(this.proveedor);
       }
     );
