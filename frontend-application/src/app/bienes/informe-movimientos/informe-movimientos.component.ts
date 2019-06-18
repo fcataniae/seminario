@@ -565,125 +565,229 @@ export class InformeMovimientosComponent implements OnInit {
         div3.appendChild(canvas3);
         divprincipal.appendChild(div3);
 
-                let div4 = document.getElementById('divcanvas4');
-                let canvas4 = document.getElementById('canvas4');
+          let div4 = document.getElementById('divcanvas4');
+          let canvas4 = document.getElementById('canvas4');
 
-                if(canvas4){
-                  canvas4.parentNode.removeChild(canvas4);
-                  div4.parentNode.removeChild(div4);
-                  div4 = document.createElement('div');
-                  canvas4 = document.createElement('canvas');
-                }else{
-                  div4 = document.createElement('div');
-                  canvas4 = document.createElement('canvas');
+          if(canvas4){
+            canvas4.parentNode.removeChild(canvas4);
+            div4.parentNode.removeChild(div4);
+            div4 = document.createElement('div');
+            canvas4 = document.createElement('canvas');
+          }else{
+            div4 = document.createElement('div');
+            canvas4 = document.createElement('canvas');
+          }
+          canvas4.id= 'canvas4';
+          div4.id = 'divcanvas4';
+          div4.classList.add("grafico");div4.classList.add("mat-h2");div4.classList.add("mat-elevation-z2");
+          div4.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+
+          let dias4 = [];
+          this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosalientet:0,flujosalientep:0,flujoentrantet:0,flujoentrantep:0,flujoperdido:0}));
+          dias4 = dias4.filter((ac,index,arr) => {
+            return arr.findIndex( a => a.dia === ac.dia )  === index;
+          });
+          dias4.sort((a,b) => {
+            let d1 = new Date(a.dia).getTime();
+            let d2 = new Date(b.dia).getTime();
+            return  d1-d2;
+          });
+          this.movimientos.forEach(m=>{
+            dias4.forEach(d =>{
+              if(d.dia === m.fechaSalida){
+                if(m.estadoViaje.descrip !=='CANCELADO'){
+                  let t = 0;
+                  m.itemMovimientos.forEach(i => t += i.cantidad*i.precio);
+                  if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosalientet +=t;
+                  if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                     m.tipoMovimiento.tipoAgenteOrigen.nombre===  'PROVEEDOR') d.flujoentrantep +=t;
+                  if(m.tipoMovimiento.tipo === 'RECEPCION' &&
+                     m.tipoMovimiento.tipoAgenteOrigen.nombre===  'TIENDA') d.flujoentrantet +=t;
+                  if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.flujoperdido += t;
+                  if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosalientep += t;
+                  if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosalientep +=t;
                 }
-                canvas4.id= 'canvas4';
-                div4.id = 'divcanvas4';
-                div4.classList.add("grafico");div4.classList.add("mat-h2");div4.classList.add("mat-elevation-z2");
-                div4.setAttribute("style", "display: inline-block; width: 40vw; heigth: 40vh; margin-left:5vw;");
+              }
+            });
+          });
 
-                let dias4 = [];
-                this.movimientos.forEach(m => dias4.push({dia: m.fechaSalida,flujosalientet:0,flujosalientep:0,flujoentrantet:0,flujoentrantep:0,flujoperdido:0}));
-                dias4 = dias4.filter((ac,index,arr) => {
-                  return arr.findIndex( a => a.dia === ac.dia )  === index;
-                });
-                dias4.sort((a,b) => {
-                  let d1 = new Date(a.dia).getTime();
-                  let d2 = new Date(b.dia).getTime();
-                  return  d1-d2;
-                });
-                this.movimientos.forEach(m=>{
-                  dias4.forEach(d =>{
-                    if(d.dia === m.fechaSalida){
-                      if(m.estadoViaje.descrip !=='CANCELADO'){
-                        let t = 0;
-                        m.itemMovimientos.forEach(i => t += i.cantidad*i.precio);
-                        if(m.tipoMovimiento.tipo === 'ENVIO') d.flujosalientet +=t;
-                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
-                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'PROVEEDOR') d.flujoentrantep +=t;
-                        if(m.tipoMovimiento.tipo === 'RECEPCION' &&
-                           m.tipoMovimiento.tipoAgenteOrigen.nombre===  'TIENDA') d.flujoentrantet +=t;
-                        if(m.tipoMovimiento.tipo === 'DESTRUCCION') d.flujoperdido += t;
-                        if(m.tipoMovimiento.tipo === 'DEVOLUCION') d.flujosalientep += t;
-                        if(m.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO') d.flujosalientep +=t;
-                      }
+          let labelf = [];
+          let fentrantep = [];
+          let fentrantet = [];
+          let fsalientep = [];
+          let fsalientet = [];
+          let fperdido = [];
+
+          dias4.forEach(d => {
+            labelf.push(d.dia);
+            fentrantet.push(d.flujoentrantet);
+            fentrantep.push(d.flujoentrantep);
+            fsalientep.push(d.flujosalientep);
+            fsalientet.push(d.flujosalientet);
+            fperdido.push(d.flujoperdido);
+          });
+
+          let chart4 = new Chart(canvas4,{
+            type: (dias4.length == 1) ?'bar':'line',
+            data:((dias4.length == 1)?
+                {
+                labels: ["Flujo saliente proveedor","Flujo saliente tienda", "Fluejo entrante tienda","Fluejo entrante proveedor", "Flujo perdido"],
+                   datasets: [
+                     {
+                       label: "Flujo monetario de operaciones en pesos($)",
+                       backgroundColor: ["#3e95cd", "#8e5ea2","#EF0CA3","#011078","#3cba9f"],
+                       data: [dias4[0].flujosalientep,dias4[0].flujosalientet,dias4[0].flujoentrantet,dias4[0].flujoentrantep,dias4[0].flujoperdido]
+                     }
+                   ]
+                 }
+
+                : {
+                  labels: labeld,
+                  datasets: [{
+                      data: fsalientet,
+                      label: "Flujo Saliente Tienda",
+                      borderColor: "#3e95cd",
+                      fill: false
+                    },{
+                        data: fsalientep,
+                        label: "Flujo Saliente Proveedor",
+                        borderColor: "#EF0CA3",
+                        fill: false
+                      },
+                    {
+                      data: fentrantet,
+                      label: "Flujo Entrante Tienda",
+                      borderColor: "#8e5ea2",
+                      fill: false
+                    },
+                    {
+                      data: fentrantep,
+                      label: "Flujo Entrante Proveedor",
+                      borderColor: "#011078",
+                      fill: false
+                    }, {
+                      data: fperdido,
+                      label: "Flujo Perdido",
+                      borderColor: "#3cba9f",
+                      fill: false
                     }
-                  });
-                });
+                  ]
+                }),
+            options: {
+              title: {
+                display: true,
+                text: 'Flujo monetario de movimientos por dia en pesos ($)'
+              }
+            }
+          });
 
-                let labelf = [];
-                let fentrantep = [];
-                let fentrantet = [];
-                let fsalientep = [];
-                let fsalientet = [];
-                let fperdido = [];
+          div4.appendChild(canvas4);
+          divprincipal.appendChild(div4);
 
-                dias4.forEach(d => {
-                  labelf.push(d.dia);
-                  fentrantet.push(d.flujoentrantet);
-                  fentrantep.push(d.flujoentrantep);
-                  fsalientep.push(d.flujosalientep);
-                  fsalientet.push(d.flujosalientet);
-                  fperdido.push(d.flujoperdido);
-                });
+          let div5 = document.getElementById('divcanvas5');
+          let canvas5 = document.getElementById('canvas5');
 
-                let chart4 = new Chart(canvas4,{
-                  type: (dias4.length == 1) ?'bar':'line',
-                  data:((dias4.length == 1)?
-                      {
-                      labels: ["Flujo saliente proveedor","Flujo saliente tienda", "Fluejo entrante tienda","Fluejo entrante proveedor", "Flujo perdido"],
-                         datasets: [
-                           {
-                             label: "Flujo monetario de operaciones en pesos($)",
-                             backgroundColor: ["#3e95cd", "#8e5ea2","#EF0CA3","#011078","#3cba9f"],
-                             data: [dias4[0].flujosalientep,dias4[0].flujosalientet,dias4[0].flujoentrantet,dias4[0].flujoentrantep,dias4[0].flujoperdido]
-                           }
-                         ]
-                       }
+          if(canvas5){
+            canvas5.parentNode.removeChild(canvas5);
+            div5.parentNode.removeChild(div5);
+            div5 = document.createElement('div');
+            canvas5 = document.createElement('canvas');
+          }else{
+            div5 = document.createElement('div');
+            canvas5 = document.createElement('canvas');
+          }
+          canvas5.id= 'canvas5';
+          div5.id = 'divcanvas5';
+          div5.classList.add("grafico");div5.classList.add("mat-h2");div5.classList.add("mat-elevation-z2");
+          div5.setAttribute("style", "display: inline-block; width: 90vw; heigth: 40vh; margin-left:5vw;");
 
-                      : {
-                        labels: labeld,
-                        datasets: [{
-                            data: fsalientet,
-                            label: "Flujo Saliente Tienda",
-                            borderColor: "#3e95cd",
-                            fill: false
-                          },{
-                              data: fsalientep,
-                              label: "Flujo Saliente Proveedor",
-                              borderColor: "#EF0CA3",
-                              fill: false
-                            },
-                          {
-                            data: fentrantet,
-                            label: "Flujo Entrante Tienda",
-                            borderColor: "#8e5ea2",
-                            fill: false
-                          },
-                          {
-                            data: fentrantep,
-                            label: "Flujo Entrante Proveedor",
-                            borderColor: "#011078",
-                            fill: false
-                          }, {
-                            data: fperdido,
-                            label: "Flujo Perdido",
-                            borderColor: "#3cba9f",
-                            fill: false
-                          }
-                        ]
-                      }),
-                  options: {
+          let provs =[];
+          let dias5 = [];
+
+          this.movimientos.forEach( m => {
+            dias5.push({dia: m.fechaSalida, deuda:0, pago:0});
+            if(m.tipoMovimiento.tipo === 'RECEPCION' && m.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'){
+              let prov = this.agentes.find( a => a.nro === m.origen).nombre;
+              provs.push({nombre: prov,nrop: m.origen, dias: []});
+            }
+          });
+          dias5 = dias5.filter((ac,index,arr) => {
+            return arr.findIndex( a => a.dia === ac.dia )  === index;
+          });
+          if(dias5.length > 1){
+            provs = provs.filter((ac,index,arr) => {
+              return arr.findIndex( p => p.nrop === ac.nrop )  === index;
+            });
+            dias5.sort((a,b) => {
+              let d1 = new Date(a.dia).getTime();
+              let d2 = new Date(b.dia).getTime();
+              return  d1-d2;
+            });
+            provs.forEach(p => p.dias = JSON.parse(JSON.stringify(dias5)));
+
+            this.movimientos.forEach(m => {
+              let moneda = 0;
+              m.itemMovimientos.forEach( i => moneda += i.cantidad * i.precio);
+              provs.forEach(p => {
+                if(m.tipoMovimiento.tipo === 'RECEPCION' && m.tipoMovimiento.tipoAgenteOrigen.nombre === 'PROVEEDOR'){
+                  if(p.nrop === m.origen){
+                    p.dias.forEach( d2 => {
+                      if(d2.dia === m.fechaSalida){
+                        d2.deuda += moneda;
+                      }
+                    });
+                  }
+                }
+                if(m.tipoMovimiento.tipo === 'DEVOLUCION'){
+                  if(p.nrop === m.destino){
+                    p.dias.forEach( d1 => {
+                      if(d1.dia === m.fechaSalida){
+                        d1.pago += moneda;
+                      }
+                    });
+                  }
+                }
+              });
+            });
+            console.log(dias5);
+            console.log(provs);
+            let labelsd = [];
+            let datasets = [];
+            provs.forEach(p => {
+              let data = [];
+              p.dias.forEach( d => {
+                let moneda = 0;
+                for(let i= 0; i< p.dias.indexOf(d); i++){
+                  moneda+= p.dias[i].deuda;
+                  moneda-= p.dias[i].pago;
+                }
+                data.push(moneda);
+              });
+              datasets.push({
+                data: data,
+                label: p.nombre,
+                borderColor: this.getRandomColor(),
+                fill: false
+              });
+            })
+            dias5.forEach(d => labelsd.push(d.dia));
+            console.log(datasets);
+            let chart5 = new Chart(canvas5,{
+              type:'line',
+              data:{
+                labels: labelsd,
+                datasets: datasets },
+                options: {
                     title: {
                       display: true,
-                      text: 'Flujo monetario de movimientos por dia en pesos ($)'
+                      text: 'Progresion de deuda por proveedor en pesos ($)',
+                      fontSize: 18
                     }
-                  }
-                });
-
-                div4.appendChild(canvas4);
-                divprincipal.appendChild(div4);
-
+                }
+            });
+          }
+          div5.appendChild(canvas5);
+          divprincipal.appendChild(div5);
     }else{
       this.showError('No hay datos sobre los que se pueda realizar un grafico, por favor realice una busqueda!','Error',true);
     }
@@ -698,5 +802,13 @@ export class InformeMovimientosComponent implements OnInit {
   }
   exportAsExcel(){
     this._excelService.exportAsExcelFile(this.dsMov.data,'informe-movimientos');
+  }
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 }
