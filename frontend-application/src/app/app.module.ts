@@ -48,8 +48,6 @@ import { ValidpatentePipe } from './utils/validpatente.pipe';
 import { ModificarBienComponent } from './bienes/modificar-bien/modificar-bien.component';
 import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeTiendasComponent } from './bienes/informe-tiendas/informe-tiendas.component';
-import { TablaStockComponent } from './bienes/tabla-stock/tabla-stock.component';
-import { TablaDeudasComponent } from './bienes/tabla-deudas/tabla-deudas.component';
 import { ExcelService } from './services/excel.service';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { VistaMovimientoComponent } from './bienes/vista-movimiento/vista-movimiento.component';
@@ -83,8 +81,6 @@ import { InformeDeudasComponent } from './bienes/informe-deudas/informe-deudas.c
     ModificarBienComponent,
     InformeComponent,
     InformeTiendasComponent,
-    TablaStockComponent,
-    TablaDeudasComponent,
     InformeMovimientosComponent,
     VistaMovimientoComponent,
     InformeStockComponent,
