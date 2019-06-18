@@ -274,7 +274,7 @@ export class InformeMovimientosComponent implements OnInit {
       return null;
   }
   showMovimiento(mov : MovimientoReducido){
-    let movi = this.movimientos.filter(m => m.id.toString() == mov.nro)[0];
+    let movi = this.movimientos.find(m => m.id.toString() == mov.nro);
     console.log(movi);
     let dialog = this._dialog.open(VistaMovimientoComponent,{
       width: '70%',

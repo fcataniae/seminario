@@ -7,6 +7,11 @@
   display: inline-block;
   margin-left: 5vw;
 }
+.midle2{
+  width: 60vw;
+  display: block;
+  margin-left: 5vw;
+}
 span{
   display: block;
 }

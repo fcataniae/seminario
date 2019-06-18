@@ -1,13 +1,14 @@
 <h3>Movimiento nro {{movimiento.id}} - {{movimiento.tipoMovimiento.nombre}}</h3>
 <br>
-<div class="midle" >
+<div class="midle form-group" >
   <label for="nro">{{movimiento.tipoDocumento.descripcion}}</label>
   <input type="text" class="form-control" name="nro" [ngModel]="movimiento.nroDocumento" disabled>
 </div>
-<div class="midle" *ngIf="movimiento.tipoMovimiento.tipo==='ENVIO'">
+<div class="midle form-group" *ngIf="movimiento.tipoMovimiento.tipo==='ENVIO'">
   <label for="patente">Patente</label>
   <input type="text" class="form-control" name="patente" [ngModel]="movimiento.patenteTransporte | validpatente" disabled>
 </div>
+
 
 <span><strong>Bienes asignados:</strong></span>
 <div class="table-responsive table-striped">
@@ -42,5 +43,9 @@
     <td>{{re.estadoRecurso.descrip}}</td>
   </tbody>
 </table>
+</div>
+<div class="midle2 form-group" >
+  <label for="comentario">Comentario</label>
+  <textarea  id="comentario" class="form-control rounded-0" rows="4" name="comentario"  disabled>{{movimiento.comentario}}</textarea>
 </div>
 <input type="submit" class="btn btn-primary btn-custom" (click)="submit()" value="Volver">

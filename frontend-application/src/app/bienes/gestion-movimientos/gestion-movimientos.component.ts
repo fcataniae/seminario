@@ -6,6 +6,7 @@ import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmarMovimientoComponent } from '../confirmar-movimiento/confirmar-movimiento.component';
 import { ConfirmacionPopupComponent } from '../../adm-usuarios/confirmacion-popup/confirmacion-popup.component';
+import { VistaMovimientoComponent } from '../vista-movimiento/vista-movimiento.component';
 
 export class Movi{
   nro: string;
@@ -137,4 +138,12 @@ export class GestionMovimientosComponent implements OnInit {
       dialog.afterClosed().subscribe();
 
     }
+  visualizarMovimiento(mov: Movi){
+    let movimiento = this.movimientos.find(m => m.id.toString() === mov.nro);
+    let dialog = this._dialog.open(VistaMovimientoComponent,{
+      width: '70%',
+      data: {movimiento: movimiento}
+    });
+    dialog.afterClosed().subscribe();
+  }
 }
