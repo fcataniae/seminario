@@ -17,6 +17,9 @@ secondarydatabase.datasource.driver-class-name=org.mariadb.jdbc.Driver
 secondarydatabase.datasource.jndi-name=jdbc/waltmart
 secondarydatabase.datasource.default-auto-commit=true
 
+secondarydatabase.datasource.default-auto-commit=true
+seminario.datasource.test-on-borrow=true
+spring.jmx.enabled= false
 
 
 
