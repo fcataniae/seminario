@@ -21,6 +21,7 @@ export class Movimiento{
   nombreOrigen: string;
   nombreDestino: string;
   usuarioAlta: string;
+  comentario:string;
 
   constructor(){
     this.recursosAsignados = [];
