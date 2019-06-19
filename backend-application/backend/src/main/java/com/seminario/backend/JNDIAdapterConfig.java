@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 @EnableConfigurationProperties
 @EnableTransactionManagement
-@Profile("produccion")
 public class JNDIAdapterConfig {
 
     @Primary
