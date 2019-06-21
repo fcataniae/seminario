@@ -55,6 +55,7 @@ import { InformeStockComponent } from './bienes/informe-stock/informe-stock.comp
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { InformeDeudasComponent } from './bienes/informe-deudas/informe-deudas.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { InformeDeudasComponent } from './bienes/informe-deudas/informe-deudas.c
     InformeMovimientosComponent,
     VistaMovimientoComponent,
     InformeStockComponent,
-    InformeDeudasComponent
+    InformeDeudasComponent,
+    PdfViewerComponent
   ],
   imports: [
     BrowserModule,

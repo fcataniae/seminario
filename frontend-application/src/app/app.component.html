@@ -34,8 +34,12 @@
     <li>
       <a class="logout" (click)="logOut($event)">Log out <mat-icon>exit_to_app</mat-icon></a>
     </li>
+    <li>
+      <a *ngIf="username !== ''"
+       [routerLink]="['home/manual']">Manual de usuario<mat-icon>contact_support</mat-icon></a>
+    </li>
 </ul >
 
 </header>
   <div class="flotante" *ngIf="username !==''">Usuario: {{username}}</div>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>

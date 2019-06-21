@@ -12,6 +12,7 @@ import { InformeComponent } from './bienes/informe/informe.component';
 import { InformeMovimientosComponent } from './bienes/informe-movimientos/informe-movimientos.component';
 import { InformeStockComponent } from './bienes/informe-stock/informe-stock.component';
 import { InformeDeudasComponent } from './bienes/informe-deudas/informe-deudas.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'home/informe/bienes', component: InformeComponent},
   { path: 'home/informe/movimientos', component: InformeMovimientosComponent},
   { path: 'home/informe/stock', component: InformeStockComponent},
-  { path: 'home/informe/deudas', component: InformeDeudasComponent}
+  { path: 'home/informe/deudas', component: InformeDeudasComponent},
+  { path: 'home/manual', component: PdfViewerComponent}
 
 ];
 @NgModule({
