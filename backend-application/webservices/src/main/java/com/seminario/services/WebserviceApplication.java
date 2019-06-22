@@ -41,7 +41,8 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
 
     @Override
     public void run(String... args) throws Exception {
-     /*   List<Date> fechas = new ArrayList<>();
+        /*List<Date> fechas = new ArrayList<>();
+        String users[] = {"admin","jose","jorge"};
         int d = 24;
         for (int i = 1 ; i< d; i++){
             Calendar c = Calendar.getInstance();
@@ -93,7 +94,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
                 m.getItemMovimientos().add(it);
                 i2++;
                 m.setRecursosAsignados(new HashSet<>());
-                Usuario u = usuario.getUsuarioByNombre("admin");
+                Usuario u = usuario.getUsuarioByNombre(users[random.nextInt(users.length)]);
                 movimiento.create(u,m);
             }
         }
@@ -152,7 +153,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
                     m.setIdTransportista((long) transp[random.nextInt(transp.length)]);
                     i2++;
                     m.setRecursosAsignados(new HashSet<>());
-                    Usuario u = usuario.getUsuarioByNombre("admin");
+                    Usuario u = usuario.getUsuarioByNombre(users[random.nextInt(users.length)]);
                     movimiento.create(u, m);
                 }catch(Exception e){
                     //si entra aca seguro es porque no tiene stock del bien, por eso lo dejo seguir pasando
@@ -160,13 +161,13 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
                     System.out.println("Algo paso, igual sigo prbando");
                 }
                 int o2 = 0;
-                List<Movimiento> movs = movimiento.getAllMovimientos(usuario.getUsuarioByNombre("admin"));
+                List<Movimiento> movs = movimiento.getAllMovimientos(usuario.getUsuarioByNombre("admin"),5000L);
                 for(Movimiento mov : movs) {
                     if(!mov.getEstadoViaje().getDescrip().equalsIgnoreCase("CANCELADO") && mov.getTipoMovimiento().getTipo().equalsIgnoreCase("ENVIO") && o2 % 2 == 0){
                         mov.setComentario("Cancelado porque algo paso en el viaje y no se pudo completar (?");
                         movimiento.cambiarEstadoMovimiento(usuario.getUsuarioByNombre("admin"),mov.getId(),"CANCELADO", mov.getComentario() + o2);
+                        o2++;
                     }
-                    o2++;
                 }
 
             }
