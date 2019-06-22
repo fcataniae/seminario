@@ -41,7 +41,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
 
     @Override
     public void run(String... args) throws Exception {
-        List<Date> fechas = new ArrayList<>();
+     /*   List<Date> fechas = new ArrayList<>();
         int d = 24;
         for (int i = 1 ; i< d; i++){
             Calendar c = Calendar.getInstance();
@@ -171,7 +171,7 @@ public class WebserviceApplication  extends SpringBootServletInitializer impleme
 
             }
         }
-    }
+ */   }
 
     @Autowired
     MovimientoService movimiento;

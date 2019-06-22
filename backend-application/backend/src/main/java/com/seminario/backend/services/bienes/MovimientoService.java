@@ -545,10 +545,10 @@ public class MovimientoService {
     }
 
 
-    public List<Movimiento> getAllMovimientos(Usuario usuarioActual) throws CustomException {
+    public List<Movimiento> getAllMovimientos(Usuario usuarioActual,Long cantidad) throws CustomException {
         Long nro = usuarioActual.getLocal().getNro() == 7460 ? null: usuarioActual.getLocal().getNro();
         if (null != permisoRepository.findPermisoWhereUsuarioAndPermiso(usuarioActual.getId(),"CONS-MOVIMIENTO")) {
-            return movimientoRepository.findAllByLocal(nro);
+            return movimientoRepository.findAllByLocal(nro,cantidad);
         } else {
             throw new CustomException("No cuenta con los permisos para consultar recursos");
         }

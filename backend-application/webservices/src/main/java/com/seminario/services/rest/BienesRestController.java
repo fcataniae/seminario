@@ -217,10 +217,10 @@ public class BienesRestController {
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
         return movimientoService.getAllLocales(usuarioActual);
     }
-    @GetMapping("/listar-movimientos")
-    public List<Movimiento> getMovimientos(@AuthenticationPrincipal UserDetails userDetails) throws CustomException{
+    @GetMapping("/listar-movimientos/{c}")
+    public List<Movimiento> getMovimientos(@AuthenticationPrincipal UserDetails userDetails,@PathVariable("c") Long cantidad) throws CustomException{
         Usuario usuarioActual = usuarioService.getUsuarioByNombre(userDetails.getUsername());
-        return movimientoService.getAllMovimientos(usuarioActual);
+        return movimientoService.getAllMovimientos(usuarioActual,cantidad);
     }
 
     /**

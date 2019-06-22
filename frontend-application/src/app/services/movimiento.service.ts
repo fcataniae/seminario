@@ -20,8 +20,8 @@ export class MovimientoService {
 
   constructor(private _http: HttpClient) { }
 
-  getAllMovimientos(): Observable<Movimiento[]>{
-    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-movimientos');
+  getAllMovimientos(c: number): Observable<Movimiento[]>{
+    return this._http.get<Movimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-movimientos/'+c);
   }
   getAllTipoMovimientos() : Observable<TipoMovimiento[]>{
     return this._http.get<TipoMovimiento[]>(environment.serviceUrl.replace('service','bienes') + 'listar-tipomovimientos');

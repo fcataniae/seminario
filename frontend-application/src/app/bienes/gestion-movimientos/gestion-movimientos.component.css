@@ -6,19 +6,20 @@ table {
 
 
 /*CLASES CUSTOM BOTONES ARRIBAS DE TABLA*/
-.button-back{
-  width: 30%;
+button.button-back{
+  width: 15%;
   text-align: left;
   padding-left: 5%;
 }
 
-.input-search{
-  width: 40%;
-
+mat-form-field.input-search{
+  width: 20%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .button-alta{
-  width: 20%;
+  width: 10%;
   text-align: right;
   padding-left: 5%;
 }

@@ -32,20 +32,28 @@ export class GestionMovimientosComponent implements OnInit {
               private _router: Router) { }
 
   movimientos: Movimiento[];
-
+  cantidadMovs: number = 100;
   public dataSource = new MatTableDataSource<Movi>();
   public displayedColumns = ['nro','fecha','tipo','origen', 'destino', 'estado','nrodocumento','visualizar','modificar','cancelar','clonar'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
-    this._movimientoService.getAllMovimientos()
+    this._movimientoService.getAllMovimientos(100)
       .subscribe( res => {
         console.log(res);
         this.movimientos = res;
         this.dataSource.data = this.generateMovi();
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+      });
+  }
+
+  submitSeach(){
+    this._movimientoService.getAllMovimientos(this.cantidadMovs)
+      .subscribe( res => {
+        this.movimientos = res;
+        this.dataSource.data = this.generateMovi();
       });
   }
 
@@ -113,7 +121,7 @@ export class GestionMovimientosComponent implements OnInit {
       res=>{
         if(res && res == true){
           this.showDialog("Se cambio el estado correctamente.","Confimacion de movimiento",true);//lo dejo en true para que me muestre solo el boton continuar
-          this._movimientoService.getAllMovimientos()
+          this._movimientoService.getAllMovimientos(this.cantidadMovs)
             .subscribe( res => {
               console.log(res);
               this.movimientos = res;

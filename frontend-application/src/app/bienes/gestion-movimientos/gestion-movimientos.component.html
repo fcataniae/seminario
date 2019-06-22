@@ -8,6 +8,11 @@
     <mat-form-field class= "input-search" >
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Buscar">
     </mat-form-field>
+    <mat-form-field class= "input-search" >
+      <input matInput type="text" [(ngModel)]="cantidadMovs" placeholder="Cantidad movimientos">
+    </mat-form-field>
+    <button mat-icon-button class="button-alta" color="primary"
+            (click)="submitSeach()"><mat-icon>search</mat-icon> Buscar</button>
     <button class="button-alta" mat-icon-button color="primary" (click)="onAltaMov()">
       <mat-icon class="mat-18" >library_add</mat-icon> Alta
     </button>
