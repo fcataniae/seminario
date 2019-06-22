@@ -89,20 +89,22 @@ export class AgregarBienComponent implements OnInit {
     //cargar los documentos sacados del bien seleccionado
     //cargar datos para completar
     this.selectedIntercambio = new IntercambioProv();
+    this.itemMovimiento = new ItemMovimiento();
     if(this.tipoMovimiento.tipo === 'ENVIOINTERCAMBIO'){
       this.intercambios.forEach(i =>
         {
-          if(this.selectedBien.id === i.bienIntercambiableEntregado.id){
+          if(this.selectedBien && this.selectedBien.id === i.bienIntercambiableEntregado.id){
             this.descripcionIntercambio = 'Intercambio de bienes en relacion ' + i.cantidadEntregada + 'x' + i.cantidadRecibida;
             this.step = i.cantidadEntregada;
+            this.itemMovimiento.cantidad = i.cantidadEntregada;
             this.selectedIntercambio = i;
           }
         }
       );
 
     }
-    this.itemMovimiento = new ItemMovimiento();
     this.itemMovimiento.estadoRecurso = new Estado();
+    this.itemMovimiento.cantidad = 0;
     this.eligioEstado = false;
     this.itemMovimiento.bienIntercambiable = this.selectedBien;
     this.selectedBien.tipoDocumento.forEach(d =>
@@ -171,6 +173,7 @@ export class AgregarBienComponent implements OnInit {
 
   onChangeEstado(){
     this.eligioEstado = true;
+
     this.mostrarCantidad();
   }
 
